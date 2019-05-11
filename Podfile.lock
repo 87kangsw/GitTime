@@ -1,0 +1,46 @@
+PODS:
+  - Differentiator (3.1.0)
+  - ReactorKit (1.2.1):
+    - RxSwift (>= 4.0.0)
+  - RxCocoa (4.5.0):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxDataSources (3.1.0):
+    - Differentiator (~> 3.0)
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+  - RxOptional (3.6.2):
+    - RxCocoa (~> 4.0)
+    - RxSwift (~> 4.0)
+  - RxSwift (4.5.0)
+  - SnapKit (5.0.0)
+
+DEPENDENCIES:
+  - ReactorKit
+  - RxCocoa
+  - RxDataSources
+  - RxOptional
+  - RxSwift
+  - SnapKit
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Differentiator
+    - ReactorKit
+    - RxCocoa
+    - RxDataSources
+    - RxOptional
+    - RxSwift
+    - SnapKit
+
+SPEC CHECKSUMS:
+  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  ReactorKit: 8be57f0527ad1ac2963cd5c338274a46a01e57a3
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
+  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
+  RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
+
+PODFILE CHECKSUM: b6bd39655e3e12e134a827890320a1c466d54c74
+
+COCOAPODS: 1.6.1
