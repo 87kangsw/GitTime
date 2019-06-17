@@ -157,4 +157,7 @@ playground.xcworkspace
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+# Custom
+Supporting Files/GoogleService-Info.plist 
+
 # End of https://www.gitignore.io/api/xcode,swift,carthage,fastlane,cocoapods,objective-c
