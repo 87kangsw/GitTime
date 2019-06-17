@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Hz0-AS-nFI">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Splash View Controller-->
+        <scene sceneID="ODz-dU-OM0">
+            <objects>
+                <viewController id="Hz0-AS-nFI" customClass="SplashViewController" customModule="GitTime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y5X-CQ-CIo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Bac-53-hyh">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Splash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uq6-ty-thh">
+                                <rect key="frame" x="181" y="337.5" width="52" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="uq6-ty-thh" firstAttribute="centerX" secondItem="Y5X-CQ-CIo" secondAttribute="centerX" id="KM6-8N-4LX"/>
+                            <constraint firstItem="Bac-53-hyh" firstAttribute="centerY" secondItem="Y5X-CQ-CIo" secondAttribute="centerY" id="UU0-yk-bmU"/>
+                            <constraint firstItem="uq6-ty-thh" firstAttribute="centerY" secondItem="Y5X-CQ-CIo" secondAttribute="centerY" constant="-100" id="hr4-pq-6cW"/>
+                            <constraint firstItem="Bac-53-hyh" firstAttribute="centerX" secondItem="Y5X-CQ-CIo" secondAttribute="centerX" id="vsa-gu-0lD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3FU-Ho-Lgu"/>
+                    </view>
+                    <connections>
+                        <outlet property="loadingIndicator" destination="Bac-53-hyh" id="DnA-cM-ksV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jah-Pa-7uj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="233" y="9"/>
+        </scene>
+    </scenes>
+</document>
