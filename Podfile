@@ -6,6 +6,9 @@ def app_pods
 # Architecture
 pod 'ReactorKit'
 
+# Coordinator
+pod 'RxFlow'
+
 # Reactive
 pod 'RxSwift'
 pod 'RxCocoa'
@@ -14,6 +17,24 @@ pod 'RxOptional'
 
 # UI
 pod 'SnapKit'
+
+# Keychain
+pod 'KeychainAccess'
+
+# Logger
+pod 'SwiftyBeaver'
+
+# Network
+pod 'Moya/RxSwift', '~> 13.0'
+pod 'Kingfisher', '~> 5.0'
+
+# etc
+pod 'Firebase/Core'
+pod 'Fabric', '~> 1.9.0'
+pod 'Crashlytics', '~> 3.12.0'
+pod 'SwiftLint'
+pod 'AcknowList'
+
 
 end
 
