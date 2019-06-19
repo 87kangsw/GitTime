@@ -1,0 +1,3 @@
+app_identifier("io.github.87kangsw.GitTime") # The bundle identifier of your app
+apple_id("87kangsw@gmail.com") # Your Apple email address
+
