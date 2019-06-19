@@ -36,5 +36,7 @@ platform :ios do
   after_all do |lane|
     clean_build_artifacts # Deletes files created as result of running gym, cert, sigh or download_dsyms
     reset_git_repo # Resets git repo to a clean state by discarding uncommitted changes
+  end
+
 end
 
