@@ -37,6 +37,9 @@ fastlane/screenshots/screenshots.html
 # scan temporary files
 fastlane/test_output
 
+# dotenv
+Fastlane/.env
+
 ### Objective-C ###
 # Xcode
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
