@@ -38,7 +38,7 @@ fastlane/screenshots/screenshots.html
 fastlane/test_output
 
 # dotenv
-Fastlane/.env
+.env
 
 ### Objective-C ###
 # Xcode
