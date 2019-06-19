@@ -81,11 +81,9 @@ final class AppDependency {
         let userDefaultsService = UserDefaultsService()
         let authService = AuthService(keychainService: keychainService)
         let userService = UserService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
-//        let trendingService = TrendingService(networking: GitTimeProvider<TrendingAPI>())
         let followService = FollowService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
         let appStoreService = AppStoreService(networking: GitTimeProvider<AppStoreAPI>())
         let activityService = ActivityService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
-//        let contributionService = ContributionService(networking: GitTimeProvider<ContributionAPI>())
         let crawlerService = GitTimeCrawlerService(networking: GitTimeProvider<GitTimeCrawlerAPI>())
         
         let firstLaunch: Bool = userDefaultsService.value(forKey: UserDefaultsKey.firstLaunch) ?? true
