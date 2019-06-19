@@ -35,7 +35,22 @@ platform :ios do
 
   after_all do |lane|
     clean_build_artifacts # Deletes files created as result of running gym, cert, sigh or download_dsyms
-    reset_git_repo # Resets git repo to a clean state by discarding uncommitted changes
+    reset_git_repo(skip_clean: true) # Resets git repo to a clean state by discarding uncommitted changes
+    version_number = get_version_number(xcodeproj: "GitTime.xcodeproj")
+    build_number = get_build_number(xcodeproj: "GitTime.xcodeproj")
+    slack(
+      slack_url: ENV['SLACK_URL'],
+      message: "GitTime v#{version_number}(#{build_number}) TestFlight upload success."
+    )
+  end
+
+  error do |lane, exception|
+    version_number = get_version_number(xcodeproj: "GitTime.xcodeproj")
+    build_number = get_build_number(xcodeproj: "GitTime.xcodeproj")
+    slack(
+      slack_url: ENV['SLACK_URL'],
+      message: "GitTime v#{version_number}(#{build_number}) TestFlight upload success."
+    )
   end
 
 end
