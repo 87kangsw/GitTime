@@ -49,10 +49,10 @@ final class TrendingRepositoryCell: BaseTableViewCell, View, CellType {
     }
     
     fileprivate func updateUI(_ state: Reactor.State) {
-        // guard titleLabel != nil else { return }
+        
         let repoName = state.repoName
         let authorName = state.author
-        titleLabel.text = "\(repoName) / \(authorName)"
+        titleLabel.text = "\(authorName) / \(repoName)"
         
         let description = state.description
         descLabel.text = description

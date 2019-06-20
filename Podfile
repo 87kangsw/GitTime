@@ -17,6 +17,7 @@ pod 'RxOptional'
 
 # UI
 pod 'SnapKit'
+pod 'Toaster'
 
 # Keychain
 pod 'KeychainAccess'

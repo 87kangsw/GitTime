@@ -82,6 +82,7 @@ PODS:
   - SnapKit (5.0.0)
   - SwiftLint (0.32.0)
   - SwiftyBeaver (1.7.0)
+  - Toaster (2.2.0)
 
 DEPENDENCIES:
   - AcknowList
@@ -100,6 +101,7 @@ DEPENDENCIES:
   - SnapKit
   - SwiftLint
   - SwiftyBeaver
+  - Toaster
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -128,6 +130,7 @@ SPEC REPOS:
     - SnapKit
     - SwiftLint
     - SwiftyBeaver
+    - Toaster
 
 SPEC CHECKSUMS:
   AcknowList: 5b8820004d019d0a8d6a091ea2392dcb54bd3ad2
@@ -155,7 +158,8 @@ SPEC CHECKSUMS:
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   SwiftyBeaver: 4cc0080d2e23f980652e28978db11a5c9da39165
+  Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: c4ad0de01b8b2b78b10092ce85d5a3e05582a303
+PODFILE CHECKSUM: 09eac5d934d15a08bc4388aca7d5d62b61f63ff3
 
 COCOAPODS: 1.6.1

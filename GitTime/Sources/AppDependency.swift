@@ -54,24 +54,6 @@ final class AppDependency {
     // MARK: - Public
     
     func configureCoordinator(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
-//        self.coordinator.rx.willNavigate.subscribe(onNext: { (flow, step) in
-//            log.debug("will navigate to flow=\(flow) and step=\(step)")
-//        }).disposed(by: self.disposeBag)
-//
-//        self.coordinator.rx.didNavigate.subscribe(onNext: { (flow, step) in
-//            log.debug("did navigate to flow=\(flow) and step=\(step)")
-//        }).disposed(by: self.disposeBag)
-//
-//        let appFlow = AppFlow(keychainService: KeychainService())
-//
-//        Flows.whenReady(flow1: appFlow) { root in
-//            window.rootViewController = root
-//            window.makeKeyAndVisible()
-//        }
-//
-//        self.coordinator.coordinate(flow: appFlow)
-//        self.coordinator.coordinate(flow: appFlow,
-//                                    with: AppStepper(withServices: self.appServices))
         
         window = UIWindow(frame: UIScreen.main.bounds)
         window.backgroundColor = .white
@@ -100,21 +82,21 @@ final class AppDependency {
                                                       userService: userService,
                                                       crawlerService: crawlerService)
             let activityVC = ActivityViewController.instantiate(withReactor: activityReactor)
-            activityVC.title = "활동"
+            activityVC.title = "Activity"
             activityVC.tabBarItem.image = UIImage.assetImage(name: TabBarImages.activity)
             activityVC.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.activityFilled)
             
             let trendReactor = TrendViewReactor(crawlerService: crawlerService,
                                                 userdefaultsService: userDefaultsService)
             let trendVC = TrendViewController.instantiate(withReactor: trendReactor)
-            trendVC.title = "트렌드"
+            trendVC.title = "Trending"
             trendVC.tabBarItem.image = UIImage.assetImage(name: TabBarImages.trending)
             trendVC.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.trendingFilled)
             
             let followReactor = FollowViewReactor(followService: followService,
                                                   userService: userService)
             let followVC = FollowViewController.instantiate(withReactor: followReactor)
-            followVC.title = "팔로우"
+            followVC.title = "Follow"
             followVC.tabBarItem.image = UIImage.assetImage(name: TabBarImages.follow)
             followVC.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.followFilled)
             
@@ -122,7 +104,7 @@ final class AppDependency {
                                                     authService: authService,
                                                     appStoreService: appStoreService)
             let settingVC = SettingViewController.instantiate(withReactor: settingReactor)
-            settingVC.title = "설정"
+            settingVC.title = "Setting"
             settingVC.tabBarItem.image = UIImage.assetImage(name: TabBarImages.setting)
             settingVC.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.settingFilled)
             

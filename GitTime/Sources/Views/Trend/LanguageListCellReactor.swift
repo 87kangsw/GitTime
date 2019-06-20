@@ -15,18 +15,12 @@ class LanguageListCellReactor: Reactor {
     typealias Action = NoAction
     
     struct State {
-//        var languageName: String
-//        var languageColor: String?
-//        var type: LanguageTypes
         var language: Language
     }
     
     let initialState: State
     
     init(language: Language) {
-//        self.initialState = State(languageName: language.name,
-//                                  languageColor: language.color,
-//                                  type: language.type)
         self.initialState = State(language: language)
         _ = self.state
     }

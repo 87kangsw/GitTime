@@ -40,6 +40,10 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
                 cell.reactor = reactor
                 cell.reactor?.action.onNext(.initRank(rank))
                 return cell
+            case .empty(let reactor):
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: EmptyTableViewCell.self)
+                cell.reactor = reactor
+                return cell
             }
         })
     }
@@ -69,6 +73,7 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.registerNib(cellType: TrendingRepositoryCell.self)
         tableView.registerNib(cellType: TrendingDeveloperCell.self)
+        tableView.registerNib(cellType: EmptyTableViewCell.self)
 
         tableView.refreshControl = refreshControl
         
@@ -118,8 +123,8 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
                 self.present(languageVC.navigationWrap(), animated: true, completion: nil)
                 return languageVC.selectedLanguage
             }.subscribe(onNext: { language in
-                let languageName = language.type != .all ? language.name : LanguageTypes.all.buttonTitle()
-                reactor.action.onNext(.selectLanguage(languageName))
+                // let languageName = language.type != .all ? language.name : nil
+                reactor.action.onNext(.selectLanguage(language))
             }).disposed(by: self.disposeBag)
         
         // State
@@ -139,7 +144,9 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
             .disposed(by: self.disposeBag)
         
         reactor.state.map { $0.language }
-            .filterNil()
+            .map { language -> String in
+                return language?.name ?? LanguageTypes.all.buttonTitle()
+            }
             .bind(to: languageButton.rx.title())
             .disposed(by: self.disposeBag)
         
@@ -156,6 +163,8 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
                     self.goToWebVC(urlString: reactor.currentState.url)
                 case .trendingDevelopers(let reactor):
                     self.goToWebVC(urlString: reactor.currentState.url)
+                case .empty:
+                    break
                 }
                 // log.debug(sectionItem)
             }).disposed(by: self.disposeBag)

@@ -13,6 +13,7 @@ import ReactorKit
 import RxCocoa
 import RxDataSources
 import RxSwift
+import Toaster
 
 class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
     
@@ -31,11 +32,6 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
     static var dataSource: RxTableViewSectionedReloadDataSource<ActivitySection> {
         return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
-            case .contribution(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ActivityContributionCell.self)
-                cell.selectionStyle = .none
-                cell.reactor = reactor
-                return cell
             case .createEvent(let reactor),
                  .forkEvent(let reactor),
                  .issueCommentEvent(let reactor),
@@ -47,6 +43,11 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
                  .pullRequestReviewCommentEvent(let reactor),
                  .publicEvent(let reactor):
                 let cell = tableView.dequeueReusableCell(for: indexPath, cellType: ActivityItemCell.self)
+                cell.reactor = reactor
+                return cell
+            case .empty(let reactor):
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: EmptyTableViewCell.self)
+                cell.selectionStyle = .none
                 cell.reactor = reactor
                 return cell
             }
@@ -63,9 +64,9 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
         tableView.backgroundColor = .clear
         tableView.estimatedRowHeight = 60.0
         tableView.rowHeight = UITableView.automaticDimension
-        //        tableView.separatorStyle = .none
-        tableView.registerNib(cellType: ActivityContributionCell.self)
+        
         tableView.registerNib(cellType: ActivityItemCell.self)
+        tableView.registerNib(cellType: EmptyTableViewCell.self)
 
         let width: CGFloat = UIScreen.main.bounds.width
         
@@ -82,6 +83,9 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
         
         // Action
         Observable.just(Void())
+            .do(onNext: { _ in
+                Toast(text: "Contribution crawling server starting..", duration: Delay.short).show()
+            })
             .map { _ in Reactor.Action.firstLoad }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
@@ -113,7 +117,7 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
             .subscribe(onNext: { [weak self] sectionItem in
                 guard let self = self else { return }
                 switch sectionItem {
-                case .contribution:
+                case .empty:
                     break
                 case .createEvent(let reactor),
                      .forkEvent(let reactor),

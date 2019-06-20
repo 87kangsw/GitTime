@@ -33,12 +33,7 @@ final class SettingItemCell: BaseTableViewCell, View, CellType {
     }
     
     func bind(reactor: SettingItemCellReactor) {
-        
-//        Observable.just(Void())
-//            .map { Reactor.Action.versionCheck}
-//            .bind(to: reactor.action)
-//            .disposed(by: self.disposeBag)
-        
+                
         reactor.state
             .subscribe(onNext: { [weak self] state in
                 guard let self = self else { return }
