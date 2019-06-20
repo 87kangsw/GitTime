@@ -76,7 +76,7 @@ struct Event: ModelType {
         case .pushEvent:
             payload = try container.decode(PushEventPayload.self, forKey: .payload)
         case .forkEvent:
-            payload = try container.decode(CreateEventPayload.self, forKey: .payload)
+            payload = try container.decode(ForkEventPayload.self, forKey: .payload)
         case .issueCommentEvent:
             payload = try container.decode(IssueCommentEventPayload.self, forKey: .payload)
         case .releaseEvent:

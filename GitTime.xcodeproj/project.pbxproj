@@ -92,6 +92,10 @@
 		B2540FF122A117F80002F43E /* LanguageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2540FEF22A117F80002F43E /* LanguageListCell.xib */; };
 		B2540FF322A11DF90002F43E /* LanguageListCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2540FF222A11DF90002F43E /* LanguageListCellReactor.swift */; };
 		B265C1C022B20D45003C47C0 /* Contribution.swift in Sources */ = {isa = PBXBuildFile; fileRef = B265C1BF22B20D45003C47C0 /* Contribution.swift */; };
+		B269744722BB1E9400F67129 /* EmptyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B269744522BB1E9400F67129 /* EmptyTableViewCell.swift */; };
+		B269744822BB1E9400F67129 /* EmptyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B269744622BB1E9400F67129 /* EmptyTableViewCell.xib */; };
+		B269744A22BB1F8D00F67129 /* EmptyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B269744922BB1F8D00F67129 /* EmptyTypes.swift */; };
+		B269744C22BB214000F67129 /* EmptyTableViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B269744B22BB214000F67129 /* EmptyTableViewCellReactor.swift */; };
 		B289A05A229CC12E00AD9533 /* CellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289A059229CC12E00AD9533 /* CellType.swift */; };
 		B289A05C229CCD8300AD9533 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289A05B229CCD8300AD9533 /* Int+Extensions.swift */; };
 		B289A05E229CD97B00AD9533 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289A05D229CD97B00AD9533 /* UITableView+Extensions.swift */; };
@@ -107,11 +111,7 @@
 		B289B98B22AA0DE900F0A1E2 /* AppStoreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B98A22AA0DE900F0A1E2 /* AppStoreAPI.swift */; };
 		B289B98D22AA0F8800F0A1E2 /* AppStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B98C22AA0F8800F0A1E2 /* AppStoreService.swift */; };
 		B289B98F22AA11B500F0A1E2 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B98E22AA11B500F0A1E2 /* AppVersion.swift */; };
-		B289B99122AA454A00F0A1E2 /* Texts.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B99022AA454A00F0A1E2 /* Texts.swift */; };
 		B289B99322AA61C200F0A1E2 /* ActivitySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B99222AA61C200F0A1E2 /* ActivitySection.swift */; };
-		B289B99622AA628600F0A1E2 /* ActivityContributionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B99422AA628600F0A1E2 /* ActivityContributionCell.swift */; };
-		B289B99722AA628600F0A1E2 /* ActivityContributionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B289B99522AA628600F0A1E2 /* ActivityContributionCell.xib */; };
-		B289B99922AA629500F0A1E2 /* ActivityContributionCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B99822AA629500F0A1E2 /* ActivityContributionCellReactor.swift */; };
 		B2AAC56F228E70A800EC8562 /* TrendRepo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AAC56E228E70A800EC8562 /* TrendRepo.swift */; };
 		B2AAC571228E70B100EC8562 /* TrendDeveloper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2AAC570228E70B100EC8562 /* TrendDeveloper.swift */; };
 		B2BF8B9022B74655007B2AAA /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BF8B8F22B74655007B2AAA /* UICollectionView+Extensions.swift */; };
@@ -236,7 +236,6 @@
 		B244F3512297D3C6003F24FF /* TrendTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendTypes.swift; sourceTree = "<group>"; };
 		B244F3532297D3D1003F24FF /* LanguageTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageTypes.swift; sourceTree = "<group>"; };
 		B244F3552297D49D003F24FF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
-		B248E361228D2FBB00411F2F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		B248E368228D358F00411F2F /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftlint.yml; sourceTree = "<group>"; };
 		B248E36A228D3A7700411F2F /* Pods-GitTime-acknowledgements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Pods-GitTime-acknowledgements.plist"; sourceTree = "<group>"; };
 		B248E36C228D549000411F2F /* GitHub-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GitHub-Info.plist"; sourceTree = "<group>"; };
@@ -251,6 +250,10 @@
 		B2540FEF22A117F80002F43E /* LanguageListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LanguageListCell.xib; sourceTree = "<group>"; };
 		B2540FF222A11DF90002F43E /* LanguageListCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageListCellReactor.swift; sourceTree = "<group>"; };
 		B265C1BF22B20D45003C47C0 /* Contribution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contribution.swift; sourceTree = "<group>"; };
+		B269744522BB1E9400F67129 /* EmptyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCell.swift; sourceTree = "<group>"; };
+		B269744622BB1E9400F67129 /* EmptyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyTableViewCell.xib; sourceTree = "<group>"; };
+		B269744922BB1F8D00F67129 /* EmptyTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTypes.swift; sourceTree = "<group>"; };
+		B269744B22BB214000F67129 /* EmptyTableViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCellReactor.swift; sourceTree = "<group>"; };
 		B289A059229CC12E00AD9533 /* CellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellType.swift; sourceTree = "<group>"; };
 		B289A05B229CCD8300AD9533 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		B289A05D229CD97B00AD9533 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -266,11 +269,7 @@
 		B289B98A22AA0DE900F0A1E2 /* AppStoreAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreAPI.swift; sourceTree = "<group>"; };
 		B289B98C22AA0F8800F0A1E2 /* AppStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreService.swift; sourceTree = "<group>"; };
 		B289B98E22AA11B500F0A1E2 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
-		B289B99022AA454A00F0A1E2 /* Texts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Texts.swift; sourceTree = "<group>"; };
 		B289B99222AA61C200F0A1E2 /* ActivitySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySection.swift; sourceTree = "<group>"; };
-		B289B99422AA628600F0A1E2 /* ActivityContributionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityContributionCell.swift; sourceTree = "<group>"; };
-		B289B99522AA628600F0A1E2 /* ActivityContributionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityContributionCell.xib; sourceTree = "<group>"; };
-		B289B99822AA629500F0A1E2 /* ActivityContributionCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityContributionCellReactor.swift; sourceTree = "<group>"; };
 		B2AAC56E228E70A800EC8562 /* TrendRepo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendRepo.swift; sourceTree = "<group>"; };
 		B2AAC570228E70B100EC8562 /* TrendDeveloper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendDeveloper.swift; sourceTree = "<group>"; };
 		B2BF8B8F22B74655007B2AAA /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
@@ -405,6 +404,9 @@
 			isa = PBXGroup;
 			children = (
 				B289A065229CF1D100AD9533 /* BaseTableViewCell.swift */,
+				B269744522BB1E9400F67129 /* EmptyTableViewCell.swift */,
+				B269744B22BB214000F67129 /* EmptyTableViewCellReactor.swift */,
+				B269744622BB1E9400F67129 /* EmptyTableViewCell.xib */,
 				B244F33522979916003F24FF /* Activity */,
 				B244F33422979914003F24FF /* Trend */,
 				B244F33322979913003F24FF /* Follow */,
@@ -508,7 +510,6 @@
 			children = (
 				B289B98822AA021F00F0A1E2 /* Constants.swift */,
 				B237A5E4229267D10069C59C /* ImageNames.swift */,
-				B289B99022AA454A00F0A1E2 /* Texts.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -606,9 +607,6 @@
 		B244F33522979916003F24FF /* Activity */ = {
 			isa = PBXGroup;
 			children = (
-				B289B99422AA628600F0A1E2 /* ActivityContributionCell.swift */,
-				B289B99822AA629500F0A1E2 /* ActivityContributionCellReactor.swift */,
-				B289B99522AA628600F0A1E2 /* ActivityContributionCell.xib */,
 				B2F4D37C22B395E600A7C18C /* ContributionCell.swift */,
 				B2BF8B9122B74A20007B2AAA /* ContributionCellReactor.swift */,
 				B2F4D37D22B395E600A7C18C /* ContributionCell.xib */,
@@ -628,6 +626,7 @@
 				B244F3532297D3D1003F24FF /* LanguageTypes.swift */,
 				B289A06A229D199100AD9533 /* PeriodTypes.swift */,
 				B211675E22A6505800A7C335 /* FollowTypes.swift */,
+				B269744922BB1F8D00F67129 /* EmptyTypes.swift */,
 			);
 			path = Enum;
 			sourceTree = "<group>";
@@ -870,7 +869,6 @@
 			knownRegions = (
 				en,
 				Base,
-				ko,
 			);
 			mainGroup = B2C94C052283D7260095863C;
 			productRefGroup = B2C94C0F2283D7260095863C /* Products */;
@@ -893,11 +891,11 @@
 				B248E36D228D549000411F2F /* GitHub-Info.plist in Resources */,
 				B244F3092294EDE8003F24FF /* TrendViewController.storyboard in Resources */,
 				B2C94C1C2283D7280095863C /* LaunchScreen.storyboard in Resources */,
-				B289B99722AA628600F0A1E2 /* ActivityContributionCell.xib in Resources */,
 				B244F33D229799DD003F24FF /* TrendingDeveloperCell.xib in Resources */,
 				B244F3022294ED66003F24FF /* ActivityViewController.storyboard in Resources */,
 				B244F339229799C9003F24FF /* TrendingRepositoryCell.xib in Resources */,
 				B244F3452297A75B003F24FF /* Languages.plist in Resources */,
+				B269744822BB1E9400F67129 /* EmptyTableViewCell.xib in Resources */,
 				B237A5E722926BC60069C59C /* SplashViewController.storyboard in Resources */,
 				B289A074229D3B2200AD9533 /* LanguagesViewController.storyboard in Resources */,
 				B2E72A9622A7AD6600F54399 /* SettingLogoutCell.xib in Resources */,
@@ -959,6 +957,7 @@
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
+				"${BUILT_PRODUCTS_DIR}/Toaster/Toaster.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -981,6 +980,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toaster.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1129,6 +1129,7 @@
 				B237A5DE22925FD60069C59C /* GitTimeStep.swift in Sources */,
 				B289A072229D3B1B00AD9533 /* LanguagesViewReactor.swift in Sources */,
 				B2BF8B9422B753C1007B2AAA /* ContributionSection.swift in Sources */,
+				B269744C22BB214000F67129 /* EmptyTableViewCellReactor.swift in Sources */,
 				B228EAE4228D036700E55456 /* BaseViewController.swift in Sources */,
 				B289A070229D3B1000AD9533 /* LanguagesViewController.swift in Sources */,
 				B289A066229CF1D100AD9533 /* BaseTableViewCell.swift in Sources */,
@@ -1141,7 +1142,6 @@
 				B2BF8B9822B7706B007B2AAA /* ActivityContributionViewReactor.swift in Sources */,
 				B2AAC56F228E70A800EC8562 /* TrendRepo.swift in Sources */,
 				B244F3492297A81E003F24FF /* Language.swift in Sources */,
-				B289B99622AA628600F0A1E2 /* ActivityContributionCell.swift in Sources */,
 				B211676522A65D4500A7C335 /* FollowSection.swift in Sources */,
 				B248E378228D588E00411F2F /* UIViewController+Rx.swift in Sources */,
 				B244F3072294EDB9003F24FF /* TrendViewController.swift in Sources */,
@@ -1153,12 +1153,12 @@
 				B244F3562297D49D003F24FF /* UIColor+Extensions.swift in Sources */,
 				B2540FE9229E653A0002F43E /* UITableView+Rx.swift in Sources */,
 				B289B99322AA61C200F0A1E2 /* ActivitySection.swift in Sources */,
+				B269744A22BB1F8D00F67129 /* EmptyTypes.swift in Sources */,
 				B289A06B229D199100AD9533 /* PeriodTypes.swift in Sources */,
 				B244F32722952163003F24FF /* NetworkIndicatorPlugin.swift in Sources */,
 				B2E6592F22AF5C7300515932 /* Date+Extensions.swift in Sources */,
 				B244F3152294EE1E003F24FF /* SettingViewController.swift in Sources */,
 				B248E375228D561F00411F2F /* ActivityViewReactor.swift in Sources */,
-				B289B99122AA454A00F0A1E2 /* Texts.swift in Sources */,
 				B211676D22A65E9F00A7C335 /* FollowUserCellReactor.swift in Sources */,
 				B248E371228D55C700411F2F /* ActivityViewController.swift in Sources */,
 				B248E36F228D55AB00411F2F /* LoginViewController.swift in Sources */,
@@ -1166,6 +1166,7 @@
 				B244F34122979A02003F24FF /* TrendingDeveloperCellReactor.swift in Sources */,
 				B244F31A2294F118003F24FF /* GitHubInfoManager.swift in Sources */,
 				B244F32122950AAF003F24FF /* User.swift in Sources */,
+				B269744722BB1E9400F67129 /* EmptyTableViewCell.swift in Sources */,
 				B20F70D322927F7E00F42770 /* KeychainService.swift in Sources */,
 				B2E72A8322A799DC00F54399 /* SettingUserProfileCell.swift in Sources */,
 				B2540FF022A117F80002F43E /* LanguageListCell.swift in Sources */,
@@ -1185,7 +1186,6 @@
 				B22260E122AE030B00DDCE8E /* ActivityItemCellReactor.swift in Sources */,
 				B2E72A9822A7B00A00F54399 /* SettingLogoutCellReactor.swift in Sources */,
 				B237A5ED229272570069C59C /* GitTimeProvider.swift in Sources */,
-				B289B99922AA629500F0A1E2 /* ActivityContributionCellReactor.swift in Sources */,
 				B237A5E922926DC00069C59C /* AppFlow.swift in Sources */,
 				B244F331229797A0003F24FF /* BaseNavigationController.swift in Sources */,
 				B289B98B22AA0DE900F0A1E2 /* AppStoreAPI.swift in Sources */,
@@ -1241,7 +1241,6 @@
 			isa = PBXVariantGroup;
 			children = (
 				B2C94C1B2283D7280095863C /* Base */,
-				B248E361228D2FBB00411F2F /* ko */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

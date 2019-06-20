@@ -27,16 +27,7 @@ class BaseNavigationController: UINavigationController {
         self.navigationBar.prefersLargeTitles = true
         self.navigationBar.hidesUnderLine(true)
         self.navigationBar.hideShadowImage()
-//        self.navigationBar.backgroundColor = UIColor.white
-//        self.navigationBar.tintColor = UIColor.orange
         self.navigationBar.barTintColor = UIColor.white
-//        self.navigationBar.setBackgroundImage(UIImage(), for: .default)
-        self.navigationItem.largeTitleDisplayMode = .always
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.navigationItem.largeTitleDisplayMode = .always
     }
     
     deinit {

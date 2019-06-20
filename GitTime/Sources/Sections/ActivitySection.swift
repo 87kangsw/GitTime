@@ -9,7 +9,6 @@
 import RxDataSources
 
 enum ActivitySection {
-    case contribution([ActivitySectionItem])
     case activities([ActivitySectionItem])
 }
 
@@ -17,8 +16,6 @@ extension ActivitySection: SectionModelType {
     
     var items: [ActivitySectionItem] {
         switch self {
-        case .contribution(let items):
-            return items
         case .activities(let items):
             return items
         }
@@ -26,8 +23,6 @@ extension ActivitySection: SectionModelType {
     
     init(original: ActivitySection, items: [ActivitySectionItem]) {
         switch original {
-        case .contribution:
-            self = .contribution(items)
         case .activities:
             self = .activities(items)
         }
@@ -35,7 +30,6 @@ extension ActivitySection: SectionModelType {
 }
 
 enum ActivitySectionItem {
-    case contribution(ActivityContributionCellReactor)
     case createEvent(ActivityItemCellReactor)
     case watchEvent(ActivityItemCellReactor)
     case pullRequestEvent(ActivityItemCellReactor)
@@ -46,4 +40,5 @@ enum ActivitySectionItem {
     case releaseEvent(ActivityItemCellReactor)
     case pullRequestReviewCommentEvent(ActivityItemCellReactor)
     case publicEvent(ActivityItemCellReactor)
+    case empty(EmptyTableViewCellReactor)
 }

@@ -42,7 +42,7 @@ final class SplashViewReactor: Reactor {
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
         case .checkAuthentication:
-            guard let _ = keychainService.getAccessToken() else {
+            guard keychainService.getAccessToken() != nil else {
                 return .just(.setAuthentication(false))
             }
             return self.userService.fetchMe()
