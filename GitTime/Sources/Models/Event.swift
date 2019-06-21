@@ -274,6 +274,22 @@ extension Event {
     }
 }
 
+extension Event {
+    static func mockData() -> [Event]? {
+        if let url = Bundle.main.url(forResource: "eventMock", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let events = try decoder.decode([Event].self, from: data)
+                return events
+            } catch {
+                print("error:\(error)")
+            }
+        }
+        return nil
+    }
+}
+
 struct Actor: ModelType {
     let id: Int
     let name: String
