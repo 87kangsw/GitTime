@@ -36,6 +36,8 @@ final class FollowUserCell: BaseTableViewCell, View, CellType {
     fileprivate func configureUI() {
         profileImageView.layer.cornerRadius = 8.0
         profileImageView.layer.masksToBounds = true
+        profileImageView.contentMode = .scaleAspectFill
+        profileImageView.clipsToBounds = true
     }
     
     fileprivate func reset() {
