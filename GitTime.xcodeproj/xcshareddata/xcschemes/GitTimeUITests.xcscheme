@@ -9,20 +9,6 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B2C94C0D2283D7260095863C"
-               BuildableName = "GitTime.app"
-               BlueprintName = "GitTime"
-               ReferencedContainer = "container:GitTime.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
             buildForProfiling = "NO"
             buildForArchiving = "NO"
             buildForAnalyzing = "NO">
@@ -46,16 +32,6 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B2C94C212283D7280095863C"
-               BuildableName = "GitTimeTests.xctest"
-               BlueprintName = "GitTimeTests"
-               ReferencedContainer = "container:GitTime.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "B2C94C2C2283D7280095863C"
                BuildableName = "GitTimeUITests.xctest"
                BlueprintName = "GitTimeUITests"
@@ -63,15 +39,6 @@
             </BuildableReference>
          </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B2C94C0D2283D7260095863C"
-            BuildableName = "GitTime.app"
-            BlueprintName = "GitTime"
-            ReferencedContainer = "container:GitTime.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -85,23 +52,15 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B2C94C0D2283D7260095863C"
-            BuildableName = "GitTime.app"
-            BlueprintName = "GitTime"
+            BlueprintIdentifier = "B2C94C2C2283D7280095863C"
+            BuildableName = "GitTimeUITests.xctest"
+            BlueprintName = "GitTimeUITests"
             ReferencedContainer = "container:GitTime.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -111,16 +70,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B2C94C0D2283D7260095863C"
-            BuildableName = "GitTime.app"
-            BlueprintName = "GitTime"
+            BlueprintIdentifier = "B2C94C2C2283D7280095863C"
+            BuildableName = "GitTimeUITests.xctest"
+            BlueprintName = "GitTimeUITests"
             ReferencedContainer = "container:GitTime.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
