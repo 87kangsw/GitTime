@@ -37,4 +37,5 @@ extension TrendSection: SectionModelType {
 enum TrendSectionItem {
     case trendingRepos(TrendingRepositoryCellReactor)
     case trendingDevelopers(TrendingDeveloperCellReactor)
+    case empty(EmptyTableViewCellReactor)
 }

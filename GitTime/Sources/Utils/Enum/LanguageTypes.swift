@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum LanguageTypes: String, CaseIterable {
+enum LanguageTypes: String, CaseIterable, Codable {
     case programming
     case data
     case markup

@@ -20,6 +20,20 @@
                ReferencedContainer = "container:GitTime.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B2C94C2C2283D7280095863C"
+               BuildableName = "GitTimeUITests.xctest"
+               BlueprintName = "GitTimeUITests"
+               ReferencedContainer = "container:GitTime.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

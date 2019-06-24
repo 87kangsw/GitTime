@@ -2,6 +2,8 @@ disabled_rules: # rule identifiers to exclude from running
 - trailing_whitespace
 - line_length
 - identifier_name
+- function_body_length
+- cyclomatic_complexity
 opt_in_rules: # some rules are only opt-in
 - empty_count
 # Find all the available rules by running:

@@ -106,27 +106,6 @@ struct PullRequestObject: ModelType {
     }
 }
 
-/*
-    "push_id": 3609958082,
-    "size": 1,
-    "distinct_size": 1,
-    "ref": "refs/heads/patch-1",
-    "head": "97aa5eaaa37859cb123edd1defb53e8d2de176da",
-    "before": "e2fc7e6c990adc8ea556665eca70aec3eb1ba267",
-    "commits": [
-        {
-            "sha": "97aa5eaaa37859cb123edd1defb53e8d2de176da",
-            "author": {
-                        "email": "50608484+KanzDevelop@users.noreply.github.com",
-                        "name": "KanzDevelop"
-            },
-            "message": "Create test.txt",
-            "distinct": true,
-            "url": "https://api.github.com/repos/KanzDevelop/PublicRepoTest/commits/97aa5eaaa37859cb123edd1defb53e8d2de176da"
-        }
-    ]
- */
-
 // MARK: - PushEvent
 
 /**

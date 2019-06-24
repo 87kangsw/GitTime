@@ -15,7 +15,8 @@ final class TrendViewReactor: Reactor {
     enum Action {
         case refresh
         case selectPeriod(PeriodTypes)
-        case selectLanguage(String?)
+//        case selectLanguage(String?)
+        case selectLanguage(Language?)
         case switchSegmentControl
         case requestTrending
     }
@@ -24,7 +25,8 @@ final class TrendViewReactor: Reactor {
         case setLoading(Bool)
         case setRefreshing(Bool)
         case setPeriod(PeriodTypes)
-        case setLanguage(String?)
+//        case setLanguage(String?)
+        case setLanguage(Language?)
         case setTrendType(TrendTypes)
         case fetchRepositories([TrendRepo])
         case fetchDevelopers([TrendDeveloper])
@@ -34,15 +36,26 @@ final class TrendViewReactor: Reactor {
         var isLoading: Bool = false
         var isRefreshing: Bool = false
         var period: PeriodTypes
-        var language: String?
+//        var language: String?
+        var language: Language?
         var trendingType: TrendTypes
-//        var repositories: [TrendRepo] = []
-//        var developers: [TrendDeveloper] = []
         var repositories: [TrendSectionItem] = []
         var developers: [TrendSectionItem] = []
         var trendSections: [TrendSection] {
-            return self.trendingType == .repositories ?
-                [.repo(self.repositories)] : [.developer(self.developers)]
+            switch self.trendingType {
+            case .repositories:
+                guard !self.repositories.isEmpty else {
+                    let reactor = EmptyTableViewCellReactor(type: .trendingRepo)
+                    return [.repo([TrendSectionItem.empty(reactor)])]
+                }
+                return [.repo(self.repositories)]
+            case .developers:
+                guard !self.repositories.isEmpty else {
+                    let reactor = EmptyTableViewCellReactor(type: .trendingDeveloper)
+                    return [.repo([TrendSectionItem.empty(reactor)])]
+                }
+                return [.developer(self.developers)]
+            }
         }
     }
     
@@ -56,7 +69,7 @@ final class TrendViewReactor: Reactor {
         self.crawlerService = crawlerService
         self.userdefaultsService = userdefaultsService
         let period: PeriodTypes = PeriodTypes(rawValue: userdefaultsService.value(forKey: UserDefaultsKey.period) ?? "") ?? PeriodTypes.daily
-        let language: String? = userdefaultsService.value(forKey: UserDefaultsKey.langauge)
+        let language: Language? = userdefaultsService.structValue(forKey: UserDefaultsKey.langauge)
         self.initialState = State(isLoading: false,
                                   isRefreshing: false,
                                   period: period,
@@ -82,9 +95,9 @@ final class TrendViewReactor: Reactor {
             let requestMutation = self.requestTrending(period: period)
             return .concat([periodMutation, requestMutation])
         case .selectLanguage(let language):
-            self.userdefaultsService.set(value: language, forKey: UserDefaultsKey.langauge)
-            let languageName = language == nil ? LanguageTypes.all.buttonTitle() : language
-            let languageMutation: Observable<Mutation> = .just(.setLanguage(languageName))
+            // self.userdefaultsService.set(value: language, forKey: UserDefaultsKey.langauge)
+            self.userdefaultsService.setStruct(value: language, forKey: UserDefaultsKey.langauge)
+            let languageMutation: Observable<Mutation> = .just(.setLanguage(language))
             let requestMutation = self.requestTrending(language: language)
             return .concat([languageMutation, requestMutation])
         case .switchSegmentControl:
@@ -131,18 +144,20 @@ final class TrendViewReactor: Reactor {
     
     fileprivate func requestTrending(trendType: TrendTypes? = nil,
                                      period: PeriodTypes? = nil,
-                                     language: String? = nil) -> Observable<Mutation> {
+                                     language: Language? = nil) -> Observable<Mutation> {
         let currentTrendType = trendType ?? self.currentState.trendingType
         let currentPeriod = period ?? self.currentState.period
-        let currentLanguage = language ?? self.currentState.language ?? ""
         
+        let currentLanguage = language ?? self.currentState.language
+        let currentLanguageName = currentLanguage?.type == LanguageTypes.all ? "" : currentLanguage?.name
+ 
         let startLoading: Observable<Mutation> = .just(.setLoading(true))
         let endLoading: Observable<Mutation> = .just(.setLoading(false))
         
         switch currentTrendType {
         case .repositories:
             let fetchRepositories: Observable<Mutation>
-                = self.crawlerService.fetchTrendingRepositories(language: currentLanguage,
+                = self.crawlerService.fetchTrendingRepositories(language: currentLanguageName,
                                                                  period: currentPeriod.querySting())
                     .map { list -> Mutation in
                         return .fetchRepositories(list)
@@ -151,7 +166,7 @@ final class TrendViewReactor: Reactor {
             return .concat([startLoading, fetchRepositories, endLoading])
         case .developers:
             let fetchDevelopers: Observable<Mutation>
-                = self.crawlerService.fetchTrendingDevelopers(language: currentLanguage,
+                = self.crawlerService.fetchTrendingDevelopers(language: currentLanguageName,
                                                                period: currentPeriod.querySting())
                     .map { developers -> Mutation in
                         return .fetchDevelopers(developers)

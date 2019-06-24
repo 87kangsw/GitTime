@@ -18,10 +18,6 @@ protocol UserServiceType {
 final class UserService: UserServiceType {
     
     fileprivate let networking: GitTimeProvider<GitHubAPI>
-//    fileprivate let userSubject = ReplaySubject<User?>.create(bufferSize: 1)
-//    lazy var me: Observable<User?> = self.userSubject.asObservable()
-//        .startWith(nil)
-//        .share(replay: 1)
     fileprivate let userSubject = BehaviorRelay<User?>(value: nil)
     lazy var me: User? = self.userSubject.value
     
@@ -34,7 +30,6 @@ final class UserService: UserServiceType {
             .map(User.self)
             .asObservable()
             .do(onNext: { [weak self] user in
-//                self?.userSubject.onNext(user)
                 self?.userSubject.accept(user)
             }).map { _ in }
     }
