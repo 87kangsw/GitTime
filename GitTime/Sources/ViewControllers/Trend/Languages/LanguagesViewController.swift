@@ -58,7 +58,7 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
     }
     
     fileprivate func configureUI() {
-        self.title = "언어 선택"
+        self.title = "Languages"
         
         self.closeButton = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: nil)
         self.navigationItem.setLeftBarButton(closeButton, animated: false)

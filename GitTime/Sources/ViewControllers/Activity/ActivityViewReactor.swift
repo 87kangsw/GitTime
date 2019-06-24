@@ -38,7 +38,6 @@ final class ActivityViewReactor: Reactor {
         var activities: [ActivitySectionItem]
         var sectionItems: [ActivitySection] {
             return [
-                // .contribution(self.contribution),
                 .activities(self.activities)
             ]
         }
@@ -48,7 +47,6 @@ final class ActivityViewReactor: Reactor {
     
     fileprivate let activityService: ActivityServiceType
     fileprivate let userService: UserServiceType
-//    fileprivate let contributionService: ContributionServiceType
     fileprivate let crawlerService: GitTimeCrawlerServiceType
     
     init(activityService: ActivityServiceType,
@@ -94,8 +92,6 @@ final class ActivityViewReactor: Reactor {
         case let .setLoadMore(canLoadMore):
             state.canLoadMore = canLoadMore
         case let .setContributionInfo(contributionInfo):
-            let reactor = ActivityContributionCellReactor(contributionInfo: contributionInfo)
-            state.contribution = [.contribution(reactor)]
             state.contributionInfo = contributionInfo
         case let .fetchActivity(activities, nextPage, canLoadMore):
             state.canLoadMore = canLoadMore
@@ -118,6 +114,10 @@ final class ActivityViewReactor: Reactor {
     }
     
     private func activitiesToSectionItem(_ activities: [Event]) -> [ActivitySectionItem] {
+        guard !activities.isEmpty else {
+            let reactor = EmptyTableViewCellReactor(type: .activity)
+            return [ActivitySectionItem.empty(reactor)]
+        }
         return activities
             .map { event -> ActivitySectionItem in
                 let reactor = ActivityItemCellReactor(event: event)

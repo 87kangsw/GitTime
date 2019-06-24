@@ -25,6 +25,12 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
+    }
+    
+    fileprivate func configureUI() {
+        loginButton.layer.cornerRadius = 8.0
+        loginButton.layer.masksToBounds = true
     }
     
     // MARK: - Configure

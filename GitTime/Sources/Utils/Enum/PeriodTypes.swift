@@ -7,7 +7,7 @@
 //
 
 import Foundation
-// since: daily, weekly or monthly, default to daily.
+
 // since: daily, weekly or monthly, default to daily.
 enum PeriodTypes: String, CaseIterable {
     case daily

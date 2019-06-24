@@ -55,7 +55,7 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
     
     private var logoutActions: [RxAlertAction<Bool>] {
         var actions = [RxAlertAction<Bool>]()
-        let logoutAction = RxAlertAction<Bool>(title: "LogOut", style: .destructive, result: true)
+        let logoutAction = RxAlertAction<Bool>(title: "Logout", style: .destructive, result: true)
         let cancelAction = RxAlertAction<Bool>(title: "Cancel", style: .cancel, result: false)
         actions.append(logoutAction)
         actions.append(cancelAction)
@@ -102,15 +102,6 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
                 self.goToLogin()
             }).disposed(by: self.disposeBag)
         
-//        reactor.state.map { $0.storeVersion }
-////        .bind(to: <#T##(Observable<String>) -> R#>)
-//            .subscribe(onNext: { [weak self] version in
-//                guard let self = self else { return }
-//                log.debug("version.. \(version)")
-//                // let versionSection = self.dataSource.sectionModels[1].items.filter { $0.self == .version }
-//                // log.debug(versionSection)
-//            }).disposed(by: self.disposeBag)
-        
         // View
         tableView.rx.setDelegate(self)
             .disposed(by: self.disposeBag)
@@ -133,7 +124,7 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
                     self.goToAppStore()
                 case .logout:
                     let alert = UIAlertController.rx_presentAlert(viewController: self,
-                                                                  title: "로그아웃하시겠습니까?",
+                                                                  title: "Are you sure you want to logout?",
                                                                   message: nil,
                                                                   preferredStyle: .alert,
                                                                   animated: true,
@@ -191,7 +182,6 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     fileprivate func goToRateApp() {
-        // https://itunes.apple.com/app/idXXXXXXXXXX?action=write-review
         let urlString = "https://itunes.apple.com/app/id\(AppConstants.appID)?action=write-review"
         guard let url = URL(string: urlString) else { return }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)

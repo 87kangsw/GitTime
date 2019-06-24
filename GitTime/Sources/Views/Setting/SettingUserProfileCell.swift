@@ -48,7 +48,7 @@ final class SettingUserProfileCell: BaseTableViewCell, View, CellType {
         followerLabel.text = followersCount.formatUsingAbbrevation()
         
         let followingCount = state.follwingCount
-        followerLabel.text = followingCount.formatUsingAbbrevation()
+        followingLabel.text = followingCount.formatUsingAbbrevation()
     }
     
     func bind(reactor: Reactor) {

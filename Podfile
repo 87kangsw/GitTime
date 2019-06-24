@@ -17,6 +17,7 @@ pod 'RxOptional'
 
 # UI
 pod 'SnapKit'
+pod 'Toaster'
 
 # Keychain
 pod 'KeychainAccess'
@@ -41,16 +42,15 @@ end
 target 'GitTime' do
   use_frameworks!
 
-app_pods
+  app_pods
+end
 
-  target 'GitTimeTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+target 'GitTimeTests' do
+  inherit! :search_paths
+  app_pods
+end
 
-  target 'GitTimeUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
+target 'GitTimeUITests' do
+  inherit! :search_paths
+  app_pods
 end

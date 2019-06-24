@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Language: Decodable {
+struct Language: Codable {
     let id: Int
     let name: String
     let type: LanguageTypes
@@ -20,6 +20,14 @@ struct Language: Decodable {
         name = try container.decode(String.self, forKey: .name)
         type = LanguageTypes(rawValue: try container.decode(String.self, forKey: .type)) ?? .programming
         color = try container.decode(String.self, forKey: .color)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id, forKey: .id)
+        try container.encode(name, forKey: .name)
+        try container.encode(type, forKey: .type)
+        try container.encode(color, forKey: .color)
     }
     
     init(name: String) {

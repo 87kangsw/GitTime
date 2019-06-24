@@ -20,18 +20,20 @@
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Bac-53-hyh">
                                 <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Splash" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uq6-ty-thh">
-                                <rect key="frame" x="181" y="337.5" width="52" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="e54-Jq-mlX">
+                                <rect key="frame" x="103.5" y="344.5" width="207" height="207"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="e54-Jq-mlX" secondAttribute="height" multiplier="1:1" id="h8G-Db-cla"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="uq6-ty-thh" firstAttribute="centerX" secondItem="Y5X-CQ-CIo" secondAttribute="centerX" id="KM6-8N-4LX"/>
+                            <constraint firstItem="e54-Jq-mlX" firstAttribute="width" secondItem="e54-Jq-mlX" secondAttribute="height" multiplier="1:1" id="0GG-cL-F5J"/>
+                            <constraint firstItem="e54-Jq-mlX" firstAttribute="width" secondItem="Y5X-CQ-CIo" secondAttribute="width" multiplier="1:2" id="BUe-9l-dsp"/>
+                            <constraint firstItem="e54-Jq-mlX" firstAttribute="centerX" secondItem="Y5X-CQ-CIo" secondAttribute="centerX" id="CSa-Ya-gbu"/>
+                            <constraint firstItem="e54-Jq-mlX" firstAttribute="centerY" secondItem="Y5X-CQ-CIo" secondAttribute="centerY" id="US7-Dk-7eB"/>
                             <constraint firstItem="Bac-53-hyh" firstAttribute="centerY" secondItem="Y5X-CQ-CIo" secondAttribute="centerY" id="UU0-yk-bmU"/>
-                            <constraint firstItem="uq6-ty-thh" firstAttribute="centerY" secondItem="Y5X-CQ-CIo" secondAttribute="centerY" constant="-100" id="hr4-pq-6cW"/>
                             <constraint firstItem="Bac-53-hyh" firstAttribute="centerX" secondItem="Y5X-CQ-CIo" secondAttribute="centerX" id="vsa-gu-0lD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3FU-Ho-Lgu"/>
@@ -45,4 +47,7 @@
             <point key="canvasLocation" x="233" y="9"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo" width="200" height="200"/>
+    </resources>
 </document>
