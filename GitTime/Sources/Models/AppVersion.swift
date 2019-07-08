@@ -9,7 +9,7 @@
 import Foundation
 
 struct AppVersion: ModelType {
-    let result: AppVersionResult
+    let results: [AppVersionResult]
 }
 
 struct AppVersionResult: ModelType {
