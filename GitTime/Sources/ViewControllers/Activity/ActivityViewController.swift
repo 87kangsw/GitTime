@@ -106,8 +106,10 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
             .disposed(by: self.disposeBag)
 
         reactor.state.map { $0.contributionInfo }
-            .subscribe(onNext: { info in
-                guard let info = info else { return }
+            .filterNil()
+            .take(1)
+            .subscribe(onNext: { [weak self] info in
+                guard let self = self else { return }
                 let reactor = ActivityContributionViewReactor(contributionInfo: info)
                 self.contributionHeaderView.reactor = reactor
             }).disposed(by: self.disposeBag)
