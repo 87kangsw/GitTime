@@ -44,13 +44,19 @@ final class TrendViewReactor: Reactor {
         var trendSections: [TrendSection] {
             switch self.trendingType {
             case .repositories:
+                guard !self.isRefreshing else {
+                    return [.repo([])]
+                }
                 guard !self.repositories.isEmpty else {
                     let reactor = EmptyTableViewCellReactor(type: .trendingRepo)
                     return [.repo([TrendSectionItem.empty(reactor)])]
                 }
                 return [.repo(self.repositories)]
             case .developers:
-                guard !self.repositories.isEmpty else {
+                guard !self.isRefreshing else {
+                    return [.developer([])]
+                }
+                guard !self.developers.isEmpty else {
                     let reactor = EmptyTableViewCellReactor(type: .trendingDeveloper)
                     return [.repo([TrendSectionItem.empty(reactor)])]
                 }
@@ -87,7 +93,7 @@ final class TrendViewReactor: Reactor {
             let startRefreshing: Observable<Mutation> = .just(.setRefreshing(true))
             let endRefreshing: Observable<Mutation> = .just(.setRefreshing(false))
             let requestMutation = self.requestTrending()
-            return .concat([startRefreshing, endRefreshing.delay(0.5, scheduler: MainScheduler.instance), requestMutation])
+            return .concat([startRefreshing, requestMutation, endRefreshing])
         case .selectPeriod(let period):
             self.userdefaultsService.set(value: period.querySting(),
                                          forKey: UserDefaultsKey.period)

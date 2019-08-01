@@ -84,7 +84,7 @@ final class SettingViewReactor: Reactor {
         case .versionCheck:
             let versionMutation: Observable<Mutation> = self.appStoreService.getLatestVersion()
                 .map { version -> Mutation in
-                    let storeVersion = version.result.version
+                    let storeVersion = version.results[0].version
                     return .setVersion(storeVersion)
             }.catchErrorJustReturn(.setVersion("⚠️"))
             return versionMutation
