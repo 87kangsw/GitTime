@@ -1,9 +1,9 @@
 PODS:
   - AcknowList (1.8)
-  - Alamofire (4.8.2)
+  - Alamofire (5.0.0-beta.7)
   - Crashlytics (3.12.0):
     - Fabric (~> 1.9.0)
-  - Differentiator (3.1.0)
+  - Differentiator (4.0.1)
   - Fabric (1.9.0)
   - Firebase/Core (5.20.2):
     - Firebase/CoreOnly
@@ -52,36 +52,37 @@ PODS:
     - GoogleUtilities/Logger
   - KeychainAccess (3.2.0)
   - Kingfisher (5.4.0)
-  - Moya/Core (13.0.0):
-    - Alamofire (~> 4.1)
-    - Result (~> 4.1)
-  - Moya/RxSwift (13.0.0):
+  - Moya/Core (14.0.0-alpha.2):
+    - Alamofire (= 5.0.0-beta.7)
+  - Moya/RxSwift (14.0.0-alpha.2):
     - Moya/Core
-    - RxSwift (~> 4.0)
+    - RxSwift (~> 5.0)
   - nanopb (0.3.901):
     - nanopb/decode (= 0.3.901)
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - ReactorKit (1.2.1):
-    - RxSwift (>= 4.0.0)
-  - Result (4.1.0)
-  - RxCocoa (4.5.0):
-    - RxSwift (>= 4.4.2, ~> 4.4)
-  - RxDataSources (3.1.0):
-    - Differentiator (~> 3.0)
-    - RxCocoa (~> 4.0)
-    - RxSwift (~> 4.0)
-  - RxFlow (2.2.0):
-    - RxCocoa (>= 4.5.0)
-    - RxSwift (>= 4.5.0)
+  - ReactorKit (2.0.1):
+    - RxSwift (~> 5.0)
+  - RxCocoa (5.0.0):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
+  - RxFlow (2.4.0):
+    - RxCocoa (>= 5.0.0)
+    - RxSwift (>= 5.0.0)
   - RxKeyboard (0.9.0):
     - RxCocoa (>= 4.3.1)
     - RxSwift (>= 4.3.1)
-  - RxOptional (3.6.2):
-    - RxCocoa (~> 4.0)
-    - RxSwift (~> 4.0)
-  - RxSwift (4.5.0)
+  - RxOptional (4.0.0):
+    - RxCocoa (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.0.0):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.0)
   - SnapKit (5.0.0)
   - SwiftLint (0.32.0)
   - SwiftyBeaver (1.7.0)
@@ -89,19 +90,19 @@ PODS:
 
 DEPENDENCIES:
   - AcknowList
-  - Crashlytics (~> 3.12.0)
-  - Fabric (~> 1.9.0)
+  - Crashlytics
+  - Fabric
   - Firebase/Core
   - KeychainAccess
   - Kingfisher (~> 5.0)
-  - Moya/RxSwift (~> 13.0)
-  - ReactorKit
-  - RxCocoa
-  - RxDataSources
-  - RxFlow
+  - Moya/RxSwift (= 14.0.0-alpha.2)
+  - ReactorKit (= 2.0.1)
+  - RxCocoa (= 5.0.0)
+  - RxDataSources (= 4.0.1)
+  - RxFlow (= 2.4.0)
   - RxKeyboard
-  - RxOptional
-  - RxSwift
+  - RxOptional (= 4.0.0)
+  - RxSwift (= 5.0.0)
   - SnapKit
   - SwiftLint
   - SwiftyBeaver
@@ -125,12 +126,12 @@ SPEC REPOS:
     - Moya
     - nanopb
     - ReactorKit
-    - Result
     - RxCocoa
     - RxDataSources
     - RxFlow
     - RxKeyboard
     - RxOptional
+    - RxRelay
     - RxSwift
     - SnapKit
     - SwiftLint
@@ -139,9 +140,9 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   AcknowList: 5b8820004d019d0a8d6a091ea2392dcb54bd3ad2
-  Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  Alamofire: bd07938ceecad59d2492aeecb1f785a8f2721160
   Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
-  Differentiator: be49ca3408f0ecfc761e4c7763d20c62be01b9ad
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
@@ -151,21 +152,21 @@ SPEC CHECKSUMS:
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
   Kingfisher: 9c8f2cc6710334e06f32ba2b45e77707d5e2f0c9
-  Moya: 161263550064ff8a4948e8ff63137fd72a876292
+  Moya: a6f1894cf6baec301aa02b0ecf10e5d8ade556ae
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  ReactorKit: 8be57f0527ad1ac2963cd5c338274a46a01e57a3
-  Result: bd966fac789cc6c1563440b348ab2598cc24d5c7
-  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
-  RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
-  RxFlow: f8cdfc0be3c837464fad1fcd28187fd414bcc716
+  ReactorKit: a63c5e11e0fd32d59d672e54178b0ed2876b764b
+  RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
+  RxFlow: d8342d7ba30f78f509f84cf1d801fbd540406870
   RxKeyboard: 4f782303f499f41577b41c96c6a9a5d7acd51a47
-  RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
-  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
+  RxOptional: 9904e2219d59260c3c171273d475b2126de187e8
+  RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
+  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
   SwiftLint: 009a898ef2a1c851f45e1b59349bf6ff2ddc990d
   SwiftyBeaver: 4cc0080d2e23f980652e28978db11a5c9da39165
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: e112dbe044d86a4a4d1947df93f55c982adccd36
+PODFILE CHECKSUM: 99f528095a2f2ea0c162eac7b7143fcb7b861657
 
 COCOAPODS: 1.6.1
