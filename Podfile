@@ -14,6 +14,7 @@ pod 'RxSwift'
 pod 'RxCocoa'
 pod 'RxDataSources'
 pod 'RxOptional'
+pod 'RxKeyboard'
 
 # UI
 pod 'SnapKit'

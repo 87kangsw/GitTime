@@ -75,6 +75,9 @@ PODS:
   - RxFlow (2.2.0):
     - RxCocoa (>= 4.5.0)
     - RxSwift (>= 4.5.0)
+  - RxKeyboard (0.9.0):
+    - RxCocoa (>= 4.3.1)
+    - RxSwift (>= 4.3.1)
   - RxOptional (3.6.2):
     - RxCocoa (~> 4.0)
     - RxSwift (~> 4.0)
@@ -96,6 +99,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxDataSources
   - RxFlow
+  - RxKeyboard
   - RxOptional
   - RxSwift
   - SnapKit
@@ -125,6 +129,7 @@ SPEC REPOS:
     - RxCocoa
     - RxDataSources
     - RxFlow
+    - RxKeyboard
     - RxOptional
     - RxSwift
     - SnapKit
@@ -153,6 +158,7 @@ SPEC CHECKSUMS:
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
   RxDataSources: a843bad90c29817f5923ec8163f4af2de084ceb3
   RxFlow: f8cdfc0be3c837464fad1fcd28187fd414bcc716
+  RxKeyboard: 4f782303f499f41577b41c96c6a9a5d7acd51a47
   RxOptional: 80426a0ddbd092573e4c482d8cc13302078c4d5e
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
@@ -160,6 +166,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: 4cc0080d2e23f980652e28978db11a5c9da39165
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: 25db6806e7f9bd005efbe6c8dffaf2ec3cce82c8
+PODFILE CHECKSUM: e112dbe044d86a4a4d1947df93f55c982adccd36
 
 COCOAPODS: 1.6.1

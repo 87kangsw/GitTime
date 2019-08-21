@@ -14,6 +14,7 @@ import RxSwift
 protocol LanguagesServiceType: class {
     func languageListByType(_ type: LanguageTypes) -> Observable<[Language]>
     func searchLanguage(searchText: String) -> Observable<[Language]>
+    func getLanguageColor(language: String) -> String?
 }
 
 final class LanguagesService: LanguagesServiceType {
@@ -57,5 +58,10 @@ final class LanguagesService: LanguagesServiceType {
                 return language.name.lowercased().contains(searchText) || language.name.uppercased().contains(searchText)
             })
         }
+    }
+    
+    func getLanguageColor(language: String) -> String? {
+        let result = allDatas.value.first { $0.name == language }
+        return result?.color
     }
 }

@@ -1,8 +1,8 @@
 //
-//  FollowUserCellReactor.swift
+//  SearchRepoCellReactor.swift
 //  GitTime
 //
-//  Created by Kanz on 04/06/2019.
+//  Created by Kanz on 10/08/2019.
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
@@ -10,18 +10,18 @@ import UIKit
 
 import ReactorKit
 
-class FollowUserCellReactor: Reactor {
+class SearchRepoCellReactor: Reactor {
     
     typealias Action = NoAction
     
     struct State {
-        var followUser: User
+        var repo: Repository
     }
     
     let initialState: State
     
-    init(user: User) {
-        self.initialState = State(followUser: user)
+    init(repo: Repository) {
+        self.initialState = State(repo: repo)
         _ = self.state
     }
 }

@@ -9,8 +9,8 @@
 import RxSwift
 
 protocol FollowServiceType: class {
-    func fetchFollowers(userName: String, page: Int) -> Observable<[FollowUser]>
-    func fetchFollowing(userName: String, page: Int) -> Observable<[FollowUser]>
+    func fetchFollowers(userName: String, page: Int) -> Observable<[User]>
+    func fetchFollowing(userName: String, page: Int) -> Observable<[User]>
 }
 
 class FollowService: FollowServiceType {
@@ -21,19 +21,19 @@ class FollowService: FollowServiceType {
         self.networking = networking
     }
     
-    func fetchFollowers(userName: String, page: Int) -> Observable<[FollowUser]> {
+    func fetchFollowers(userName: String, page: Int) -> Observable<[User]> {
 //        guard let mocks = FollowUser.mockData() else { return .empty() }
 //        return Observable.just(mocks)
         return self.networking.rx.request(.followers(userName: userName, page: page))
-            .map([FollowUser].self)
+            .map([User].self)
             .asObservable()
     }
     
-    func fetchFollowing(userName: String, page: Int) -> Observable<[FollowUser]> {
+    func fetchFollowing(userName: String, page: Int) -> Observable<[User]> {
 //        guard let mocks = FollowUser.mockData() else { return .empty() }
 //        return Observable.just(mocks)
         return self.networking.rx.request(.following(userName: userName, page: page))
-            .map([FollowUser].self)
+            .map([User].self)
             .asObservable()
     }
 }
