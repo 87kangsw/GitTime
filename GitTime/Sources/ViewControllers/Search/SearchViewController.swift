@@ -76,7 +76,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
         searchBar.rx.text
             .orEmpty
             .distinctUntilChanged()
-            .debounce(0.5, scheduler: MainScheduler.instance)
+            .debounce(.microseconds(500), scheduler: MainScheduler.instance)
             .map { Reactor.Action.searchQuery($0) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
@@ -121,13 +121,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 self.searchBar.showsCancelButton = false
             }).disposed(by: self.disposeBag)
-        
-        tableView.rx.didScroll
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.searchBar.resignFirstResponder()
-            }).disposed(by: self.disposeBag)
-        
+                
         tableView.rx.itemSelected(dataSource: dataSource)
             .subscribe(onNext: { [weak self] sectionItem in
                 guard let self = self else { return }
