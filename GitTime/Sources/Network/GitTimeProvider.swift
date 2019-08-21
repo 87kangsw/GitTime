@@ -23,7 +23,7 @@ class GitTimeProvider<Target: TargetType>: MoyaProvider<Target> {
                 }
             }
         }))
-        // finalPlugins.append(NetworkLoggerPlugin(verbose: true))
+//        finalPlugins.append(NetworkLoggerPlugin(verbose: true))
         super.init(plugins: finalPlugins)
     }
 }

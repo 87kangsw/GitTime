@@ -37,6 +37,8 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     private lazy var dataSource: RxTableViewSectionedReloadDataSource<FollowSection> = type(of: self).dataSource
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {

@@ -25,7 +25,7 @@ final class SettingViewReactor: Reactor {
     struct State {
         var isLoggedOut: Bool
         var pageURL: String
-        var me: User?
+        var me: Me?
         var storeVersion: String
         var meSection: [SettingSection] {
             guard let me = self.me else { return [] }
