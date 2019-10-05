@@ -8,7 +8,7 @@ def app_pods
 pod 'ReactorKit', '2.0.1'
 
 # Coordinator
-pod 'RxFlow', '2.4.0'
+# pod 'RxFlow', '2.4.0'
 
 # Reactive
 pod 'RxSwift', '5.0.0'
