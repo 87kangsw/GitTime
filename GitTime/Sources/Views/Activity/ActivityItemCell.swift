@@ -29,6 +29,7 @@ final class ActivityItemCell: BaseTableViewCell, View, CellType {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         iconImageView.image = nil
         titleLabel.text = ""
         repositoryLabel.text = ""

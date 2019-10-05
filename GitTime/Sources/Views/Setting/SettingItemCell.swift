@@ -25,6 +25,10 @@ final class SettingItemCell: BaseTableViewCell, View, CellType {
         configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     fileprivate func configureUI() {
         titleLabel.font = .systemFont(ofSize: 14.0)
         subTitleLabel.font = .systemFont(ofSize: 12.0)

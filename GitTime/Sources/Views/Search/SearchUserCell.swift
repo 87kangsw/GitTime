@@ -31,6 +31,7 @@ final class SearchUserCell: BaseTableViewCell, View, CellType {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         reset()
     }
     

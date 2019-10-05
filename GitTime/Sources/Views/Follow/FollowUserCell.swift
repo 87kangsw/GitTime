@@ -30,6 +30,7 @@ final class FollowUserCell: BaseTableViewCell, View, CellType {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         reset()
     }
     
