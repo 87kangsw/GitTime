@@ -34,11 +34,9 @@
 		B228EAF4228D22E100E55456 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B228EAF3228D22E100E55456 /* GoogleService-Info.plist */; };
 		B231E80C228EB0EC00645D32 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B231E80B228EB0EC00645D32 /* Colors.xcassets */; };
 		B237A5DC22925A310069C59C /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5DB22925A310069C59C /* UserDefaultsService.swift */; };
-		B237A5DE22925FD60069C59C /* GitTimeStep.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5DD22925FD60069C59C /* GitTimeStep.swift */; };
 		B237A5E02292605D0069C59C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5DF2292605D0069C59C /* UIViewController+Extensions.swift */; };
 		B237A5E5229267D10069C59C /* ImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5E4229267D10069C59C /* ImageNames.swift */; };
 		B237A5E722926BC60069C59C /* SplashViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B237A5E622926BC60069C59C /* SplashViewController.storyboard */; };
-		B237A5E922926DC00069C59C /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5E822926DC00069C59C /* AppFlow.swift */; };
 		B237A5ED229272570069C59C /* GitTimeProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5EC229272570069C59C /* GitTimeProvider.swift */; };
 		B237A5EF229274510069C59C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5EE229274510069C59C /* String+Extensions.swift */; };
 		B237A5F122927A410069C59C /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B237A5F022927A410069C59C /* LoginViewController.storyboard */; };
@@ -211,11 +209,9 @@
 		B228EAF3228D22E100E55456 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B231E80B228EB0EC00645D32 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		B237A5DB22925A310069C59C /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
-		B237A5DD22925FD60069C59C /* GitTimeStep.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitTimeStep.swift; sourceTree = "<group>"; };
 		B237A5DF2292605D0069C59C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		B237A5E4229267D10069C59C /* ImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNames.swift; sourceTree = "<group>"; };
 		B237A5E622926BC60069C59C /* SplashViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashViewController.storyboard; sourceTree = "<group>"; };
-		B237A5E822926DC00069C59C /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
 		B237A5EC229272570069C59C /* GitTimeProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitTimeProvider.swift; sourceTree = "<group>"; };
 		B237A5EE229274510069C59C /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		B237A5F022927A410069C59C /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
@@ -538,15 +534,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		B237A5D8229242C60069C59C /* Flows */ = {
-			isa = PBXGroup;
-			children = (
-				B237A5DD22925FD60069C59C /* GitTimeStep.swift */,
-				B237A5E822926DC00069C59C /* AppFlow.swift */,
-			);
-			path = Flows;
-			sourceTree = "<group>";
-		};
 		B237A5E3229267C30069C59C /* Constants */ = {
 			isa = PBXGroup;
 			children = (
@@ -824,7 +811,6 @@
 				B244F2FF2294E9DE003F24FF /* AppInfo.swift */,
 				B248E37A228D5DDF00411F2F /* AppDependency.swift */,
 				B2F13C4C2293B27400398A62 /* Protocols */,
-				B237A5D8229242C60069C59C /* Flows */,
 				B228EAE9228D066600E55456 /* Network */,
 				B21CD767228858DD00B15786 /* Services */,
 				B21CD766228858DC00B15786 /* Models */,
@@ -1214,7 +1200,6 @@
 				B289A061229CDA9200AD9533 /* Reusable.swift in Sources */,
 				B2E72A9522A7AD6600F54399 /* SettingLogoutCell.swift in Sources */,
 				B289B98922AA021F00F0A1E2 /* Constants.swift in Sources */,
-				B237A5DE22925FD60069C59C /* GitTimeStep.swift in Sources */,
 				B289A072229D3B1B00AD9533 /* LanguagesViewReactor.swift in Sources */,
 				B2BF8B9422B753C1007B2AAA /* ContributionSection.swift in Sources */,
 				B269744C22BB214000F67129 /* EmptyTableViewCellReactor.swift in Sources */,
@@ -1281,7 +1266,6 @@
 				B22260E122AE030B00DDCE8E /* ActivityItemCellReactor.swift in Sources */,
 				B2E72A9822A7B00A00F54399 /* SettingLogoutCellReactor.swift in Sources */,
 				B237A5ED229272570069C59C /* GitTimeProvider.swift in Sources */,
-				B237A5E922926DC00069C59C /* AppFlow.swift in Sources */,
 				B244F331229797A0003F24FF /* BaseNavigationController.swift in Sources */,
 				B289B98B22AA0DE900F0A1E2 /* AppStoreAPI.swift in Sources */,
 				B211676322A6568600A7C335 /* User.swift in Sources */,
