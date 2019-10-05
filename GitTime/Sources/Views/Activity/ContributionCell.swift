@@ -21,6 +21,11 @@ final class ContributionCell: UICollectionViewCell, View, CellType {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag()
+    }
 
     func bind(reactor: Reactor) {
         

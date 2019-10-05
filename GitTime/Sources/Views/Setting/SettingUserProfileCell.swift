@@ -29,6 +29,10 @@ final class SettingUserProfileCell: BaseTableViewCell, View, CellType {
         configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     fileprivate func configureUI() {
         profileImageView.layer.cornerRadius = 8.0
         profileImageView.layer.masksToBounds = true
