@@ -24,6 +24,9 @@ pod 'Toaster'
 # Keychain
 pod 'KeychainAccess'
 
+# DB
+pod 'RealmSwift'
+
 # Logger
 pod 'SwiftyBeaver'
 
