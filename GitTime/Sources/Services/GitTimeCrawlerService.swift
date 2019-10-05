@@ -23,19 +23,19 @@ class GitTimeCrawlerService: GitTimeCrawlerServiceType {
     }
     
     func fetchTrendingRepositories(language: String?, period: String?) -> Observable<[TrendRepo]> {
-        return self.networking.rx.request(.trendingRepositories(language: language, period: period))
+        return self.networking.request(.trendingRepositories(language: language, period: period)) 
             .map([TrendRepo].self)
             .asObservable()
     }
     
     func fetchTrendingDevelopers(language: String?, period: String?) -> Observable<[TrendDeveloper]> {
-        return self.networking.rx.request(.trendingDevelopers(language: language, period: period))
+        return self.networking.request(.trendingDevelopers(language: language, period: period))
             .map([TrendDeveloper].self)
             .asObservable()
     }
     
     func fetchContributions(userName: String) -> Observable<ContributionInfo> {
-        return self.networking.rx.request(.fetchContributions(userName: userName))
+        return self.networking.request(.fetchContributions(userName: userName))
             .map(ContributionInfo.self)
             .asObservable()
     }

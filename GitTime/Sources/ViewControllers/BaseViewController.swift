@@ -26,7 +26,7 @@ class BaseViewController: UIViewController {
     
     // MARK: - Initialize
     
-    // MARK: Rx
+    // MARK: - Rx
     
     var disposeBag = DisposeBag()
     

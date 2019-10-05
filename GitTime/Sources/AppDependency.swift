@@ -12,10 +12,10 @@ import Firebase
 import Kingfisher
 import RxCocoa
 import RxDataSources
-import RxFlow
 import RxOptional
 import RxSwift
 import SwiftyBeaver
+import Toaster
 
 let log = SwiftyBeaver.self
 
@@ -27,7 +27,6 @@ final class AppDependency {
     // MARK: Properties
     
     let disposeBag = DisposeBag()
-    var coordinator = FlowCoordinator()
     var launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     
     init() {
@@ -49,6 +48,10 @@ final class AppDependency {
         log.addDestination(console)
         
         #endif
+        
+        // Toaster
+        let toastAppearance = ToastView.appearance()
+        toastAppearance.bottomOffsetPortrait = UIScreen.main.bounds.height / 2
     }
     
     // MARK: - Public
@@ -103,7 +106,8 @@ final class AppDependency {
             followVC.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.followFilled)
             
             let searchReactor = SearchViewReactor(searchService: searchService,
-                                                  languageService: LanguagesService())
+                                                  languageService: LanguagesService(),
+                                                  realmService: RealmService())
             
             let searchVC = SearchViewController.instantiate(withReactor: searchReactor)
             searchVC.title = "Search"

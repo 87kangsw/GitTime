@@ -8,7 +8,6 @@
 
 import UIKit
 
-import RxFlow
 import RxSwift
 
 @UIApplicationMain

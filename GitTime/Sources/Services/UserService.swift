@@ -26,7 +26,7 @@ final class UserService: UserServiceType {
     }
     
     func fetchMe() -> Observable<Void> {
-        return self.networking.rx.request(.fetchMe)
+        return self.networking.request(.fetchMe)
             .map(Me.self)
             .asObservable()
             .do(onNext: { [weak self] user in
