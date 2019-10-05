@@ -21,9 +21,7 @@ class ActivityService: ActivityServiceType {
     }
     
     func fetchActivities(userName: String, page: Int) -> Observable<[Event]> {
-//        guard let mocks = Event.mockData() else { return .empty() }
-//        return Observable.just(mocks)
-        return self.networking.rx.request(.activityEvent(userName: userName, page: page))
+        return self.networking.request(.activityEvent(userName: userName, page: page))
             .map([Event].self)
             .asObservable()
     }

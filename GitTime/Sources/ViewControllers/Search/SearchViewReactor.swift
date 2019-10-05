@@ -19,6 +19,8 @@ class SearchViewReactor: Reactor {
         case selectType(SearchTypes)
         case searchQuery(String?)
         case loadMore
+        case showRecentSearchWords(Bool)
+        case removeRecentSearchWord(IndexPath, String)
     }
     
     enum Mutation {
@@ -29,8 +31,11 @@ class SearchViewReactor: Reactor {
         case setMoreSearchUsers([User], nextPage: Int, canLoadMore: Bool)
         case setSearchRepos([Repository], nextPage: Int, canLoadMore: Bool)
         case setMoreSearchRepos([Repository], nextPage: Int, canLoadMore: Bool)
+        case setRecentSearchedWords([SearchHistory])
         case setPage(Int)
         case setLoadMore(Bool)
+        case setShowRecentSearchWords(Bool)
+        case removeRecentSearchWord(IndexPath)
     }
     
     struct State {
@@ -39,31 +44,48 @@ class SearchViewReactor: Reactor {
         var isLoading: Bool
         var searchedUsers: [SearchResultsSectionItem]
         var searchedRepos: [SearchResultsSectionItem]
+        var recentSearchedWords: [SearchResultsSectionItem]
         var sections: [SearchResultsSection] {
-            return (self.segmentType == .users) ?
-                [.searchUsers(self.searchedUsers)] : [.seachRepositories(self.searchedRepos)]
+            
+            if self.isShowRecentSearchWords {
+                return [.recentSearchWords(self.recentSearchedWords)]
+            }
+            
+            switch self.segmentType {
+            case .users:
+                return [.searchUsers(self.searchedUsers)]
+                
+            case .repositories:
+                return [.seachRepositories(self.searchedRepos)]
+            }
         }
         var page: Int = 1
         var canLoadMore: Bool = true
+        var isShowRecentSearchWords: Bool = false
     }
     
     fileprivate let searchService: SearchServiceType
     fileprivate let languageService: LanguagesServiceType
+    fileprivate let realmService: RealmServiceType
     
     let initialState: State
     
     init(searchService: SearchServiceType,
-         languageService: LanguagesServiceType) {
+         languageService: LanguagesServiceType,
+         realmService: RealmServiceType) {
         self.searchService = searchService
         self.languageService = languageService
+        self.realmService = realmService
         
         initialState = State(query: nil,
                              segmentType: .users,
                              isLoading: false,
                              searchedUsers: [],
                              searchedRepos: [],
+                             recentSearchedWords: [],
                              page: SearchViewReactor.INITIAL_PAGE,
-                             canLoadMore: false)
+                             canLoadMore: false,
+                             isShowRecentSearchWords: false)
     }
     
     // MARK: Mutation
@@ -76,7 +98,10 @@ class SearchViewReactor: Reactor {
             let endLoadingMutation: Observable<Mutation> = .just(.setLoading(false))
             let requestMutation: Observable<Mutation> = (self.currentState.segmentType == SearchTypes.users) ?
                 self.searchUsersMutation(query: query) : self.searchRepositoriesMutation(query: query)
-            return .concat([startLoadingMutation, queryMutation, requestMutation, endLoadingMutation])
+            let showRecentWordsMutation: Observable<Mutation> = .just(.setShowRecentSearchWords(false))
+            // Words store in realm..
+            self.storeSearchWord(query)
+            return .concat([showRecentWordsMutation, startLoadingMutation, queryMutation, requestMutation, endLoadingMutation])
         case .selectType(let type):
             let clearPagingMutation = self.clearPaging()
             let clearResults = self.clearResults()
@@ -90,6 +115,14 @@ class SearchViewReactor: Reactor {
             let endLoadingMutation: Observable<Mutation> = .just(.setLoading(false))
             let requestMoreMuation: Observable<Mutation> = self.requestSearchMore()
             return .concat([disableLoadMore, startLoadingMutation, requestMoreMuation, endLoadingMutation])
+        case .showRecentSearchWords(let isShow):
+            let showRecentWordsMutation: Observable<Mutation> = .just(.setShowRecentSearchWords(isShow))
+            let fetchRecentWordsMutation: Observable<Mutation> = self.fetchRecentSearchWordsMutation()
+            return .concat(showRecentWordsMutation, fetchRecentWordsMutation)
+        case .removeRecentSearchWord(let indexPath, let text):
+            // Word remove from realm..
+            self.removeSearchWord(text)
+            return .just(.removeRecentSearchWord(indexPath))
         }
     }
     
@@ -133,9 +166,19 @@ class SearchViewReactor: Reactor {
             state.page = page
         case let .setLoadMore(canLoadMore):
             state.canLoadMore = canLoadMore
+        case let .setShowRecentSearchWords(isShowRecentSearchWords):
+            state.isShowRecentSearchWords = isShowRecentSearchWords
+        case let .setRecentSearchedWords(recentWords):
+            state.recentSearchedWords = recentWords.map { word -> SearchHistoryCellReactor in
+                return SearchHistoryCellReactor(history: word)
+            }.map(SearchResultsSectionItem.recentWord)
+        case let .removeRecentSearchWord(indexPath):
+            state.recentSearchedWords.remove(at: indexPath.row)
         }
         return state
     }
+    
+    // MARK: - Search User / Repository
     
     private func searchUsersMutation(query: String) -> Observable<Mutation> {
         let currentPage = SearchViewReactor.INITIAL_PAGE
@@ -186,5 +229,22 @@ class SearchViewReactor: Reactor {
                     return .setMoreSearchRepos(lists, nextPage: newPage, canLoadMore: canLoadMore)
                 }.catchErrorJustReturn(.setMoreSearchRepos([], nextPage: currentPage, canLoadMore: false))
         }
+    }
+    
+    // MARK: - Recent Search Word
+    
+    private func fetchRecentSearchWordsMutation() -> Observable<Mutation> {
+        return self.realmService.recentSearchTextList()
+            .map { list -> Mutation in
+                return .setRecentSearchedWords(list)
+        }
+    }
+    
+    private func storeSearchWord(_ text: String) {
+        self.realmService.addSearchText(text: text)
+    }
+    
+    private func removeSearchWord(_ text: String) {
+        self.realmService.removeSearchText(text: text)
     }
 }

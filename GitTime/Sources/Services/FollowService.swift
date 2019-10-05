@@ -22,17 +22,13 @@ class FollowService: FollowServiceType {
     }
     
     func fetchFollowers(userName: String, page: Int) -> Observable<[User]> {
-//        guard let mocks = FollowUser.mockData() else { return .empty() }
-//        return Observable.just(mocks)
-        return self.networking.rx.request(.followers(userName: userName, page: page))
+        return self.networking.request(.followers(userName: userName, page: page))
             .map([User].self)
             .asObservable()
     }
     
     func fetchFollowing(userName: String, page: Int) -> Observable<[User]> {
-//        guard let mocks = FollowUser.mockData() else { return .empty() }
-//        return Observable.just(mocks)
-        return self.networking.rx.request(.following(userName: userName, page: page))
+        return self.networking.request(.following(userName: userName, page: page))
             .map([User].self)
             .asObservable()
     }

@@ -6,6 +6,7 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
+import AuthenticationServices
 import UIKit
 
 import ReactorKit
@@ -55,5 +56,12 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 self.goToMain()
             }).disposed(by: self.disposeBag)
+    }
+}
+ 
+// MARK: - ASWebAuthenticationPresentationContextProviding
+extension LoginViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return self.view.window ?? ASPresentationAnchor()
     }
 }

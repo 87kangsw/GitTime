@@ -41,6 +41,12 @@
 		B237A5EF229274510069C59C /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5EE229274510069C59C /* String+Extensions.swift */; };
 		B237A5F122927A410069C59C /* LoginViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B237A5F022927A410069C59C /* LoginViewController.storyboard */; };
 		B237A5F322927C580069C59C /* MainTabBarReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5F222927C580069C59C /* MainTabBarReactor.swift */; };
+		B238A2FC23478A870058E11B /* SearchHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238A2FB23478A870058E11B /* SearchHistory.swift */; };
+		B238A2FE2347A9100058E11B /* GitTimeNetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238A2FD2347A9100058E11B /* GitTimeNetworkError.swift */; };
+		B238A3002347AC4B0058E11B /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238A2FF2347AC4B0058E11B /* RealmService.swift */; };
+		B238A303234839350058E11B /* SearchHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238A301234839350058E11B /* SearchHistoryCell.swift */; };
+		B238A304234839350058E11B /* SearchHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B238A302234839350058E11B /* SearchHistoryCell.xib */; };
+		B238A306234850640058E11B /* SearchHistoryCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B238A305234850640058E11B /* SearchHistoryCellReactor.swift */; };
 		B244F3002294E9DE003F24FF /* AppInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B244F2FF2294E9DE003F24FF /* AppInfo.swift */; };
 		B244F3022294ED66003F24FF /* ActivityViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B244F3012294ED66003F24FF /* ActivityViewController.storyboard */; };
 		B244F3072294EDB9003F24FF /* TrendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B244F3062294EDB9003F24FF /* TrendViewController.swift */; };
@@ -113,6 +119,8 @@
 		B289B98D22AA0F8800F0A1E2 /* AppStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B98C22AA0F8800F0A1E2 /* AppStoreService.swift */; };
 		B289B98F22AA11B500F0A1E2 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B98E22AA11B500F0A1E2 /* AppVersion.swift */; };
 		B289B99322AA61C200F0A1E2 /* ActivitySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B99222AA61C200F0A1E2 /* ActivitySection.swift */; };
+		B28DFF072348790C00D2C04B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28DFF062348790C00D2C04B /* UIResponder+Extensions.swift */; };
+		B28DFF092348792600D2C04B /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28DFF082348792600D2C04B /* UITableViewCell+Extensions.swift */; };
 		B298353E22F53F2400FBEF71 /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B298353C22F53F2400FBEF71 /* SearchUserCell.swift */; };
 		B298353F22F53F2400FBEF71 /* SearchUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B298353D22F53F2400FBEF71 /* SearchUserCell.xib */; };
 		B298354122F53F3100FBEF71 /* SearchUserCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B298354022F53F3100FBEF71 /* SearchUserCellReactor.swift */; };
@@ -216,6 +224,12 @@
 		B237A5EE229274510069C59C /* String+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
 		B237A5F022927A410069C59C /* LoginViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LoginViewController.storyboard; sourceTree = "<group>"; };
 		B237A5F222927C580069C59C /* MainTabBarReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarReactor.swift; sourceTree = "<group>"; };
+		B238A2FB23478A870058E11B /* SearchHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistory.swift; sourceTree = "<group>"; };
+		B238A2FD2347A9100058E11B /* GitTimeNetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitTimeNetworkError.swift; sourceTree = "<group>"; };
+		B238A2FF2347AC4B0058E11B /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		B238A301234839350058E11B /* SearchHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCell.swift; sourceTree = "<group>"; };
+		B238A302234839350058E11B /* SearchHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchHistoryCell.xib; sourceTree = "<group>"; };
+		B238A305234850640058E11B /* SearchHistoryCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchHistoryCellReactor.swift; sourceTree = "<group>"; };
 		B244F2FF2294E9DE003F24FF /* AppInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfo.swift; sourceTree = "<group>"; };
 		B244F3012294ED66003F24FF /* ActivityViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ActivityViewController.storyboard; sourceTree = "<group>"; };
 		B244F3062294EDB9003F24FF /* TrendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendViewController.swift; sourceTree = "<group>"; };
@@ -288,6 +302,8 @@
 		B289B98C22AA0F8800F0A1E2 /* AppStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreService.swift; sourceTree = "<group>"; };
 		B289B98E22AA11B500F0A1E2 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
 		B289B99222AA61C200F0A1E2 /* ActivitySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySection.swift; sourceTree = "<group>"; };
+		B28DFF062348790C00D2C04B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
+		B28DFF082348792600D2C04B /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		B298353C22F53F2400FBEF71 /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
 		B298353D22F53F2400FBEF71 /* SearchUserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchUserCell.xib; sourceTree = "<group>"; };
 		B298354022F53F3100FBEF71 /* SearchUserCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCellReactor.swift; sourceTree = "<group>"; };
@@ -483,6 +499,7 @@
 				B265C1BF22B20D45003C47C0 /* Contribution.swift */,
 				B2C99E2E22FDC0310001C72D /* SearchResults.swift */,
 				B2647B3022FFF8CB000C0E20 /* Repository.swift */,
+				B238A2FB23478A870058E11B /* SearchHistory.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -500,6 +517,7 @@
 				B22260DA22ADD8FF00DDCE8E /* ActivityService.swift */,
 				B2F4D37822B38D8000A7C18C /* GitTimeCrawlerService.swift */,
 				B2C99E2A22FDBD4A0001C72D /* SearchService.swift */,
+				B238A2FF2347AC4B0058E11B /* RealmService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -508,6 +526,7 @@
 			isa = PBXGroup;
 			children = (
 				B237A5EC229272570069C59C /* GitTimeProvider.swift */,
+				B238A2FD2347A9100058E11B /* GitTimeNetworkError.swift */,
 				B228EAEA228D0D9400E55456 /* GitHubAPI.swift */,
 				B244F32A22959E12003F24FF /* GitHubLoginAPI.swift */,
 				B289B98A22AA0DE900F0A1E2 /* AppStoreAPI.swift */,
@@ -530,6 +549,8 @@
 				B244F3552297D49D003F24FF /* UIColor+Extensions.swift */,
 				B289A05B229CCD8300AD9533 /* Int+Extensions.swift */,
 				B2E6592E22AF5C7300515932 /* Date+Extensions.swift */,
+				B28DFF062348790C00D2C04B /* UIResponder+Extensions.swift */,
+				B28DFF082348792600D2C04B /* UITableViewCell+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -725,6 +746,9 @@
 				B2C99E3422FDD1760001C72D /* SearchRepoCell.swift */,
 				B2C99E3822FE41C50001C72D /* SearchRepoCellReactor.swift */,
 				B2C99E3522FDD1760001C72D /* SearchRepoCell.xib */,
+				B238A301234839350058E11B /* SearchHistoryCell.swift */,
+				B238A305234850640058E11B /* SearchHistoryCellReactor.swift */,
+				B238A302234839350058E11B /* SearchHistoryCell.xib */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -970,6 +994,7 @@
 				B237A5F122927A410069C59C /* LoginViewController.storyboard in Resources */,
 				B2F4D37F22B395E600A7C18C /* ContributionCell.xib in Resources */,
 				B2E22BB022BCDA0500A2FF2B /* eventMock.json in Resources */,
+				B238A304234839350058E11B /* SearchHistoryCell.xib in Resources */,
 				B211676B22A65E9400A7C335 /* FollowUserCell.xib in Resources */,
 				B244F30D2294EE01003F24FF /* FollowViewController.storyboard in Resources */,
 				B22260DF22AE030300DDCE8E /* ActivityItemCell.xib in Resources */,
@@ -1151,6 +1176,7 @@
 				B248E373228D561600411F2F /* LoginViewReactor.swift in Sources */,
 				B237A5EF229274510069C59C /* String+Extensions.swift in Sources */,
 				B248E37B228D5DDF00411F2F /* AppDependency.swift in Sources */,
+				B238A3002347AC4B0058E11B /* RealmService.swift in Sources */,
 				B2C99E3622FDD1760001C72D /* SearchRepoCell.swift in Sources */,
 				B2BF8B9622B77021007B2AAA /* ActivityContributionView.swift in Sources */,
 				B244F32922954F86003F24FF /* URL+Extensions.swift in Sources */,
@@ -1165,8 +1191,10 @@
 				B228EAE4228D036700E55456 /* BaseViewController.swift in Sources */,
 				B289A070229D3B1000AD9533 /* LanguagesViewController.swift in Sources */,
 				B289A066229CF1D100AD9533 /* BaseTableViewCell.swift in Sources */,
+				B28DFF092348792600D2C04B /* UITableViewCell+Extensions.swift in Sources */,
 				B289B98D22AA0F8800F0A1E2 /* AppStoreService.swift in Sources */,
 				B244F33F229799F7003F24FF /* TrendingRepositoryCellReactor.swift in Sources */,
+				B238A2FE2347A9100058E11B /* GitTimeNetworkError.swift in Sources */,
 				B2BF8B9222B74A20007B2AAA /* ContributionCellReactor.swift in Sources */,
 				B244F3522297D3C6003F24FF /* TrendTypes.swift in Sources */,
 				B244F3112294EE0E003F24FF /* FollowViewReactor.swift in Sources */,
@@ -1177,6 +1205,7 @@
 				B211676522A65D4500A7C335 /* FollowSection.swift in Sources */,
 				B248E378228D588E00411F2F /* UIViewController+Rx.swift in Sources */,
 				B244F3072294EDB9003F24FF /* TrendViewController.swift in Sources */,
+				B238A306234850640058E11B /* SearchHistoryCellReactor.swift in Sources */,
 				B289A06D229D254100AD9533 /* UIAlertController+Rx.swift in Sources */,
 				B228EAE2228D035B00E55456 /* SplashViewController.swift in Sources */,
 				B2B345CF22FDBC3500B547C7 /* SearchViewReactor.swift in Sources */,
@@ -1205,12 +1234,14 @@
 				B269744722BB1E9400F67129 /* EmptyTableViewCell.swift in Sources */,
 				B298353E22F53F2400FBEF71 /* SearchUserCell.swift in Sources */,
 				B20F70D322927F7E00F42770 /* KeychainService.swift in Sources */,
+				B238A2FC23478A870058E11B /* SearchHistory.swift in Sources */,
 				B2E72A8322A799DC00F54399 /* SettingUserProfileCell.swift in Sources */,
 				B2540FF022A117F80002F43E /* LanguageListCell.swift in Sources */,
 				B22260DB22ADD8FF00DDCE8E /* ActivityService.swift in Sources */,
 				B2AAC571228E70B100EC8562 /* TrendDeveloper.swift in Sources */,
 				B244F33C229799DD003F24FF /* TrendingDeveloperCell.swift in Sources */,
 				B211676A22A65E9400A7C335 /* FollowUserCell.swift in Sources */,
+				B238A303234839350058E11B /* SearchHistoryCell.swift in Sources */,
 				B2E72A8822A79A6600F54399 /* SettingSection.swift in Sources */,
 				B244F338229799C9003F24FF /* TrendingRepositoryCell.swift in Sources */,
 				B2647B2F22FFF473000C0E20 /* SearchResultsSection.swift in Sources */,
@@ -1237,6 +1268,7 @@
 				B244F31F229509E7003F24FF /* AuthPlugin.swift in Sources */,
 				B2F13C4E2293B2AF00398A62 /* ReactorBased.swift in Sources */,
 				B244F32B22959E12003F24FF /* GitHubLoginAPI.swift in Sources */,
+				B28DFF072348790C00D2C04B /* UIResponder+Extensions.swift in Sources */,
 				B237A5E5229267D10069C59C /* ImageNames.swift in Sources */,
 				B237A5F322927C580069C59C /* MainTabBarReactor.swift in Sources */,
 				B244F3542297D3D1003F24FF /* LanguageTypes.swift in Sources */,

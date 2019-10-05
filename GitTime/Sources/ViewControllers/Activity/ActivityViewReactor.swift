@@ -172,7 +172,7 @@ final class ActivityViewReactor: Reactor {
         let startLoading: Observable<Mutation> = .just(.setLoading(true))
         let endLoading: Observable<Mutation> = .just(.setLoading(false))
         
-        log.info("\(#function) \(currentPage)")
+        // log.info("\(#function) \(currentPage)")
         
         let fetchActivity = self.activityService.fetchActivities(userName: me.name, page: currentPage)
             .map { events -> Mutation in
