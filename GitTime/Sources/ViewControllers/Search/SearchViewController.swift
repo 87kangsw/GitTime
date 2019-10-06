@@ -61,6 +61,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
         tableHeaderView.backgroundColor = .background
         
         loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.color = .invertBackground
     }
     
     // MARK: - Configure
