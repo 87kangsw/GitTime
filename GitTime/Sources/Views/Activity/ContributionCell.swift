@@ -20,6 +20,8 @@ final class ContributionCell: UICollectionViewCell, View, CellType {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        self.backgroundColor = .cellBackground
+        self.contentView.backgroundColor = .cellBackground
     }
     
     override func prepareForReuse() {

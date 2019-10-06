@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6EK-g1-gcq">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6EK-g1-gcq">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +18,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Jwf-X1-tmk">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="TB9-Hx-3p6">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -32,7 +31,6 @@
                                             </segments>
                                         </segmentedControl>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="XSq-HI-FWW" firstAttribute="top" secondItem="TB9-Hx-3p6" secondAttribute="top" constant="16" id="RI4-g8-x4S"/>
                                         <constraint firstAttribute="trailing" secondItem="XSq-HI-FWW" secondAttribute="trailing" constant="16" id="RLs-qI-bJQ"/>
@@ -45,7 +43,6 @@
                                 <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Jwf-X1-tmk" firstAttribute="top" secondItem="S3w-Ji-NSh" secondAttribute="top" id="4U1-P7-OHj"/>
                             <constraint firstItem="Jwf-X1-tmk" firstAttribute="bottom" secondItem="S3w-Ji-NSh" secondAttribute="bottom" id="BFH-GD-mX0"/>
@@ -59,6 +56,7 @@
                     <connections>
                         <outlet property="loadingIndicator" destination="ziD-gJ-YnB" id="QyI-Yu-pR9"/>
                         <outlet property="segmentControl" destination="XSq-HI-FWW" id="FBn-Eg-1Lp"/>
+                        <outlet property="tableHeaderView" destination="TB9-Hx-3p6" id="SxZ-bk-C75"/>
                         <outlet property="tableView" destination="Jwf-X1-tmk" id="DHh-LM-j6Q"/>
                     </connections>
                 </viewController>

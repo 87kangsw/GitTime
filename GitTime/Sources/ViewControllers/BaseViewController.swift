@@ -35,6 +35,8 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
+        self.view.backgroundColor = .background
     }
     
     override func viewWillAppear(_ animated: Bool) {

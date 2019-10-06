@@ -33,7 +33,7 @@ class ActivityContributionView: UIView, View {
         flowLayout.itemSize = CGSize(width: 5.0, height: 5.0)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .white
+        collectionView.backgroundColor = .background
         collectionView.showsVerticalScrollIndicator = false
         collectionView.registerNib(cellType: ContributionCell.self)
         

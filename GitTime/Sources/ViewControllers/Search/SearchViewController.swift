@@ -21,6 +21,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
     
     // MARK: - UI
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet var tableBottomConstraint: NSLayoutConstraint!
@@ -48,13 +49,16 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
             segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)
         }
         
-        tableView.backgroundColor = .clear
         tableView.registerNib(cellType: SearchUserCell.self)
         tableView.registerNib(cellType: SearchRepoCell.self)
         tableView.registerNib(cellType: SearchHistoryCell.self)
         tableView.registerNib(cellType: EmptyTableViewCell.self)
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
+        
+        tableView.backgroundColor = .background
+        tableView.separatorColor = .underLine
+        tableHeaderView.backgroundColor = .background
         
         loadingIndicator.hidesWhenStopped = true
     }
