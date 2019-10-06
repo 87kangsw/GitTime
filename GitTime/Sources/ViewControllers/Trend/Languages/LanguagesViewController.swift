@@ -129,7 +129,7 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
             }).disposed(by: self.disposeBag)
         
         searchController.searchBar.rx.text
-            .throttle(0.3, scheduler: MainScheduler.instance)
+            .throttle(.microseconds(300), scheduler: MainScheduler.instance)
             .filterNil()
             .map { Reactor.Action.searchQuery($0) }
             .bind(to: reactor.action)
