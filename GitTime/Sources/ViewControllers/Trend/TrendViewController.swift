@@ -20,6 +20,7 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
     
     // MARK: - UI
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var periodButton: UIButton!
     @IBOutlet weak var languageButton: UIButton!
@@ -68,7 +69,7 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     fileprivate func configureUI() {
-        tableView.backgroundColor = .clear
+        
         tableView.estimatedRowHeight = 64
         tableView.rowHeight = UITableView.automaticDimension
         tableView.registerNib(cellType: TrendingRepositoryCell.self)
@@ -76,6 +77,11 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
         tableView.registerNib(cellType: EmptyTableViewCell.self)
 
         tableView.refreshControl = refreshControl
+        
+        tableView.backgroundColor = .background
+        tableView.separatorColor = .underLine
+        
+        tableHeaderView.backgroundColor = .background
         
         TrendTypes.allCases.enumerated().forEach { (index, type) in
             segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)

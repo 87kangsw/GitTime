@@ -34,6 +34,10 @@ final class SettingUserProfileCell: BaseTableViewCell, View, CellType {
     }
     
     fileprivate func configureUI() {
+        
+        self.backgroundColor = .lightBackground
+        self.contentView.backgroundColor = .lightBackground
+        
         profileImageView.layer.cornerRadius = 8.0
         profileImageView.layer.masksToBounds = true
     }

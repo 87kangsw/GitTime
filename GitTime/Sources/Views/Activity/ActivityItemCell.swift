@@ -42,6 +42,11 @@ final class ActivityItemCell: BaseTableViewCell, View, CellType {
         iconImageView.layer.masksToBounds = true
         iconImageView.contentMode = .center
         iconImageView.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.00)
+        
+        titleLabel.textColor = .title
+        repositoryLabel.textColor = .subTitle
+        descriptionLabel.textColor = .description
+        dateLabel.textColor = .description
     }
     
     fileprivate func updateUI(_ state: Reactor.State) {
@@ -62,8 +67,6 @@ final class ActivityItemCell: BaseTableViewCell, View, CellType {
         let date = state.event.createdAt
         let dateString = date.timeAgo()
         dateLabel.text = dateString
-        
-        self.contentView.backgroundColor = (state.event.type == .none) ? .red : .white
     }
     
     func bind(reactor: Reactor) {

@@ -32,6 +32,9 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
     fileprivate func configureUI() {
         loginButton.layer.cornerRadius = 8.0
         loginButton.layer.masksToBounds = true
+        
+        loginButton.backgroundColor = .loginButtonBackground
+        loginButton.setTitleColor(.loginButtonTitle, for: .normal)
     }
     
     // MARK: - Configure

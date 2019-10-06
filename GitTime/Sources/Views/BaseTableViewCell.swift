@@ -18,4 +18,11 @@ class BaseTableViewCell: UITableViewCell {
         super.prepareForReuse()
         disposeBag = DisposeBag()
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        self.backgroundColor = .cellBackground
+        self.contentView.backgroundColor = .cellBackground
+        selectionStyle = .none
+    }
 }

@@ -30,10 +30,13 @@ final class SettingItemCell: BaseTableViewCell, View, CellType {
     }
     
     fileprivate func configureUI() {
+        
+        self.backgroundColor = .lightBackground
+        self.contentView.backgroundColor = .lightBackground
+        
         titleLabel.font = .systemFont(ofSize: 14.0)
         subTitleLabel.font = .systemFont(ofSize: 12.0)
-        subTitleLabel.textColor = .lightGray
-        self.accessoryType = .disclosureIndicator
+        subTitleLabel.textColor = .description
     }
     
     func bind(reactor: SettingItemCellReactor) {
