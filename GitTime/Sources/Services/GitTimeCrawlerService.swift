@@ -35,7 +35,14 @@ class GitTimeCrawlerService: GitTimeCrawlerServiceType {
     }
     
     func fetchContributions(userName: String) -> Observable<ContributionInfo> {
-        return self.networking.request(.fetchContributions(userName: userName))
+        var isDarkMode = false
+        if #available(iOS 13.0, *) {
+            let style = UIScreen.main.traitCollection.userInterfaceStyle
+            isDarkMode = style == .dark
+        }
+         
+        return self.networking.request(.fetchContributions(userName: userName,
+                                                           darkMode: isDarkMode))
             .map(ContributionInfo.self)
             .asObservable()
     }
