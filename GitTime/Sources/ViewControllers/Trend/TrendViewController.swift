@@ -86,6 +86,9 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
         TrendTypes.allCases.enumerated().forEach { (index, type) in
             segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)
         }
+        
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.color = .invertBackground
     }
     
     // MARK: - Configure

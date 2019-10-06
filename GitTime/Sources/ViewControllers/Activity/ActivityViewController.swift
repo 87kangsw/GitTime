@@ -77,6 +77,9 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
             make.width.equalTo(width)
         }
         tableView.tableHeaderView = self.contributionHeaderView
+        
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.color = .invertBackground
     }
     
     // MARK: - Configure
