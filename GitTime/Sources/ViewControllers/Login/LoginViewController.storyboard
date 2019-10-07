@@ -28,11 +28,13 @@
                             </activityIndicatorView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="ydD-yj-gTQ">
                                 <rect key="frame" x="103.5" y="344.5" width="207" height="207"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="ydD-yj-gTQ" secondAttribute="height" multiplier="1:1" id="dZ3-vt-Jdb"/>
                                 </constraints>
                             </imageView>
                         </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="TbD-r7-dIT" firstAttribute="width" secondItem="yGJ-Of-eTA" secondAttribute="width" multiplier="1:2" id="4dK-i7-FF4"/>
                             <constraint firstItem="7M4-ZE-X2L" firstAttribute="centerX" secondItem="yGJ-Of-eTA" secondAttribute="centerX" id="6oB-dD-XTV"/>
