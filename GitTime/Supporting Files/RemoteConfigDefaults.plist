@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>review_version</key>
+	<string>1.0.0</string>
 	<key>is_test_login_mode</key>
 	<false/>
 </dict>
