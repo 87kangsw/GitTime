@@ -102,7 +102,7 @@ final class LoginViewReactor: Reactor {
                 log.error(error.localizedDescription)
                 self.action.onNext(.checkTestMode(false))
             } else if status == .successFetchedFromRemote {
-                let isTestMode = self.remoteConfig["is_test_login_mode"].boolValue
+                let isTestMode = self.remoteConfig["review_version"].stringValue == AppInfo.shared.appVersion
                 log.debug("isTestMode: \(isTestMode)")
                 self.action.onNext(.checkTestMode(isTestMode))
             }
