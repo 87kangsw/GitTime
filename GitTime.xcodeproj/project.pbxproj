@@ -91,6 +91,7 @@
 		B248E375228D561F00411F2F /* ActivityViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B248E374228D561F00411F2F /* ActivityViewReactor.swift */; };
 		B248E378228D588E00411F2F /* UIViewController+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B248E377228D588E00411F2F /* UIViewController+Rx.swift */; };
 		B248E37B228D5DDF00411F2F /* AppDependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B248E37A228D5DDF00411F2F /* AppDependency.swift */; };
+		B24B789E23522111003B358F /* RemoteConfigDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = B24B789D23522111003B358F /* RemoteConfigDefaults.plist */; };
 		B2540FE9229E653A0002F43E /* UITableView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2540FE8229E653A0002F43E /* UITableView+Rx.swift */; };
 		B2540FF022A117F80002F43E /* LanguageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2540FEE22A117F70002F43E /* LanguageListCell.swift */; };
 		B2540FF122A117F80002F43E /* LanguageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2540FEF22A117F80002F43E /* LanguageListCell.xib */; };
@@ -274,6 +275,7 @@
 		B248E374228D561F00411F2F /* ActivityViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewReactor.swift; sourceTree = "<group>"; };
 		B248E377228D588E00411F2F /* UIViewController+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Rx.swift"; sourceTree = "<group>"; };
 		B248E37A228D5DDF00411F2F /* AppDependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependency.swift; sourceTree = "<group>"; };
+		B24B789D23522111003B358F /* RemoteConfigDefaults.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = RemoteConfigDefaults.plist; sourceTree = "<group>"; };
 		B2540FE8229E653A0002F43E /* UITableView+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Rx.swift"; sourceTree = "<group>"; };
 		B2540FEE22A117F70002F43E /* LanguageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageListCell.swift; sourceTree = "<group>"; };
 		B2540FEF22A117F80002F43E /* LanguageListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LanguageListCell.xib; sourceTree = "<group>"; };
@@ -814,6 +816,7 @@
 				B248E36C228D549000411F2F /* GitHub-Info.plist */,
 				B248E36A228D3A7700411F2F /* Pods-GitTime-acknowledgements.plist */,
 				B244F3442297A75B003F24FF /* Languages.plist */,
+				B24B789D23522111003B358F /* RemoteConfigDefaults.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -989,6 +992,7 @@
 				B237A5E722926BC60069C59C /* SplashViewController.storyboard in Resources */,
 				B289A074229D3B2200AD9533 /* LanguagesViewController.storyboard in Resources */,
 				B2E72A9622A7AD6600F54399 /* SettingLogoutCell.xib in Resources */,
+				B24B789E23522111003B358F /* RemoteConfigDefaults.plist in Resources */,
 				B2C94C192283D7280095863C /* Assets.xcassets in Resources */,
 				B231E80C228EB0EC00645D32 /* Colors.xcassets in Resources */,
 				B237A5F122927A410069C59C /* LoginViewController.storyboard in Resources */,
