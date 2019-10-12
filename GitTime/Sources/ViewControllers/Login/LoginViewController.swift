@@ -35,6 +35,7 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
         
         loginButton.backgroundColor = .loginButtonBackground
         loginButton.setTitleColor(.loginButtonTitle, for: .normal)
+        loginButton.titleLabel?.adjustsFontSizeToFitWidth = true
         
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.color = .invertBackground
