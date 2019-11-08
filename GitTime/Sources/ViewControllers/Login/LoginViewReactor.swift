@@ -15,19 +15,19 @@ final class LoginViewReactor: Reactor {
     
     enum Action {
         case login
-        case checkTestMode(Bool)
+        // case checkTestMode(Bool)
     }
     
     enum Mutation {
         case setLoading(Bool)
         case setLoggedIn(Bool)
-        case setLoginTestMode(Bool)
+        // case setLoginTestMode(Bool)
     }
     
     struct State {
         var isLoading: Bool = false
         var isLoggedIn: Bool = false
-        var isTestLoginMode: Bool = false
+        // var isTestLoginMode: Bool = false
     }
     
     let initialState = State()
@@ -43,14 +43,14 @@ final class LoginViewReactor: Reactor {
         self.authService = authService
         self.keychainService = keychainService
         self.userService = userService
-        self.connectRemoteConfig()
+        // self.connectRemoteConfig()
     }
     
     // MARK: Mutation
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .checkTestMode(let isTestMode):
-            return .just(.setLoginTestMode(isTestMode))
+//        case .checkTestMode(let isTestMode):
+//            return .just(.setLoginTestMode(isTestMode))
         case .login:
             let startLoading: Observable<Mutation> = .just(Mutation.setLoading(true))
             let endLoading: Observable<Mutation> = .just(Mutation.setLoading(false))
@@ -80,8 +80,8 @@ final class LoginViewReactor: Reactor {
             state.isLoading = isLoading
         case .setLoggedIn(let isLoggedIn):
             state.isLoggedIn = isLoggedIn
-        case .setLoginTestMode(let isTestMode):
-            state.isTestLoginMode = isTestMode
+//        case .setLoginTestMode(let isTestMode):
+//            state.isTestLoginMode = isTestMode
         }
         return state
     }
@@ -89,7 +89,7 @@ final class LoginViewReactor: Reactor {
     private func testLogin() -> Observable<GitHubAccessToken> {
         return Observable.just(GitHubAccessToken.devAccessToken()) 
     }
-    
+    /*
     private func connectRemoteConfig() {
         remoteConfig = RemoteConfig.remoteConfig()
             let settings = RemoteConfigSettings()
@@ -108,11 +108,11 @@ final class LoginViewReactor: Reactor {
             }
         }
     }
-    
+    */
     private func getAccessToken() -> Observable<GitHubAccessToken> {
-        guard !self.currentState.isTestLoginMode else {
-            return self.testLogin()
-        }
+//        guard !self.currentState.isTestLoginMode else {
+//            return self.testLogin()
+//        }
         
         return self.authService.authorize()
             .flatMap { code in self.authService.requestAccessToken(code: code) }
