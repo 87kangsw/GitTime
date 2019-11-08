@@ -143,7 +143,7 @@ DEPENDENCIES:
   - Toaster
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - AcknowList
     - Alamofire
     - Crashlytics
@@ -221,4 +221,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: a8771c17cb66b2e88d7fbca037f69b3e32d4be6e
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.4
