@@ -41,7 +41,7 @@ pod 'Fabric'
 pod 'Crashlytics'
 pod 'SwiftLint'
 pod 'AcknowList'
-
+pod 'Bagel'
 
 end
 

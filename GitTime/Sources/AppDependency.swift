@@ -8,6 +8,7 @@
 
 import UIKit
 
+import Bagel
 import Firebase
 import Kingfisher
 import RxCocoa
@@ -46,6 +47,9 @@ final class AppDependency {
         let console = ConsoleDestination()
         console.minLevel = .verbose
         log.addDestination(console)
+        
+        // Bagel
+        Bagel.start()
         
         #endif
         

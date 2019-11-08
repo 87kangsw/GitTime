@@ -1,6 +1,9 @@
 PODS:
   - AcknowList (1.9.1)
   - Alamofire (5.0.0-beta.7)
+  - Bagel (1.3.2):
+    - CocoaAsyncSocket
+  - CocoaAsyncSocket (7.6.3)
   - Crashlytics (3.14.0):
     - Fabric (~> 1.10.2)
   - Differentiator (4.0.1)
@@ -123,6 +126,7 @@ PODS:
 
 DEPENDENCIES:
   - AcknowList
+  - Bagel
   - Crashlytics
   - Fabric
   - Firebase/Core
@@ -180,10 +184,15 @@ SPEC REPOS:
     - SwiftLint
     - SwiftyBeaver
     - Toaster
+  trunk:
+    - Bagel
+    - CocoaAsyncSocket
 
 SPEC CHECKSUMS:
   AcknowList: 70efb7554e257914da0aea2724a72fb30c45dfe2
   Alamofire: bd07938ceecad59d2492aeecb1f785a8f2721160
+  Bagel: 199e0105ac694d6eee9db54dd006c940da6ce81b
+  CocoaAsyncSocket: eafaa68a7e0ec99ead0a7b35015e0bf25d2c8987
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
@@ -219,6 +228,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: aaf2ebd7dac2e952991f46a82ed24ad642867ae2
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: a8771c17cb66b2e88d7fbca037f69b3e32d4be6e
+PODFILE CHECKSUM: 0ac4ee9dfda9b5d854e5bfff78d17062ff36903e
 
 COCOAPODS: 1.8.4
