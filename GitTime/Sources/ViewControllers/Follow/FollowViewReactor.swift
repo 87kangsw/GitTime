@@ -128,6 +128,10 @@ final class FollowViewReactor: Reactor {
     
     private func requestFollow(followType: FollowTypes? = nil, page: Int? = 1) -> Observable<Mutation> {
         
+        if AppDependency.shared.isTrial {
+            return self.trialFollows()
+        }
+        
         guard let me = self.userService.me else { return .empty() }
         
         let currentFollowType = followType ?? self.currentState.followType
@@ -196,5 +200,13 @@ final class FollowViewReactor: Reactor {
                 }.catchErrorJustReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
             return .concat([startLoading, fetchFollowing, endLoading])
         }
+    }
+    
+    private func trialFollows() -> Observable<Mutation> {
+        return self.followService.trialFollow()
+            .map { users -> Mutation in
+                return .fetchFollow(users, nextPage: 1, canLoadMore: false)
+        }
+        
     }
 }

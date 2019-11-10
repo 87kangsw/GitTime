@@ -33,6 +33,11 @@
 		B228EAEB228D0D9400E55456 /* GitHubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228EAEA228D0D9400E55456 /* GitHubAPI.swift */; };
 		B228EAF4228D22E100E55456 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B228EAF3228D22E100E55456 /* GoogleService-Info.plist */; };
 		B231E80C228EB0EC00645D32 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B231E80B228EB0EC00645D32 /* Colors.xcassets */; };
+		B235D0752376534700AC8893 /* contributions_dark.json in Resources */ = {isa = PBXBuildFile; fileRef = B235D0732376534700AC8893 /* contributions_dark.json */; };
+		B235D07923766A4800AC8893 /* Bundle+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B235D07823766A4800AC8893 /* Bundle+Extensions.swift */; };
+		B235D07B2376860F00AC8893 /* contributions_light.json in Resources */ = {isa = PBXBuildFile; fileRef = B235D07A2376860E00AC8893 /* contributions_light.json */; };
+		B235D07D2377AA6E00AC8893 /* follow.json in Resources */ = {isa = PBXBuildFile; fileRef = B235D07C2377AA6D00AC8893 /* follow.json */; };
+		B235D07F23786A7900AC8893 /* events.json in Resources */ = {isa = PBXBuildFile; fileRef = B235D07E23786A7800AC8893 /* events.json */; };
 		B237A5DC22925A310069C59C /* UserDefaultsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5DB22925A310069C59C /* UserDefaultsService.swift */; };
 		B237A5E02292605D0069C59C /* UIViewController+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5DF2292605D0069C59C /* UIViewController+Extensions.swift */; };
 		B237A5E5229267D10069C59C /* ImageNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = B237A5E4229267D10069C59C /* ImageNames.swift */; };
@@ -147,8 +152,6 @@
 		B2C99E3722FDD1760001C72D /* SearchRepoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2C99E3522FDD1760001C72D /* SearchRepoCell.xib */; };
 		B2C99E3922FE41C50001C72D /* SearchRepoCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C99E3822FE41C50001C72D /* SearchRepoCellReactor.swift */; };
 		B2E22B9F22BC8CAA00A2FF2B /* SnapshotHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E22B9E22BC8CAA00A2FF2B /* SnapshotHelper.swift */; };
-		B2E22BB022BCDA0500A2FF2B /* eventMock.json in Resources */ = {isa = PBXBuildFile; fileRef = B2E22BAF22BCDA0500A2FF2B /* eventMock.json */; };
-		B2E22BB222BCDFB100A2FF2B /* followMock.json in Resources */ = {isa = PBXBuildFile; fileRef = B2E22BB122BCDFB100A2FF2B /* followMock.json */; };
 		B2E6592F22AF5C7300515932 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E6592E22AF5C7300515932 /* Date+Extensions.swift */; };
 		B2E72A8322A799DC00F54399 /* SettingUserProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E72A8122A799DC00F54399 /* SettingUserProfileCell.swift */; };
 		B2E72A8422A799DC00F54399 /* SettingUserProfileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2E72A8222A799DC00F54399 /* SettingUserProfileCell.xib */; };
@@ -217,6 +220,11 @@
 		B228EAEA228D0D9400E55456 /* GitHubAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPI.swift; sourceTree = "<group>"; };
 		B228EAF3228D22E100E55456 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B231E80B228EB0EC00645D32 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		B235D0732376534700AC8893 /* contributions_dark.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contributions_dark.json; sourceTree = "<group>"; };
+		B235D07823766A4800AC8893 /* Bundle+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Extensions.swift"; sourceTree = "<group>"; };
+		B235D07A2376860E00AC8893 /* contributions_light.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = contributions_light.json; sourceTree = "<group>"; };
+		B235D07C2377AA6D00AC8893 /* follow.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = follow.json; sourceTree = "<group>"; };
+		B235D07E23786A7800AC8893 /* events.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = events.json; sourceTree = "<group>"; };
 		B237A5DB22925A310069C59C /* UserDefaultsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsService.swift; sourceTree = "<group>"; };
 		B237A5DF2292605D0069C59C /* UIViewController+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extensions.swift"; sourceTree = "<group>"; };
 		B237A5E4229267D10069C59C /* ImageNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNames.swift; sourceTree = "<group>"; };
@@ -337,8 +345,6 @@
 		B2C99E3522FDD1760001C72D /* SearchRepoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchRepoCell.xib; sourceTree = "<group>"; };
 		B2C99E3822FE41C50001C72D /* SearchRepoCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRepoCellReactor.swift; sourceTree = "<group>"; };
 		B2E22B9E22BC8CAA00A2FF2B /* SnapshotHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SnapshotHelper.swift; path = fastlane/SnapshotHelper.swift; sourceTree = SOURCE_ROOT; };
-		B2E22BAF22BCDA0500A2FF2B /* eventMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = eventMock.json; sourceTree = "<group>"; };
-		B2E22BB122BCDFB100A2FF2B /* followMock.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = followMock.json; sourceTree = "<group>"; };
 		B2E6592E22AF5C7300515932 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		B2E72A8122A799DC00F54399 /* SettingUserProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingUserProfileCell.swift; sourceTree = "<group>"; };
 		B2E72A8222A799DC00F54399 /* SettingUserProfileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingUserProfileCell.xib; sourceTree = "<group>"; };
@@ -487,7 +493,7 @@
 		B21CD766228858DC00B15786 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				B2E22BAE22BCD9CF00A2FF2B /* Mock */,
+				B235D0712375B4F500AC8893 /* Trial */,
 				B228EADB228BE96800E55456 /* ModelType.swift */,
 				B244F32022950AAF003F24FF /* Me.swift */,
 				B244F32C2295A292003F24FF /* GitHubAccessToken.swift */,
@@ -553,8 +559,20 @@
 				B2E6592E22AF5C7300515932 /* Date+Extensions.swift */,
 				B28DFF062348790C00D2C04B /* UIResponder+Extensions.swift */,
 				B28DFF082348792600D2C04B /* UITableViewCell+Extensions.swift */,
+				B235D07823766A4800AC8893 /* Bundle+Extensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B235D0712375B4F500AC8893 /* Trial */ = {
+			isa = PBXGroup;
+			children = (
+				B235D07A2376860E00AC8893 /* contributions_light.json */,
+				B235D0732376534700AC8893 /* contributions_dark.json */,
+				B235D07C2377AA6D00AC8893 /* follow.json */,
+				B235D07E23786A7800AC8893 /* events.json */,
+			);
+			path = Trial;
 			sourceTree = "<group>";
 		};
 		B237A5E3229267C30069C59C /* Constants */ = {
@@ -850,15 +868,6 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		B2E22BAE22BCD9CF00A2FF2B /* Mock */ = {
-			isa = PBXGroup;
-			children = (
-				B2E22BAF22BCDA0500A2FF2B /* eventMock.json */,
-				B2E22BB122BCDFB100A2FF2B /* followMock.json */,
-			);
-			path = Mock;
-			sourceTree = "<group>";
-		};
 		B2F13C4C2293B27400398A62 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
@@ -983,13 +992,16 @@
 				B244F3092294EDE8003F24FF /* TrendViewController.storyboard in Resources */,
 				B2C94C1C2283D7280095863C /* LaunchScreen.storyboard in Resources */,
 				B244F33D229799DD003F24FF /* TrendingDeveloperCell.xib in Resources */,
+				B235D07D2377AA6E00AC8893 /* follow.json in Resources */,
 				B298353F22F53F2400FBEF71 /* SearchUserCell.xib in Resources */,
 				B244F3022294ED66003F24FF /* ActivityViewController.storyboard in Resources */,
 				B244F339229799C9003F24FF /* TrendingRepositoryCell.xib in Resources */,
 				B244F3452297A75B003F24FF /* Languages.plist in Resources */,
 				B269744822BB1E9400F67129 /* EmptyTableViewCell.xib in Resources */,
+				B235D07B2376860F00AC8893 /* contributions_light.json in Resources */,
 				B2C99E3722FDD1760001C72D /* SearchRepoCell.xib in Resources */,
 				B237A5E722926BC60069C59C /* SplashViewController.storyboard in Resources */,
+				B235D07F23786A7900AC8893 /* events.json in Resources */,
 				B289A074229D3B2200AD9533 /* LanguagesViewController.storyboard in Resources */,
 				B2E72A9622A7AD6600F54399 /* SettingLogoutCell.xib in Resources */,
 				B24B789E23522111003B358F /* RemoteConfigDefaults.plist in Resources */,
@@ -997,14 +1009,13 @@
 				B231E80C228EB0EC00645D32 /* Colors.xcassets in Resources */,
 				B237A5F122927A410069C59C /* LoginViewController.storyboard in Resources */,
 				B2F4D37F22B395E600A7C18C /* ContributionCell.xib in Resources */,
-				B2E22BB022BCDA0500A2FF2B /* eventMock.json in Resources */,
+				B235D0752376534700AC8893 /* contributions_dark.json in Resources */,
 				B238A304234839350058E11B /* SearchHistoryCell.xib in Resources */,
 				B211676B22A65E9400A7C335 /* FollowUserCell.xib in Resources */,
 				B244F30D2294EE01003F24FF /* FollowViewController.storyboard in Resources */,
 				B22260DF22AE030300DDCE8E /* ActivityItemCell.xib in Resources */,
 				B2E72A9022A7A22500F54399 /* SettingItemCell.xib in Resources */,
 				B2B345CD22FDBBEE00B547C7 /* SearchViewController.storyboard in Resources */,
-				B2E22BB222BCDFB100A2FF2B /* followMock.json in Resources */,
 				B228EAF4228D22E100E55456 /* GoogleService-Info.plist in Resources */,
 				B2540FF122A117F80002F43E /* LanguageListCell.xib in Resources */,
 				B2E72A8422A799DC00F54399 /* SettingUserProfileCell.xib in Resources */,
@@ -1192,6 +1203,7 @@
 				B289A072229D3B1B00AD9533 /* LanguagesViewReactor.swift in Sources */,
 				B2BF8B9422B753C1007B2AAA /* ContributionSection.swift in Sources */,
 				B269744C22BB214000F67129 /* EmptyTableViewCellReactor.swift in Sources */,
+				B235D07923766A4800AC8893 /* Bundle+Extensions.swift in Sources */,
 				B228EAE4228D036700E55456 /* BaseViewController.swift in Sources */,
 				B289A070229D3B1000AD9533 /* LanguagesViewController.swift in Sources */,
 				B289A066229CF1D100AD9533 /* BaseTableViewCell.swift in Sources */,

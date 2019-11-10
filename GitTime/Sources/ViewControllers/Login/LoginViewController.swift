@@ -18,6 +18,7 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
     // MARK: - UI
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var trialButton: UIButton!
     
     // MARK: - Properties
     var goToMain: GoToMainFunction!
@@ -39,6 +40,15 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
         
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.color = .invertBackground
+        
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 13.0),
+            .foregroundColor: UIColor.title,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        let attrString = NSAttributedString(string: "Trial",
+                                            attributes: attributes)
+        trialButton.setAttributedTitle(attrString, for: .normal)
     }
     
     // MARK: - Configure
@@ -47,6 +57,11 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
         // Action
         loginButton.rx.tap
             .map { Reactor.Action.login }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
+        
+        trialButton.rx.tap
+            .map { Reactor.Action.trial }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
         

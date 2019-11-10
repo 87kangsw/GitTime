@@ -29,6 +29,7 @@ final class AppDependency {
     
     let disposeBag = DisposeBag()
     var launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    var isTrial: Bool = false
     
     init() {
         configureSDKs()
