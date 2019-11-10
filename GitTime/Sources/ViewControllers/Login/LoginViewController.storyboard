@@ -33,6 +33,14 @@
                                     <constraint firstAttribute="width" secondItem="ydD-yj-gTQ" secondAttribute="height" multiplier="1:1" id="dZ3-vt-Jdb"/>
                                 </constraints>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H0z-0V-eOX">
+                                <rect key="frame" x="177" y="792" width="60" height="28"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="uBM-0s-Yef"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" title="Trial"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -41,6 +49,8 @@
                             <constraint firstItem="7M4-ZE-X2L" firstAttribute="centerY" secondItem="yGJ-Of-eTA" secondAttribute="centerY" id="Jm6-dg-omI"/>
                             <constraint firstItem="ydD-yj-gTQ" firstAttribute="centerY" secondItem="yGJ-Of-eTA" secondAttribute="centerY" id="Wdi-XN-l1q"/>
                             <constraint firstItem="Q0H-uP-eiz" firstAttribute="bottom" secondItem="TbD-r7-dIT" secondAttribute="bottom" constant="100" id="fPp-Kp-MUo"/>
+                            <constraint firstItem="H0z-0V-eOX" firstAttribute="centerX" secondItem="yGJ-Of-eTA" secondAttribute="centerX" id="j3v-mK-ucq"/>
+                            <constraint firstItem="H0z-0V-eOX" firstAttribute="top" secondItem="TbD-r7-dIT" secondAttribute="bottom" constant="30" id="kMI-A3-ys1"/>
                             <constraint firstItem="ydD-yj-gTQ" firstAttribute="width" secondItem="yGJ-Of-eTA" secondAttribute="width" multiplier="1:2" id="kb8-Of-bg0"/>
                             <constraint firstItem="TbD-r7-dIT" firstAttribute="centerX" secondItem="yGJ-Of-eTA" secondAttribute="centerX" id="kpu-Fq-GyI"/>
                             <constraint firstItem="ydD-yj-gTQ" firstAttribute="centerX" secondItem="yGJ-Of-eTA" secondAttribute="centerX" id="q2l-Ll-2gJ"/>
@@ -50,6 +60,7 @@
                     <connections>
                         <outlet property="loadingIndicator" destination="7M4-ZE-X2L" id="HM1-ni-uAk"/>
                         <outlet property="loginButton" destination="TbD-r7-dIT" id="j0G-PS-epH"/>
+                        <outlet property="trialButton" destination="H0z-0V-eOX" id="OcD-gy-KVw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VDt-xz-7y5" userLabel="First Responder" sceneMemberID="firstResponder"/>

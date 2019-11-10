@@ -12,6 +12,7 @@ protocol GitTimeCrawlerServiceType: class {
     func fetchTrendingRepositories(language: String?, period: String?) -> Observable<[TrendRepo]>
     func fetchTrendingDevelopers(language: String?, period: String?) -> Observable<[TrendDeveloper]>
     func fetchContributions(userName: String) -> Observable<ContributionInfo>
+    func fetchTrialContributions() -> Observable<ContributionInfo>
 }
 
 class GitTimeCrawlerService: GitTimeCrawlerServiceType {
@@ -40,10 +41,22 @@ class GitTimeCrawlerService: GitTimeCrawlerServiceType {
             let style = UIScreen.main.traitCollection.userInterfaceStyle
             isDarkMode = style == .dark
         }
-         
+        
         return self.networking.request(.fetchContributions(userName: userName,
                                                            darkMode: isDarkMode))
             .map(ContributionInfo.self)
             .asObservable()
+    }
+    
+    func fetchTrialContributions() -> Observable<ContributionInfo> {
+        var isDarkMode = false
+        if #available(iOS 13.0, *) {
+            let style = UIScreen.main.traitCollection.userInterfaceStyle
+            isDarkMode = style == .dark
+        }
+        
+        let json: String = isDarkMode ? "contributions_dark" : "contributions_light"
+        guard let contribution: ContributionInfo = Bundle.resource(name: json, extensionType: "json") else { return .empty() }
+        return .just(contribution)
     }
 }

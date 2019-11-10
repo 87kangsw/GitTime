@@ -80,6 +80,7 @@ final class SettingViewReactor: Reactor {
         switch action {
         case .logout:
             self.authService.logOut()
+            AppDependency.shared.isTrial = false
             return .just(.setLoggedOut)
         case .versionCheck:
             let versionMutation: Observable<Mutation> = self.appStoreService.getLatestVersion()

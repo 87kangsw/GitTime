@@ -10,6 +10,7 @@ import RxSwift
 
 protocol ActivityServiceType {
     func fetchActivities(userName: String, page: Int) -> Observable<[Event]>
+    func trialActivities() -> Observable<[Event]>
 }
 
 class ActivityService: ActivityServiceType {
@@ -24,5 +25,10 @@ class ActivityService: ActivityServiceType {
         return self.networking.request(.activityEvent(userName: userName, page: page))
             .map([Event].self)
             .asObservable()
+    }
+    
+    func trialActivities() -> Observable<[Event]> {
+        guard let activities: [Event] = Bundle.resource(name: "events", extensionType: "json") else { return .empty() }
+        return .just(activities)
     }
 }

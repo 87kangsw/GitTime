@@ -38,6 +38,25 @@ class SearchService: SearchServiceType {
                 let canLoadMore = result.totalCount > page * 30
                 return (result.items, canLoadMore)
         }
-        
     }
+    
+//    private trialSearchUser() -> Observable<([User], Bool)> {
+//        guard let searchedUsers: SearchResults<User> = Bundle.resource(name: "", extensionType: "json") else { return .empty() }
+//        let users = searchedUsers.map { result -> [User] in
+//
+//        }
+////        .map { result -> ([User], Bool) in
+////            let canLoadMore = result.totalCount > page * 30
+////            return (result.items, canLoadMore)
+////        }
+////        .asObservable()
+//
+//        return .just(searchedUsers)
+//    }
+//
+//    private func trialSearchRepo() -> Observable<([Repository], Bool)> {
+//        guard let searchedRepos: SearchResults<Repository> = Bundle.resource(name: "", extensionType: "json") else { return .empty() }
+//        return .just(searchedRepos)
+//    }
+
 }

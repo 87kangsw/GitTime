@@ -15,6 +15,7 @@ final class LoginViewReactor: Reactor {
     
     enum Action {
         case login
+        case trial
         // case checkTestMode(Bool)
     }
     
@@ -69,6 +70,9 @@ final class LoginViewReactor: Reactor {
                 })
                 .map(Mutation.setLoggedIn)
             return .concat([startLoading, setLoggedIn, endLoading])
+        case .trial:
+            AppDependency.shared.isTrial = true
+            return .just(.setLoggedIn(true))
         }
     }
     

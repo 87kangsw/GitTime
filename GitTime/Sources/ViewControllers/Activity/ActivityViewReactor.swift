@@ -151,6 +151,10 @@ final class ActivityViewReactor: Reactor {
     
     private func requestContributions() -> Observable<Mutation> {
         
+        if AppDependency.shared.isTrial {
+            return self.requestTrialContributions()
+        }
+        
         guard let me = self.userService.me else { return .empty() }
         
         let startLoading: Observable<Mutation> = .just(.setLoading(true))
@@ -163,7 +167,18 @@ final class ActivityViewReactor: Reactor {
         return .concat([startLoading, fetchContribution, endLoading])
     }
     
+    private func requestTrialContributions() -> Observable<Mutation> {
+        return self.crawlerService.fetchTrialContributions()
+            .map { contributionInfo -> Mutation in
+                return .setContributionInfo(contributionInfo)
+        }
+    }
+    
     private func requestActivities(page: Int? = 1) -> Observable<Mutation> {
+        
+        if AppDependency.shared.isTrial {
+            return self.requestTrialActivities()
+        }
         
         guard let me = self.userService.me else { return .empty() }
         
@@ -171,8 +186,6 @@ final class ActivityViewReactor: Reactor {
         
         let startLoading: Observable<Mutation> = .just(.setLoading(true))
         let endLoading: Observable<Mutation> = .just(.setLoading(false))
-        
-        // log.info("\(#function) \(currentPage)")
         
         let fetchActivity = self.activityService.fetchActivities(userName: me.name, page: currentPage)
             .map { events -> Mutation in
@@ -205,4 +218,10 @@ final class ActivityViewReactor: Reactor {
         return .concat([startLoading, fetchActivity, endLoading])
     }
     
+    private func requestTrialActivities() -> Observable<Mutation> {
+        return self.activityService.trialActivities()
+            .map { events -> Mutation in
+                return .fetchActivityMore(events, nextPage: 1, canLoadMore: false)
+        }
+    }
 }
