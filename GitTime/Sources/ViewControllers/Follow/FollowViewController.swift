@@ -21,6 +21,7 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
     // MARK: - UI
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     private let refreshControl = UIRefreshControl()
     
@@ -37,6 +38,8 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     private lazy var dataSource: RxTableViewSectionedReloadDataSource<FollowSection> = type(of: self).dataSource
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
@@ -45,7 +48,7 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     fileprivate func configureUI() {
-        tableView.backgroundColor = .clear
+        
         tableView.estimatedRowHeight = 60.0
         tableView.rowHeight = UITableView.automaticDimension
         //        tableView.separatorStyle = .none
@@ -53,9 +56,16 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
         
         tableView.refreshControl = refreshControl
         
+        tableView.backgroundColor = .background
+        tableView.separatorColor = .underLine
+        tableHeaderView.backgroundColor = .background
+        
         FollowTypes.allCases.enumerated().forEach { (index, type) in
             segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)
         }
+        
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.color = .invertBackground
     }
     
     // MARK: - Configure

@@ -59,6 +59,12 @@ final class AuthService: AuthServiceType {
                                                             observer.onCompleted()
                                                         }
             })
+            if #available(iOS 13.0, *) {
+                if let loginVC = UIApplication.shared.keyWindow?.rootViewController as? LoginViewController {
+                    self.session?.presentationContextProvider = loginVC
+                }
+            }
+            
             self.session?.start()
             
             return Disposables.create { }
@@ -66,9 +72,9 @@ final class AuthService: AuthServiceType {
     }
     
     func requestAccessToken(code: String) -> Observable<GitHubAccessToken> {
-        return self.provider.rx.request(.login(code: code))
-            .asObservable()
+        return self.provider.request(.login(code: code))
             .map(GitHubAccessToken.self)
+            .asObservable()
     }
     
     func logOut() {

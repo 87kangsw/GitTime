@@ -23,6 +23,10 @@ final class LanguageListCell: BaseTableViewCell, View, CellType {
         super.awakeFromNib()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     fileprivate func updateUI(_ state: Reactor.State) {
         
         let languageName = state.language.name

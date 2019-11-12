@@ -31,9 +31,14 @@ class SplashViewController: BaseViewController, ReactorBased, StoryboardView {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureUI()
     }
     
     // MARK: - Configure
+    private func configureUI() {
+        loadingIndicator.color = .invertBackground
+        loadingIndicator.hidesWhenStopped = true
+    }
     
     func bind(reactor: Reactor) {
         

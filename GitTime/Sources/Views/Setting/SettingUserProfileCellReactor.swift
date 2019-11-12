@@ -23,7 +23,7 @@ class SettingUserProfileCellReactor: Reactor {
     
     let initialState: State
     
-    init(me: User) {
+    init(me: Me) {
         self.initialState = State(profileURL: me.profileURL,
                                   name: me.name,
                                   followerCount: me.followers ?? 0,

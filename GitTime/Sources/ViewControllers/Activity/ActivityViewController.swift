@@ -61,19 +61,25 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     fileprivate func configureUI() {
-        tableView.backgroundColor = .clear
+        
         tableView.estimatedRowHeight = 60.0
         tableView.rowHeight = UITableView.automaticDimension
         
         tableView.registerNib(cellType: ActivityItemCell.self)
         tableView.registerNib(cellType: EmptyTableViewCell.self)
 
+        tableView.backgroundColor = .background
+        tableView.separatorColor = .underLine
+        
         let width: CGFloat = UIScreen.main.bounds.width
         
         contributionHeaderView.snp.makeConstraints { make in
             make.width.equalTo(width)
         }
         tableView.tableHeaderView = self.contributionHeaderView
+        
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.color = .invertBackground
     }
     
     // MARK: - Configure

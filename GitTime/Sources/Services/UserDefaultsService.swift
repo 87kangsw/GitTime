@@ -12,6 +12,7 @@ enum UserDefaultsKey: String {
     case langauge
     case period
     case firstLaunch
+    case searchHistory
 }
 
 protocol UserDefaultsServiceType {

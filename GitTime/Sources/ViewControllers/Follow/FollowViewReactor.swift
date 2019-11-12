@@ -25,8 +25,8 @@ final class FollowViewReactor: Reactor {
         case setLoading(Bool)
         case setRefreshing(Bool)
         case setFollowType(FollowTypes)
-        case fetchFollow([FollowUser], nextPage: Int, canLoadMore: Bool)
-        case fetchMoreFollow([FollowUser], nextPage: Int, canLoadMore: Bool)
+        case fetchFollow([User], nextPage: Int, canLoadMore: Bool)
+        case fetchMoreFollow([User], nextPage: Int, canLoadMore: Bool)
         case setPage(Int)
         case setLoadMore(Bool)
     }
@@ -70,13 +70,13 @@ final class FollowViewReactor: Reactor {
             let endRefreshing: Observable<Mutation> = .just(.setRefreshing(false))
             let clearPagingMutation = self.clearPaging()
             let requestMutation = self.requestFollow()
-            return .concat([clearPagingMutation, startRefreshing, endRefreshing.delay(0.5, scheduler: MainScheduler.instance), requestMutation])
+            return .concat([clearPagingMutation, startRefreshing, endRefreshing, requestMutation])
         case .switchSegmentControl:
             let followType = self.currentState.followType == .followers ? FollowTypes.following : FollowTypes.followers
             let clearPagingMutation = self.clearPaging()
-            let trendMutation: Observable<Mutation> = .just(.setFollowType(followType))
+            let followMutation: Observable<Mutation> = .just(.setFollowType(followType))
             let requestMutation: Observable<Mutation> = self.requestFollow(followType: followType)
-            return .concat([clearPagingMutation, trendMutation, requestMutation])
+            return .concat([clearPagingMutation, followMutation, requestMutation])
         case .loadMore:
             guard !self.currentState.isRefreshing else { return .empty() }
             guard !self.currentState.isLoading else { return .empty() }
@@ -127,6 +127,10 @@ final class FollowViewReactor: Reactor {
     }
     
     private func requestFollow(followType: FollowTypes? = nil, page: Int? = 1) -> Observable<Mutation> {
+        
+        if AppDependency.shared.isTrial {
+            return self.trialFollows()
+        }
         
         guard let me = self.userService.me else { return .empty() }
         
@@ -196,5 +200,13 @@ final class FollowViewReactor: Reactor {
                 }.catchErrorJustReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
             return .concat([startLoading, fetchFollowing, endLoading])
         }
+    }
+    
+    private func trialFollows() -> Observable<Mutation> {
+        return self.followService.trialFollow()
+            .map { users -> Mutation in
+                return .fetchFollow(users, nextPage: 1, canLoadMore: false)
+        }
+        
     }
 }

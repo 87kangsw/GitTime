@@ -15,12 +15,12 @@ class FollowUserCellReactor: Reactor {
     typealias Action = NoAction
     
     struct State {
-        var followUser: FollowUser
+        var followUser: User
     }
     
     let initialState: State
     
-    init(user: FollowUser) {
+    init(user: User) {
         self.initialState = State(followUser: user)
         _ = self.state
     }

@@ -19,6 +19,7 @@ struct AuthPlugin: PluginType {
     func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
         var request = request
         if let accessToken = keychainService.getAccessToken() {
+            // log.debug("Bearer Token: \(accessToken)")
             request.addValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
         }
         return request

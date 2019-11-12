@@ -241,7 +241,7 @@ enum CommentActionType: String {
 
 struct Comment: ModelType {
     let url: String
-    let user: User
+    let user: Me
     let createdAt: Date
     let body: String
     
@@ -255,7 +255,7 @@ struct Comment: ModelType {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         url = try container.decode(String.self, forKey: .url)
-        user = try container.decode(User.self, forKey: .user)
+        user = try container.decode(Me.self, forKey: .user)
         body = try container.decode(String.self, forKey: .body)
         
         let dateString = try container.decode(String.self, forKey: .createdAt)
