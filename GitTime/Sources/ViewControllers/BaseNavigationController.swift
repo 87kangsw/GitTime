@@ -27,7 +27,7 @@ class BaseNavigationController: UINavigationController {
         self.navigationBar.prefersLargeTitles = true
         self.navigationBar.hidesUnderLine(true)
         self.navigationBar.hideShadowImage()
-        self.navigationBar.barTintColor = UIColor.white
+        self.navigationBar.barTintColor = .navigationTint
     }
     
     deinit {

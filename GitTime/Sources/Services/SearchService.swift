@@ -22,7 +22,7 @@ class SearchService: SearchServiceType {
     }
     
     func searchUser(query: String, page: Int) -> Observable<([User], Bool)> {
-        return self.networking.rx.request(.searchUser(query: query, page: page))
+        return self.networking.request(.searchUser(query: query, page: page))
             .map(SearchResults<User>.self)
             .map { result -> ([User], Bool) in
                 let canLoadMore = result.totalCount > page * 30
@@ -32,12 +32,31 @@ class SearchService: SearchServiceType {
     }
     
     func searchRepo(query: String, page: Int) -> Observable<([Repository], Bool)> {
-        return self.networking.rx.request(.searchRepo(query: query, page: page))
+        return self.networking.request(.searchRepo(query: query, page: page))
             .map(SearchResults<Repository>.self)
             .map { result -> ([Repository], Bool) in
                 let canLoadMore = result.totalCount > page * 30
                 return (result.items, canLoadMore)
-            }
-            .asObservable()
+        }
     }
+    
+//    private trialSearchUser() -> Observable<([User], Bool)> {
+//        guard let searchedUsers: SearchResults<User> = Bundle.resource(name: "", extensionType: "json") else { return .empty() }
+//        let users = searchedUsers.map { result -> [User] in
+//
+//        }
+////        .map { result -> ([User], Bool) in
+////            let canLoadMore = result.totalCount > page * 30
+////            return (result.items, canLoadMore)
+////        }
+////        .asObservable()
+//
+//        return .just(searchedUsers)
+//    }
+//
+//    private func trialSearchRepo() -> Observable<([Repository], Bool)> {
+//        guard let searchedRepos: SearchResults<Repository> = Bundle.resource(name: "", extensionType: "json") else { return .empty() }
+//        return .just(searchedRepos)
+//    }
+
 }

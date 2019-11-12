@@ -24,9 +24,9 @@ enum SearchTypes: Int, CaseIterable {
     var placeHolderText: String {
         switch self {
         case .users:
-            return "Input a query for user search.."
+            return "Find a user.."
         case .repositories:
-            return "Input a query for repository search.."
+            return "Find a repository.."
         }
     }
 }

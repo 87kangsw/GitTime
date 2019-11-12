@@ -23,8 +23,15 @@ final class SettingLogoutCell: BaseTableViewCell, View, CellType {
         configureUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+    
     fileprivate func configureUI() {
         logoutLabel.text = "Logout"
+        
+        self.backgroundColor = .lightBackground
+        self.contentView.backgroundColor = .lightBackground
     }
     
     func bind(reactor: Reactor) {

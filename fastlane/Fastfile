@@ -1,15 +1,6 @@
 default_platform(:ios)
 
 platform :ios do
-  desc "Push a new beta build to TestFlight"
-  lane :beta do
-    build_app(workspace: "GitTime.xcworkspace", scheme: "GitTime")
-    upload_to_testflight
-  end
-end
-
-
-platform :ios do
 
   before_all do
     ensure_git_status_clean(show_uncommitted_changes: true)

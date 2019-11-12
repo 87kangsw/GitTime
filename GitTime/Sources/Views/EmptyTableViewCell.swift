@@ -24,6 +24,10 @@ final class EmptyTableViewCell: BaseTableViewCell, View, CellType {
         super.awakeFromNib()
         heightConstraint.constant = 0.0
     }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
 
     override func layoutSubviews() {
         super.layoutSubviews()

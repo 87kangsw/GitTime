@@ -32,6 +32,7 @@ final class SearchRepoCell: BaseTableViewCell, View, CellType {
     }
     
     override func prepareForReuse() {
+        super.prepareForReuse()
         reset()
     }
     
