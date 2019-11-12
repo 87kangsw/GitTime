@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="287-Lc-6oc">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="287-Lc-6oc">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,10 +18,9 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zcB-wy-ViF">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zcB-wy-ViF" firstAttribute="top" secondItem="z4P-IH-ALh" secondAttribute="top" id="TbQ-lU-cz7"/>
                             <constraint firstItem="zcB-wy-ViF" firstAttribute="leading" secondItem="z4P-IH-ALh" secondAttribute="leading" id="Z4x-ht-pYo"/>
@@ -33,20 +31,11 @@
                     </view>
                     <connections>
                         <outlet property="headerView" destination="9lc-oj-l5u" id="iax-XY-bks"/>
-                        <outlet property="searchDisplayController" destination="sCR-Af-hbv" id="bGT-hn-nGp"/>
                         <outlet property="segmentControl" destination="Dda-6q-dZA" id="eRh-7g-WVO"/>
                         <outlet property="tableView" destination="zcB-wy-ViF" id="G3I-Z4-YBD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dBQ-Ju-e1Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <searchDisplayController id="sCR-Af-hbv">
-                    <connections>
-                        <outlet property="delegate" destination="287-Lc-6oc" id="exm-9R-qcL"/>
-                        <outlet property="searchContentsController" destination="287-Lc-6oc" id="c1m-KH-tYZ"/>
-                        <outlet property="searchResultsDataSource" destination="287-Lc-6oc" id="wmQ-Cj-Xzj"/>
-                        <outlet property="searchResultsDelegate" destination="287-Lc-6oc" id="Ukm-4R-aVO"/>
-                    </connections>
-                </searchDisplayController>
                 <view contentMode="scaleToFill" id="9lc-oj-l5u">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="65"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -64,7 +53,6 @@
                             </segments>
                         </segmentedControl>
                     </subviews>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
                         <constraint firstItem="Dda-6q-dZA" firstAttribute="leading" secondItem="9lc-oj-l5u" secondAttribute="leading" constant="16" id="08H-ne-CBZ"/>
                         <constraint firstItem="Dda-6q-dZA" firstAttribute="top" secondItem="9lc-oj-l5u" secondAttribute="top" constant="16" id="1Nw-Yh-Adv"/>

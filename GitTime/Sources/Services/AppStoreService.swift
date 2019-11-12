@@ -22,7 +22,7 @@ class AppStoreService: AppStoreServiceType {
     
     func getLatestVersion() -> Observable<AppVersion> {
         guard let bundleID = AppInfo.shared.bundleID else { return .empty() }
-        return self.networking.rx.request(.lookUp(bundleID: bundleID))
+        return self.networking.request(.lookUp(bundleID: bundleID))
             .map(AppVersion.self)
             .asObservable()
     }

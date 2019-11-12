@@ -8,14 +8,15 @@
 
 import UIKit
 
+import Bagel
 import Firebase
 import Kingfisher
 import RxCocoa
 import RxDataSources
-import RxFlow
 import RxOptional
 import RxSwift
 import SwiftyBeaver
+import Toaster
 
 let log = SwiftyBeaver.self
 
@@ -27,8 +28,8 @@ final class AppDependency {
     // MARK: Properties
     
     let disposeBag = DisposeBag()
-    var coordinator = FlowCoordinator()
     var launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+    var isTrial: Bool = false
     
     init() {
         configureSDKs()
@@ -48,16 +49,26 @@ final class AppDependency {
         console.minLevel = .verbose
         log.addDestination(console)
         
+        // Bagel
+        Bagel.start()
+        
         #endif
+        
+        // Toaster
+        let toastAppearance = ToastView.appearance()
+        toastAppearance.bottomOffsetPortrait = UIScreen.main.bounds.height / 2
+        toastAppearance.textColor = .invertTitle
+        toastAppearance.backgroundColor = .invertBackground
     }
     
     // MARK: - Public
     
-    func configureCoordinator(launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+    func configureCoordinator(launchOptions: [UIApplication.LaunchOptionsKey: Any]?, window: UIWindow) {
         
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window.backgroundColor = .white
-        window.makeKeyAndVisible()
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//        window.backgroundColor = .white
+//        window.makeKeyAndVisible()
+        self.window = window
         
         let keychainService = KeychainService()
         let userDefaultsService = UserDefaultsService()
@@ -67,6 +78,7 @@ final class AppDependency {
         let appStoreService = AppStoreService(networking: GitTimeProvider<AppStoreAPI>())
         let activityService = ActivityService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
         let crawlerService = GitTimeCrawlerService(networking: GitTimeProvider<GitTimeCrawlerAPI>())
+        let searchService = SearchService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
         
         let firstLaunch: Bool = userDefaultsService.value(forKey: UserDefaultsKey.firstLaunch) ?? true
         if firstLaunch {
@@ -100,6 +112,15 @@ final class AppDependency {
             followVC.tabBarItem.image = UIImage.assetImage(name: TabBarImages.follow)
             followVC.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.followFilled)
             
+            let searchReactor = SearchViewReactor(searchService: searchService,
+                                                  languageService: LanguagesService(),
+                                                  realmService: RealmService())
+            
+            let searchVC = SearchViewController.instantiate(withReactor: searchReactor)
+            searchVC.title = "Search"
+            searchVC.tabBarItem.image = UIImage.assetImage(name: TabBarImages.search)
+            searchVC.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.search)
+            
             let settingReactor = SettingViewReactor(userService: userService,
                                                     authService: authService,
                                                     appStoreService: appStoreService)
@@ -112,6 +133,7 @@ final class AppDependency {
                 activityVC.navigationWrap(),
                 trendVC.navigationWrap(),
                 followVC.navigationWrap(),
+                searchVC.navigationWrap(),
                 settingVC.navigationWrap()
             ]
             self.window.rootViewController = tabBarVC

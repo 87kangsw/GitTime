@@ -8,7 +8,6 @@
 
 import UIKit
 
-import RxFlow
 import RxSwift
 
 @UIApplicationMain
@@ -18,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-        AppDependency.shared.configureCoordinator(launchOptions: launchOptions)
+        guard let window = window else { return false }
+        AppDependency.shared.configureCoordinator(launchOptions: launchOptions, window: window)
         return true
     }
 

@@ -25,7 +25,7 @@ final class SettingViewReactor: Reactor {
     struct State {
         var isLoggedOut: Bool
         var pageURL: String
-        var me: User?
+        var me: Me?
         var storeVersion: String
         var meSection: [SettingSection] {
             guard let me = self.me else { return [] }
@@ -80,6 +80,7 @@ final class SettingViewReactor: Reactor {
         switch action {
         case .logout:
             self.authService.logOut()
+            AppDependency.shared.isTrial = false
             return .just(.setLoggedOut)
         case .versionCheck:
             let versionMutation: Observable<Mutation> = self.appStoreService.getLatestVersion()

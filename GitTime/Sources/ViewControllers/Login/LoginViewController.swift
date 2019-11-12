@@ -6,6 +6,7 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
+import AuthenticationServices
 import UIKit
 
 import ReactorKit
@@ -17,6 +18,7 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
     // MARK: - UI
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var loginButton: UIButton!
+    @IBOutlet weak var trialButton: UIButton!
     
     // MARK: - Properties
     var goToMain: GoToMainFunction!
@@ -31,6 +33,22 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
     fileprivate func configureUI() {
         loginButton.layer.cornerRadius = 8.0
         loginButton.layer.masksToBounds = true
+        
+        loginButton.backgroundColor = .loginButtonBackground
+        loginButton.setTitleColor(.loginButtonTitle, for: .normal)
+        loginButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.color = .invertBackground
+        
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 13.0),
+            .foregroundColor: UIColor.title,
+            .underlineStyle: NSUnderlineStyle.single.rawValue
+        ]
+        let attrString = NSAttributedString(string: "Trial",
+                                            attributes: attributes)
+        trialButton.setAttributedTitle(attrString, for: .normal)
     }
     
     // MARK: - Configure
@@ -39,6 +57,11 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
         // Action
         loginButton.rx.tap
             .map { Reactor.Action.login }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
+        
+        trialButton.rx.tap
+            .map { Reactor.Action.trial }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
         
@@ -55,5 +78,12 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 self.goToMain()
             }).disposed(by: self.disposeBag)
+    }
+}
+ 
+// MARK: - ASWebAuthenticationPresentationContextProviding
+extension LoginViewController: ASWebAuthenticationPresentationContextProviding {
+    func presentationAnchor(for session: ASWebAuthenticationSession) -> ASPresentationAnchor {
+        return self.view.window ?? ASPresentationAnchor()
     }
 }

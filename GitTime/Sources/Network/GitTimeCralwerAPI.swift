@@ -12,7 +12,7 @@ import Moya
 enum GitTimeCrawlerAPI {
     case trendingRepositories(language: String?, period: String?)
     case trendingDevelopers(language: String?, period: String?)
-    case fetchContributions(userName: String)
+    case fetchContributions(userName: String, darkMode: Bool)
 }
 
 extension GitTimeCrawlerAPI: TargetType {
@@ -26,7 +26,7 @@ extension GitTimeCrawlerAPI: TargetType {
             return "/repositories"
         case .trendingDevelopers:
             return "/developers"
-        case .fetchContributions(let userName):
+        case .fetchContributions(let userName, _):
             return "/contribution/\(userName)"
         }
     }
@@ -60,8 +60,10 @@ extension GitTimeCrawlerAPI: TargetType {
                 params["since"] = period
             }
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
-        case .fetchContributions:
-            return .requestPlain
+        case .fetchContributions(_, let darkMode):
+            var params: [String: Any] = [:]
+            params["darkMode"] = darkMode
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }
     }
     

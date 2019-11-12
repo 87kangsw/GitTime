@@ -33,7 +33,7 @@ final class LanguagesViewReactor: Reactor {
         var allLanuage: [LanguageSectionItem] {
             let languages = [Language.allLanguage]
             return languages
-                .map ({ language -> LanguageListCellReactor in
+                .map({ language -> LanguageListCellReactor in
                     return LanguageListCellReactor.init(language: language)
                 })
                 .map(LanguageSectionItem.allLanguage)
@@ -105,7 +105,7 @@ final class LanguagesViewReactor: Reactor {
             state.languageType = type
         case let .setLanguage(languages):
             state.languages = languages
-                .map ({ language -> LanguageListCellReactor in
+                .map({ language -> LanguageListCellReactor in
                     return LanguageListCellReactor.init(language: language)
                 })
                 .map(LanguageSectionItem.languages)
@@ -143,7 +143,7 @@ final class LanguagesViewReactor: Reactor {
     private func allLanguageCellReactor() -> [LanguageSectionItem] {
         let languages = [Language.allLanguage]
         return languages
-            .map ({ language -> LanguageListCellReactor in
+            .map({ language -> LanguageListCellReactor in
                 return LanguageListCellReactor.init(language: language)
             })
             .map(LanguageSectionItem.languages)

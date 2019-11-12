@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="2Ig-fG-dpi">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Search View Controller-->
+        <scene sceneID="FR1-q0-5lz">
+            <objects>
+                <viewController id="2Ig-fG-dpi" customClass="SearchViewController" customModule="GitTime" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Y8l-rL-eQC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="interactive" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cLu-yM-AQe">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <view key="tableHeaderView" contentMode="scaleToFill" id="PbC-7B-mMG">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="QVK-ye-AsV">
+                                            <rect key="frame" x="16" y="16" width="382" height="29"/>
+                                            <segments>
+                                                <segment title="First"/>
+                                                <segment title="Second"/>
+                                            </segments>
+                                        </segmentedControl>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="QVK-ye-AsV" firstAttribute="top" secondItem="PbC-7B-mMG" secondAttribute="top" constant="16" id="7Kb-bA-mch"/>
+                                        <constraint firstAttribute="bottom" secondItem="QVK-ye-AsV" secondAttribute="bottom" constant="16" id="C4U-XG-GK0"/>
+                                        <constraint firstItem="QVK-ye-AsV" firstAttribute="leading" secondItem="PbC-7B-mMG" secondAttribute="leading" constant="16" id="C7U-JI-opt"/>
+                                        <constraint firstAttribute="trailing" secondItem="QVK-ye-AsV" secondAttribute="trailing" constant="16" id="f0L-F4-UKC"/>
+                                    </constraints>
+                                </view>
+                            </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="anu-pG-UNi">
+                                <rect key="frame" x="197" y="443" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="cLu-yM-AQe" firstAttribute="top" secondItem="GMq-kB-IAL" secondAttribute="top" id="3bq-AI-m7g"/>
+                            <constraint firstItem="GMq-kB-IAL" firstAttribute="bottom" secondItem="cLu-yM-AQe" secondAttribute="bottom" id="B15-9k-foH"/>
+                            <constraint firstItem="cLu-yM-AQe" firstAttribute="leading" secondItem="GMq-kB-IAL" secondAttribute="leading" id="Qgp-6T-jHx"/>
+                            <constraint firstItem="anu-pG-UNi" firstAttribute="centerX" secondItem="GMq-kB-IAL" secondAttribute="centerX" id="fFw-aL-eFC"/>
+                            <constraint firstItem="GMq-kB-IAL" firstAttribute="trailing" secondItem="cLu-yM-AQe" secondAttribute="trailing" id="hJ0-2b-XrV"/>
+                            <constraint firstItem="anu-pG-UNi" firstAttribute="centerY" secondItem="GMq-kB-IAL" secondAttribute="centerY" id="pGj-Ki-Yjv"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="GMq-kB-IAL"/>
+                    </view>
+                    <connections>
+                        <outlet property="loadingIndicator" destination="anu-pG-UNi" id="nqL-5q-I99"/>
+                        <outlet property="segmentControl" destination="QVK-ye-AsV" id="wGq-ZS-abR"/>
+                        <outlet property="tableBottomConstraint" destination="B15-9k-foH" id="qau-y0-yY5"/>
+                        <outlet property="tableHeaderView" destination="PbC-7B-mMG" id="HD1-2Q-RXi"/>
+                        <outlet property="tableView" destination="cLu-yM-AQe" id="kBZ-av-qYM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pg6-Bh-mO0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-28.985507246376812" y="-35.491071428571423"/>
+        </scene>
+    </scenes>
+</document>

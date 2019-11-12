@@ -34,7 +34,8 @@ final class TrendingRepositoryCell: BaseTableViewCell, View, CellType {
     }
     
     override func prepareForReuse() {
-         reset()
+        super.prepareForReuse()
+        reset()
     }
     
     fileprivate func configureUI() {

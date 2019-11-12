@@ -25,6 +25,7 @@ enum TabBarImages: String, ImageNames {
     case followFilled = "followFill"
     case setting = "setting"
     case settingFilled = "settingFill"
+    case search = "search"
 }
 
 // MARK: - NavigationBar Icon
@@ -52,4 +53,13 @@ enum EventImages: String, ImageNames {
     case releaseEvent
     case watchEvent
     case publicEvent
+}
+
+enum SearchTypeImages: String, ImageNames {
+    var imageName: String {
+        return self.rawValue
+    }
+    
+    case users = "languageData"
+    case repositories = "settingFill"
 }
