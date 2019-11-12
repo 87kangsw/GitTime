@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ueh-hX-7CL">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Ueh-hX-7CL">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,7 +18,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="5RK-kw-BmQ">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="BdR-xZ-hjN">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="102"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -53,7 +52,6 @@
                                             <state key="normal" title="Today"/>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="bottom" secondItem="Qnr-W4-Vhi" secondAttribute="bottom" id="BUp-mE-zB4"/>
                                         <constraint firstAttribute="trailing" secondItem="Qnr-W4-Vhi" secondAttribute="trailing" constant="16" id="Nn7-Lo-Has"/>
@@ -70,7 +68,6 @@
                                 <rect key="frame" x="197" y="438" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="jh2-uF-QcE" firstAttribute="centerX" secondItem="zIj-2G-2uL" secondAttribute="centerX" id="SKv-de-qh8"/>
                             <constraint firstItem="5RK-kw-BmQ" firstAttribute="leading" secondItem="Yzf-WU-ebQ" secondAttribute="leading" id="VeC-gf-9pn"/>
@@ -86,6 +83,7 @@
                         <outlet property="loadingIndicator" destination="jh2-uF-QcE" id="Zu0-RG-QcX"/>
                         <outlet property="periodButton" destination="Jgi-fv-8J1" id="BIR-2h-V7l"/>
                         <outlet property="segmentControl" destination="6W6-Gc-cyh" id="vSv-ap-XWg"/>
+                        <outlet property="tableHeaderView" destination="BdR-xZ-hjN" id="i6U-6z-eIM"/>
                         <outlet property="tableView" destination="5RK-kw-BmQ" id="1xc-Ji-6Ns"/>
                     </connections>
                 </viewController>

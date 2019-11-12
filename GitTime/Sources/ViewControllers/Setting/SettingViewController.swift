@@ -70,10 +70,13 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     fileprivate func configureUI() {
-        tableView.backgroundColor = .clear
+        
         tableView.estimatedRowHeight = 64.0
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
+        
+        tableView.backgroundColor = .background
+        tableView.separatorColor = .underLine
         
         tableView.registerNib(cellType: SettingUserProfileCell.self)
         tableView.registerNib(cellType: SettingItemCell.self)
@@ -194,7 +197,8 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     fileprivate func goToLogin() {
-        AppDependency.shared.configureCoordinator(launchOptions: nil, window: UIWindow())
+        AppDependency.shared.configureCoordinator(launchOptions: nil,
+                                                  window: UIApplication.shared.keyWindow!)
     }
 }
 
@@ -206,7 +210,7 @@ extension SettingViewController: UITableViewDelegate {
         }
         
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 20.0))
-        view.backgroundColor = UIColor(red: 0.94, green: 0.95, blue: 0.97, alpha: 1.00)
+        view.backgroundColor = .tableSectionHeader
         return view
     }
     

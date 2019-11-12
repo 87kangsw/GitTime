@@ -66,19 +66,17 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
         self.searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: nil, action: nil)
         self.navigationItem.setRightBarButton(searchButton, animated: false)
         
-        searchController.dimsBackgroundDuringPresentation = false
+        searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController = searchController
         
-//        let label = UILabel(frame: CGRect(x: 150, y: 50, width: 200, height: 30))
-//        label.backgroundColor = .red
-//        label.font = .systemFont(ofSize: 12.0)
-//        let navBar = self.navigationController?.navigationBar
-//        navBar?.addSubview(label)
-        tableView.backgroundColor = .clear
-        tableView.rowHeight = 44
+        tableView.rowHeight = 44.0
+        
+        tableView.backgroundColor = .background
+        tableView.separatorColor = .underLine
         
         tableView.registerNib(cellType: LanguageListCell.self)
         
+        headerView.backgroundColor = .background
         tableView.tableHeaderView = headerView
     }
     
@@ -131,7 +129,7 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
             }).disposed(by: self.disposeBag)
         
         searchController.searchBar.rx.text
-            .throttle(0.3, scheduler: MainScheduler.instance)
+            .throttle(.microseconds(300), scheduler: MainScheduler.instance)
             .filterNil()
             .map { Reactor.Action.searchQuery($0) }
             .bind(to: reactor.action)

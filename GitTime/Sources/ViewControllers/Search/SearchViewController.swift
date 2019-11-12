@@ -21,6 +21,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
     
     // MARK: - UI
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet var tableBottomConstraint: NSLayoutConstraint!
@@ -48,13 +49,19 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
             segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)
         }
         
-        tableView.backgroundColor = .clear
         tableView.registerNib(cellType: SearchUserCell.self)
         tableView.registerNib(cellType: SearchRepoCell.self)
+        tableView.registerNib(cellType: SearchHistoryCell.self)
+        tableView.registerNib(cellType: EmptyTableViewCell.self)
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
         
+        tableView.backgroundColor = .background
+        tableView.separatorColor = .underLine
+        tableHeaderView.backgroundColor = .background
+        
         loadingIndicator.hidesWhenStopped = true
+        loadingIndicator.color = .invertBackground
     }
     
     // MARK: - Configure
@@ -71,13 +78,11 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
                 self.searchBar.resignFirstResponder()
+                reactor.action.onNext(.searchQuery(self.searchBar.text))
             }).disposed(by: self.disposeBag)
-        
-        searchBar.rx.text
-            .orEmpty
-            .distinctUntilChanged()
-            .debounce(0.5, scheduler: MainScheduler.instance)
-            .map { Reactor.Action.searchQuery($0) }
+
+        searchBar.rx.textDidBeginEditing
+            .map { Reactor.Action.showRecentSearchWords(true) }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
         
@@ -121,13 +126,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 self.searchBar.showsCancelButton = false
             }).disposed(by: self.disposeBag)
-        
-        tableView.rx.didScroll
-            .subscribe(onNext: { [weak self] _ in
-                guard let self = self else { return }
-                self.searchBar.resignFirstResponder()
-            }).disposed(by: self.disposeBag)
-        
+                
         tableView.rx.itemSelected(dataSource: dataSource)
             .subscribe(onNext: { [weak self] sectionItem in
                 guard let self = self else { return }
@@ -136,6 +135,10 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                     self.goToWebVC(urlString: reactor.currentState.user.url)
                 case .searchedRepository(let reactor):
                     self.goToWebVC(urlString: reactor.currentState.repo.url)
+                case .recentWord(let cellReactor):
+                    let searchWords = cellReactor.currentState.history.text
+                    self.searchBar.resignFirstResponder()
+                    reactor.action.onNext(.searchQuery(searchWords))
                 }
             }).disposed(by: self.disposeBag)
         
@@ -156,7 +159,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     fileprivate func dataSource() -> RxTableViewSectionedReloadDataSource<SearchResultsSection> {
-        return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+        return .init(configureCell: { [weak self] (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .searchedUser(let reactor):
                 let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SearchUserCell.self)
@@ -166,6 +169,26 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SearchRepoCell.self)
                 cell.reactor = reactor
                 return cell
+            case .recentWord(let cellReactor):
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SearchHistoryCell.self)
+                cell.reactor = cellReactor
+                
+                cell.rx.deleteButtonTap
+                    .subscribe(onNext: { [weak self] (indexPath, text) in
+                        guard let self = self, let reactor = self.reactor else { return }
+                        guard let indexPath = indexPath, let text = text else { return }
+                        reactor.action.onNext(.removeRecentSearchWord(indexPath, text))
+                    }).disposed(by: cell.disposeBag)
+                
+                return cell
+            }
+        }, titleForHeaderInSection: { (datasource, index) -> String? in
+            let sectionItem = datasource.sectionModels[index]
+            switch sectionItem {
+            case .recentSearchWords:
+                return "Recent search words"
+            default:
+                return nil
             }
         })
     }

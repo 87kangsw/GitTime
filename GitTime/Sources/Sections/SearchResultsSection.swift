@@ -11,6 +11,7 @@ import RxDataSources
 enum SearchResultsSection {
     case searchUsers([SearchResultsSectionItem])
     case seachRepositories([SearchResultsSectionItem])
+    case recentSearchWords([SearchResultsSectionItem])
 }
 
 extension SearchResultsSection: SectionModelType {
@@ -19,6 +20,8 @@ extension SearchResultsSection: SectionModelType {
         case .searchUsers(let items):
             return items
         case .seachRepositories(let items):
+            return items
+        case .recentSearchWords(let items):
             return items
         }
     }
@@ -29,6 +32,8 @@ extension SearchResultsSection: SectionModelType {
             self = .searchUsers(items)
         case .seachRepositories:
             self = .seachRepositories(items)
+        case .recentSearchWords:
+            self = .recentSearchWords(items)
         }
     }
 }
@@ -36,4 +41,5 @@ extension SearchResultsSection: SectionModelType {
 enum SearchResultsSectionItem {
     case searchedUser(SearchUserCellReactor)
     case searchedRepository(SearchRepoCellReactor)
+    case recentWord(SearchHistoryCellReactor)
 }
