@@ -42,6 +42,7 @@ pod 'Crashlytics'
 pod 'SwiftLint'
 pod 'AcknowList'
 pod 'Bagel'
+pod 'Kanna'
 
 end
 
