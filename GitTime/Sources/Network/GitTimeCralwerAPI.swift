@@ -13,11 +13,18 @@ enum GitTimeCrawlerAPI {
     case trendingRepositories(language: String?, period: String?)
     case trendingDevelopers(language: String?, period: String?)
     case fetchContributions(userName: String, darkMode: Bool)
+    case fetchContributionsRawdata(userName: String, darkMode: Bool)
 }
 
 extension GitTimeCrawlerAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "https://gittime-crawler.herokuapp.com")!
+        switch self {
+        case .fetchContributionsRawdata(_, _):
+            return URL(string: "https://github.com")!
+        default:
+            return URL(string: "https://gittime-crawler.herokuapp.com")!
+        }
+     
     }
     
     var path: String {
@@ -26,8 +33,10 @@ extension GitTimeCrawlerAPI: TargetType {
             return "/repositories"
         case .trendingDevelopers:
             return "/developers"
-        case .fetchContributions(let userName, _):
+        case let .fetchContributions(userName, _):
             return "/contribution/\(userName)"
+        case let .fetchContributionsRawdata(userName, _):
+            return "/\(userName)"
         }
     }
     
@@ -63,6 +72,9 @@ extension GitTimeCrawlerAPI: TargetType {
         case .fetchContributions(_, let darkMode):
             var params: [String: Any] = [:]
             params["darkMode"] = darkMode
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .fetchContributionsRawdata(_, _):
+            let params: [String: Any] = [:]
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }
     }

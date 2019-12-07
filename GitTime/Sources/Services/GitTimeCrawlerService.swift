@@ -7,11 +7,13 @@
 //
 
 import RxSwift
+import Moya
 
 protocol GitTimeCrawlerServiceType: class {
     func fetchTrendingRepositories(language: String?, period: String?) -> Observable<[TrendRepo]>
     func fetchTrendingDevelopers(language: String?, period: String?) -> Observable<[TrendDeveloper]>
     func fetchContributions(userName: String) -> Observable<ContributionInfo>
+    func fetchContributionsRawdata(userName: String) -> Observable<Response>
     func fetchTrialContributions() -> Observable<ContributionInfo>
 }
 
@@ -46,6 +48,20 @@ class GitTimeCrawlerService: GitTimeCrawlerServiceType {
                                                            darkMode: isDarkMode))
             .map(ContributionInfo.self)
             .asObservable()
+    }
+    
+    func fetchContributionsRawdata(userName: String) -> Observable<Response> {
+        
+        var isDarkMode = false
+        
+        if #available(iOS 13.0, *) {
+            let style = UIScreen.main.traitCollection.userInterfaceStyle
+            isDarkMode = style == .dark
+        }
+        
+        return self.networking.request(.fetchContributionsRawdata(userName: userName,
+                                                                darkMode: isDarkMode))
+        .asObservable()
     }
     
     func fetchTrialContributions() -> Observable<ContributionInfo> {
