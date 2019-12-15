@@ -9,11 +9,11 @@
 import Foundation
 
 struct TrendDeveloper: ModelType {
-    let userName: String
-    let name: String?
-    let url: String
-    let profileURL: String
-    let repo: TrendDeveloperRepo
+    var userName: String
+    var name: String?
+    var url: String
+    var profileURL: String
+    var repo: TrendDeveloperRepo
     
     enum CodingKeys: String, CodingKey {
         case userName = "username"
@@ -22,6 +22,20 @@ struct TrendDeveloper: ModelType {
         case profileURL = "avatar"
         case repo
     }
+    
+    init(userName: String,
+         name: String?,
+         url: String,
+         profileURL: String,
+         repo: TrendDeveloperRepo) {
+        
+        self.userName = userName
+        self.name = name
+        self.url = url
+        self.profileURL = profileURL
+        self.repo = repo
+    }
+    
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -43,7 +57,7 @@ struct TrendDeveloper: ModelType {
 }
 
 struct TrendDeveloperRepo: ModelType {
-    let name: String?
-    let url: String
-    let description: String
+    var name: String?
+    var url: String
+    var description: String
 }
