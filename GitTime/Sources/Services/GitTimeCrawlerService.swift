@@ -13,11 +13,16 @@ protocol GitTimeCrawlerServiceType: class {
     func fetchTrendingRepositories(language: String?, period: String?) -> Observable<[TrendRepo]>
     func fetchTrendingDevelopers(language: String?, period: String?) -> Observable<[TrendDeveloper]>
     func fetchContributions(userName: String) -> Observable<ContributionInfo>
+
+    func fetchTrendingRepositoriesRawdata(language: String?, period: String?) -> Observable<Response>
+    func fetchTredingDevelopersRawdata(language: String?, period: String) -> Observable<Response>
     func fetchContributionsRawdata(userName: String) -> Observable<Response>
+    
     func fetchTrialContributions() -> Observable<ContributionInfo>
 }
 
 class GitTimeCrawlerService: GitTimeCrawlerServiceType {
+  
     
     fileprivate let networking: GitTimeProvider<GitTimeCrawlerAPI>
     
@@ -48,6 +53,19 @@ class GitTimeCrawlerService: GitTimeCrawlerServiceType {
                                                            darkMode: isDarkMode))
             .map(ContributionInfo.self)
             .asObservable()
+    }
+    
+    func fetchTrendingRepositoriesRawdata(language: String?, period: String?) -> Observable<Response> {
+        
+        return self.networking.request(.trendingRepositoriesRawdata(language: language,
+                                                                    period: period))
+        .asObservable()
+    }
+    
+    func fetchTredingDevelopersRawdata(language: String?, period: String) -> Observable<Response> {
+        return self.networking.request(.tredingDevelopersRawdata(language: language,
+                                                                 period: period))
+        .asObservable()
     }
     
     func fetchContributionsRawdata(userName: String) -> Observable<Response> {
