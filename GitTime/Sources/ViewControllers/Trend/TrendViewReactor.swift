@@ -9,13 +9,15 @@
 import ReactorKit
 import RxCocoa
 import RxSwift
+import Moya
+import Kanna
 
 final class TrendViewReactor: Reactor {
-
+    
     enum Action {
         case refresh
         case selectPeriod(PeriodTypes)
-//        case selectLanguage(String?)
+        //        case selectLanguage(String?)
         case selectLanguage(Language?)
         case switchSegmentControl
         case requestTrending
@@ -25,7 +27,7 @@ final class TrendViewReactor: Reactor {
         case setLoading(Bool)
         case setRefreshing(Bool)
         case setPeriod(PeriodTypes)
-//        case setLanguage(String?)
+        //        case setLanguage(String?)
         case setLanguage(Language?)
         case setTrendType(TrendTypes)
         case fetchRepositories([TrendRepo])
@@ -36,7 +38,7 @@ final class TrendViewReactor: Reactor {
         var isLoading: Bool = false
         var isRefreshing: Bool = false
         var period: PeriodTypes
-//        var language: String?
+        //        var language: String?
         var language: Language?
         var trendingType: TrendTypes
         var repositories: [TrendSectionItem] = []
@@ -140,8 +142,8 @@ final class TrendViewReactor: Reactor {
                 .map(TrendSectionItem.trendingRepos)
         case let .fetchDevelopers(developers):
             state.developers = developers.map({ developer -> TrendingDeveloperCellReactor in
-                    return TrendingDeveloperCellReactor(developer: developer, rank: 0)
-                })
+                return TrendingDeveloperCellReactor(developer: developer, rank: 0)
+            })
                 .map(TrendSectionItem.trendingDevelopers)
         }
         
@@ -156,7 +158,7 @@ final class TrendViewReactor: Reactor {
         
         let currentLanguage = language ?? self.currentState.language
         let currentLanguageName = currentLanguage?.type == LanguageTypes.all ? "" : currentLanguage?.name
- 
+        
         let startLoading: Observable<Mutation> = .just(.setLoading(true))
         let endLoading: Observable<Mutation> = .just(.setLoading(false))
         
@@ -164,21 +166,163 @@ final class TrendViewReactor: Reactor {
         case .repositories:
             let fetchRepositories: Observable<Mutation>
                 = self.crawlerService.fetchTrendingRepositories(language: currentLanguageName,
-                                                                 period: currentPeriod.querySting())
+                                                                period: currentPeriod.querySting())
                     .map { list -> Mutation in
                         return .fetchRepositories(list)
-                    }.catchErrorJustReturn(.fetchRepositories([]))
+                }.catchErrorJustReturn(.fetchRepositories([]))
             
-            return .concat([startLoading, fetchRepositories, endLoading])
+            let fetchRepositoriesRawdata: Observable<Mutation> =
+                self.crawlerService.fetchTrendingRepositoriesRawdata(language: currentLanguageName, period: currentPeriod.querySting())
+                    .map { response -> Mutation in
+                        let list = self.parseTredingRepositories(response: response)
+                        return .fetchRepositories(list)
+            }
+            
+            return .concat([startLoading, fetchRepositoriesRawdata, endLoading])
         case .developers:
             let fetchDevelopers: Observable<Mutation>
                 = self.crawlerService.fetchTrendingDevelopers(language: currentLanguageName,
-                                                               period: currentPeriod.querySting())
+                                                              period: currentPeriod.querySting())
                     .map { developers -> Mutation in
                         return .fetchDevelopers(developers)
-                    }.catchErrorJustReturn(.fetchDevelopers([]))
+                }.catchErrorJustReturn(.fetchDevelopers([]))
             
-            return .concat([startLoading, fetchDevelopers, endLoading])
+            let fetchDevelopersRawdata: Observable<Mutation> =
+                self.crawlerService.fetchTredingDevelopersRawdata(language: currentLanguageName, period: currentPeriod.querySting())
+                    .map { (response) -> Mutation in
+                        let developers = self.parseTrendingDevelopers(response: response)
+                        return .fetchDevelopers(developers)
+            }
+            
+            return .concat([startLoading, fetchDevelopersRawdata, endLoading])
         }
+    }
+    
+    private func parseTrendingDevelopers(response: Response) -> [TrendDeveloper] {
+        
+        var developers: [TrendDeveloper] = []
+        
+        if let doc = try? HTML(html: response.data, encoding: .utf8) {
+            
+            for item in  doc.xpath("//article[@class='Box-row d-flex']") {
+
+                var trendDeveloperRepo = TrendDeveloperRepo(name: nil, url: "", description: "")
+                var trendDeveloper = TrendDeveloper(userName: "", name: nil, url: "", profileURL: "", repo: trendDeveloperRepo)
+                
+                let name = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/h1")
+                let username = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/p")
+                let url = "https://github.com/"
+                let avatar = item.xpath(".//div[@class='mx-3']/a[@class='d-inline-block']/img[@class='rounded-1']/@src")
+                
+                let repoName = item.xpath("//h1[@class='h4 lh-condensed']")
+                let repoURL = item.xpath(".//h1[@class='h4 lh-condensed']/a/@href")
+                let repoDescription = item.xpath(".//div[@class='f6 text-gray mt-1']")
+                
+                if let name = name.first?.text?.striped {
+                    trendDeveloper.name = name
+                }
+                
+                if let userName = username.first?.text?.striped {
+                    trendDeveloper.userName = userName
+                    trendDeveloper.url = "\(url)\(username)"
+                }
+                
+                if let profileURL = avatar.first?.text?.striped {
+                    trendDeveloper.profileURL = profileURL
+                }
+                
+                if let repoName = repoName.first?.text?.striped {
+                    trendDeveloperRepo.name = repoName
+                }
+                
+                if let repoURL = repoURL.first?.text?.striped {
+                    trendDeveloperRepo.url = repoURL
+                }
+                
+                if let repoDescription = repoDescription.first?.text?.striped {
+                    trendDeveloperRepo.description = repoDescription
+                }
+                
+                trendDeveloper.repo = trendDeveloperRepo
+                developers.append(trendDeveloper)
+            }
+            
+        }
+        
+        return developers
+    }
+    
+    private func parseTredingRepositories(response: Response) -> [TrendRepo] {
+        
+        var repositories: [TrendRepo] = []
+        
+        if let doc = try? HTML(html: response.data, encoding: .utf8) {
+            
+            for item in doc.xpath("//article[@class='Box-row']") {
+                
+                var trendRepo: TrendRepo = TrendRepo(author: "", name: "", url: "", description: "", language: "", languageColor: "", stars: 0, forks: 0, currentPeriodStars: 0)
+                
+                /// Repository Info
+                let repositoryInfo = item.xpath(".//h1[@class='h3 lh-condensed']/a")//[index]
+                let description = item.xpath(".//p[@class='col-9 text-gray my-1 pr-4']")//[index]
+                let languageColor = item.xpath(".//span[@class='d-inline-block ml-0 mr-3']/span[1]")
+                let language = item.xpath(".//span[@class='d-inline-block ml-0 mr-3']/span[2]")
+                let star = item.xpath(".//div[@class='f6 text-gray mt-2']/a[1]")//[index]
+                let fork = item.xpath(".//div[@class='f6 text-gray mt-2']/a[2]")//[index]
+                let todayStar = item.xpath(".//div[@class='f6 text-gray mt-2']/span[@class='d-inline-block float-sm-right']")//[index]
+                
+                // repository Info
+                if let repositoryInfo = repositoryInfo.first {
+                    if let href = repositoryInfo["href"] {
+                        trendRepo.url = "https://github.com\(href)"
+                        
+                        let userdata = href.split(separator: "/")
+                        trendRepo.author = String(userdata[0])
+                        trendRepo.name = String(userdata[1])
+                    }
+                }
+                
+                if let description = description.first {
+                    if let desc = description.text {
+                        trendRepo.description = desc.striped
+                    }
+                }
+                
+                if let color = languageColor.first {
+                    guard let style = color["style"] else { return [] }
+                    let bgCode = String(style.split(separator: ":")[1])
+                    trendRepo.languageColor = bgCode.striped
+                    
+                } else {
+                    trendRepo.languageColor = nil
+                }
+                
+                if let language = language.first {
+                    trendRepo.language = language.text?.striped
+                } else {
+                    trendRepo.language = nil
+                }
+                
+                if var star = star.first?.text?.striped {
+                    star = star.replacingOccurrences(of: ",", with: "")
+                    trendRepo.stars = Int(star) ?? 0
+                }
+                
+                if var fork = fork.first?.text?.striped {
+                    fork = fork.replacingOccurrences(of: ",", with: "")
+                    trendRepo.forks = Int(fork) ?? 0
+                }
+                
+                if let today = todayStar.first?.text?.striped {
+                    let result = today.trimmingCharacters(in: CharacterSet(charactersIn: "0123456789.").inverted)
+                    trendRepo.currentPeriodStars = Int(result) ?? 0
+                }
+                
+                repositories.append(trendRepo)
+            }
+            
+        }
+        
+        return repositories
     }
 }
