@@ -36,7 +36,6 @@ struct TrendDeveloper: ModelType {
         self.repo = repo
     }
     
-    
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         userName = try container.decode(String.self, forKey: .userName)

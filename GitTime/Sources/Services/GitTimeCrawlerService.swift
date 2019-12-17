@@ -23,7 +23,6 @@ protocol GitTimeCrawlerServiceType: class {
 
 class GitTimeCrawlerService: GitTimeCrawlerServiceType {
   
-    
     fileprivate let networking: GitTimeProvider<GitTimeCrawlerAPI>
     
     init(networking: GitTimeProvider<GitTimeCrawlerAPI>) {

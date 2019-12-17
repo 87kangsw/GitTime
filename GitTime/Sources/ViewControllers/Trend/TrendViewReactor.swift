@@ -164,13 +164,14 @@ final class TrendViewReactor: Reactor {
         
         switch currentTrendType {
         case .repositories:
+            /*
             let fetchRepositories: Observable<Mutation>
                 = self.crawlerService.fetchTrendingRepositories(language: currentLanguageName,
                                                                 period: currentPeriod.querySting())
                     .map { list -> Mutation in
                         return .fetchRepositories(list)
                 }.catchErrorJustReturn(.fetchRepositories([]))
-            
+            */
             let fetchRepositoriesRawdata: Observable<Mutation> =
                 self.crawlerService.fetchTrendingRepositoriesRawdata(language: currentLanguageName, period: currentPeriod.querySting())
                     .map { response -> Mutation in
@@ -180,13 +181,14 @@ final class TrendViewReactor: Reactor {
             
             return .concat([startLoading, fetchRepositoriesRawdata, endLoading])
         case .developers:
+            /*
             let fetchDevelopers: Observable<Mutation>
                 = self.crawlerService.fetchTrendingDevelopers(language: currentLanguageName,
                                                               period: currentPeriod.querySting())
                     .map { developers -> Mutation in
                         return .fetchDevelopers(developers)
                 }.catchErrorJustReturn(.fetchDevelopers([]))
-            
+            */
             let fetchDevelopersRawdata: Observable<Mutation> =
                 self.crawlerService.fetchTredingDevelopersRawdata(language: currentLanguageName, period: currentPeriod.querySting())
                     .map { (response) -> Mutation in

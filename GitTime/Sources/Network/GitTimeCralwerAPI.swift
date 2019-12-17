@@ -22,11 +22,11 @@ enum GitTimeCrawlerAPI {
 extension GitTimeCrawlerAPI: TargetType {
     var baseURL: URL {
         switch self {
-        case .trendingRepositoriesRawdata(_, _):
+        case .trendingRepositoriesRawdata:
             return URL(string: "https://github.com")!
-        case .tredingDevelopersRawdata(_, _):
+        case .tredingDevelopersRawdata:
             return URL(string: "https://github.com")!
-        case .fetchContributionsRawdata(_, _):
+        case .fetchContributionsRawdata:
             return URL(string: "https://github.com")!
         default:
             return URL(string: "https://gittime-crawler.herokuapp.com")!
@@ -42,9 +42,9 @@ extension GitTimeCrawlerAPI: TargetType {
             return "/developers"
         case let .fetchContributions(userName, _):
             return "/contribution/\(userName)"
-        case .tredingDevelopersRawdata(_, _):
+        case .tredingDevelopersRawdata:
             return "/trending/developers"
-        case .trendingRepositoriesRawdata(_, _):
+        case .trendingRepositoriesRawdata:
             return "/trending"
         case let .fetchContributionsRawdata(userName, _):
             return "/\(userName)"
@@ -107,7 +107,7 @@ extension GitTimeCrawlerAPI: TargetType {
                 params["since"] = period
             }
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
-        case .fetchContributionsRawdata(_, _):
+        case .fetchContributionsRawdata:
             let params: [String: Any] = [:]
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }

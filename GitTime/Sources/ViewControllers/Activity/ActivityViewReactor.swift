@@ -168,6 +168,7 @@ final class ActivityViewReactor: Reactor {
                 return .setContributionInfo(contributionInfo)
         }
         .catchError { error -> Observable<ActivityViewReactor.Mutation> in
+            log.error(error.localizedDescription)
             return self.crawlerService.fetchContributions(userName: me.name)
                 .map { contributionInfo -> Mutation in
                     return .setContributionInfo(contributionInfo)}
