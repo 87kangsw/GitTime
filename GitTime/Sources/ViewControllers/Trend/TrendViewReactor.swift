@@ -224,7 +224,7 @@ final class TrendViewReactor: Reactor {
                 
                 if let userName = username.first?.text?.striped {
                     trendDeveloper.userName = userName
-                    trendDeveloper.url = "\(url)\(username)"
+                    trendDeveloper.url = "\(url)\(userName)"
                 }
                 
                 if let profileURL = avatar.first?.text?.striped {
@@ -236,7 +236,7 @@ final class TrendViewReactor: Reactor {
                 }
                 
                 if let repoURL = repoURL.first?.text?.striped {
-                    trendDeveloperRepo.url = repoURL
+                    trendDeveloperRepo.url = "\(url)\(repoURL)"
                 }
                 
                 if let repoDescription = repoDescription.first?.text?.striped {
