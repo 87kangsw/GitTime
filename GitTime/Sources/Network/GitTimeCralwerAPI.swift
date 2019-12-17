@@ -88,10 +88,10 @@ extension GitTimeCrawlerAPI: TargetType {
             
         case let .trendingRepositoriesRawdata(language, period):
             var params: [String: Any] = [:]
-            if let language = language {
+            if let language = language, !language.isEmpty {
                 params["language"] = language
             }
-            if let period = period {
+            if let period = period, !period.isEmpty {
                 params["since"] = period
             }
             
@@ -100,10 +100,10 @@ extension GitTimeCrawlerAPI: TargetType {
         case let .tredingDevelopersRawdata(language, period):
             var params: [String: Any] = [:]
             
-            if let language = language {
+            if let language = language, !language.isEmpty {
                 params["language"] = language
             }
-            if let period = period {
+            if let period = period, !period.isEmpty {
                 params["since"] = period
             }
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
