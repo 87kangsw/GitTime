@@ -132,9 +132,9 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .searchedUser(let reactor):
-                    self.goToWebVC(urlString: reactor.currentState.user.url)
+                    self.presentPanModalWeb(urlString: reactor.currentState.user.url)
                 case .searchedRepository(let reactor):
-                    self.goToWebVC(urlString: reactor.currentState.repo.url)
+                    self.presentPanModalWeb(urlString: reactor.currentState.repo.url)
                 case .recentWord(let cellReactor):
                     let searchWords = cellReactor.currentState.history.text
                     self.searchBar.resignFirstResponder()
@@ -191,13 +191,5 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 return nil
             }
         })
-    }
-    
-    // MARK: Go To
-    fileprivate func goToWebVC(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        
-        let safariVC = SFSafariViewController(url: url)
-        self.present(safariVC, animated: true, completion: nil)
     }
 }
