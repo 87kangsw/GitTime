@@ -20,6 +20,7 @@ pod 'RxKeyboard'
 # UI
 pod 'SnapKit'
 pod 'Toaster'
+pod 'PanModal'
 
 # Keychain
 pod 'KeychainAccess'

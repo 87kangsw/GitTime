@@ -109,6 +109,7 @@
 		B269744A22BB1F8D00F67129 /* EmptyTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B269744922BB1F8D00F67129 /* EmptyTypes.swift */; };
 		B269744C22BB214000F67129 /* EmptyTableViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B269744B22BB214000F67129 /* EmptyTableViewCellReactor.swift */; };
 		B272B2DE22F33AA00054FD15 /* GitHubAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B272B2DD22F33AA00054FD15 /* GitHubAPITests.swift */; };
+		B284DAE623AA3E17000F948F /* PanModalNaivgationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B284DAE523AA3E17000F948F /* PanModalNaivgationController.swift */; };
 		B289A05A229CC12E00AD9533 /* CellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289A059229CC12E00AD9533 /* CellType.swift */; };
 		B289A05C229CCD8300AD9533 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289A05B229CCD8300AD9533 /* Int+Extensions.swift */; };
 		B289A05E229CD97B00AD9533 /* UITableView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289A05D229CD97B00AD9533 /* UITableView+Extensions.swift */; };
@@ -296,6 +297,7 @@
 		B269744922BB1F8D00F67129 /* EmptyTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTypes.swift; sourceTree = "<group>"; };
 		B269744B22BB214000F67129 /* EmptyTableViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTableViewCellReactor.swift; sourceTree = "<group>"; };
 		B272B2DD22F33AA00054FD15 /* GitHubAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubAPITests.swift; sourceTree = "<group>"; };
+		B284DAE523AA3E17000F948F /* PanModalNaivgationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanModalNaivgationController.swift; sourceTree = "<group>"; };
 		B289A059229CC12E00AD9533 /* CellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellType.swift; sourceTree = "<group>"; };
 		B289A05B229CCD8300AD9533 /* Int+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Extensions.swift"; sourceTree = "<group>"; };
 		B289A05D229CD97B00AD9533 /* UITableView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extensions.swift"; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 			children = (
 				B228EAE3228D036700E55456 /* BaseViewController.swift */,
 				B244F330229797A0003F24FF /* BaseNavigationController.swift */,
+				B284DAE523AA3E17000F948F /* PanModalNaivgationController.swift */,
 				B228EAE5228D037B00E55456 /* MainTabBarController.swift */,
 				B237A5F222927C580069C59C /* MainTabBarReactor.swift */,
 				B20F70D9229289FE00F42770 /* Splash */,
@@ -1199,6 +1202,7 @@
 				B228EADE228C0EEB00E55456 /* Payload.swift in Sources */,
 				B289A061229CDA9200AD9533 /* Reusable.swift in Sources */,
 				B2E72A9522A7AD6600F54399 /* SettingLogoutCell.swift in Sources */,
+				B284DAE623AA3E17000F948F /* PanModalNaivgationController.swift in Sources */,
 				B289B98922AA021F00F0A1E2 /* Constants.swift in Sources */,
 				B289A072229D3B1B00AD9533 /* LanguagesViewReactor.swift in Sources */,
 				B2BF8B9422B753C1007B2AAA /* ContributionSection.swift in Sources */,
