@@ -216,7 +216,7 @@ final class TrendViewReactor: Reactor {
                 let url = "https://github.com/"
                 let avatar = item.xpath(".//div[@class='mx-3']/a[@class='d-inline-block']/img[@class='rounded-1']/@src")
                 
-                let repoName = item.xpath("//h1[@class='h4 lh-condensed']")
+                let repoName = item.xpath(".//h1[@class='h4 lh-condensed']")
                 let repoURL = item.xpath(".//h1[@class='h4 lh-condensed']/a/@href")
                 let repoDescription = item.xpath(".//div[@class='f6 text-gray mt-1']")
                 
