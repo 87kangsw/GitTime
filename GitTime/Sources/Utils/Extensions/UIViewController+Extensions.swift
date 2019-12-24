@@ -6,7 +6,10 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
+import SafariServices
 import UIKit
+
+import PanModal
 
 extension UIViewController {
     static func instantiateByStoryboard<T>() -> T {
@@ -20,5 +23,16 @@ extension UIViewController {
     
     func navigationWrap() -> BaseNavigationController {
         return BaseNavigationController(rootViewController: self)
+    }
+}
+
+// MARK: - Pan Modal
+extension UIViewController {
+    func presentPanModalWeb(urlString: String) {
+        guard let url = URL(string: urlString) else { return }
+        
+        let safariVC = SFSafariViewController(url: url)
+        let nav = PanModalNaivgationController(rootViewController: safariVC)
+        presentPanModal(nav)
     }
 }

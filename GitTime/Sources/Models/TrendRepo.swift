@@ -9,13 +9,13 @@
 import Foundation
 
 struct TrendRepo: ModelType {
-    let author: String
-    let name: String
-    let url: String
-    let description: String
-    let language: String?
-    let languageColor: String?
-    let stars: Int
-    let forks: Int
-    let currentPeriodStars: Int
+    var author: String
+    var name: String
+    var url: String
+    var description: String
+    var language: String?
+    var languageColor: String?
+    var stars: Int
+    var forks: Int
+    var currentPeriodStars: Int
 }

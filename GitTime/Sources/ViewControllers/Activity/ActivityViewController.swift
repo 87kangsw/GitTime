@@ -6,9 +6,9 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
-import SafariServices
 import UIKit
 
+import PanModal
 import ReactorKit
 import RxCocoa
 import RxDataSources
@@ -137,7 +137,7 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
                      .releaseEvent(let reactor),
                      .pullRequestReviewCommentEvent(let reactor),
                      .publicEvent(let reactor):
-                    self.goToWebVC(urlString: reactor.currentState.event.openWebURL)
+                    self.presentPanModalWeb(urlString: reactor.currentState.event.openWebURL)
                 }
             }).disposed(by: self.disposeBag)
         
@@ -148,10 +148,5 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     // MARK: Go To
-    fileprivate func goToWebVC(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        
-        let safariVC = SFSafariViewController(url: url)
-        self.present(safariVC, animated: true, completion: nil)
-    }
+    
 }

@@ -81,6 +81,7 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.3.1):
     - GoogleUtilities/Logger
+  - Kanna (5.0.0)
   - KeychainAccess (3.2.0)
   - Kingfisher (5.8.2):
     - Kingfisher/Core (= 5.8.2)
@@ -95,6 +96,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
+  - PanModal (1.2.5)
   - Protobuf (3.10.0)
   - ReactorKit (2.0.1):
     - RxSwift (~> 5.0)
@@ -131,9 +133,11 @@ DEPENDENCIES:
   - Fabric
   - Firebase/Core
   - Firebase/RemoteConfig
+  - Kanna
   - KeychainAccess
   - Kingfisher (~> 5.0)
   - Moya/RxSwift (= 14.0.0-alpha.2)
+  - PanModal
   - ReactorKit (= 2.0.1)
   - RealmSwift
   - RxCocoa (= 5.0.0)
@@ -187,6 +191,8 @@ SPEC REPOS:
   trunk:
     - Bagel
     - CocoaAsyncSocket
+    - Kanna
+    - PanModal
 
 SPEC CHECKSUMS:
   AcknowList: 70efb7554e257914da0aea2724a72fb30c45dfe2
@@ -209,10 +215,12 @@ SPEC CHECKSUMS:
   GoogleDataTransport: c8617c00e4f3eb9418e42ac0e8ac5241a9d555dd
   GoogleDataTransportCCTSupport: 9f352523e8785a71f6754f51eeff09f49ec19268
   GoogleUtilities: f895fde57977df4e0233edda0dbeac490e3703b6
+  Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
   KeychainAccess: 3b1bf8a77eb4c6ea1ce9404c292e48f948954c6b
   Kingfisher: 3adc15096595f5aed800bb0d5cb757fc58b2d2dd
   Moya: a6f1894cf6baec301aa02b0ecf10e5d8ade556ae
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
+  PanModal: 7c5af3ad4fe22b91508040965bebffb89fb607ae
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
   ReactorKit: a63c5e11e0fd32d59d672e54178b0ed2876b764b
   Realm: 995d585bcf699aaff226715886c849a29dd3d07f
@@ -228,6 +236,6 @@ SPEC CHECKSUMS:
   SwiftyBeaver: aaf2ebd7dac2e952991f46a82ed24ad642867ae2
   Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
 
-PODFILE CHECKSUM: 0ac4ee9dfda9b5d854e5bfff78d17062ff36903e
+PODFILE CHECKSUM: a5c1295a24bcb46a3509f5e237a033a81e156b25
 
 COCOAPODS: 1.8.4

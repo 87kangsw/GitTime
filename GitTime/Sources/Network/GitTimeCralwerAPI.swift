@@ -13,11 +13,25 @@ enum GitTimeCrawlerAPI {
     case trendingRepositories(language: String?, period: String?)
     case trendingDevelopers(language: String?, period: String?)
     case fetchContributions(userName: String, darkMode: Bool)
+    
+    case trendingRepositoriesRawdata(language: String?, period: String?)
+    case tredingDevelopersRawdata(language: String?, period: String?)
+    case fetchContributionsRawdata(userName: String, darkMode: Bool)
 }
 
 extension GitTimeCrawlerAPI: TargetType {
     var baseURL: URL {
-        return URL(string: "https://gittime-crawler.herokuapp.com")!
+        switch self {
+        case .trendingRepositoriesRawdata:
+            return URL(string: "https://github.com")!
+        case .tredingDevelopersRawdata:
+            return URL(string: "https://github.com")!
+        case .fetchContributionsRawdata:
+            return URL(string: "https://github.com")!
+        default:
+            return URL(string: "https://gittime-crawler.herokuapp.com")!
+        }
+        
     }
     
     var path: String {
@@ -26,8 +40,15 @@ extension GitTimeCrawlerAPI: TargetType {
             return "/repositories"
         case .trendingDevelopers:
             return "/developers"
-        case .fetchContributions(let userName, _):
+        case let .fetchContributions(userName, _):
             return "/contribution/\(userName)"
+        case .tredingDevelopersRawdata:
+            return "/trending/developers"
+        case .trendingRepositoriesRawdata:
+            return "/trending"
+        case let .fetchContributionsRawdata(userName, _):
+            return "/\(userName)"
+            
         }
     }
     
@@ -63,6 +84,31 @@ extension GitTimeCrawlerAPI: TargetType {
         case .fetchContributions(_, let darkMode):
             var params: [String: Any] = [:]
             params["darkMode"] = darkMode
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+            
+        case let .trendingRepositoriesRawdata(language, period):
+            var params: [String: Any] = [:]
+            if let language = language, !language.isEmpty {
+                params["language"] = language
+            }
+            if let period = period, !period.isEmpty {
+                params["since"] = period
+            }
+            
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+            
+        case let .tredingDevelopersRawdata(language, period):
+            var params: [String: Any] = [:]
+            
+            if let language = language, !language.isEmpty {
+                params["language"] = language
+            }
+            if let period = period, !period.isEmpty {
+                params["since"] = period
+            }
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+        case .fetchContributionsRawdata:
+            let params: [String: Any] = [:]
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
         }
     }
