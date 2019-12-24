@@ -20,4 +20,9 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }
+    
+    var striped: String {
+        return replacingOccurrences(of: "\n", with: "")
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+    }
 }

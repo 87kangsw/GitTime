@@ -169,9 +169,9 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .trendingRepos(let reactor):
-                    self.goToWebVC(urlString: reactor.currentState.url)
+                    self.presentPanModalWeb(urlString: reactor.currentState.url)
                 case .trendingDevelopers(let reactor):
-                    self.goToWebVC(urlString: reactor.currentState.url)
+                    self.presentPanModalWeb(urlString: reactor.currentState.url)
                 case .empty:
                     break
                 }
@@ -182,13 +182,5 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
             .subscribe(onNext: { [weak tableView] indexPath in
                 tableView?.deselectRow(at: indexPath, animated: true)
             }).disposed(by: self.disposeBag)
-    }
-    
-    // MARK: Go To
-    fileprivate func goToWebVC(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        
-        let safariVC = SFSafariViewController(url: url)
-        self.present(safariVC, animated: true, completion: nil)
     }
 }

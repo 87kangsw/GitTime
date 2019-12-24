@@ -148,17 +148,11 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
     
     // MARK: - Go To
     fileprivate func goToMyProfile(_ pageURL: String) {
-        guard let url = URL(string: pageURL) else { return }
-        
-        let safariVC = SFSafariViewController(url: url)
-        self.present(safariVC, animated: true, completion: nil)
+        self.presentPanModalWeb(urlString: pageURL)
     }
     
     fileprivate func goToRepository() {
-        guard let url = URL(string: AppConstants.gitTimeRepositoryURL) else { return }
-        
-        let safariVC = SFSafariViewController(url: url)
-        self.present(safariVC, animated: true, completion: nil)
+        self.presentPanModalWeb(urlString: AppConstants.gitTimeRepositoryURL)
     }
     
     fileprivate func goToAcknowledgements() {

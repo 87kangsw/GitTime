@@ -20,6 +20,7 @@ pod 'RxKeyboard'
 # UI
 pod 'SnapKit'
 pod 'Toaster'
+pod 'PanModal'
 
 # Keychain
 pod 'KeychainAccess'
@@ -42,6 +43,7 @@ pod 'Crashlytics'
 pod 'SwiftLint'
 pod 'AcknowList'
 pod 'Bagel'
+pod 'Kanna'
 
 end
 

@@ -9,6 +9,8 @@
 import ReactorKit
 import RxCocoa
 import RxSwift
+import Moya
+import Kanna
 
 final class ActivityViewReactor: Reactor {
     
@@ -97,13 +99,13 @@ final class ActivityViewReactor: Reactor {
             state.canLoadMore = canLoadMore
             state.page = nextPage
             state.activities = self.activitiesToSectionItem(activities.filter { $0.type != .none })
-//            state.activities = self.activitiesToSectionItem(activities)
+        //            state.activities = self.activitiesToSectionItem(activities)
         case let .fetchActivityMore(activities, nextPage, canLoadMore):
             state.canLoadMore = canLoadMore
             state.page = nextPage
             let sectionItems = state.sectionItems[0].items
                 + self.activitiesToSectionItem(activities.filter { $0.type != .none })
-//                + self.activitiesToSectionItem(activities)
+            //                + self.activitiesToSectionItem(activities)
             state.activities = sectionItems
         }
         return state
@@ -160,10 +162,18 @@ final class ActivityViewReactor: Reactor {
         let startLoading: Observable<Mutation> = .just(.setLoading(true))
         let endLoading: Observable<Mutation> = .just(.setLoading(false))
         
-        let fetchContribution = self.crawlerService.fetchContributions(userName: me.name)
-            .map { contributionInfo -> Mutation in
+        let fetchContribution = self.crawlerService.fetchContributionsRawdata(userName: me.name)
+            .map { response ->  Mutation in
+                let contributionInfo = self.parseContribution(response: response)
                 return .setContributionInfo(contributionInfo)
-            }
+        }
+        .catchError { error -> Observable<ActivityViewReactor.Mutation> in
+            log.error(error.localizedDescription)
+            return self.crawlerService.fetchContributions(userName: me.name)
+                .map { contributionInfo -> Mutation in
+                    return .setContributionInfo(contributionInfo)}
+        }
+        
         return .concat([startLoading, fetchContribution, endLoading])
     }
     
@@ -192,7 +202,7 @@ final class ActivityViewReactor: Reactor {
                 let newPage = events.count < ActivityViewReactor.PER_PAGE ? currentPage : currentPage + 1
                 let canLoadMore = events.count == ActivityViewReactor.PER_PAGE
                 return .fetchActivity(events, nextPage: newPage, canLoadMore: canLoadMore)
-            }.catchErrorJustReturn(.fetchActivity([], nextPage: currentPage, canLoadMore: false))
+        }.catchErrorJustReturn(.fetchActivity([], nextPage: currentPage, canLoadMore: false))
         
         return .concat([startLoading, fetchActivity, endLoading])
     }
@@ -213,7 +223,7 @@ final class ActivityViewReactor: Reactor {
                 let newPage = events.count < ActivityViewReactor.PER_PAGE ? currentPage : currentPage + 1
                 let canLoadMore = events.count == ActivityViewReactor.PER_PAGE
                 return .fetchActivityMore(events, nextPage: newPage, canLoadMore: canLoadMore)
-            }.catchErrorJustReturn(.fetchActivityMore([], nextPage: currentPage, canLoadMore: false))
+        }.catchErrorJustReturn(.fetchActivityMore([], nextPage: currentPage, canLoadMore: false))
         
         return .concat([startLoading, fetchActivity, endLoading])
     }
@@ -223,5 +233,45 @@ final class ActivityViewReactor: Reactor {
             .map { events -> Mutation in
                 return .fetchActivityMore(events, nextPage: 1, canLoadMore: false)
         }
+    }
+    
+    private func parseContribution(response: Response) -> ContributionInfo {
+        var contributionCount: Int = 0
+        var contributions: [Contribution] = .init()
+        
+        if let doc = try? HTML(html: response.data, encoding: .utf8) {
+            for rect in doc.css("rect") {
+                if var date = rect["data-date"],
+                    var count = rect["data-count"],
+                    var hexColor = rect["fill"] {
+                    
+                    date = date.replacingOccurrences(of: "\\", with: "")
+                        .replacingOccurrences(of: "/", with: "")
+                        .replacingOccurrences(of: "\"", with: "")
+                    count = count.replacingOccurrences(of: "\\", with: "")
+                        .replacingOccurrences(of: "\"", with: "")
+                    
+                    hexColor = hexColor.replacingOccurrences(of: "\\", with: "")
+                        .replacingOccurrences(of: "\"", with: "")
+                    
+                    contributions.append(Contribution(date: date, contribution: Int(count)!, hexColor: hexColor))
+                }
+            }
+            
+            for count in doc.css("h2, f4 text-normal mb-2") {
+                let decimalCharacters = CharacterSet.decimalDigits
+                let decimalRange = count.text?.rangeOfCharacter(from: decimalCharacters)
+                
+                if decimalRange != nil {
+                    if var countText = count.text {
+                        countText = countText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+                        contributionCount = Int(countText)!
+                    }
+                }
+            }
+        }
+        
+        return ContributionInfo(count: contributionCount,
+                                contributions: contributions)
     }
 }
