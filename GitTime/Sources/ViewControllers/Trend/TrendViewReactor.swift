@@ -213,21 +213,30 @@ final class TrendViewReactor: Reactor {
                 
                 let name = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/h1")
                 let username = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/p")
-                let url = "https://github.com/"
+                let url = "https://github.com"
                 let avatar = item.xpath(".//div[@class='mx-3']/a[@class='d-inline-block']/img[@class='rounded-1']/@src")
                 
-                let repoName = item.xpath("//h1[@class='h4 lh-condensed']")
+                let repoName = item.xpath(".//h1[@class='h4 lh-condensed']")
                 let repoURL = item.xpath(".//h1[@class='h4 lh-condensed']/a/@href")
                 let repoDescription = item.xpath(".//div[@class='f6 text-gray mt-1']")
+                let relativeURL = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/h1/a/@href")
                 
                 if let name = name.first?.text?.striped {
                     trendDeveloper.name = name
                 }
                 
+                if let relativeURL = relativeURL.first?.text?.striped {
+                    trendDeveloper.url = "\(url)\(relativeURL)"
+                    log.debug(trendDeveloper.url)
+                }
+                
                 if let userName = username.first?.text?.striped {
                     trendDeveloper.userName = userName
-                    trendDeveloper.url = "\(url)\(userName)"
+                    // trendDeveloper.url = "\(url)\(userName)"
                 }
+                
+                
+                
                 
                 if let profileURL = avatar.first?.text?.striped {
                     trendDeveloper.profileURL = profileURL
