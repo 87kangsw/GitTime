@@ -21,6 +21,7 @@ class SearchViewReactor: Reactor {
         case loadMore
         case showRecentSearchWords(Bool)
         case removeRecentSearchWord(IndexPath, String)
+        case selectLanguage(Language?)
     }
     
     enum Mutation {
@@ -36,6 +37,7 @@ class SearchViewReactor: Reactor {
         case setLoadMore(Bool)
         case setShowRecentSearchWords(Bool)
         case removeRecentSearchWord(IndexPath)
+        case setLanguage(Language?)
     }
     
     struct State {
@@ -62,22 +64,26 @@ class SearchViewReactor: Reactor {
         var page: Int = 1
         var canLoadMore: Bool = true
         var isShowRecentSearchWords: Bool = false
+        var language: Language?
     }
     
     fileprivate let searchService: SearchServiceType
     fileprivate let languageService: LanguagesServiceType
     fileprivate let realmService: RealmServiceType
-    
+    fileprivate let userdefaultsService: UserDefaultsServiceType
     let initialState: State
     
     init(searchService: SearchServiceType,
          languageService: LanguagesServiceType,
-         realmService: RealmServiceType) {
+         realmService: RealmServiceType,
+         userdefaultsService: UserDefaultsServiceType) {
         self.searchService = searchService
         self.languageService = languageService
         self.realmService = realmService
+        self.userdefaultsService = userdefaultsService
         
-        initialState = State(query: nil,
+        let language: Language? = userdefaultsService.structValue(forKey: UserDefaultsKey.langauge)
+        self.initialState = State(query: nil,
                              segmentType: .users,
                              isLoading: false,
                              searchedUsers: [],
@@ -85,7 +91,8 @@ class SearchViewReactor: Reactor {
                              recentSearchedWords: [],
                              page: SearchViewReactor.INITIAL_PAGE,
                              canLoadMore: false,
-                             isShowRecentSearchWords: false)
+                             isShowRecentSearchWords: false,
+                             language: language)
     }
     
     // MARK: Mutation
@@ -123,6 +130,18 @@ class SearchViewReactor: Reactor {
             // Word remove from realm..
             self.removeSearchWord(text)
             return .just(.removeRecentSearchWord(indexPath))
+        case .selectLanguage(let language):
+            // self.userdefaultsService.set(value: language, forKey: UserDefaultsKey.langauge)
+            self.userdefaultsService.setStruct(value: language, forKey: UserDefaultsKey.langauge)
+            let languageMutation: Observable<Mutation> = .just(.setLanguage(language))
+            
+            guard let query = self.currentState.query, !query.isEmpty else { return .empty() }
+            let startLoadingMutation: Observable<Mutation> = .just(.setLoading(true))
+            let endLoadingMutation: Observable<Mutation> = .just(.setLoading(false))
+            let requestMutation: Observable<Mutation> = (self.currentState.segmentType == SearchTypes.users) ?
+                self.searchUsersMutation(query: query) : self.searchRepositoriesMutation(query: query)
+            
+            return .concat([languageMutation, startLoadingMutation, requestMutation, endLoadingMutation])
         }
     }
     
@@ -174,6 +193,8 @@ class SearchViewReactor: Reactor {
             }.map(SearchResultsSectionItem.recentWord)
         case let .removeRecentSearchWord(indexPath):
             state.recentSearchedWords.remove(at: indexPath.row)
+        case let .setLanguage(language):
+            state.language = language
         }
         return state
     }
@@ -183,7 +204,8 @@ class SearchViewReactor: Reactor {
     private func searchUsersMutation(query: String) -> Observable<Mutation> {
         let currentPage = SearchViewReactor.INITIAL_PAGE
         guard !query.isEmpty else { return .just(.setSearchUsers([], nextPage: currentPage, canLoadMore: false)) }
-        return self.searchService.searchUser(query: query, page: currentPage)
+        let language = self.currentState.language
+        return self.searchService.searchUser(query: query, page: currentPage, language: language?.name)
             .map { (lists, canLoadMore) -> Mutation in
                 let newPage = !canLoadMore ? currentPage : currentPage + 1
                 return .setSearchUsers(lists, nextPage: newPage, canLoadMore: canLoadMore)
@@ -193,7 +215,8 @@ class SearchViewReactor: Reactor {
     private func searchRepositoriesMutation(query: String) -> Observable<Mutation> {
         let currentPage = SearchViewReactor.INITIAL_PAGE
         guard !query.isEmpty else { return .just(.setSearchRepos([], nextPage: currentPage, canLoadMore: false)) }
-        return self.searchService.searchRepo(query: query, page: currentPage)
+        let language = self.currentState.language
+        return self.searchService.searchRepo(query: query, page: currentPage, language: language?.name)
             .map { (lists, canLoadMore) -> Mutation in
                 let newPage = !canLoadMore ? currentPage : currentPage + 1
                 return .setSearchRepos(lists, nextPage: newPage, canLoadMore: canLoadMore)
@@ -214,16 +237,17 @@ class SearchViewReactor: Reactor {
         guard let query = self.currentState.query else { return .empty() }
         let currentSearchType = self.currentState.segmentType
         let currentPage = self.currentState.page
+        let language = self.currentState.language
         
         switch currentSearchType {
         case .users:
-            return self.searchService.searchUser(query: query, page: currentPage)
+            return self.searchService.searchUser(query: query, page: currentPage, language: language?.name)
                 .map { (lists, canLoadMore) -> Mutation in
                     let newPage = !canLoadMore ? currentPage : currentPage + 1
                     return .setMoreSearchUsers(lists, nextPage: newPage, canLoadMore: canLoadMore)
                 }.catchErrorJustReturn(.setMoreSearchUsers([], nextPage: currentPage, canLoadMore: false))
         case .repositories:
-            return self.searchService.searchRepo(query: query, page: currentPage)
+            return self.searchService.searchRepo(query: query, page: currentPage, language: language?.name)
                 .map { (lists, canLoadMore) -> Mutation in
                     let newPage = !canLoadMore ? currentPage : currentPage + 1
                     return .setMoreSearchRepos(lists, nextPage: newPage, canLoadMore: canLoadMore)

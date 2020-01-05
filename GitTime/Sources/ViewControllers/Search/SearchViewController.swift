@@ -30,6 +30,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
         searchBar.searchBarStyle = .default
         return searchBar
     }()
+    @IBOutlet weak var languageButton: UIButton!
     
     // MARK: - Properties
     
@@ -97,6 +98,27 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 reactor.action.onNext(.selectType(type))
             }).disposed(by: self.disposeBag)
         
+        segmentControl.rx.selectedSegmentIndex
+            .distinctUntilChanged()
+            .map { SearchTypes(rawValue: $0) }
+            .filterNil()
+            .subscribe(onNext: { [weak self] type in
+                guard let self = self, let headerView = self.tableView.tableHeaderView else { return }
+                var frame = headerView.frame
+                switch type {
+                case .users:
+                    frame.size.height = 63.0
+                case .repositories:
+                    frame.size.height = 117.0
+                }
+                headerView.frame = frame
+                log.debug(frame)
+                self.tableView.tableHeaderView = headerView
+                headerView.setNeedsLayout()
+                headerView.layoutIfNeeded()
+                self.languageButton.isHidden = type == .users
+            }).disposed(by: self.disposeBag)
+        
         tableView.rx.reachedBottom
             .observeOn(MainScheduler.instance)
             .map { Reactor.Action.loadMore }
@@ -113,6 +135,13 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
         reactor.state.map { $0.sections }
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: self.disposeBag)
+        
+        reactor.state.map { $0.language }
+            .map { language -> String in
+                return language?.name ?? LanguageTypes.all.buttonTitle()
+        }
+        .bind(to: languageButton.rx.title())
+        .disposed(by: self.disposeBag)
         
         // View
         searchBar.rx.textDidBeginEditing

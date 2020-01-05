@@ -9,8 +9,8 @@
 import RxSwift
 
 protocol SearchServiceType {
-    func searchUser(query: String, page: Int) -> Observable<([User], Bool)>
-    func searchRepo(query: String, page: Int) -> Observable<([Repository], Bool)>
+    func searchUser(query: String, page: Int, language: String?) -> Observable<([User], Bool)>
+    func searchRepo(query: String, page: Int, language: String?) -> Observable<([Repository], Bool)>
 }
 
 class SearchService: SearchServiceType {
@@ -21,8 +21,8 @@ class SearchService: SearchServiceType {
         self.networking = networking
     }
     
-    func searchUser(query: String, page: Int) -> Observable<([User], Bool)> {
-        return self.networking.request(.searchUser(query: query, page: page))
+    func searchUser(query: String, page: Int, language: String?) -> Observable<([User], Bool)> {
+        return self.networking.request(.searchUser(query: query, page: page, language: language))
             .map(SearchResults<User>.self)
             .map { result -> ([User], Bool) in
                 let canLoadMore = result.totalCount > page * 30
@@ -31,8 +31,8 @@ class SearchService: SearchServiceType {
             .asObservable()
     }
     
-    func searchRepo(query: String, page: Int) -> Observable<([Repository], Bool)> {
-        return self.networking.request(.searchRepo(query: query, page: page))
+    func searchRepo(query: String, page: Int, language: String?) -> Observable<([Repository], Bool)> {
+        return self.networking.request(.searchRepo(query: query, page: page, language: language))
             .map(SearchResults<Repository>.self)
             .map { result -> ([Repository], Bool) in
                 let canLoadMore = result.totalCount > page * 30
