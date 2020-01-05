@@ -24,6 +24,8 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
     @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet var segmentBottomToLanguageConstraint: NSLayoutConstraint!
+    @IBOutlet var segmentBottomToSuperViewConstraint: NSLayoutConstraint!
     @IBOutlet var tableBottomConstraint: NSLayoutConstraint!
     private var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -109,11 +111,14 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 switch type {
                 case .users:
                     frame.size.height = 63.0
+                    self.segmentBottomToLanguageConstraint.isActive = false
+                    self.segmentBottomToSuperViewConstraint.isActive = true
                 case .repositories:
                     frame.size.height = 117.0
+                    self.segmentBottomToLanguageConstraint.isActive = true
+                    self.segmentBottomToSuperViewConstraint.isActive = false
                 }
                 headerView.frame = frame
-                log.debug(frame)
                 self.tableView.tableHeaderView = headerView
                 headerView.setNeedsLayout()
                 headerView.layoutIfNeeded()
