@@ -60,6 +60,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
         tableView.backgroundColor = .background
         tableView.separatorColor = .underLine
         tableHeaderView.backgroundColor = .background
+        tableView.tableFooterView = UIView()
         
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.color = .invertBackground

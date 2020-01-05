@@ -81,6 +81,8 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
         tableView.registerNib(cellType: SettingUserProfileCell.self)
         tableView.registerNib(cellType: SettingItemCell.self)
         tableView.registerNib(cellType: SettingLogoutCell.self)
+        
+        tableView.tableFooterView = UIView()
     }
     
     // MARK: - Configure

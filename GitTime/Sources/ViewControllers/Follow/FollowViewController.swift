@@ -59,6 +59,7 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
         tableView.backgroundColor = .background
         tableView.separatorColor = .underLine
         tableHeaderView.backgroundColor = .background
+        tableView.tableFooterView = UIView()
         
         FollowTypes.allCases.enumerated().forEach { (index, type) in
             segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)

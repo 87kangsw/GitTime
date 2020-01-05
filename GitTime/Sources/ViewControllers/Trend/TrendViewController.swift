@@ -80,6 +80,7 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
         
         tableView.backgroundColor = .background
         tableView.separatorColor = .underLine
+        tableView.tableFooterView = UIView()
         
         tableHeaderView.backgroundColor = .background
         

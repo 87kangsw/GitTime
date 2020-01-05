@@ -78,6 +78,7 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
         
         headerView.backgroundColor = .background
         tableView.tableHeaderView = headerView
+        tableView.tableFooterView = UIView()
     }
     
     // MARK: - Configure

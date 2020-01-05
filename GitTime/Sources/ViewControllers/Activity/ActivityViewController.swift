@@ -70,6 +70,7 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
 
         tableView.backgroundColor = .background
         tableView.separatorColor = .underLine
+        tableView.tableFooterView = UIView()
         
         let width: CGFloat = UIScreen.main.bounds.width
         
