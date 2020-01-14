@@ -9,7 +9,7 @@
 import RxSwift
 
 protocol SearchServiceType {
-    func searchUser(query: String, page: Int, language: String?) -> Observable<([User], Bool)>
+    func searchUser(query: String, page: Int) -> Observable<([User], Bool)>
     func searchRepo(query: String, page: Int, language: String?) -> Observable<([Repository], Bool)>
 }
 
@@ -21,8 +21,8 @@ class SearchService: SearchServiceType {
         self.networking = networking
     }
     
-    func searchUser(query: String, page: Int, language: String?) -> Observable<([User], Bool)> {
-        return self.networking.request(.searchUser(query: query, page: page, language: language))
+    func searchUser(query: String, page: Int) -> Observable<([User], Bool)> {
+        return self.networking.request(.searchUser(query: query, page: page))
             .map(SearchResults<User>.self)
             .map { result -> ([User], Bool) in
                 let canLoadMore = result.totalCount > page * 30

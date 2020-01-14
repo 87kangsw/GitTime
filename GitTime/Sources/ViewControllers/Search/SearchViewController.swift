@@ -107,21 +107,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
             .filterNil()
             .subscribe(onNext: { [weak self] type in
                 guard let self = self, let headerView = self.tableView.tableHeaderView else { return }
-                var frame = headerView.frame
-                switch type {
-                case .users:
-                    frame.size.height = 63.0
-                    self.segmentBottomToLanguageConstraint.isActive = false
-                    self.segmentBottomToSuperViewConstraint.isActive = true
-                case .repositories:
-                    frame.size.height = 117.0
-                    self.segmentBottomToLanguageConstraint.isActive = true
-                    self.segmentBottomToSuperViewConstraint.isActive = false
-                }
-                headerView.frame = frame
-                self.tableView.tableHeaderView = headerView
-                headerView.setNeedsLayout()
-                headerView.layoutIfNeeded()
+                self.updateHeaderViewFrame(headerView, type: type)
                 self.languageButton.isHidden = type == .users
             }).disposed(by: self.disposeBag)
         
@@ -130,6 +116,19 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
             .map { Reactor.Action.loadMore }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
+        
+        languageButton.rx.tap
+            .flatMap { [weak self] _ -> Observable<Language> in
+                guard let self = self else { return .empty() }
+                let languageReactor = LanguagesViewReactor(languagesService: LanguagesService(),
+                                                           userDefaultsService: UserDefaultsService())
+                let languageVC = LanguagesViewController.instantiate(withReactor: languageReactor)
+                self.present(languageVC.navigationWrap(), animated: true, completion: nil)
+                return languageVC.selectedLanguage
+        }.subscribe(onNext: { language in
+            // let languageName = language.type != .all ? language.name : nil
+            reactor.action.onNext(.selectLanguage(language))
+        }).disposed(by: self.disposeBag)
         
         // State
         reactor.state.map { $0.isLoading }
@@ -226,5 +225,23 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 return nil
             }
         })
+    }
+    
+    private func updateHeaderViewFrame(_ headerView: UIView, type: SearchTypes) {
+        var frame = headerView.frame
+        switch type {
+        case .users:
+            frame.size.height = 63.0
+            self.segmentBottomToLanguageConstraint.isActive = false
+            self.segmentBottomToSuperViewConstraint.isActive = true
+        case .repositories:
+            frame.size.height = 117.0
+            self.segmentBottomToLanguageConstraint.isActive = true
+            self.segmentBottomToSuperViewConstraint.isActive = false
+        }
+        headerView.frame = frame
+        self.tableView.tableHeaderView = headerView
+        headerView.setNeedsLayout()
+        headerView.layoutIfNeeded()
     }
 }
