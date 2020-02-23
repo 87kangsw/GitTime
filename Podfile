@@ -38,6 +38,8 @@ pod 'Kingfisher', '~> 5.0'
 # etc
 pod 'Firebase/Core'
 pod 'Firebase/RemoteConfig'
+pod 'Firebase/Analytics'
+pod 'Firebase/Performance'
 pod 'Fabric'
 pod 'Crashlytics'
 pod 'SwiftLint'
