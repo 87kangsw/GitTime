@@ -3,7 +3,11 @@
 <p align=center>
 <img onerror="this.style.display='none';" src="https://is5-ssl.mzstatic.com/image/thumb/Purple124/v4/10/dd/73/10dd7379-af44-0950-1fe6-e53ab010334a/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/400x400bb.jpg" alt="400x400bb" width="200" height="200">
 <br/>
-<a href="https://apps.apple.com/us/app/gittime/id1469013856?mt=8" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/ko-kr/badge-lrg.svg?releaseDate=2019-06-22&kind=iossoftware&bubble=ios_apps) no-repeat;width:135px;height:40px;"></a>
+<br/>
+<a href="https://apps.apple.com/us/app/gittime/id1469013856?mt=8">
+<img src="https://linkmaker.itunes.apple.com/ko-kr/badge-lrg.svg?releaseDate=2019-06-22&kind=iossoftware&bubble=ios_apps">
+</a>
+<br/>
 <br/>
 <a href="https://github.com/ReactorKit/ReactorKit">
 <img src="https://img.shields.io/badge/architecture-ReactorKit-brightgreen">
