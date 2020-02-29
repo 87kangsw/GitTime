@@ -59,6 +59,7 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
         tableView.backgroundColor = .background
         tableView.separatorColor = .underLine
         tableHeaderView.backgroundColor = .background
+        tableView.tableFooterView = UIView()
         
         FollowTypes.allCases.enumerated().forEach { (index, type) in
             segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)
@@ -114,7 +115,7 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .followUsers(let reactor):
-                    self.presentPanModalWeb(urlString: reactor.currentState.followUser.url)
+                    self.presentModalWeb(urlString: reactor.currentState.followUser.url)
                 }
             }).disposed(by: self.disposeBag)
         

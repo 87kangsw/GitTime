@@ -56,7 +56,7 @@ final class AppDependency {
         
         // Toaster
         let toastAppearance = ToastView.appearance()
-        toastAppearance.bottomOffsetPortrait = UIScreen.main.bounds.height / 2
+        toastAppearance.bottomOffsetPortrait = 30.0
         toastAppearance.textColor = .invertTitle
         toastAppearance.backgroundColor = .invertBackground
     }
@@ -79,6 +79,8 @@ final class AppDependency {
         let activityService = ActivityService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
         let crawlerService = GitTimeCrawlerService(networking: GitTimeProvider<GitTimeCrawlerAPI>())
         let searchService = SearchService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
+        let realmService = RealmService()
+        let languageService = LanguagesService()
         
         let firstLaunch: Bool = userDefaultsService.value(forKey: UserDefaultsKey.firstLaunch) ?? true
         if firstLaunch {
@@ -113,8 +115,9 @@ final class AppDependency {
             followVC.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.followFilled)
             
             let searchReactor = SearchViewReactor(searchService: searchService,
-                                                  languageService: LanguagesService(),
-                                                  realmService: RealmService())
+                                                  languageService: languageService,
+                                                  realmService: realmService,
+                                                  userdefaultsService: userDefaultsService)
             
             let searchVC = SearchViewController.instantiate(withReactor: searchReactor)
             searchVC.title = "Search"

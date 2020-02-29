@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		860ED7B94156B7E6F2A99EE6 /* Pods_GitTimeTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B88A89C06B4F58F4E377C5BC /* Pods_GitTimeTests.framework */; };
 		A61BD44C412EFBD7E67BC501 /* Pods_GitTimeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4519D51E90D3A67FE01D25D2 /* Pods_GitTimeUITests.framework */; };
+		B20307E623D2075F0058CD46 /* FavoriteLanguageViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20307E323D2075F0058CD46 /* FavoriteLanguageViewReactor.swift */; };
+		B20307E723D2075F0058CD46 /* FavoriteLanguageViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B20307E423D2075F0058CD46 /* FavoriteLanguageViewController.storyboard */; };
+		B20307E823D2075F0058CD46 /* FavoriteLanguageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20307E523D2075F0058CD46 /* FavoriteLanguageViewController.swift */; };
 		B20F70D322927F7E00F42770 /* KeychainService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20F70D222927F7E00F42770 /* KeychainService.swift */; };
 		B211675D22A50A5700A7C335 /* LanguageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B211675C22A50A5700A7C335 /* LanguageSection.swift */; };
 		B211675F22A6505800A7C335 /* FollowTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B211675E22A6505800A7C335 /* FollowTypes.swift */; };
@@ -23,6 +26,10 @@
 		B22260DE22AE030300DDCE8E /* ActivityItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22260DC22AE030300DDCE8E /* ActivityItemCell.swift */; };
 		B22260DF22AE030300DDCE8E /* ActivityItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B22260DD22AE030300DDCE8E /* ActivityItemCell.xib */; };
 		B22260E122AE030B00DDCE8E /* ActivityItemCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B22260E022AE030B00DDCE8E /* ActivityItemCellReactor.swift */; };
+		B225CC53240A7A18002FAD69 /* FavoriteLanguageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B225CC52240A7A18002FAD69 /* FavoriteLanguageSection.swift */; };
+		B2267C3E23E47062005DE02C /* FavoriteLanguageTableViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2267C3B23E47062005DE02C /* FavoriteLanguageTableViewCellReactor.swift */; };
+		B2267C3F23E47062005DE02C /* FavoriteLanguageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B2267C3C23E47062005DE02C /* FavoriteLanguageTableViewCell.xib */; };
+		B2267C4023E47062005DE02C /* FavoriteLanguageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2267C3D23E47062005DE02C /* FavoriteLanguageTableViewCell.swift */; };
 		B228EADA228BE91700E55456 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228EAD9228BE91700E55456 /* Event.swift */; };
 		B228EADC228BE96800E55456 /* ModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228EADB228BE96800E55456 /* ModelType.swift */; };
 		B228EADE228C0EEB00E55456 /* Payload.swift in Sources */ = {isa = PBXBuildFile; fileRef = B228EADD228C0EEB00E55456 /* Payload.swift */; };
@@ -136,6 +143,7 @@
 		B2B345CB22FDBBE600B547C7 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B345CA22FDBBE600B547C7 /* SearchViewController.swift */; };
 		B2B345CD22FDBBEE00B547C7 /* SearchViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2B345CC22FDBBEE00B547C7 /* SearchViewController.storyboard */; };
 		B2B345CF22FDBC3500B547C7 /* SearchViewReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B345CE22FDBC3500B547C7 /* SearchViewReactor.swift */; };
+		B2B6247623D238EF000161C7 /* FavoriteLanguage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B6247523D238EF000161C7 /* FavoriteLanguage.swift */; };
 		B2BF8B9022B74655007B2AAA /* UICollectionView+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BF8B8F22B74655007B2AAA /* UICollectionView+Extensions.swift */; };
 		B2BF8B9222B74A20007B2AAA /* ContributionCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BF8B9122B74A20007B2AAA /* ContributionCellReactor.swift */; };
 		B2BF8B9422B753C1007B2AAA /* ContributionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2BF8B9322B753C1007B2AAA /* ContributionSection.swift */; };
@@ -197,6 +205,9 @@
 		5396581628FE5EA1A1E7652B /* Pods-GitTimeTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitTimeTests.debug.xcconfig"; path = "Target Support Files/Pods-GitTimeTests/Pods-GitTimeTests.debug.xcconfig"; sourceTree = "<group>"; };
 		664F8A8DECDAD87858FD750D /* Pods-GitTimeTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitTimeTests.release.xcconfig"; path = "Target Support Files/Pods-GitTimeTests/Pods-GitTimeTests.release.xcconfig"; sourceTree = "<group>"; };
 		746B49E9DE514E3CE736A2D5 /* Pods-GitTimeUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GitTimeUITests.debug.xcconfig"; path = "Target Support Files/Pods-GitTimeUITests/Pods-GitTimeUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		B20307E323D2075F0058CD46 /* FavoriteLanguageViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLanguageViewReactor.swift; sourceTree = "<group>"; };
+		B20307E423D2075F0058CD46 /* FavoriteLanguageViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FavoriteLanguageViewController.storyboard; sourceTree = "<group>"; };
+		B20307E523D2075F0058CD46 /* FavoriteLanguageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLanguageViewController.swift; sourceTree = "<group>"; };
 		B20F70D222927F7E00F42770 /* KeychainService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainService.swift; sourceTree = "<group>"; };
 		B211675C22A50A5700A7C335 /* LanguageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageSection.swift; sourceTree = "<group>"; };
 		B211675E22A6505800A7C335 /* FollowTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowTypes.swift; sourceTree = "<group>"; };
@@ -211,6 +222,10 @@
 		B22260DC22AE030300DDCE8E /* ActivityItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemCell.swift; sourceTree = "<group>"; };
 		B22260DD22AE030300DDCE8E /* ActivityItemCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityItemCell.xib; sourceTree = "<group>"; };
 		B22260E022AE030B00DDCE8E /* ActivityItemCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityItemCellReactor.swift; sourceTree = "<group>"; };
+		B225CC52240A7A18002FAD69 /* FavoriteLanguageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLanguageSection.swift; sourceTree = "<group>"; };
+		B2267C3B23E47062005DE02C /* FavoriteLanguageTableViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLanguageTableViewCellReactor.swift; sourceTree = "<group>"; };
+		B2267C3C23E47062005DE02C /* FavoriteLanguageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoriteLanguageTableViewCell.xib; sourceTree = "<group>"; };
+		B2267C3D23E47062005DE02C /* FavoriteLanguageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLanguageTableViewCell.swift; sourceTree = "<group>"; };
 		B228EAD9228BE91700E55456 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		B228EADB228BE96800E55456 /* ModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelType.swift; sourceTree = "<group>"; };
 		B228EADD228C0EEB00E55456 /* Payload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Payload.swift; sourceTree = "<group>"; };
@@ -324,6 +339,7 @@
 		B2B345CA22FDBBE600B547C7 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		B2B345CC22FDBBEE00B547C7 /* SearchViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SearchViewController.storyboard; sourceTree = "<group>"; };
 		B2B345CE22FDBC3500B547C7 /* SearchViewReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewReactor.swift; sourceTree = "<group>"; };
+		B2B6247523D238EF000161C7 /* FavoriteLanguage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteLanguage.swift; sourceTree = "<group>"; };
 		B2BF8B8F22B74655007B2AAA /* UICollectionView+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extensions.swift"; sourceTree = "<group>"; };
 		B2BF8B9122B74A20007B2AAA /* ContributionCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionCellReactor.swift; sourceTree = "<group>"; };
 		B2BF8B9322B753C1007B2AAA /* ContributionSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContributionSection.swift; sourceTree = "<group>"; };
@@ -416,6 +432,16 @@
 				4519D51E90D3A67FE01D25D2 /* Pods_GitTimeUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B20307E223D207410058CD46 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				B20307E423D2075F0058CD46 /* FavoriteLanguageViewController.storyboard */,
+				B20307E523D2075F0058CD46 /* FavoriteLanguageViewController.swift */,
+				B20307E323D2075F0058CD46 /* FavoriteLanguageViewReactor.swift */,
+			);
+			path = Favorite;
 			sourceTree = "<group>";
 		};
 		B20F70D9229289FE00F42770 /* Splash */ = {
@@ -511,6 +537,7 @@
 				B2C99E2E22FDC0310001C72D /* SearchResults.swift */,
 				B2647B3022FFF8CB000C0E20 /* Repository.swift */,
 				B238A2FB23478A870058E11B /* SearchHistory.swift */,
+				B2B6247523D238EF000161C7 /* FavoriteLanguage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -531,6 +558,16 @@
 				B238A2FF2347AC4B0058E11B /* RealmService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		B2267C3A23E46FB1005DE02C /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				B2267C3D23E47062005DE02C /* FavoriteLanguageTableViewCell.swift */,
+				B2267C3B23E47062005DE02C /* FavoriteLanguageTableViewCellReactor.swift */,
+				B2267C3C23E47062005DE02C /* FavoriteLanguageTableViewCell.xib */,
+			);
+			path = Favorite;
 			sourceTree = "<group>";
 		};
 		B228EAE9228D066600E55456 /* Network */ = {
@@ -594,6 +631,7 @@
 				B244F3062294EDB9003F24FF /* TrendViewController.swift */,
 				B244F30A2294EDF4003F24FF /* TrendViewReactor.swift */,
 				B289A06E229D3B0100AD9533 /* Languages */,
+				B20307E223D207410058CD46 /* Favorite */,
 			);
 			path = Trend;
 			sourceTree = "<group>";
@@ -673,6 +711,7 @@
 				B2540FEE22A117F70002F43E /* LanguageListCell.swift */,
 				B2540FF222A11DF90002F43E /* LanguageListCellReactor.swift */,
 				B2540FEF22A117F80002F43E /* LanguageListCell.xib */,
+				B2267C3A23E46FB1005DE02C /* Favorite */,
 			);
 			path = Trend;
 			sourceTree = "<group>";
@@ -736,6 +775,7 @@
 				B2E72A8722A79A6600F54399 /* SettingSection.swift */,
 				B2BF8B9322B753C1007B2AAA /* ContributionSection.swift */,
 				B2647B2E22FFF473000C0E20 /* SearchResultsSection.swift */,
+				B225CC52240A7A18002FAD69 /* FavoriteLanguageSection.swift */,
 			);
 			path = Sections;
 			sourceTree = "<group>";
@@ -993,6 +1033,7 @@
 				B248E369228D358F00411F2F /* .swiftlint.yml in Resources */,
 				B248E36D228D549000411F2F /* GitHub-Info.plist in Resources */,
 				B244F3092294EDE8003F24FF /* TrendViewController.storyboard in Resources */,
+				B20307E723D2075F0058CD46 /* FavoriteLanguageViewController.storyboard in Resources */,
 				B2C94C1C2283D7280095863C /* LaunchScreen.storyboard in Resources */,
 				B244F33D229799DD003F24FF /* TrendingDeveloperCell.xib in Resources */,
 				B235D07D2377AA6E00AC8893 /* follow.json in Resources */,
@@ -1012,6 +1053,7 @@
 				B231E80C228EB0EC00645D32 /* Colors.xcassets in Resources */,
 				B237A5F122927A410069C59C /* LoginViewController.storyboard in Resources */,
 				B2F4D37F22B395E600A7C18C /* ContributionCell.xib in Resources */,
+				B2267C3F23E47062005DE02C /* FavoriteLanguageTableViewCell.xib in Resources */,
 				B235D0752376534700AC8893 /* contributions_dark.json in Resources */,
 				B238A304234839350058E11B /* SearchHistoryCell.xib in Resources */,
 				B211676B22A65E9400A7C335 /* FollowUserCell.xib in Resources */,
@@ -1189,6 +1231,7 @@
 				B244F3172294EE25003F24FF /* SettingViewReactor.swift in Sources */,
 				B244F32D2295A292003F24FF /* GitHubAccessToken.swift in Sources */,
 				B22260DE22AE030300DDCE8E /* ActivityItemCell.swift in Sources */,
+				B20307E823D2075F0058CD46 /* FavoriteLanguageViewController.swift in Sources */,
 				B228EADA228BE91700E55456 /* Event.swift in Sources */,
 				B2C99E3122FDC84A0001C72D /* SearchTypes.swift in Sources */,
 				B248E373228D561600411F2F /* LoginViewReactor.swift in Sources */,
@@ -1206,6 +1249,7 @@
 				B289B98922AA021F00F0A1E2 /* Constants.swift in Sources */,
 				B289A072229D3B1B00AD9533 /* LanguagesViewReactor.swift in Sources */,
 				B2BF8B9422B753C1007B2AAA /* ContributionSection.swift in Sources */,
+				B20307E623D2075F0058CD46 /* FavoriteLanguageViewReactor.swift in Sources */,
 				B269744C22BB214000F67129 /* EmptyTableViewCellReactor.swift in Sources */,
 				B235D07923766A4800AC8893 /* Bundle+Extensions.swift in Sources */,
 				B228EAE4228D036700E55456 /* BaseViewController.swift in Sources */,
@@ -1218,6 +1262,7 @@
 				B2BF8B9222B74A20007B2AAA /* ContributionCellReactor.swift in Sources */,
 				B244F3522297D3C6003F24FF /* TrendTypes.swift in Sources */,
 				B244F3112294EE0E003F24FF /* FollowViewReactor.swift in Sources */,
+				B225CC53240A7A18002FAD69 /* FavoriteLanguageSection.swift in Sources */,
 				B211676F22A6787F00A7C335 /* UIScrollView+Rx.swift in Sources */,
 				B2BF8B9822B7706B007B2AAA /* ActivityContributionViewReactor.swift in Sources */,
 				B2AAC56F228E70A800EC8562 /* TrendRepo.swift in Sources */,
@@ -1246,6 +1291,7 @@
 				B2B345CB22FDBBE600B547C7 /* SearchViewController.swift in Sources */,
 				B211676D22A65E9F00A7C335 /* FollowUserCellReactor.swift in Sources */,
 				B248E371228D55C700411F2F /* ActivityViewController.swift in Sources */,
+				B2B6247623D238EF000161C7 /* FavoriteLanguage.swift in Sources */,
 				B248E36F228D55AB00411F2F /* LoginViewController.swift in Sources */,
 				B289A05C229CCD8300AD9533 /* Int+Extensions.swift in Sources */,
 				B244F34122979A02003F24FF /* TrendingDeveloperCellReactor.swift in Sources */,
@@ -1256,6 +1302,7 @@
 				B20F70D322927F7E00F42770 /* KeychainService.swift in Sources */,
 				B238A2FC23478A870058E11B /* SearchHistory.swift in Sources */,
 				B2E72A8322A799DC00F54399 /* SettingUserProfileCell.swift in Sources */,
+				B2267C3E23E47062005DE02C /* FavoriteLanguageTableViewCellReactor.swift in Sources */,
 				B2540FF022A117F80002F43E /* LanguageListCell.swift in Sources */,
 				B22260DB22ADD8FF00DDCE8E /* ActivityService.swift in Sources */,
 				B2AAC571228E70B100EC8562 /* TrendDeveloper.swift in Sources */,
@@ -1270,6 +1317,7 @@
 				B298354122F53F3100FBEF71 /* SearchUserCellReactor.swift in Sources */,
 				B2C94C122283D7260095863C /* AppDelegate.swift in Sources */,
 				B244F31C2295074E003F24FF /* UserService.swift in Sources */,
+				B2267C4023E47062005DE02C /* FavoriteLanguageTableViewCell.swift in Sources */,
 				B2F4D37B22B38DBE00A7C18C /* GitTimeCralwerAPI.swift in Sources */,
 				B244F3472297A7B8003F24FF /* LanguagesService.swift in Sources */,
 				B289A05E229CD97B00AD9533 /* UITableView+Extensions.swift in Sources */,
@@ -1478,7 +1526,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.87kangsw.GitTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1500,7 +1548,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.2;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = io.github.87kangsw.GitTime;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

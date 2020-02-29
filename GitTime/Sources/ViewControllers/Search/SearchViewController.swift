@@ -24,12 +24,15 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
     @IBOutlet weak var tableHeaderView: UIView!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet var segmentBottomToLanguageConstraint: NSLayoutConstraint!
+    @IBOutlet var segmentBottomToSuperViewConstraint: NSLayoutConstraint!
     @IBOutlet var tableBottomConstraint: NSLayoutConstraint!
     private var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .default
         return searchBar
     }()
+    @IBOutlet weak var languageButton: UIButton!
     
     // MARK: - Properties
     
@@ -59,6 +62,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
         tableView.backgroundColor = .background
         tableView.separatorColor = .underLine
         tableHeaderView.backgroundColor = .background
+        tableView.tableFooterView = UIView()
         
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.color = .invertBackground
@@ -97,11 +101,35 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 reactor.action.onNext(.selectType(type))
             }).disposed(by: self.disposeBag)
         
+        segmentControl.rx.selectedSegmentIndex
+            .distinctUntilChanged()
+            .map { SearchTypes(rawValue: $0) }
+            .filterNil()
+            .subscribe(onNext: { [weak self] type in
+                guard let self = self, let headerView = self.tableView.tableHeaderView else { return }
+                self.updateHeaderViewFrame(headerView, type: type)
+                self.languageButton.isHidden = type == .users
+            }).disposed(by: self.disposeBag)
+        
         tableView.rx.reachedBottom
             .observeOn(MainScheduler.instance)
             .map { Reactor.Action.loadMore }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
+        
+        languageButton.rx.tap
+            .flatMap { [weak self] _ -> Observable<Language> in
+                guard let self = self else { return .empty() }
+                let languageReactor = LanguagesViewReactor(languagesService: LanguagesService(),
+                                                           userDefaultsService: UserDefaultsService(),
+                                                           realmService: RealmService())
+                let languageVC = LanguagesViewController.instantiate(withReactor: languageReactor)
+                self.present(languageVC.navigationWrap(), animated: true, completion: nil)
+                return languageVC.selectedLanguage
+        }.subscribe(onNext: { language in
+            // let languageName = language.type != .all ? language.name : nil
+            reactor.action.onNext(.selectLanguage(language))
+        }).disposed(by: self.disposeBag)
         
         // State
         reactor.state.map { $0.isLoading }
@@ -113,6 +141,13 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
         reactor.state.map { $0.sections }
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: self.disposeBag)
+        
+        reactor.state.map { $0.language }
+            .map { language -> String in
+                return language?.name ?? LanguageTypes.all.buttonTitle()
+        }
+        .bind(to: languageButton.rx.title())
+        .disposed(by: self.disposeBag)
         
         // View
         searchBar.rx.textDidBeginEditing
@@ -132,9 +167,9 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .searchedUser(let reactor):
-                    self.presentPanModalWeb(urlString: reactor.currentState.user.url)
+                    self.presentModalWeb(urlString: reactor.currentState.user.url)
                 case .searchedRepository(let reactor):
-                    self.presentPanModalWeb(urlString: reactor.currentState.repo.url)
+                    self.presentModalWeb(urlString: reactor.currentState.repo.url)
                 case .recentWord(let cellReactor):
                     let searchWords = cellReactor.currentState.history.text
                     self.searchBar.resignFirstResponder()
@@ -191,5 +226,23 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 return nil
             }
         })
+    }
+    
+    private func updateHeaderViewFrame(_ headerView: UIView, type: SearchTypes) {
+        var frame = headerView.frame
+        switch type {
+        case .users:
+            frame.size.height = 63.0
+            self.segmentBottomToLanguageConstraint.isActive = false
+            self.segmentBottomToSuperViewConstraint.isActive = true
+        case .repositories:
+            frame.size.height = 117.0
+            self.segmentBottomToLanguageConstraint.isActive = true
+            self.segmentBottomToSuperViewConstraint.isActive = false
+        }
+        headerView.frame = frame
+        self.tableView.tableHeaderView = headerView
+        headerView.setNeedsLayout()
+        headerView.layoutIfNeeded()
     }
 }

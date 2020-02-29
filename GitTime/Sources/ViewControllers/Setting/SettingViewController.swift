@@ -81,6 +81,8 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
         tableView.registerNib(cellType: SettingUserProfileCell.self)
         tableView.registerNib(cellType: SettingItemCell.self)
         tableView.registerNib(cellType: SettingLogoutCell.self)
+        
+        tableView.tableFooterView = UIView()
     }
     
     // MARK: - Configure
@@ -148,11 +150,11 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
     
     // MARK: - Go To
     fileprivate func goToMyProfile(_ pageURL: String) {
-        self.presentPanModalWeb(urlString: pageURL)
+        self.presentModalWeb(urlString: pageURL)
     }
     
     fileprivate func goToRepository() {
-        self.presentPanModalWeb(urlString: AppConstants.gitTimeRepositoryURL)
+        self.presentModalWeb(urlString: AppConstants.gitTimeRepositoryURL)
     }
     
     fileprivate func goToAcknowledgements() {

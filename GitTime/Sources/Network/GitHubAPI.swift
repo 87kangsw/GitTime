@@ -15,7 +15,7 @@ enum GitHubAPI {
     case followers(userName: String, page: Int)
     case following(userName: String, page: Int)
     case searchUser(query: String, page: Int)
-    case searchRepo(query: String, page: Int)
+    case searchRepo(query: String, page: Int, language: String?)
 }
 
 extension GitHubAPI: TargetType {
@@ -59,14 +59,27 @@ extension GitHubAPI: TargetType {
                 "page": page
             ]
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
+            
         case let .activityEvent(_, page):
             let params: [String: Any] = [
                 "per_page": 30,
                 "page": page
             ]
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
-        case let .searchUser(query, page),
-             let .searchRepo(query, page):
+            
+        case let .searchUser(query, page):
+            let params: [String: Any] = [
+                "q": query,
+                "page": page
+            ]
+            return .requestParameters(parameters: params, encoding: URLEncoding.default)
+            
+        case let .searchRepo(query, page, language):
+            var query = query
+            if let language = language {
+                query = "\(query)+\(language.lowercased())"
+            }
+            
             let params: [String: Any] = [
                 "q": query,
                 "page": page

@@ -11,6 +11,7 @@ import RxDataSources
 enum LanguageSection {
     case allLanguage([LanguageSectionItem])
     case languages([LanguageSectionItem])
+    case emptyFavorites([LanguageSectionItem])
 }
 
 extension LanguageSection: SectionModelType {
@@ -21,6 +22,8 @@ extension LanguageSection: SectionModelType {
             return items
         case .languages(let items):
             return items
+        case .emptyFavorites(let items):
+            return items
         }
     }
     
@@ -30,6 +33,8 @@ extension LanguageSection: SectionModelType {
             self = .allLanguage(items)
         case .languages:
             self = .languages(items)
+        case .emptyFavorites:
+            self = .emptyFavorites(items)
         }
     }
 }
@@ -37,4 +42,5 @@ extension LanguageSection: SectionModelType {
 enum LanguageSectionItem {
     case allLanguage(LanguageListCellReactor)
     case languages(LanguageListCellReactor)
+    case emptyFavorites(FavoriteLanguageTableViewCellReactor)
 }

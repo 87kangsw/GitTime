@@ -214,9 +214,7 @@ final class TrendViewReactor: Reactor {
                 let name = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/h1")
                 let username = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/p")
                 let url = "https://github.com"
-                
                 let avatar = item.xpath(".//div[@class='mx-3']/a/img[@class='rounded-1']/@src")
-
                 let repoName = item.xpath(".//h1[@class='h4 lh-condensed']")
                 let repoURL = item.xpath(".//h1[@class='h4 lh-condensed']/a/@href")
                 let repoDescription = item.xpath(".//div[@class='f6 text-gray mt-1']")
@@ -235,9 +233,6 @@ final class TrendViewReactor: Reactor {
                     trendDeveloper.userName = userName
                     // trendDeveloper.url = "\(url)\(userName)"
                 }
-                
-                
-                
                 
                 if let profileURL = avatar.first?.text?.striped {
                     trendDeveloper.profileURL = profileURL
