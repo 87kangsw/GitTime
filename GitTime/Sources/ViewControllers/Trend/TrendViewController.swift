@@ -189,9 +189,9 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .trendingRepos(let reactor):
-                    self.presentPanModalWeb(urlString: reactor.currentState.url)
+                    self.presentModalWeb(urlString: reactor.currentState.url)
                 case .trendingDevelopers(let reactor):
-                    self.presentPanModalWeb(urlString: reactor.currentState.url)
+                    self.presentModalWeb(urlString: reactor.currentState.url)
                 case .empty:
                     break
                 }

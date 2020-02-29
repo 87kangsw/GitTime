@@ -167,9 +167,9 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .searchedUser(let reactor):
-                    self.presentPanModalWeb(urlString: reactor.currentState.user.url)
+                    self.presentModalWeb(urlString: reactor.currentState.user.url)
                 case .searchedRepository(let reactor):
-                    self.presentPanModalWeb(urlString: reactor.currentState.repo.url)
+                    self.presentModalWeb(urlString: reactor.currentState.repo.url)
                 case .recentWord(let cellReactor):
                     let searchWords = cellReactor.currentState.history.text
                     self.searchBar.resignFirstResponder()

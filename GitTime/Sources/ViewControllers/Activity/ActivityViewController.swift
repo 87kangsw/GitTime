@@ -138,7 +138,7 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
                      .releaseEvent(let reactor),
                      .pullRequestReviewCommentEvent(let reactor),
                      .publicEvent(let reactor):
-                    self.presentPanModalWeb(urlString: reactor.currentState.event.openWebURL)
+                    self.presentModalWeb(urlString: reactor.currentState.event.openWebURL)
                 }
             }).disposed(by: self.disposeBag)
         

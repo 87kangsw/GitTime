@@ -150,11 +150,11 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
     
     // MARK: - Go To
     fileprivate func goToMyProfile(_ pageURL: String) {
-        self.presentPanModalWeb(urlString: pageURL)
+        self.presentModalWeb(urlString: pageURL)
     }
     
     fileprivate func goToRepository() {
-        self.presentPanModalWeb(urlString: AppConstants.gitTimeRepositoryURL)
+        self.presentModalWeb(urlString: AppConstants.gitTimeRepositoryURL)
     }
     
     fileprivate func goToAcknowledgements() {

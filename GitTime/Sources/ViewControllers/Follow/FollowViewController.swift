@@ -115,7 +115,7 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .followUsers(let reactor):
-                    self.presentPanModalWeb(urlString: reactor.currentState.followUser.url)
+                    self.presentModalWeb(urlString: reactor.currentState.followUser.url)
                 }
             }).disposed(by: self.disposeBag)
         
