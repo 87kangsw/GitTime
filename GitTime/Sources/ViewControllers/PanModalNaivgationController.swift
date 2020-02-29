@@ -15,9 +15,20 @@ class PanModalNaivgationController: UINavigationController {
         return type(of: self).description().components(separatedBy: ".").last ?? ""
     }()
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setNavigationBarHidden(true, animated: false)
+        self.navigationBar.prefersLargeTitles = false
+        self.navigationBar.hidesUnderLine(true)
+        self.navigationBar.hideShadowImage()
+        self.navigationBar.barTintColor = .navigationTint
     }
     
     deinit {
@@ -26,7 +37,19 @@ class PanModalNaivgationController: UINavigationController {
 }
 
 extension PanModalNaivgationController: PanModalPresentable {
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     var panScrollable: UIScrollView? {
-        nil
+        return (topViewController as? PanModalPresentable)?.panScrollable
+    }
+    
+    var longFormHeight: PanModalHeight {
+        return .maxHeightWithTopInset(200)
+    }
+    var anchorModalToLongForm: Bool {
+        return false
     }
 }

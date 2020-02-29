@@ -13,6 +13,7 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 import SnapKit
+import Toaster
 
 class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased {
     
@@ -29,22 +30,8 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
     
     // MARK: - Properties
     let searchController = UISearchController(searchResultsController: nil)
-    
-    static var dataSource: RxTableViewSectionedReloadDataSource<LanguageSection> {
-        return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
-            switch sectionItem {
-            case .allLanguage(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LanguageListCell.self)
-                cell.reactor = reactor
-                return cell
-            case .languages(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LanguageListCell.self)
-                cell.reactor = reactor
-                return cell
-            }
-        })
-    }
-    private lazy var dataSource: RxTableViewSectionedReloadDataSource<LanguageSection> = type(of: self).dataSource
+
+    private var dataSource: RxTableViewSectionedReloadDataSource<LanguageSection>!
     
     private let selectedLanguageSubject = PublishSubject<Language>()
     var selectedLanguage: Observable<Language> {
@@ -85,8 +72,14 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
     func bind(reactor: Reactor) {
         
         configureUI()
+        dataSource = self.dataSourceFactory()
         
         // Action
+        Observable.just(Void())
+            .map { Reactor.Action.firstLoad }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
+        
         Observable.just(Void())
             .map { _ in Reactor.Action.selectCategory(reactor.initialState.languageType) }
             .bind(to: reactor.action)
@@ -146,32 +139,93 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: self.disposeBag)
         
-        // View
-        tableView.rx.itemSelected(dataSource: dataSource)
-            .subscribe(onNext: { [weak self] sectionItem in
-                guard let self = self else { return }
-                self.searchController.isActive = false
-                switch sectionItem {
-                case .allLanguage(let reactor):
-                    self.dismiss(animated: true, completion: { [weak self] in
-                        guard let self = self else { return }
-                        let language = reactor.currentState.language
-                        self.selectedLanguageSubject.onNext(language)
-                        self.selectedLanguageSubject.onCompleted()
-                    })
-                case .languages(let reactor):
-                    self.dismiss(animated: true, completion: { [weak self] in
-                        guard let self = self else { return }
-                        let language = reactor.currentState.language
-                        self.selectedLanguageSubject.onNext(language)
-                        self.selectedLanguageSubject.onCompleted()
-                    })
-                }
+        reactor.state.map { $0.toastMessage }
+            .filterNil()
+            .filterEmpty()
+            .subscribe(onNext: { message in
+                reactor.action.onNext(.toastMessage(nil))
+                ToastCenter.default.cancelAll()
+                Toast(text: message, duration: Delay.short).show()
             }).disposed(by: self.disposeBag)
+        
+        // View
+//        tableView.rx.itemSelected(dataSource: dataSource)
+//            .subscribe(onNext: { [weak self] sectionItem in
+//                guard let self = self else { return }
+//                self.searchController.isActive = false
+//                switch sectionItem {
+//                case .allLanguage(let reactor):
+//                    self.dismiss(animated: true, completion: { [weak self] in
+//                        guard let self = self else { return }
+//                        let language = reactor.currentState.language
+//                        self.selectedLanguageSubject.onNext(language)
+//                        self.selectedLanguageSubject.onCompleted()
+//                    })
+//                case .languages(let reactor):
+//                    self.dismiss(animated: true, completion: { [weak self] in
+//                        guard let self = self else { return }
+//                        let language = reactor.currentState.language
+//                        self.selectedLanguageSubject.onNext(language)
+//                        self.selectedLanguageSubject.onCompleted()
+//                    })
+//                }
+//            }).disposed(by: self.disposeBag)
         
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak tableView] indexPath in
                 tableView?.deselectRow(at: indexPath, animated: true)
             }).disposed(by: self.disposeBag)
+    }
+    
+    private func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<LanguageSection> {
+        return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+            switch sectionItem {
+            case .allLanguage(let reactor):
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LanguageListCell.self)
+                cell.reactor = reactor
+                
+                cell.rx.languageTapped
+                    .subscribe(onNext: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.searchController.isActive = false
+                        self.dismiss(animated: true, completion: { [weak self] in
+                            guard let self = self else { return }
+                            let language = reactor.currentState.language
+                            self.selectedLanguageSubject.onNext(language)
+                            self.selectedLanguageSubject.onCompleted()
+                        })
+                    }).disposed(by: cell.disposeBag)
+                
+                return cell
+            case .languages(let reactor):
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LanguageListCell.self)
+                cell.reactor = reactor
+                
+                cell.rx.favoriteTapped
+                    .throttle(.milliseconds(300), scheduler: MainScheduler.instance)
+                    .subscribe(onNext: { [weak self] language in
+                        guard let self = self, let reactor = self.reactor else { return }
+                        reactor.action.onNext(.selectFavorite(language))
+                    }).disposed(by: cell.disposeBag)
+                
+                cell.rx.languageTapped
+                    .subscribe(onNext: { [weak self] _ in
+                        guard let self = self else { return }
+                        self.dismiss(animated: true, completion: { [weak self] in
+                            guard let self = self else { return }
+                            let language = reactor.currentState.language
+                            self.selectedLanguageSubject.onNext(language)
+                            self.selectedLanguageSubject.onCompleted()
+                        })
+                    }).disposed(by: cell.disposeBag)
+                
+                return cell
+                
+            case .emptyFavorites(let cellReactor):
+                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FavoriteLanguageTableViewCell.self)
+                cell.reactor = cellReactor
+                return cell
+            }
+        })
     }
 }

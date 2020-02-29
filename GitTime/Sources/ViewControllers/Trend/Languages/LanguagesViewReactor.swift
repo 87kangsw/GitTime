@@ -13,9 +13,12 @@ import RxSwift
 final class LanguagesViewReactor: Reactor {
     
     enum Action {
+        case firstLoad
         case selectCategory(LanguageTypes)
         case searchQuery(String?)
         case searchActive(Bool)
+        case selectFavorite(Language)
+        case toastMessage(String?)
     }
     
     enum Mutation {
@@ -23,6 +26,10 @@ final class LanguagesViewReactor: Reactor {
         case setSearchActive(Bool)
         case setCategory(LanguageTypes)
         case setLanguage([Language])
+        case setFavoriteLanguaes([FavoriteLanguage])
+        case addFavorite(FavoriteLanguage)
+        case removeFavorite(Int)
+        case setToastMessage(String?)
     }
     
     struct State {
@@ -30,35 +37,49 @@ final class LanguagesViewReactor: Reactor {
         var isSearchActive: Bool = false
         var languageType: LanguageTypes
         var selectedLanguage: Language?
-        var allLanuage: [LanguageSectionItem] {
-            let languages = [Language.allLanguage]
-            return languages
-                .map({ language -> LanguageListCellReactor in
-                    return LanguageListCellReactor.init(language: language)
-                })
-                .map(LanguageSectionItem.allLanguage)
+        
+        var allLanuage: [Language] {
+            return  [Language.allLanguage]
         }
-        var languages: [LanguageSectionItem] = []
+        var languages: [Language] = []
+        
         var languageSections: [LanguageSection] {
+            // All Language
+            let allLanguageSectionItem = allLanuage.map({ language -> LanguageListCellReactor in
+                return LanguageListCellReactor.init(language: language, isFavorite: false)
+            }).map(LanguageSectionItem.allLanguage)
+            
+            // Lanugages
+            let languagesSectionItem = self.languages
+                .map({ language -> LanguageListCellReactor in
+                    let isFavorite = self.favoriteLanguages.contains(where: { $0.id == language.id})
+                    return LanguageListCellReactor.init(language: language, isFavorite: isFavorite)
+                }).map(LanguageSectionItem.languages)
+            
             if !isSearchActive {
                 return [
-                    .allLanguage(self.allLanuage),
-                    .languages(self.languages)
+                    .allLanguage(allLanguageSectionItem),
+                    .languages(languagesSectionItem)
                 ]
             }
-            return [.languages(self.languages)]
+            return [.languages(languagesSectionItem)]
         }
+        var favoriteLanguages: [FavoriteLanguage]
+        var toastMessage: String?
     }
     
     let initialState: LanguagesViewReactor.State
     
     fileprivate let languagesService: LanguagesServiceType
     fileprivate let userDefaultsService: UserDefaultsServiceType
+    fileprivate let realmService: RealmServiceType
     
     init(languagesService: LanguagesServiceType,
-         userDefaultsService: UserDefaultsServiceType) {
+         userDefaultsService: UserDefaultsServiceType,
+         realmService: RealmServiceType) {
         self.languagesService = languagesService
         self.userDefaultsService = userDefaultsService
+        self.realmService = realmService
         
         let selectedLanguage: String = userDefaultsService.value(forKey: UserDefaultsKey.langauge) ?? ""
         let initType = LanguageTypes(rawValue: selectedLanguage) ?? .programming
@@ -67,12 +88,16 @@ final class LanguagesViewReactor: Reactor {
                                   isSearchActive: false,
                                   languageType: initType,
                                   selectedLanguage: nil,
-                                  languages: [])
+                                  languages: [],
+                                  favoriteLanguages: [])
     }
     
     // MARK: Mutation
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
+        case .firstLoad:
+            let fetchFavorites: Observable<Mutation> = self.fetchFavoriteLanguages()
+            return fetchFavorites
         case .searchActive(let active):
             let activeMutation: Observable<Mutation> = .just(.setSearchActive(active))
             if active {
@@ -86,7 +111,8 @@ final class LanguagesViewReactor: Reactor {
         case .selectCategory(let type):
             let categoryMutation: Observable<Mutation> = .just(.setCategory(type))
             let listMutation: Observable<Mutation> = self.categoryMutation(type)
-            return .concat([categoryMutation, listMutation])
+            let favoriteLanguagesMutation: Observable<Mutation> = self.fetchFavoriteLanguages()
+            return .concat([categoryMutation, favoriteLanguagesMutation, listMutation])
         case .searchQuery(let query):
             guard let query = query else { return .empty() }
             guard self.currentState.isSearchActive else { return .empty() }
@@ -94,6 +120,23 @@ final class LanguagesViewReactor: Reactor {
             let queryMutation: Observable<Mutation> = .just(.setQuery(query))
             let searchMutation: Observable<Mutation> = self.searchMutation(query)
             return .concat([queryMutation, searchMutation])
+        case .selectFavorite(let language):
+            let favoriteLanguages = self.currentState.favoriteLanguages
+            
+            if let favoriteItem = favoriteLanguages.enumerated().first(where: { $0.element.id == language.id }) {
+                self.realmService.removeFavoriteLanguage(favoriteItem.element)
+                let removeFavorite: Observable<Mutation> = Observable.just(.removeFavorite(favoriteItem.offset))
+                let toastMessage: Observable<Mutation> = Observable.just(.setToastMessage("Removed from your favorites."))
+                return .concat(removeFavorite, toastMessage)
+            } else {
+                let favoriteItem = language.toFavoriteLanguage()
+                self.realmService.addFavoriteLanguage(language)
+                let addFavorite: Observable<Mutation> = Observable.just(.addFavorite(favoriteItem))
+                let toastMessage: Observable<Mutation> = Observable.just(.setToastMessage("Added to favorites."))
+                return .concat(addFavorite, toastMessage)
+            }
+        case .toastMessage(let message):
+            return Observable.just(.setToastMessage(message))
         }
     }
     
@@ -105,14 +148,22 @@ final class LanguagesViewReactor: Reactor {
             state.languageType = type
         case let .setLanguage(languages):
             state.languages = languages
-                .map({ language -> LanguageListCellReactor in
-                    return LanguageListCellReactor.init(language: language)
-                })
-                .map(LanguageSectionItem.languages)
         case let .setQuery(query):
             state.query = query
         case let .setSearchActive(active):
             state.isSearchActive = active
+        case let .setFavoriteLanguaes(languages):
+            state.favoriteLanguages = languages
+        case .addFavorite(let language):
+            var favoriteLanguages = state.favoriteLanguages
+            favoriteLanguages.append(language)
+            state.favoriteLanguages = favoriteLanguages
+        case .removeFavorite(let index):
+            var favoriteLanguages = state.favoriteLanguages
+            favoriteLanguages.remove(at: index)
+            state.favoriteLanguages = favoriteLanguages
+        case .setToastMessage(let message):
+            state.toastMessage = message
         }
         return state
     }
@@ -140,12 +191,11 @@ final class LanguagesViewReactor: Reactor {
             }.catchErrorJustReturn(.setLanguage([]))
     }
     
-    private func allLanguageCellReactor() -> [LanguageSectionItem] {
-        let languages = [Language.allLanguage]
-        return languages
-            .map({ language -> LanguageListCellReactor in
-                return LanguageListCellReactor.init(language: language)
-            })
-            .map(LanguageSectionItem.languages)
+    private func fetchFavoriteLanguages() -> Observable<Mutation> {
+        self.realmService.loadFavoriteLanguages()
+            .map { list -> Mutation in
+                return .setFavoriteLanguaes(list)
+        }.catchErrorJustReturn(.setFavoriteLanguaes([]))
     }
+
 }
