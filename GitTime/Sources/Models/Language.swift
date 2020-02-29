@@ -13,6 +13,7 @@ struct Language: Codable {
     let name: String
     let type: LanguageTypes
     let color: String
+    var isFavorite: Bool = false
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -37,6 +38,13 @@ struct Language: Codable {
         self.color = ""
     }
     
+    init(id: Int, name: String, type: String, color: String) {
+        self.id = id
+        self.name = name
+        self.type = LanguageTypes(rawValue: type) ?? .programming
+        self.color = color
+    }
+    
     enum CodingKeys: String, CodingKey {
         case id
         case name
@@ -46,5 +54,16 @@ struct Language: Codable {
     
     static var allLanguage: Language {
         return Language(name: "All Languages")
+    }
+}
+
+extension Language {
+    func toFavoriteLanguage() -> FavoriteLanguage {
+        let favorite = FavoriteLanguage()
+        favorite.id = self.id
+        favorite.name = self.name
+        favorite.color = self.color
+        favorite.type = self.type.rawValue
+        return favorite
     }
 }

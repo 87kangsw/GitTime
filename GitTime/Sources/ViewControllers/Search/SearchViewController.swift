@@ -121,7 +121,8 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
             .flatMap { [weak self] _ -> Observable<Language> in
                 guard let self = self else { return .empty() }
                 let languageReactor = LanguagesViewReactor(languagesService: LanguagesService(),
-                                                           userDefaultsService: UserDefaultsService())
+                                                           userDefaultsService: UserDefaultsService(),
+                                                           realmService: RealmService())
                 let languageVC = LanguagesViewController.instantiate(withReactor: languageReactor)
                 self.present(languageVC.navigationWrap(), animated: true, completion: nil)
                 return languageVC.selectedLanguage

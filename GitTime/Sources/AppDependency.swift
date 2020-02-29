@@ -56,7 +56,7 @@ final class AppDependency {
         
         // Toaster
         let toastAppearance = ToastView.appearance()
-        toastAppearance.bottomOffsetPortrait = UIScreen.main.bounds.height / 2
+        toastAppearance.bottomOffsetPortrait = 30.0
         toastAppearance.textColor = .invertTitle
         toastAppearance.backgroundColor = .invertBackground
     }

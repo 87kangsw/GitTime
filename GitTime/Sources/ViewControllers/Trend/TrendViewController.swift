@@ -9,6 +9,7 @@
 import SafariServices
 import UIKit
 
+import PanModal
 import ReactorKit
 import RxCocoa
 import RxDataSources
@@ -26,6 +27,12 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
     @IBOutlet weak var languageButton: UIButton!
     @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
     private let refreshControl = UIRefreshControl()
+    private var favoriteButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "favorite_fill"), for: .normal)
+        return button
+    }()
+    lazy var favoriteBarButton = UIBarButtonItem(customView: favoriteButton)
     
     // MARK: - Properties
     static var dataSource: RxTableViewSectionedReloadDataSource<TrendSection> {
@@ -90,6 +97,8 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
         
         loadingIndicator.hidesWhenStopped = true
         loadingIndicator.color = .invertBackground
+        
+        self.navigationItem.rightBarButtonItem = favoriteBarButton
     }
     
     // MARK: - Configure
@@ -128,13 +137,23 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
             .flatMap { [weak self] _ -> Observable<Language> in
                 guard let self = self else { return .empty() }
                 let languageReactor = LanguagesViewReactor(languagesService: LanguagesService(),
-                                                           userDefaultsService: UserDefaultsService())
+                                                           userDefaultsService: UserDefaultsService(),
+                                                           realmService: RealmService())
                 let languageVC = LanguagesViewController.instantiate(withReactor: languageReactor)
                 self.present(languageVC.navigationWrap(), animated: true, completion: nil)
                 return languageVC.selectedLanguage
             }.subscribe(onNext: { language in
                 // let languageName = language.type != .all ? language.name : nil
                 reactor.action.onNext(.selectLanguage(language))
+            }).disposed(by: self.disposeBag)
+        
+        favoriteButton.rx.tap
+            .subscribe(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.presentFavorite()
+                    .map { Reactor.Action.selectLanguage($0) }
+                    .bind(to: reactor.action)
+                    .disposed(by: self.disposeBag)
             }).disposed(by: self.disposeBag)
         
         // State
@@ -183,5 +202,15 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
             .subscribe(onNext: { [weak tableView] indexPath in
                 tableView?.deselectRow(at: indexPath, animated: true)
             }).disposed(by: self.disposeBag)
+    }
+    
+    // MARK: - Route
+    private func presentFavorite() -> Observable<Language> {
+        let realmReactor = FavoriteLanguageViewReactor(realmService: RealmService())
+        let controller = FavoriteLanguageViewController.instantiate(withReactor: realmReactor)
+        let navVC = PanModalNaivgationController()
+        navVC.viewControllers = [controller]
+        presentPanModal(navVC)
+        return controller.selectLanguage
     }
 }

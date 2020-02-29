@@ -1,9 +1,9 @@
 //
-//  LanguageListCell.swift
+//  FavoriteLanguageTableViewCell.swift
 //  GitTime
 //
-//  Created by Kanz on 31/05/2019.
-//  Copyright © 2019 KanzDevelop. All rights reserved.
+//  Created by Kanz on 2020/01/31.
+//  Copyright © 2020 KanzDevelop. All rights reserved.
 //
 
 import UIKit
@@ -12,42 +12,48 @@ import ReactorKit
 import RxCocoa
 import RxSwift
 
-final class LanguageListCell: BaseTableViewCell, View, CellType {
+final class FavoriteLanguageTableViewCell: BaseTableViewCell, View, CellType {
 
-    typealias Reactor = LanguageListCellReactor
-        
+    // MARK: - Reactor
+    typealias Reactor = FavoriteLanguageTableViewCellReactor
+    
+    // MARK: - UI
     @IBOutlet weak var languageLabel: UILabel!
     @IBOutlet weak var colorView: UIView!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var languageButton: UIButton!
     
+    // MARK: - Initializing
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        colorView.layer.cornerRadius = 5.0
-        colorView.layer.masksToBounds = true
+        configureUI()
     }
-    
+
     override func prepareForReuse() {
         super.prepareForReuse()
     }
     
+    // MARK: - UI Setup
+    fileprivate func configureUI() {
+        colorView.layer.cornerRadius = 5.0
+        colorView.layer.masksToBounds = true
+        languageLabel.font = .systemFont(ofSize: 14.0)
+        favoriteButton.isSelected = true
+    }
+    
     fileprivate func updateUI(_ state: Reactor.State) {
         
-        let languageName = state.language.name
+        let languageName = state.favoriteLanguage.name
         languageLabel.text = languageName
-        languageLabel.font = state.language.type == .all ?
-            .boldSystemFont(ofSize: 15.0) : .systemFont(ofSize: 14.0)
         
-        let colorName = state.language.color
+        let colorName = state.favoriteLanguage.color
         if !colorName.isEmpty {
             let color = UIColor(hexString: colorName)
             colorView.backgroundColor = color
         } else {
             colorView.backgroundColor = .clear
         }
-        
-        favoriteButton.isHidden = state.language.type == .all
     }
     
     func bind(reactor: Reactor) {
@@ -56,22 +62,19 @@ final class LanguageListCell: BaseTableViewCell, View, CellType {
                 guard let self = self else { return }
                 self.updateUI(state)
             }).disposed(by: self.disposeBag)
-        
-        reactor.state.map { $0.isFavorite }
-            .bind(to: favoriteButton.rx.isSelected)
-            .disposed(by: self.disposeBag)
     }
 }
 
-// MARK: - Reactive Extension
-extension Reactive where Base: LanguageListCell {
-    var favoriteTapped: Observable<Language> {
+extension Reactive where Base: FavoriteLanguageTableViewCell {
+    var favoriteTapped: Observable<FavoriteLanguage> {
         return base.favoriteButton.rx.tap
-            .map { self.base.reactor?.currentState.language }
+            .map { self.base.reactor?.currentState.favoriteLanguage }
             .filterNil()
     }
     
-    var languageTapped: ControlEvent<Void> {
+    var languageTapped: Observable<FavoriteLanguage> {
         return base.languageButton.rx.tap
+            .map { self.base.reactor?.currentState.favoriteLanguage }
+            .filterNil()
     }
 }

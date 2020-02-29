@@ -16,12 +16,12 @@ class LanguageListCellReactor: Reactor {
     
     struct State {
         var language: Language
+        var isFavorite: Bool
     }
     
     let initialState: State
     
-    init(language: Language) {
-        self.initialState = State(language: language)
-        _ = self.state
+    init(language: Language, isFavorite: Bool) {
+        self.initialState = State(language: language, isFavorite: isFavorite)
     }
 }
