@@ -161,4 +161,7 @@ playground.xcworkspace
 **/xcshareddata/WorkspaceSettings.xcsettings
 
 
+### 3rd party info plist ###
+GoogleService-Info.plist
+
 # End of https://www.gitignore.io/api/xcode,swift,carthage,fastlane,cocoapods,objective-c
