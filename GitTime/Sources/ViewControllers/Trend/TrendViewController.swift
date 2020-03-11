@@ -150,6 +150,7 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
         favoriteButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
+                GitTimeAnalytics.shared.logEvent(key: "favorite_language", parameters: nil)
                 self.presentFavorite()
                     .map { Reactor.Action.selectLanguage($0) }
                     .bind(to: reactor.action)

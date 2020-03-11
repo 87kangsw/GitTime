@@ -53,6 +53,11 @@ class MainTabBarController: UITabBarController, View {
         
         // Action
         self.rx.didSelect
+            .do(onNext: { viewController in
+                let title = viewController.title ?? ""
+                GitTimeAnalytics.shared.logEvent(key: "tab_select",
+                                                 parameters: ["tab": title])
+            })
             .scan((nil, nil)) { state, viewController in
                 return (state.1, viewController)
             }

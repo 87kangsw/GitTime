@@ -133,6 +133,7 @@
 		B289B98D22AA0F8800F0A1E2 /* AppStoreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B98C22AA0F8800F0A1E2 /* AppStoreService.swift */; };
 		B289B98F22AA11B500F0A1E2 /* AppVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B98E22AA11B500F0A1E2 /* AppVersion.swift */; };
 		B289B99322AA61C200F0A1E2 /* ActivitySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289B99222AA61C200F0A1E2 /* ActivitySection.swift */; };
+		B289CE4A24196288005F0580 /* GitTimeAnalytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B289CE4924196288005F0580 /* GitTimeAnalytics.swift */; };
 		B28DFF072348790C00D2C04B /* UIResponder+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28DFF062348790C00D2C04B /* UIResponder+Extensions.swift */; };
 		B28DFF092348792600D2C04B /* UITableViewCell+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B28DFF082348792600D2C04B /* UITableViewCell+Extensions.swift */; };
 		B298353E22F53F2400FBEF71 /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B298353C22F53F2400FBEF71 /* SearchUserCell.swift */; };
@@ -329,6 +330,7 @@
 		B289B98C22AA0F8800F0A1E2 /* AppStoreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreService.swift; sourceTree = "<group>"; };
 		B289B98E22AA11B500F0A1E2 /* AppVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersion.swift; sourceTree = "<group>"; };
 		B289B99222AA61C200F0A1E2 /* ActivitySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivitySection.swift; sourceTree = "<group>"; };
+		B289CE4924196288005F0580 /* GitTimeAnalytics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitTimeAnalytics.swift; sourceTree = "<group>"; };
 		B28DFF062348790C00D2C04B /* UIResponder+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIResponder+Extensions.swift"; sourceTree = "<group>"; };
 		B28DFF082348792600D2C04B /* UITableViewCell+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+Extensions.swift"; sourceTree = "<group>"; };
 		B298353C22F53F2400FBEF71 /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 		B21CD763228858D600B15786 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				B289CE4624196127005F0580 /* Analytics */,
 				B244F3502297D19B003F24FF /* Enum */,
 				B237A5E3229267C30069C59C /* Constants */,
 				B228EAF2228D1CFB00E55456 /* Extensions */,
@@ -788,6 +791,14 @@
 				B289A071229D3B1B00AD9533 /* LanguagesViewReactor.swift */,
 			);
 			path = Languages;
+			sourceTree = "<group>";
+		};
+		B289CE4624196127005F0580 /* Analytics */ = {
+			isa = PBXGroup;
+			children = (
+				B289CE4924196288005F0580 /* GitTimeAnalytics.swift */,
+			);
+			path = Analytics;
 			sourceTree = "<group>";
 		};
 		B298353022F472D500FBEF71 /* Search */ = {
@@ -1251,6 +1262,7 @@
 				B2BF8B9422B753C1007B2AAA /* ContributionSection.swift in Sources */,
 				B20307E623D2075F0058CD46 /* FavoriteLanguageViewReactor.swift in Sources */,
 				B269744C22BB214000F67129 /* EmptyTableViewCellReactor.swift in Sources */,
+				B289CE4A24196288005F0580 /* GitTimeAnalytics.swift in Sources */,
 				B235D07923766A4800AC8893 /* Bundle+Extensions.swift in Sources */,
 				B228EAE4228D036700E55456 /* BaseViewController.swift in Sources */,
 				B289A070229D3B1000AD9533 /* LanguagesViewController.swift in Sources */,

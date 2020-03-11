@@ -97,19 +97,24 @@ final class TrendViewReactor: Reactor {
             let requestMutation = self.requestTrending()
             return .concat([startRefreshing, requestMutation, endRefreshing])
         case .selectPeriod(let period):
+            GitTimeAnalytics.shared.logEvent(key: "select_period",
+                                             parameters: ["period": period.periodText()])
             self.userdefaultsService.set(value: period.querySting(),
                                          forKey: UserDefaultsKey.period)
             let periodMutation: Observable<Mutation> = .just(.setPeriod(period))
             let requestMutation = self.requestTrending(period: period)
             return .concat([periodMutation, requestMutation])
         case .selectLanguage(let language):
-            // self.userdefaultsService.set(value: language, forKey: UserDefaultsKey.langauge)
+            let languageName = language?.name ?? "All Language"
+            GitTimeAnalytics.shared.logEvent(key: "select_language", parameters: ["language": languageName])
             self.userdefaultsService.setStruct(value: language, forKey: UserDefaultsKey.langauge)
             let languageMutation: Observable<Mutation> = .just(.setLanguage(language))
             let requestMutation = self.requestTrending(language: language)
             return .concat([languageMutation, requestMutation])
         case .switchSegmentControl:
             let trendType = self.currentState.trendingType == .repositories ? TrendTypes.developers : TrendTypes.repositories
+            GitTimeAnalytics.shared.logEvent(key: "switch_trend",
+                                             parameters: ["type": trendType.segmentTitle])
             let trendMutation: Observable<Mutation> = .just(.setTrendType(trendType))
             let requestMutation: Observable<Mutation> = self.requestTrending(trendType: trendType)
             return .concat([trendMutation, requestMutation])

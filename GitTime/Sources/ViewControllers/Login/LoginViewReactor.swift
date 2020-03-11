@@ -53,6 +53,7 @@ final class LoginViewReactor: Reactor {
 //        case .checkTestMode(let isTestMode):
 //            return .just(.setLoginTestMode(isTestMode))
         case .login:
+            GitTimeAnalytics.shared.logEvent(key: "login", parameters: nil)
             let startLoading: Observable<Mutation> = .just(Mutation.setLoading(true))
             let endLoading: Observable<Mutation> = .just(Mutation.setLoading(false))
             let setLoggedIn: Observable<Mutation> = self.getAccessToken()
@@ -71,6 +72,7 @@ final class LoginViewReactor: Reactor {
                 .map(Mutation.setLoggedIn)
             return .concat([startLoading, setLoggedIn, endLoading])
         case .trial:
+            GitTimeAnalytics.shared.logEvent(key: "trial", parameters: nil)
             AppDependency.shared.isTrial = true
             return .just(.setLoggedIn(true))
         }

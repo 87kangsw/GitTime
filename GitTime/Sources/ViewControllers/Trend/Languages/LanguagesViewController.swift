@@ -191,6 +191,8 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
                         self.dismiss(animated: true, completion: { [weak self] in
                             guard let self = self else { return }
                             let language = reactor.currentState.language
+                            GitTimeAnalytics.shared.logEvent(key: "select_all_language",
+                                                             parameters: nil)
                             self.selectedLanguageSubject.onNext(language)
                             self.selectedLanguageSubject.onCompleted()
                         })
@@ -214,6 +216,8 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
                         self.dismiss(animated: true, completion: { [weak self] in
                             guard let self = self else { return }
                             let language = reactor.currentState.language
+                            GitTimeAnalytics.shared.logEvent(key: "select_language",
+                                                             parameters: ["language": language.name])
                             self.selectedLanguageSubject.onNext(language)
                             self.selectedLanguageSubject.onCompleted()
                         })

@@ -39,7 +39,7 @@ extension UIViewController {
     */
     func presentModalWeb(urlString: String) {
         guard let url = URL(string: urlString) else { return }
-        
+        GitTimeAnalytics.shared.logEvent(key: "web", parameters: nil)
         let safariVC = SFSafariViewController(url: url)
         safariVC.modalPresentationStyle = .formSheet
         self.present(safariVC, animated: true, completion: nil)

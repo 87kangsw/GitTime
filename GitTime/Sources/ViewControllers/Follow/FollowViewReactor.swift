@@ -73,6 +73,8 @@ final class FollowViewReactor: Reactor {
             return .concat([clearPagingMutation, startRefreshing, endRefreshing, requestMutation])
         case .switchSegmentControl:
             let followType = self.currentState.followType == .followers ? FollowTypes.following : FollowTypes.followers
+            GitTimeAnalytics.shared.logEvent(key: "switch_follow",
+                                             parameters: ["type": followType.segmentTitle])
             let clearPagingMutation = self.clearPaging()
             let followMutation: Observable<Mutation> = .just(.setFollowType(followType))
             let requestMutation: Observable<Mutation> = self.requestFollow(followType: followType)

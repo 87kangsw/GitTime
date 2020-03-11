@@ -51,6 +51,8 @@ class FavoriteLanguageViewReactor: Reactor {
             return self.fetchFavoriteLanguages()
             
         case .removeFavorite(let favoriteLanguage):
+            GitTimeAnalytics.shared.logEvent(key: "remove_favorite",
+                                             parameters: ["language": favoriteLanguage.name])
             let favoriteLanguages = self.currentState.favoriteLanguages
             guard let favoriteItem = favoriteLanguages.enumerated().first(where: { $0.element.id == favoriteLanguage.id }) else {
                 return .empty()

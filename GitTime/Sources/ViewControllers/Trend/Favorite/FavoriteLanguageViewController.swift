@@ -118,6 +118,8 @@ class FavoriteLanguageViewController: BaseViewController, StoryboardView, Reacto
                         let language = favoriteLanguage.toLanguage()
                         self.dismiss(animated: true, completion: { [weak self] in
                             guard let self = self else { return }
+                            GitTimeAnalytics.shared.logEvent(key: "select_language",
+                                                             parameters: ["language": language.name])
                             self.selectLanguageSubject.onNext(language)
                             self.selectLanguageSubject.onCompleted()
                         })
