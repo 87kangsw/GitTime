@@ -20,6 +20,7 @@ final class ActivityViewReactor: Reactor {
     enum Action {
         case firstLoad
         case loadMoreActivities
+        case refresh
     }
     
     enum Mutation {
@@ -29,10 +30,12 @@ final class ActivityViewReactor: Reactor {
         case fetchActivityMore([Event], nextPage: Int, canLoadMore: Bool)
         case setPage(Int)
         case setLoadMore(Bool)
+        case setRefreshing(Bool)
     }
     
     struct State {
         var isLoading: Bool = false
+        var isRefreshing: Bool = false
         var page: Int = 1
         var canLoadMore: Bool = true
         var contributionInfo: ContributionInfo?
@@ -80,6 +83,15 @@ final class ActivityViewReactor: Reactor {
             let disableLoadMore: Observable<Mutation> = .just(.setLoadMore(false))
             let requestMoreActivityMuation: Observable<Mutation> = self.requestMoreActivities()
             return .concat([disableLoadMore, requestMoreActivityMuation])
+        case .refresh:
+            guard !self.currentState.isLoading else { return .empty() }
+            guard !self.currentState.isRefreshing else { return .empty() }
+            let clearPagingMutation = self.clearPaging()
+            let startRefreshing: Observable<Mutation> = .just(.setRefreshing(true))
+            let endRefreshing: Observable<Mutation> = .just(.setRefreshing(false))
+            let requestContributionMutation = self.requestContributions()
+            let requestActivityMutation = self.requestActivities()
+            return .concat([clearPagingMutation, startRefreshing, requestContributionMutation, requestActivityMutation, endRefreshing])
         }
     }
     
@@ -89,6 +101,8 @@ final class ActivityViewReactor: Reactor {
         switch mutation {
         case let .setLoading(isLoading):
             state.isLoading = isLoading
+        case let .setRefreshing(isRefreshing):
+            state.isRefreshing = isRefreshing
         case let .setPage(page):
             state.page = page
         case let .setLoadMore(canLoadMore):
