@@ -27,6 +27,7 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
         return contributionView
     }()
     var filterButton: UIBarButtonItem!
+    private let refreshControl = UIRefreshControl()
     
     // MARK: - Properties
     static var dataSource: RxTableViewSectionedReloadDataSource<ActivitySection> {
@@ -67,10 +68,12 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
         
         tableView.registerNib(cellType: ActivityItemCell.self)
         tableView.registerNib(cellType: EmptyTableViewCell.self)
-
+        
         tableView.backgroundColor = .background
         tableView.separatorColor = .underLine
         tableView.tableFooterView = UIView()
+        
+        tableView.refreshControl = refreshControl
         
         let width: CGFloat = UIScreen.main.bounds.width
         
@@ -103,15 +106,25 @@ class ActivityViewController: BaseViewController, StoryboardView, ReactorBased {
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
         
+        refreshControl.rx.controlEvent(.valueChanged)
+            .map { Reactor.Action.refresh }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
+        
         // State
         reactor.state.map { $0.isLoading }
             .bind(to: loadingIndicator.rx.isAnimating)
             .disposed(by: self.disposeBag)
         
+        reactor.state.map { $0.isRefreshing }
+            .distinctUntilChanged()
+            .bind(to: refreshControl.rx.isRefreshing)
+            .disposed(by: self.disposeBag)
+        
         reactor.state.map { $0.sectionItems }
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: self.disposeBag)
-
+        
         reactor.state.map { $0.contributionInfo }
             .filterNil()
             .take(1)
