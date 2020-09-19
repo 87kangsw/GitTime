@@ -1,6 +1,6 @@
 PODS:
-  - AcknowList (1.9.3)
-  - Alamofire (5.0.0-beta.7)
+  - AcknowList (1.9.5)
+  - Alamofire (5.2.2)
   - Bagel (1.3.2):
     - CocoaAsyncSocket
   - CocoaAsyncSocket (7.6.4)
@@ -8,134 +8,123 @@ PODS:
     - Fabric (~> 1.10.2)
   - Differentiator (4.0.1)
   - Fabric (1.10.2)
-  - Firebase/Analytics (6.19.0):
+  - Firebase/Analytics (6.32.2):
     - Firebase/Core
-  - Firebase/Core (6.19.0):
+  - Firebase/Core (6.32.2):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.3.1)
-  - Firebase/CoreOnly (6.19.0):
-    - FirebaseCore (= 6.6.4)
-  - Firebase/Performance (6.19.0):
+    - FirebaseAnalytics (= 6.8.2)
+  - Firebase/CoreOnly (6.32.2):
+    - FirebaseCore (= 6.10.2)
+  - Firebase/Performance (6.32.2):
     - Firebase/CoreOnly
-    - FirebasePerformance (~> 3.1.10)
-  - Firebase/RemoteConfig (6.19.0):
+    - FirebasePerformance (~> 3.3.0)
+  - Firebase/RemoteConfig (6.32.2):
     - Firebase/CoreOnly
-    - FirebaseRemoteConfig (~> 4.4.9)
-  - FirebaseABTesting (3.2.0):
-    - FirebaseAnalyticsInterop (~> 1.3)
-    - FirebaseCore (~> 6.1)
-    - Protobuf (>= 3.9.2, ~> 3.9)
-  - FirebaseAnalytics (6.3.1):
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstallations (~> 1.1)
-    - GoogleAppMeasurement (= 6.3.1)
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
-    - GoogleUtilities/MethodSwizzler (~> 6.0)
-    - GoogleUtilities/Network (~> 6.0)
-    - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (= 0.3.9011)
-  - FirebaseAnalyticsInterop (1.5.0)
-  - FirebaseCore (6.6.4):
-    - FirebaseCoreDiagnostics (~> 1.2)
-    - FirebaseCoreDiagnosticsInterop (~> 1.2)
-    - GoogleUtilities/Environment (~> 6.5)
-    - GoogleUtilities/Logger (~> 6.5)
-  - FirebaseCoreDiagnostics (1.2.2):
-    - FirebaseCoreDiagnosticsInterop (~> 1.2)
-    - GoogleDataTransportCCTSupport (~> 2.0)
-    - GoogleUtilities/Environment (~> 6.5)
-    - GoogleUtilities/Logger (~> 6.5)
-    - nanopb (~> 0.3.901)
-  - FirebaseCoreDiagnosticsInterop (1.2.0)
-  - FirebaseInstallations (1.1.0):
-    - FirebaseCore (~> 6.6)
-    - GoogleUtilities/UserDefaults (~> 6.5)
+    - FirebaseRemoteConfig (~> 4.9.0)
+  - FirebaseABTesting (4.2.0):
+    - FirebaseCore (~> 6.10)
+  - FirebaseAnalytics (6.8.2):
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstallations (~> 1.6)
+    - GoogleAppMeasurement (= 6.8.2)
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/MethodSwizzler (~> 6.7)
+    - GoogleUtilities/Network (~> 6.7)
+    - "GoogleUtilities/NSData+zlib (~> 6.7)"
+    - nanopb (~> 1.30906.0)
+  - FirebaseCore (6.10.2):
+    - FirebaseCoreDiagnostics (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+  - FirebaseCoreDiagnostics (1.6.0):
+    - GoogleDataTransport (~> 7.2)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/Logger (~> 6.7)
+    - nanopb (~> 1.30906.0)
+  - FirebaseInstallations (1.7.0):
+    - FirebaseCore (~> 6.10)
+    - GoogleUtilities/Environment (~> 6.7)
+    - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
-  - FirebaseInstanceID (4.3.2):
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstallations (~> 1.0)
-    - GoogleUtilities/Environment (~> 6.5)
-    - GoogleUtilities/UserDefaults (~> 6.5)
-  - FirebasePerformance (3.1.10):
-    - FirebaseCore (~> 6.6)
-    - FirebaseInstanceID (~> 4.3)
-    - FirebaseRemoteConfig (~> 4.4)
+  - FirebasePerformance (3.3.0):
+    - FirebaseCore (~> 6.9)
+    - FirebaseInstallations (~> 1.5)
+    - FirebaseRemoteConfig (~> 4.7)
+    - GoogleDataTransport (~> 7.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - GoogleUtilities/Environment (~> 6.2)
     - GoogleUtilities/ISASwizzler (~> 6.2)
     - GoogleUtilities/MethodSwizzler (~> 6.2)
     - GTMSessionFetcher/Core (~> 1.1)
-    - Protobuf (~> 3.9)
-  - FirebaseRemoteConfig (4.4.9):
-    - FirebaseABTesting (~> 3.1)
-    - FirebaseAnalyticsInterop (~> 1.4)
-    - FirebaseCore (~> 6.2)
-    - FirebaseInstanceID (~> 4.2)
-    - GoogleUtilities/Environment (~> 6.2)
-    - "GoogleUtilities/NSData+zlib (~> 6.2)"
-    - Protobuf (>= 3.9.2, ~> 3.9)
-  - GoogleAppMeasurement (6.3.1):
-    - GoogleUtilities/AppDelegateSwizzler (~> 6.0)
-    - GoogleUtilities/MethodSwizzler (~> 6.0)
-    - GoogleUtilities/Network (~> 6.0)
-    - "GoogleUtilities/NSData+zlib (~> 6.0)"
-    - nanopb (= 0.3.9011)
-  - GoogleDataTransport (5.0.0)
-  - GoogleDataTransportCCTSupport (2.0.0):
-    - GoogleDataTransport (~> 5.0)
-    - nanopb (~> 0.3.901)
+    - Protobuf (~> 3.12)
+  - FirebaseRemoteConfig (4.9.0):
+    - FirebaseABTesting (~> 4.2)
+    - FirebaseCore (~> 6.10)
+    - FirebaseInstallations (~> 1.6)
+    - GoogleUtilities/Environment (~> 6.7)
+    - "GoogleUtilities/NSData+zlib (~> 6.7)"
+  - GoogleAppMeasurement (6.8.2):
+    - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
+    - GoogleUtilities/MethodSwizzler (~> 6.7)
+    - GoogleUtilities/Network (~> 6.7)
+    - "GoogleUtilities/NSData+zlib (~> 6.7)"
+    - nanopb (~> 1.30906.0)
+  - GoogleDataTransport (7.3.0):
+    - nanopb (~> 1.30906.0)
   - GoogleToolboxForMac/Defines (2.2.2)
   - GoogleToolboxForMac/Logger (2.2.2):
     - GoogleToolboxForMac/Defines (= 2.2.2)
   - "GoogleToolboxForMac/NSData+zlib (2.2.2)":
     - GoogleToolboxForMac/Defines (= 2.2.2)
-  - GoogleUtilities/AppDelegateSwizzler (6.5.1):
+  - GoogleUtilities/AppDelegateSwizzler (6.7.2):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
     - GoogleUtilities/Network
-  - GoogleUtilities/Environment (6.5.1)
-  - GoogleUtilities/ISASwizzler (6.5.1)
-  - GoogleUtilities/Logger (6.5.1):
+  - GoogleUtilities/Environment (6.7.2):
+    - PromisesObjC (~> 1.2)
+  - GoogleUtilities/ISASwizzler (6.7.2)
+  - GoogleUtilities/Logger (6.7.2):
     - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (6.5.1):
+  - GoogleUtilities/MethodSwizzler (6.7.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/Network (6.5.1):
+  - GoogleUtilities/Network (6.7.2):
     - GoogleUtilities/Logger
     - "GoogleUtilities/NSData+zlib"
     - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (6.5.1)"
-  - GoogleUtilities/Reachability (6.5.1):
+  - "GoogleUtilities/NSData+zlib (6.7.2)"
+  - GoogleUtilities/Reachability (6.7.2):
     - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (6.5.1):
+  - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.3.1)
-  - Kanna (5.0.0)
-  - KeychainAccess (4.1.0)
-  - Kingfisher (5.13.2):
-    - Kingfisher/Core (= 5.13.2)
-  - Kingfisher/Core (5.13.2)
-  - Moya/Core (14.0.0-alpha.2):
-    - Alamofire (= 5.0.0-beta.7)
-  - Moya/RxSwift (14.0.0-alpha.2):
+  - GTMSessionFetcher/Core (1.4.0)
+  - Kanna (5.2.2)
+  - KeychainAccess (4.2.1)
+  - Kingfisher (5.15.1):
+    - Kingfisher/Core (= 5.15.1)
+  - Kingfisher/Core (5.15.1)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (14.0.0):
     - Moya/Core
     - RxSwift (~> 5.0)
-  - nanopb (0.3.9011):
-    - nanopb/decode (= 0.3.9011)
-    - nanopb/encode (= 0.3.9011)
-  - nanopb/decode (0.3.9011)
-  - nanopb/encode (0.3.9011)
-  - PanModal (1.2.5)
-  - PromisesObjC (1.2.8)
-  - Protobuf (3.11.4)
-  - ReactorKit (2.0.1):
+  - nanopb (1.30906.0):
+    - nanopb/decode (= 1.30906.0)
+    - nanopb/encode (= 1.30906.0)
+  - nanopb/decode (1.30906.0)
+  - nanopb/encode (1.30906.0)
+  - PanModal (1.2.7)
+  - PromisesObjC (1.2.10)
+  - Protobuf (3.13.0)
+  - ReactorKit (2.1.0):
     - RxSwift (~> 5.0)
-  - Realm (4.3.2):
-    - Realm/Headers (= 4.3.2)
-  - Realm/Headers (4.3.2)
-  - RealmSwift (4.3.2):
-    - Realm (= 4.3.2)
-  - RxCocoa (5.0.0):
+    - WeakMapTable (~> 1.1)
+  - Realm (5.4.2):
+    - Realm/Headers (= 5.4.2)
+  - Realm/Headers (5.4.2)
+  - RealmSwift (5.4.2):
+    - Realm (= 5.4.2)
+  - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
   - RxDataSources (4.0.1):
@@ -145,16 +134,17 @@ PODS:
   - RxKeyboard (1.0.0):
     - RxCocoa (~> 5.0)
     - RxSwift (~> 5.0)
-  - RxOptional (4.0.0):
+  - RxOptional (4.1.0):
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
-  - RxRelay (5.1.0):
+  - RxRelay (5.1.1):
     - RxSwift (~> 5)
-  - RxSwift (5.0.0)
+  - RxSwift (5.1.1)
   - SnapKit (5.0.1)
-  - SwiftLint (0.39.1)
-  - SwiftyBeaver (1.8.4)
-  - Toaster (2.2.0)
+  - SwiftLint (0.40.2)
+  - SwiftyBeaver (1.9.2)
+  - Toaster (2.3.0)
+  - WeakMapTable (1.1.0)
 
 DEPENDENCIES:
   - AcknowList
@@ -167,20 +157,20 @@ DEPENDENCIES:
   - Firebase/RemoteConfig
   - Kanna
   - KeychainAccess
-  - Kingfisher (~> 5.0)
-  - Moya/RxSwift (= 14.0.0-alpha.2)
+  - Kingfisher
+  - Moya/RxSwift
   - PanModal
-  - ReactorKit (= 2.0.1)
+  - ReactorKit
   - RealmSwift
-  - RxCocoa (= 5.0.0)
-  - RxDataSources (= 4.0.1)
+  - RxCocoa
+  - RxDataSources
   - RxKeyboard
-  - RxOptional (= 4.0.0)
-  - RxSwift (= 5.0.0)
+  - RxOptional
+  - RxSwift
   - SnapKit
   - SwiftLint
   - SwiftyBeaver
-  - Toaster
+  - Toaster (from `https://github.com/devxoul/Toaster.git`, branch `master`)
 
 SPEC REPOS:
   trunk:
@@ -194,17 +184,13 @@ SPEC REPOS:
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
-    - FirebaseAnalyticsInterop
     - FirebaseCore
     - FirebaseCoreDiagnostics
-    - FirebaseCoreDiagnosticsInterop
     - FirebaseInstallations
-    - FirebaseInstanceID
     - FirebasePerformance
     - FirebaseRemoteConfig
     - GoogleAppMeasurement
     - GoogleDataTransport
-    - GoogleDataTransportCCTSupport
     - GoogleToolboxForMac
     - GoogleUtilities
     - GTMSessionFetcher
@@ -228,55 +214,62 @@ SPEC REPOS:
     - SnapKit
     - SwiftLint
     - SwiftyBeaver
-    - Toaster
+    - WeakMapTable
+
+EXTERNAL SOURCES:
+  Toaster:
+    :branch: master
+    :git: https://github.com/devxoul/Toaster.git
+
+CHECKOUT OPTIONS:
+  Toaster:
+    :commit: aec54fc48d3d36279424103de0784c23862d19df
+    :git: https://github.com/devxoul/Toaster.git
 
 SPEC CHECKSUMS:
-  AcknowList: a3ee7cfba2c45cf9d07d1b18fe729a5bcc518366
-  Alamofire: bd07938ceecad59d2492aeecb1f785a8f2721160
+  AcknowList: 485f0e0da8ff7d5aaa8fb54bbff1da1f065e496c
+  Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Bagel: 199e0105ac694d6eee9db54dd006c940da6ce81b
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
-  Firebase: d55ddb0e0bb3207166cddc028647833d8a1b5b6f
-  FirebaseABTesting: 821a3a3e4a145987e80fee3657c4de1cb9adf693
-  FirebaseAnalytics: 572e467f3d977825266e8ccd52674aa3e6f47eac
-  FirebaseAnalyticsInterop: 3f86269c38ae41f47afeb43ebf32a001f58fcdae
-  FirebaseCore: ed0a24c758a57c2b88c5efa8e6a8195e868af589
-  FirebaseCoreDiagnostics: e9b4cd8ba60dee0f2d13347332e4b7898cca5b61
-  FirebaseCoreDiagnosticsInterop: 296e2c5f5314500a850ad0b83e9e7c10b011a850
-  FirebaseInstallations: 575cd32f2aec0feeb0e44f5d0110a09e5e60b47b
-  FirebaseInstanceID: 7ee0d6777013bb952f377b41965bf132b6a075be
-  FirebasePerformance: a9b0985f80d2a5cf780cf9bd4db920b45c200507
-  FirebaseRemoteConfig: 47abf7a04a9082091955ea555aa79cfdd249b19c
-  GoogleAppMeasurement: c29d405ff76e18551b5d158eaba6753fda8c7542
-  GoogleDataTransport: a857c6a002d201b524dd4bc2ed7e7355ed07e785
-  GoogleDataTransportCCTSupport: 32f75fbe904c82772fcbb6b6bd4525bfb6f2a862
+  Firebase: 47176280bfba198e531f909cfb1612dad216cb96
+  FirebaseABTesting: 8a9d8df3acc2b43f4a22014ddf9f601bca6af699
+  FirebaseAnalytics: 3c2fee6a922023ccfda7af87e4e641bad1fc11ba
+  FirebaseCore: 1d697bb944bf2af5fc248f1a66e165c9dd88bf97
+  FirebaseCoreDiagnostics: 7415bfb3883b3500c5a95c42b6ba66baae78f600
+  FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
+  FirebasePerformance: 269607f1dcf37bb1f21e3b3ae0ab5b2691644c54
+  FirebaseRemoteConfig: e40f9e084658210c4d9c341cfa9f6cab6ad4f67e
+  GoogleAppMeasurement: 1a66f478c68ecd6c16ee63ee60c7c3a648e6b337
+  GoogleDataTransport: e85fb700c9b027079ce182c3d08e12e0f9618bb4
   GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
-  GoogleUtilities: 06eb53bb579efe7099152735900dd04bf09e7275
-  GTMSessionFetcher: cea130bbfe5a7edc8d06d3f0d17288c32ffe9925
-  Kanna: a32875df62975f8f4b871e933b4ea1a5c3b8be0f
-  KeychainAccess: 445e28864fe6d3458b41fa211bcdc39890e8bd5a
-  Kingfisher: d342c8354c10c3d85a27d6d4c42c41285924b898
-  Moya: a6f1894cf6baec301aa02b0ecf10e5d8ade556ae
-  nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
-  PanModal: 7c5af3ad4fe22b91508040965bebffb89fb607ae
-  PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
-  Protobuf: 176220c526ad8bd09ab1fb40a978eac3fef665f7
-  ReactorKit: a63c5e11e0fd32d59d672e54178b0ed2876b764b
-  Realm: 5e92902e2875dff4bb0fd02f67bb737c3d5db2bc
-  RealmSwift: 9a360fc7bae04fc2e308a34fbd899d5faa2d6b22
-  RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
+  GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
+  GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  Kanna: 2c4eddaaa4bfb9a1ed19e53c0b3d42ef02838046
+  KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
+  Kingfisher: 3260a05e78a17fdbeb2f14dd8e66ffc768491231
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
+  PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
+  Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
+  ReactorKit: 12a93358c554bb3f167b16b14c40374fa9cd5acd
+  Realm: ced868eb0254f8d33a21c06981355e5aa33bc005
+  RealmSwift: aedc4363150f3c61f91ae0537ed116d2d080a4dd
+  RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxKeyboard: 6683c4344304a00f943c158bd8a43ce5469c82a7
-  RxOptional: 9904e2219d59260c3c171273d475b2126de187e8
-  RxRelay: a168bd6caf712d00c676ac344e9295afc93b418e
-  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
+  RxOptional: b1fcd60856807a564c0215c2184b8d33e7826dc2
+  RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SwiftLint: 55e96a4a4d537d4a3156859fc1c54bd24851a046
-  SwiftyBeaver: f9a9aba96a6a6166e21682377804d728b0d20b95
-  Toaster: c1a81b376edcc2470157b4d1ee1e9341d3b96455
+  SwiftLint: 1216c910d27c2633ade33b4f071bb6b930982e62
+  SwiftyBeaver: b8239f6bfe9e1ea3303e6139abc8c24228081d84
+  Toaster: 33d27524fb6829cdb6b247c924beab0cfa001b3e
+  WeakMapTable: d0327eda092be6a8f7c532942ae98dc7948f5d32
 
-PODFILE CHECKSUM: 4aee58e7a538e3f38bebcdc9cb32d29de257465d
+PODFILE CHECKSUM: e6e391ba9402a36297339f4e643c7edf9dedf7cc
 
 COCOAPODS: 1.9.2
