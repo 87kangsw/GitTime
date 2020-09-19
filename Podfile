@@ -5,21 +5,21 @@ inhibit_all_warnings!
 def app_pods
 
 # Architecture
-pod 'ReactorKit', '2.0.1'
+pod 'ReactorKit'
 
 # Coordinator
 # pod 'RxFlow', '2.4.0'
 
 # Reactive
-pod 'RxSwift', '5.0.0'
-pod 'RxCocoa', '5.0.0'
-pod 'RxDataSources', '4.0.1'
-pod 'RxOptional', '4.0.0'
+pod 'RxSwift'
+pod 'RxCocoa'
+pod 'RxDataSources'
+pod 'RxOptional'
 pod 'RxKeyboard'
 
 # UI
 pod 'SnapKit'
-pod 'Toaster'
+pod 'Toaster', :git => 'https://github.com/devxoul/Toaster.git', :branch => 'master'
 pod 'PanModal'
 
 # Keychain
@@ -32,8 +32,8 @@ pod 'RealmSwift'
 pod 'SwiftyBeaver'
 
 # Network
-pod 'Moya/RxSwift', '14.0.0-alpha.2'
-pod 'Kingfisher', '~> 5.0'
+pod 'Moya/RxSwift'
+pod 'Kingfisher'
 
 # etc
 pod 'Firebase/Core'
