@@ -1,0 +1,40 @@
+name: GitTime
+options:
+  bundleIdPrefix: io.github.87kangsw
+  deploymentTarget:
+    iOS: '13.0'
+  usesTabs: true
+  indentWidth: 4
+  tabWidth: 4
+  generateEmptyDirectories: true
+fileGroups:
+  - GitTime/Supporting Files
+targets:
+  GitTime:
+    platform: iOS
+    type: application
+    deploymentTarget: '13.0'
+    entitilements:
+      path: GitTime/Supporting Files/GitTime.entitlements
+    scheme:
+      testTargets:
+        - GitTimeTests
+    sources:
+      - path: 'GitTime/Sources'
+        type: group
+      - path: 'GitTime/Supporting Files'
+        type: group
+      - path: 'GitTime/Resources'
+        type: group
+    postCompileScripts:
+      - script: '${PODS_ROOT}/SwiftLint/swiftlint'
+        name: Swiftlint
+    settings:
+      INFOPLIST_FILE: GitTime/Supporting Files/Info.plist
+  GitTimeTests:
+    platform: iOS
+    type: bundle.unit-test
+    sources:
+      - GitTimeTests
+    dependencies:
+      - target: GitTime

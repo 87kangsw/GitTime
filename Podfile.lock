@@ -4,40 +4,34 @@ PODS:
   - Bagel (1.3.2):
     - CocoaAsyncSocket
   - CocoaAsyncSocket (7.6.4)
-  - Crashlytics (3.14.0):
-    - Fabric (~> 1.10.2)
   - Differentiator (4.0.1)
-  - Fabric (1.10.2)
-  - Firebase/Analytics (6.32.2):
+  - Firebase/Analytics (6.33.0):
     - Firebase/Core
-  - Firebase/Core (6.32.2):
+  - Firebase/Core (6.33.0):
     - Firebase/CoreOnly
-    - FirebaseAnalytics (= 6.8.2)
-  - Firebase/CoreOnly (6.32.2):
-    - FirebaseCore (= 6.10.2)
-  - Firebase/Performance (6.32.2):
+    - FirebaseAnalytics (= 6.8.3)
+  - Firebase/CoreOnly (6.33.0):
+    - FirebaseCore (= 6.10.3)
+  - Firebase/Performance (6.33.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 3.3.0)
-  - Firebase/RemoteConfig (6.32.2):
-    - Firebase/CoreOnly
-    - FirebaseRemoteConfig (~> 4.9.0)
   - FirebaseABTesting (4.2.0):
     - FirebaseCore (~> 6.10)
-  - FirebaseAnalytics (6.8.2):
+  - FirebaseAnalytics (6.8.3):
     - FirebaseCore (~> 6.10)
     - FirebaseInstallations (~> 1.6)
-    - GoogleAppMeasurement (= 6.8.2)
+    - GoogleAppMeasurement (= 6.8.3)
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
     - GoogleUtilities/Network (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
     - nanopb (~> 1.30906.0)
-  - FirebaseCore (6.10.2):
+  - FirebaseCore (6.10.3):
     - FirebaseCoreDiagnostics (~> 1.6)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
-  - FirebaseCoreDiagnostics (1.6.0):
-    - GoogleDataTransport (~> 7.2)
+  - FirebaseCoreDiagnostics (1.7.0):
+    - GoogleDataTransport (~> 7.4)
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/Logger (~> 6.7)
     - nanopb (~> 1.30906.0)
@@ -64,13 +58,13 @@ PODS:
     - FirebaseInstallations (~> 1.6)
     - GoogleUtilities/Environment (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
-  - GoogleAppMeasurement (6.8.2):
+  - GoogleAppMeasurement (6.8.3):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
     - GoogleUtilities/Network (~> 6.7)
     - "GoogleUtilities/NSData+zlib (~> 6.7)"
     - nanopb (~> 1.30906.0)
-  - GoogleDataTransport (7.3.0):
+  - GoogleDataTransport (7.4.0):
     - nanopb (~> 1.30906.0)
   - GoogleToolboxForMac/Defines (2.2.2)
   - GoogleToolboxForMac/Logger (2.2.2):
@@ -100,9 +94,9 @@ PODS:
   - GTMSessionFetcher/Core (1.4.0)
   - Kanna (5.2.2)
   - KeychainAccess (4.2.1)
-  - Kingfisher (5.15.1):
-    - Kingfisher/Core (= 5.15.1)
-  - Kingfisher/Core (5.15.1)
+  - Kingfisher (5.15.4):
+    - Kingfisher/Core (= 5.15.4)
+  - Kingfisher/Core (5.15.4)
   - Moya/Core (14.0.0):
     - Alamofire (~> 5.0)
   - Moya/RxSwift (14.0.0):
@@ -119,11 +113,11 @@ PODS:
   - ReactorKit (2.1.0):
     - RxSwift (~> 5.0)
     - WeakMapTable (~> 1.1)
-  - Realm (5.4.2):
-    - Realm/Headers (= 5.4.2)
-  - Realm/Headers (5.4.2)
-  - RealmSwift (5.4.2):
-    - Realm (= 5.4.2)
+  - Realm (5.4.4):
+    - Realm/Headers (= 5.4.4)
+  - Realm/Headers (5.4.4)
+  - RealmSwift (5.4.4):
+    - Realm (= 5.4.4)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -141,7 +135,7 @@ PODS:
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
   - SnapKit (5.0.1)
-  - SwiftLint (0.40.2)
+  - SwiftLint (0.40.3)
   - SwiftyBeaver (1.9.2)
   - Toaster (2.3.0)
   - WeakMapTable (1.1.0)
@@ -149,12 +143,9 @@ PODS:
 DEPENDENCIES:
   - AcknowList
   - Bagel
-  - Crashlytics
-  - Fabric
   - Firebase/Analytics
   - Firebase/Core
   - Firebase/Performance
-  - Firebase/RemoteConfig
   - Kanna
   - KeychainAccess
   - Kingfisher
@@ -178,9 +169,7 @@ SPEC REPOS:
     - Alamofire
     - Bagel
     - CocoaAsyncSocket
-    - Crashlytics
     - Differentiator
-    - Fabric
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -231,33 +220,31 @@ SPEC CHECKSUMS:
   Alamofire: 814429acc853c6c54ff123fc3d2ef66803823ce0
   Bagel: 199e0105ac694d6eee9db54dd006c940da6ce81b
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
-  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
-  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
-  Firebase: 47176280bfba198e531f909cfb1612dad216cb96
+  Firebase: 8db6f2d1b2c5e2984efba4949a145875a8f65fe5
   FirebaseABTesting: 8a9d8df3acc2b43f4a22014ddf9f601bca6af699
-  FirebaseAnalytics: 3c2fee6a922023ccfda7af87e4e641bad1fc11ba
-  FirebaseCore: 1d697bb944bf2af5fc248f1a66e165c9dd88bf97
-  FirebaseCoreDiagnostics: 7415bfb3883b3500c5a95c42b6ba66baae78f600
+  FirebaseAnalytics: 5dd088bd2e67bb9d13dbf792d1164ceaf3052193
+  FirebaseCore: d889d9e12535b7f36ac8bfbf1713a0836a3012cd
+  FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
   FirebasePerformance: 269607f1dcf37bb1f21e3b3ae0ab5b2691644c54
   FirebaseRemoteConfig: e40f9e084658210c4d9c341cfa9f6cab6ad4f67e
-  GoogleAppMeasurement: 1a66f478c68ecd6c16ee63ee60c7c3a648e6b337
-  GoogleDataTransport: e85fb700c9b027079ce182c3d08e12e0f9618bb4
+  GoogleAppMeasurement: 966e88df9d19c15715137bb2ddaf52373f111436
+  GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
   GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
   Kanna: 2c4eddaaa4bfb9a1ed19e53c0b3d42ef02838046
   KeychainAccess: 9b07f665298d13c3a85881bd3171f6f49b8151c1
-  Kingfisher: 3260a05e78a17fdbeb2f14dd8e66ffc768491231
+  Kingfisher: 657dc1077e5bbbfff864194c79f29e35b722d062
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   Protobuf: 3dac39b34a08151c6d949560efe3f86134a3f748
   ReactorKit: 12a93358c554bb3f167b16b14c40374fa9cd5acd
-  Realm: ced868eb0254f8d33a21c06981355e5aa33bc005
-  RealmSwift: aedc4363150f3c61f91ae0537ed116d2d080a4dd
+  Realm: b845bf406e03b9c52a53e0de2394480288aa532a
+  RealmSwift: b524ff07e4e92a34f4aecbe6ed1a613979a08bb9
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxKeyboard: 6683c4344304a00f943c158bd8a43ce5469c82a7
@@ -265,11 +252,11 @@ SPEC CHECKSUMS:
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SwiftLint: 1216c910d27c2633ade33b4f071bb6b930982e62
+  SwiftLint: dfd554ff0dff17288ee574814ccdd5cea85d76f7
   SwiftyBeaver: b8239f6bfe9e1ea3303e6139abc8c24228081d84
   Toaster: 33d27524fb6829cdb6b247c924beab0cfa001b3e
   WeakMapTable: d0327eda092be6a8f7c532942ae98dc7948f5d32
 
-PODFILE CHECKSUM: e6e391ba9402a36297339f4e643c7edf9dedf7cc
+PODFILE CHECKSUM: 7748c098d542c46478bf32bc3959dda7870c2bce
 
 COCOAPODS: 1.9.2
