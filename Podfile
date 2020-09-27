@@ -1,4 +1,4 @@
-platform :ios, '12.0'
+platform :ios, '13.0'
 use_frameworks!
 inhibit_all_warnings!
 
@@ -37,11 +37,8 @@ pod 'Kingfisher'
 
 # etc
 pod 'Firebase/Core'
-pod 'Firebase/RemoteConfig'
 pod 'Firebase/Analytics'
 pod 'Firebase/Performance'
-pod 'Fabric'
-pod 'Crashlytics'
 pod 'SwiftLint'
 pod 'AcknowList'
 pod 'Bagel'
@@ -58,10 +55,6 @@ target 'GitTime' do
 #    app_pods
   end
   
-  target 'GitTimeUITests' do
-    inherit! :search_paths
-# app_pods
-  end
 end
 
 
