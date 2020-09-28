@@ -31,6 +31,8 @@ targets:
         name: Swiftlint
     settings:
       INFOPLIST_FILE: GitTime/Supporting Files/Info.plist
+      DEVELOPMENT_TEAM: R46Q3HW9V3
+      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test
