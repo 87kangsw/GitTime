@@ -159,7 +159,8 @@ playground.xcworkspace
 !*.xcworkspace/contents.xcworkspacedata
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
-
+*.xcodeproj
+*.xcworkspace
 
 ### 3rd party info plist ###
 GoogleService-Info.plist
