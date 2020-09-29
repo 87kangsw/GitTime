@@ -15,45 +15,45 @@ jobs:
           sdk: iphonesimulator13.0
           destination: platform=iOS Simulator,name=iPhone X,OS=13.0
     steps:
-      - name: Checkout
-      - uses: actions/checkout@v2
-      - name: Install and run xcodegen
-        run: |
+    - name: Checkout
+    - uses: actions/checkout@v2
+    - name: Install and run xcodegen
+      run: |
           brew install xcodegen
           xcodegen generate
-      - name: Set Xcode
-        run: |
-          echo "Available Xcode versions:"
-          ls /Applications | grep Xcode
-          echo "Choosing Xcode_${{ matrix.xcode }}.app"
-          sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app
-          xcodebuild -version
-          swift --version
-          swift package --version
-      - name: Install Dependences
-        run: |
-          pod install
-      - name: Build and Test
-        run: |
-          set -o pipefail && xcodebuild clean build test \
-            -workspace "$WORKSPACE" \
-            -scheme "$SCHEME" \
-            -destination "$DESTINATION" \
-            -configuration Debug \
-            -enableCodeCoverage YES \
-            CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c;
-        env:
-          WORKSPACE: GitTime.xcworkspace
-          SCHEME: GitTime
-          SDK: ${{ matrix.env.sdk }}
-          DESTINATION: ${{ matrix.env.destination }}
-      - name: Slack Notification
-        uses: homoluctus/slatify@master
-        if: always()
-        with:
-          type: ${{ job.status }}
-          job_name: '*Github Actions*'
-          mention: 'here'
-          mention_if: 'failure'
-          channel: '#logs'
-          url: ${{ secrets.SLACK_WEBHOOK }}
+    - name: Set Xcode
+      run: |
+        echo "Available Xcode versions:"
+        ls /Applications | grep Xcode
+        echo "Choosing Xcode_${{ matrix.xcode }}.app"
+        sudo xcode-select -s /Applications/Xcode_${{ matrix.xcode }}.app
+         xcodebuild -version
+        swift --version
+        swift package --version
+    - name: Install Dependences
+      run: |
+        pod install
+    - name: Build and Test
+      run: |
+        set -o pipefail && xcodebuild clean build test \
+          -workspace "$WORKSPACE" \
+          -scheme "$SCHEME" \
+          -destination "$DESTINATION" \
+          -configuration Debug \
+          -enableCodeCoverage YES \
+          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c;
+      env:
+        WORKSPACE: GitTime.xcworkspace
+        SCHEME: GitTime
+        SDK: ${{ matrix.env.sdk }}
+        DESTINATION: ${{ matrix.env.destination }}
+    - name: Slack Notification
+      uses: homoluctus/slatify@master
+      if: always()
+      with:
+        type: ${{ job.status }}
+        job_name: '*Github Actions*'
+        mention: 'here'
+        mention_if: 'failure'
+        channel: '#logs'
+        url: ${{ secrets.SLACK_WEBHOOK }}
