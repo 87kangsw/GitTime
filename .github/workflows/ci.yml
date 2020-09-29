@@ -12,8 +12,8 @@ jobs:
       matrix:
         xcode: ['11']
         env:
-          - sdk: iphonesimulator13.0
-            destination: platform=iOS Simulator,name=iPhone X,OS=13.0
+          sdk: iphonesimulator13.0
+          destination: platform=iOS Simulator,name=iPhone X,OS=13.0
     steps:
       - name: Checkout
       - uses: actions/checkout@v2
@@ -43,10 +43,10 @@ jobs:
             -enableCodeCoverage YES \
             CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO | xcpretty -c;
         env:
-        WORKSPACE: GitTime.xcworkspace
-        SCHEME: GitTime
-        SDK: ${{ matrix.env.sdk }}
-        DESTINATION: ${{ matrix.env.destination }}
+          WORKSPACE: GitTime.xcworkspace
+          SCHEME: GitTime
+          SDK: ${{ matrix.env.sdk }}
+          DESTINATION: ${{ matrix.env.destination }}
       - name: Slack Notification
         uses: homoluctus/slatify@master
         if: always()
