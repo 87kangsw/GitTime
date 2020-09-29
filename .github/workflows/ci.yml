@@ -1,9 +1,5 @@
 name: CI
-on:
-  push:
-    branches:
-      develop
-      feature/*
+on: [push]
 jobs:
   run:
     runs-on: macOS-latest
