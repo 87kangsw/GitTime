@@ -16,7 +16,7 @@ jobs:
             destination: platform=iOS Simulator,name=iPhone 8,OS=13.0
     steps:
     - name: Checkout
-    - uses: actions/checkout@v2
+      uses: actions/checkout@v2
     - name: Install and run xcodegen
       run: |
           brew install xcodegen
