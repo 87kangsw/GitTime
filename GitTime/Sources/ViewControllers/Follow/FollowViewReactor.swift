@@ -130,9 +130,9 @@ final class FollowViewReactor: Reactor {
     
     private func requestFollow(followType: FollowTypes? = nil, page: Int? = 1) -> Observable<Mutation> {
         
-        if AppDependency.shared.isTrial {
-            return self.trialFollows()
-        }
+//        if AppDependency.shared.isTrial {
+//            return self.trialFollows()
+//        }
         
         guard let me = self.userService.me else { return .empty() }
         

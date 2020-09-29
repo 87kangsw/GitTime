@@ -10,16 +10,17 @@ import UIKit
 
 import RxSwift
 
-@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
-    
-    func application(_ application: UIApplication,
-                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        guard let window = window else { return false }
-        AppDependency.shared.configureCoordinator(launchOptions: launchOptions, window: window)
-        return true
-    }
-
+	
+	var window: UIWindow?
+	var dependency: AppDependency!
+	
+	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+		self.dependency = self.dependency ?? CompositionRoot.resolve()
+		self.dependency.configureSDKs()
+		self.dependency.configureAppearance()
+		self.window = self.dependency.window
+		return true
+	}
+	
 }
