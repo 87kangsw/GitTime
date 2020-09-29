@@ -3,56 +3,71 @@ use_frameworks!
 inhibit_all_warnings!
 
 def app_pods
+  # Architecture
+  pod 'ReactorKit'
 
-# Architecture
-pod 'ReactorKit'
+  # Reactive
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'RxDataSources'
+  pod 'RxOptional'
+  pod 'RxKeyboard'
+  
+  # UI
+  pod 'SnapKit'
+  pod 'Toaster', :git => 'https://github.com/devxoul/Toaster.git', :branch => 'master'
+  pod 'PanModal'
+  
+  # Keychain
+  pod 'KeychainAccess'
+  
+  # DB
+  pod 'RealmSwift'
+  
+  # Logger
+  pod 'SwiftyBeaver'
+  
+  # Network
+  pod 'Moya/RxSwift'
+  
+  # Image Cache
+  pod 'Kingfisher'
+  
+  # etc
+  pod 'SwiftLint'
+  pod 'AcknowList'
+  pod 'Bagel'
+  pod 'Kanna'
+  pod 'Then'
+  
+  # DI
+  pod 'Pure'
+end
 
-# Coordinator
-# pod 'RxFlow', '2.4.0'
+def firebase_pods
+  pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Crashlytics'
+  pod 'Firebase/Performance'
+end
 
-# Reactive
-pod 'RxSwift'
-pod 'RxCocoa'
-pod 'RxDataSources'
-pod 'RxOptional'
-pod 'RxKeyboard'
-
-# UI
-pod 'SnapKit'
-pod 'Toaster', :git => 'https://github.com/devxoul/Toaster.git', :branch => 'master'
-pod 'PanModal'
-
-# Keychain
-pod 'KeychainAccess'
-
-# DB
-pod 'RealmSwift'
-
-# Logger
-pod 'SwiftyBeaver'
-
-# Network
-pod 'Moya/RxSwift'
-pod 'Kingfisher'
-
-# etc
-pod 'Firebase/Core'
-pod 'Firebase/Analytics'
-pod 'Firebase/Performance'
-pod 'SwiftLint'
-pod 'AcknowList'
-pod 'Bagel'
-pod 'Kanna'
-
+def testing_pods
+    pod 'Quick'
+    pod 'Nimble'
+    pod 'RxTest'
+    pod 'RxBlocking'
+    pod 'Stubber'
+    pod 'Immutable'
 end
 
 target 'GitTime' do
   
   app_pods
+  firebase_pods
   
   target 'GitTimeTests' do
     inherit! :search_paths
-#    app_pods
+    testing_pods
   end
   
 end
