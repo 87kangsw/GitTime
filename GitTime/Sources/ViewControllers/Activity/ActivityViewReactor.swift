@@ -167,9 +167,10 @@ final class ActivityViewReactor: Reactor {
     
     private func requestContributions() -> Observable<Mutation> {
         
-        if AppDependency.shared.isTrial {
-            return self.requestTrialContributions()
-        }
+//        if AppDependency.shared.isTrial {
+//            return self.requestTrialContributions()
+//        }
+		
         
         guard let me = self.userService.me else { return .empty() }
         
@@ -200,9 +201,9 @@ final class ActivityViewReactor: Reactor {
     
     private func requestActivities(page: Int? = 1) -> Observable<Mutation> {
         
-        if AppDependency.shared.isTrial {
-            return self.requestTrialActivities()
-        }
+//        if AppDependency.shared.isTrial {
+//            return self.requestTrialActivities()
+//        }
         
         guard let me = self.userService.me else { return .empty() }
         

@@ -193,8 +193,8 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     fileprivate func goToLogin() {
-        AppDependency.shared.configureCoordinator(launchOptions: nil,
-                                                  window: UIApplication.shared.keyWindow!)
+//        AppDependency.shared.configureCoordinator(launchOptions: nil,
+//                                                  window: UIApplication.shared.keyWindow!)
     }
 }
 
