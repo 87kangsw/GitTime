@@ -268,6 +268,11 @@ final class ActivityViewReactor: Reactor {
                     hexColor = hexColor.replacingOccurrences(of: "\\", with: "")
                         .replacingOccurrences(of: "\"", with: "")
                     
+                    let colorType = ContributionHexColorTypes.allCases.first { $0.fill == hexColor }
+                    if let hexString = colorType?.hexString {
+                        hexColor = hexString
+                    }
+
                     contributions.append(Contribution(date: date, contribution: Int(count)!, hexColor: hexColor))
                 }
             }
