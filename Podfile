@@ -19,7 +19,7 @@ pod 'RxKeyboard'
 
 # UI
 pod 'SnapKit'
-pod 'Toaster'
+pod 'Toaster', :git => 'https://github.com/devxoul/Toaster.git', :branch => 'master'
 pod 'PanModal'
 
 # Keychain
@@ -40,8 +40,6 @@ pod 'Firebase/Core'
 pod 'Firebase/RemoteConfig'
 pod 'Firebase/Analytics'
 pod 'Firebase/Performance'
-pod 'Fabric'
-pod 'Crashlytics'
 pod 'SwiftLint'
 pod 'AcknowList'
 pod 'Bagel'
