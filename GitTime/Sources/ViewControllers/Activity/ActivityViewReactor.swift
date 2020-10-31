@@ -12,7 +12,7 @@ import RxSwift
 import Moya
 import Kanna
 
-final class ActivityViewReactor: Reactor {
+final class ActivityViewReactor: ReactorKit.Reactor {
     
     static let INITIAL_PAGE = 1
     static let PER_PAGE = 30
@@ -46,6 +46,7 @@ final class ActivityViewReactor: Reactor {
                 .activities(self.activities)
             ]
         }
+		var user: Me?
     }
     
     let initialState: ActivityViewReactor.State
@@ -65,7 +66,8 @@ final class ActivityViewReactor: Reactor {
                                   canLoadMore: true,
                                   contributionInfo: nil,
                                   contribution: [],
-                                  activities: [])
+								  activities: [],
+								  user: GlobalStates.shared.currentUser.value)
     }
     
     // MARK: Mutation
@@ -74,15 +76,19 @@ final class ActivityViewReactor: Reactor {
         case .firstLoad:
             guard !self.currentState.isLoading else { return .empty() }
             let clearPagingMutation = self.clearPaging()
+			let startLoading: Observable<Mutation> = .just(.setLoading(true))
+			let endLoading: Observable<Mutation> = .just(.setLoading(false))
             let requestContributionMutation = self.requestContributions()
             let requestActivityMutation = self.requestActivities()
-            return .concat([clearPagingMutation, requestContributionMutation, requestActivityMutation])
+            return .concat([clearPagingMutation, startLoading, requestContributionMutation, requestActivityMutation, endLoading])
         case .loadMoreActivities:
             guard !self.currentState.isLoading else { return .empty() }
             guard self.currentState.canLoadMore else { return .empty() }
             let disableLoadMore: Observable<Mutation> = .just(.setLoadMore(false))
+			let startLoading: Observable<Mutation> = .just(.setLoading(true))
+			let endLoading: Observable<Mutation> = .just(.setLoading(false))
             let requestMoreActivityMuation: Observable<Mutation> = self.requestMoreActivities()
-            return .concat([disableLoadMore, requestMoreActivityMuation])
+            return .concat([disableLoadMore, startLoading, requestMoreActivityMuation, endLoading])
         case .refresh:
             guard !self.currentState.isLoading else { return .empty() }
             guard !self.currentState.isRefreshing else { return .empty() }
@@ -171,13 +177,9 @@ final class ActivityViewReactor: Reactor {
 //            return self.requestTrialContributions()
 //        }
 		
+        guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
         
-        guard let me = self.userService.me else { return .empty() }
-        
-        let startLoading: Observable<Mutation> = .just(.setLoading(true))
-        let endLoading: Observable<Mutation> = .just(.setLoading(false))
-        
-        let fetchContribution = self.crawlerService.fetchContributionsRawdata(userName: me.name)
+        return self.crawlerService.fetchContributionsRawdata(userName: me.name)
             .map { response ->  Mutation in
                 let contributionInfo = self.parseContribution(response: response)
                 return .setContributionInfo(contributionInfo)
@@ -188,8 +190,6 @@ final class ActivityViewReactor: Reactor {
                 .map { contributionInfo -> Mutation in
                     return .setContributionInfo(contributionInfo)}
         }
-        
-        return .concat([startLoading, fetchContribution, endLoading])
     }
     
     private func requestTrialContributions() -> Observable<Mutation> {
@@ -205,42 +205,32 @@ final class ActivityViewReactor: Reactor {
 //            return self.requestTrialActivities()
 //        }
         
-        guard let me = self.userService.me else { return .empty() }
+		guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
         
         let currentPage = page ?? self.currentState.page
         
-        let startLoading: Observable<Mutation> = .just(.setLoading(true))
-        let endLoading: Observable<Mutation> = .just(.setLoading(false))
-        
-        let fetchActivity = self.activityService.fetchActivities(userName: me.name, page: currentPage)
+        return self.activityService.fetchActivities(userName: me.name, page: currentPage)
             .map { events -> Mutation in
                 let newPage = events.count < ActivityViewReactor.PER_PAGE ? currentPage : currentPage + 1
                 let canLoadMore = events.count == ActivityViewReactor.PER_PAGE
                 return .fetchActivity(events, nextPage: newPage, canLoadMore: canLoadMore)
         }.catchErrorJustReturn(.fetchActivity([], nextPage: currentPage, canLoadMore: false))
-        
-        return .concat([startLoading, fetchActivity, endLoading])
     }
     
     private func requestMoreActivities(page: Int? = 1) -> Observable<Mutation> {
         
-        guard let me = self.userService.me else { return .empty() }
+        guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
         
         let currentPage = self.currentState.page
         
-        let startLoading: Observable<Mutation> = .just(.setLoading(true))
-        let endLoading: Observable<Mutation> = .just(.setLoading(false))
-        
         log.info("\(#function) \(currentPage)")
         
-        let fetchActivity = self.activityService.fetchActivities(userName: me.name, page: currentPage)
+        return self.activityService.fetchActivities(userName: me.name, page: currentPage)
             .map { events -> Mutation in
                 let newPage = events.count < ActivityViewReactor.PER_PAGE ? currentPage : currentPage + 1
                 let canLoadMore = events.count == ActivityViewReactor.PER_PAGE
                 return .fetchActivityMore(events, nextPage: newPage, canLoadMore: canLoadMore)
         }.catchErrorJustReturn(.fetchActivityMore([], nextPage: currentPage, canLoadMore: false))
-        
-        return .concat([startLoading, fetchActivity, endLoading])
     }
     
     private func requestTrialActivities() -> Observable<Mutation> {

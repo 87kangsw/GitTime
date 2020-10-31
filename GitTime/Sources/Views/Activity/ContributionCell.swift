@@ -10,24 +10,19 @@ import ReactorKit
 import RxCocoa
 import RxSwift
 
-final class ContributionCell: UICollectionViewCell, View, CellType {
+final class ContributionCell: BaseCollectionCell, ReactorKit.View {
     
     typealias Reactor = ContributionCellReactor
-    var disposeBag = DisposeBag()
     
-    // MARK: - UI
-    @IBOutlet weak var bgView: UIView!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.backgroundColor = .cellBackground
-        self.contentView.backgroundColor = .cellBackground
-    }
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
-    }
+	override init(frame: CGRect) {
+		super.init(frame: frame)
+		self.backgroundColor = .cellBackground
+		self.contentView.backgroundColor = .cellBackground
+	}
+	
+	required init?(coder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
 
     func bind(reactor: Reactor) {
         
@@ -35,7 +30,7 @@ final class ContributionCell: UICollectionViewCell, View, CellType {
             .subscribe(onNext: { [weak self] contribution in
                 guard let self = self else { return }
                 let color = UIColor(hexString: contribution.hexColor)
-                self.bgView.backgroundColor = color
+				self.contentView.backgroundColor = color
             }).disposed(by: self.disposeBag)
     }
 }

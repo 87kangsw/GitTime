@@ -10,27 +10,45 @@ import SafariServices
 import UIKit
 
 import ReactorKit
+import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift
 
-class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
+class FollowViewController: BaseViewController, ReactorKit.View {
     
     typealias Reactor = FollowViewReactor
     
+	enum Reusable {
+		static let followUserCell = ReusableCell<FollowUserCell>()
+	}
+	
     // MARK: - UI
-    @IBOutlet weak var segmentControl: UISegmentedControl!
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tableHeaderView: UIView!
-    @IBOutlet weak var loadingIndicator: UIActivityIndicatorView!
-    private let refreshControl = UIRefreshControl()
+	private let segmentControl = UISegmentedControl()
+	
+	private let tableView = UITableView().then {
+		$0.estimatedRowHeight = 60.0
+		$0.rowHeight = UITableView.automaticDimension
+//		$0.backgroundColor = .background
+		$0.separatorColor = .underLine
+		$0.register(Reusable.followUserCell)
+	}
+	private let tableHeaderView = UIView().then {
+		$0.backgroundColor = .background
+		$0.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 60.0)
+	}
+	private let loadingIndicator = UIActivityIndicatorView().then {
+		$0.hidesWhenStopped = true
+		$0.color = .invertBackground
+	}
+	private let refreshControl = UIRefreshControl()
     
     // MARK: - Properties
     static var dataSource: RxTableViewSectionedReloadDataSource<FollowSection> {
         return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .followUsers(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FollowUserCell.self)
+				let cell = tableView.dequeue(Reusable.followUserCell, for: indexPath)
                 cell.reactor = reactor
                 return cell
             }
@@ -38,36 +56,57 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     private lazy var dataSource: RxTableViewSectionedReloadDataSource<FollowSection> = type(of: self).dataSource
     
-    let searchController = UISearchController(searchResultsController: nil)
-    
+	// MARK: - Initializing
+	init(reactor: Reactor) {
+		defer { self.reactor = reactor }
+		
+		super.init()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
     }
-    
-    fileprivate func configureUI() {
-        
-        tableView.estimatedRowHeight = 60.0
-        tableView.rowHeight = UITableView.automaticDimension
-        //        tableView.separatorStyle = .none
-        tableView.registerNib(cellType: FollowUserCell.self)
-        
-        tableView.refreshControl = refreshControl
-        
-        tableView.backgroundColor = .background
-        tableView.separatorColor = .underLine
-        tableHeaderView.backgroundColor = .background
-        tableView.tableFooterView = UIView()
-        
-        FollowTypes.allCases.enumerated().forEach { (index, type) in
-            segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)
-        }
-        
-        loadingIndicator.hidesWhenStopped = true
-        loadingIndicator.color = .invertBackground
-    }
+	
+	override func viewDidAppear(_ animated: Bool) {
+		super.viewDidAppear(animated)
+//		FollowTypes.allCases.enumerated().forEach { (index, type) in
+//			segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)
+//		}
+	}
+	
+	override func addViews() {
+		super.addViews()
+		
+		self.view.addSubview(tableView)
+		self.view.addSubview(loadingIndicator)
+		tableHeaderView.addSubview(segmentControl)
+		
+		tableView.refreshControl = refreshControl
+		tableView.tableHeaderView = tableHeaderView
+		tableView.tableFooterView = UIView()
+	}
+	
+	override func setupConstraints() {
+		super.setupConstraints()
+		
+		tableView.snp.makeConstraints { make in
+			make.edges.equalToSuperview()
+		}
+		
+		loadingIndicator.snp.makeConstraints { make in
+			make.center.equalToSuperview()
+		}
+		
+		segmentControl.snp.makeConstraints { make in
+			make.edges.equalToSuperview()
+		}
+	}
     
     // MARK: - Configure
     func bind(reactor: Reactor) {
@@ -115,7 +154,7 @@ class FollowViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .followUsers(let reactor):
-                    self.presentModalWeb(urlString: reactor.currentState.followUser.url)
+                    self.pushSFSafariWeb(urlString: reactor.currentState.followUser.url)
                 }
             }).disposed(by: self.disposeBag)
         

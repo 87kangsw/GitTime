@@ -8,15 +8,13 @@
 
 import UIKit
 
-import RxSwift
-
 class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	var window: UIWindow?
 	var dependency: AppDependency!
 	
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-		self.dependency = self.dependency ?? CompositionRoot.resolve()
+		self.dependency = self.dependency ?? CompositionRoot.resolve(launchOptions: launchOptions)
 		self.dependency.configureSDKs()
 		self.dependency.configureAppearance()
 		self.window = self.dependency.window

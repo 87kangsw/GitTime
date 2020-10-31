@@ -8,11 +8,12 @@
 
 import UIKit
 
+import Pure
 import ReactorKit
 import RxCocoa
 import RxSwift
 
-class MainTabBarController: UITabBarController, View {
+final class MainTabBarController: UITabBarController, ReactorKit.View {
     
     lazy private(set) var className: String = {
         return type(of: self).description().components(separatedBy: ".").last ?? ""
@@ -26,7 +27,8 @@ class MainTabBarController: UITabBarController, View {
     
     // MARK: - Initialize
     
-    init(reactor: MainTabBarReactor, launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
+    init(reactor: MainTabBarReactor,
+		 launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
         defer { self.reactor = reactor }
         super.init(nibName: nil, bundle: nil)
     }

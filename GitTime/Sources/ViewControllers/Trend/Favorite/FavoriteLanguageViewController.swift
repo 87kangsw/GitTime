@@ -10,6 +10,7 @@ import UIKit
 
 import PanModal
 import ReactorKit
+import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -19,6 +20,10 @@ class FavoriteLanguageViewController: BaseViewController, StoryboardView, Reacto
 
     typealias Reactor = FavoriteLanguageViewReactor
     
+	enum Reusable {
+		static let favoriteLanguageCell = ReusableCell<FavoriteLanguageTableViewCell>()
+	}
+	
     // MARK: - UI
     @IBOutlet weak var tableView: UITableView!
     private let close = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: nil)
@@ -45,7 +50,7 @@ class FavoriteLanguageViewController: BaseViewController, StoryboardView, Reacto
         
         tableView.backgroundColor = .background
         tableView.separatorColor = .underLine
-        tableView.registerNib(cellType: FavoriteLanguageTableViewCell.self)
+		tableView.register(Reusable.favoriteLanguageCell)
         tableView.tableFooterView = UIView()
     }
     
@@ -102,7 +107,7 @@ class FavoriteLanguageViewController: BaseViewController, StoryboardView, Reacto
         return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .favorite(let cellReactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FavoriteLanguageTableViewCell.self)
+				let cell = tableView.dequeue(Reusable.favoriteLanguageCell, for: indexPath)
                 cell.reactor = cellReactor
                 
                 cell.rx.favoriteTapped

@@ -9,6 +9,7 @@
 import UIKit
 
 import ReactorKit
+import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -20,6 +21,11 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
     typealias Reactor = LanguagesViewReactor
     typealias ReturnType = Language
     
+	enum Reusable {
+		static let languageCell = ReusableCell<LanguageListCell>()
+		static let favoriteLanguageCell = ReusableCell<FavoriteLanguageTableViewCell>()
+	}
+	
     // MARK: - UI
     var closeButton: UIBarButtonItem!
     var searchButton: UIBarButtonItem!
@@ -61,7 +67,8 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
         tableView.backgroundColor = .background
         tableView.separatorColor = .underLine
         
-        tableView.registerNib(cellType: LanguageListCell.self)
+		tableView.register(Reusable.languageCell)
+		tableView.register(Reusable.favoriteLanguageCell)
         
         headerView.backgroundColor = .background
         tableView.tableHeaderView = headerView
@@ -181,7 +188,7 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
         return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .allLanguage(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LanguageListCell.self)
+				let cell = tableView.dequeue(Reusable.languageCell, for: indexPath)
                 cell.reactor = reactor
                 
                 cell.rx.languageTapped
@@ -200,7 +207,7 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
                 
                 return cell
             case .languages(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LanguageListCell.self)
+				let cell = tableView.dequeue(Reusable.languageCell, for: indexPath)
                 cell.reactor = reactor
                 
                 cell.rx.favoriteTapped
@@ -226,7 +233,7 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
                 return cell
                 
             case .emptyFavorites(let cellReactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FavoriteLanguageTableViewCell.self)
+				let cell = tableView.dequeue(Reusable.favoriteLanguageCell, for: indexPath)
                 cell.reactor = cellReactor
                 return cell
             }

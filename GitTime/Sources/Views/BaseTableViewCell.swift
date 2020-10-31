@@ -11,20 +11,45 @@ import UIKit
 import RxSwift
 
 class BaseTableViewCell: UITableViewCell {
-    
-    var disposeBag = DisposeBag()
-    
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        disposeBag = DisposeBag()
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.backgroundColor = .cellBackground
-        self.contentView.backgroundColor = .cellBackground
-        selectionStyle = .none
-    }
+
+	private(set) var didSetupConstraints = false
+	
+	var disposeBag = DisposeBag()
+	
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		self.addViews()
+		self.layoutSubviews()
+		
+		self.backgroundColor = .cellBackground
+		self.contentView.backgroundColor = .cellBackground
+		selectionStyle = .none
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
+	deinit {
+		log.debug("DEINIT: \(type(of: self).description().components(separatedBy: ".").last ?? "")")
+	}
+	
+	override func layoutSubviews() {
+		if !self.didSetupConstraints {
+			self.setupConstraints()
+			self.didSetupConstraints = true
+		}
+		super.layoutSubviews()
+	}
+	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		disposeBag = DisposeBag()
+	}
+	
+	func addViews() {}
+	
+	func setupConstraints() {}
 }
 /*
 extension BaseTableViewCell {

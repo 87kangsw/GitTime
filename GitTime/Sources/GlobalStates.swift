@@ -13,5 +13,8 @@ import RxSwift
 final class GlobalStates {
 	static let shared = GlobalStates()
 	
-	var currentUser: BehaviorRelay<Me?> = BehaviorRelay(value: nil)
+	var currentUser: BehaviorRelay = BehaviorRelay<Me?>(value: nil)
+	
+	// Current Access Token
+	var currentAccessToken: String?
 }

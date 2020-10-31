@@ -9,12 +9,9 @@
 import Foundation
 
 struct AppConstants {
-	static let gitTimeRepositoryURL = "https://github.com/87kangsw/GitTime"
 	static let contactMailAddress = "contact@kanz.dev"
 	static let contactMailTitle = "GitTime Feedback"
 	static let appID = "1469013856"
-	
-	static let gitHubDomain = "https://github.com"
 }
 
 struct Constants {
@@ -31,13 +28,21 @@ struct Constants {
 	/// UserDefaultKey
 	enum UserDefaultKeys: String {
 		case firstLaunch = "firstLaunch"
-		
 		case selectedLanguage = "langauge"
-		/*
-		case langauge
-		case period
-		case firstLaunch
+		case selectedPeriod = "period"
 		case searchHistory
-		*/
+		case appIconName
+	}
+	
+	enum URLs {
+		static let gitHubDomain = "https://github.com"
+		static let gitTimeRepositoryURL = "https://github.com/87kangsw/GitTime"
+		static let privacyURL = "http://bit.ly/2VyWrTW"
+		static let twitterURL = "https://twitter.com/87kangsw"
+		static let appStoreURL = "https://apps.apple.com/app/gittime/id1469013856"
+	}
+	
+	enum Schemes {
+		static let twitter = "twitter://user?screen_name=87kangsw"
 	}
 }
