@@ -37,22 +37,24 @@ enum NavBarImages: String, ImageNames {
     case filter = "navFilter"
 }
 
-enum EventImages: String, ImageNames {
+enum EventImages: String, ImageNames, CaseIterable {
     var imageName: String {
         return self.rawValue
     }
     
-    case createEventBranch
-    case createEventRepo
-    case createEventTag
-    case forkEvent
-    case issueCommentEvent
-    case issuesEvnet
-    case pullRequestEvent
-    case pushEvent
-    case releaseEvent
-    case watchEvent
-    case publicEvent
+    case createEventBranch = "create_branch"
+    case createEventRepo = "create_repo"
+    case createEventTag = "tagged"
+    case forkEvent = "forked"
+    case issueCommentEvent = "commented"
+    case issuesEventOpened = "issue_opened"
+	case issuesEventClosed = "issue_closed"
+    case pullRequestOpened = "pullrequest_opened"
+	case pullRequestClosed = "pullrequest_closed"
+    case pushEvent = "pushed"
+    case releaseEvent = "released"
+    case watchEvent = "starred"
+    case publicEvent = "public"
 }
 
 enum SearchTypeImages: String, ImageNames {

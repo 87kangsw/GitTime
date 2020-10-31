@@ -11,6 +11,7 @@ import UIKit
 
 import PanModal
 import ReactorKit
+import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -19,6 +20,12 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
     
     typealias Reactor = TrendViewReactor
     
+	enum Reusable {
+		static let trendingRepoCell = ReusableCell<TrendingRepositoryCell>()
+		static let trendingDeveloperCell = ReusableCell<TrendingDeveloperCell>()
+		static let emptyCell = ReusableCell<EmptyTableViewCell>()
+	}
+	
     // MARK: - UI
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeaderView: UIView!
@@ -39,17 +46,17 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
         return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .trendingRepos(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: TrendingRepositoryCell.self)
+				let cell = tableView.dequeue(Reusable.trendingRepoCell, for: indexPath)
                 cell.reactor = reactor
                 return cell
             case .trendingDevelopers(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: TrendingDeveloperCell.self)
+				let cell = tableView.dequeue(Reusable.trendingDeveloperCell, for: indexPath)
                 let rank = indexPath.row
                 cell.reactor = reactor
                 cell.reactor?.action.onNext(.initRank(rank))
                 return cell
             case .empty(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: EmptyTableViewCell.self)
+				let cell = tableView.dequeue(Reusable.emptyCell, for: indexPath)
                 cell.reactor = reactor
                 return cell
             }
@@ -79,9 +86,10 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
         
         tableView.estimatedRowHeight = 64
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.registerNib(cellType: TrendingRepositoryCell.self)
-        tableView.registerNib(cellType: TrendingDeveloperCell.self)
-        tableView.registerNib(cellType: EmptyTableViewCell.self)
+
+		tableView.register(Reusable.trendingRepoCell)
+		tableView.register(Reusable.trendingDeveloperCell)
+		tableView.register(Reusable.emptyCell)
 
         tableView.refreshControl = refreshControl
         
@@ -190,9 +198,9 @@ class TrendViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .trendingRepos(let reactor):
-                    self.presentModalWeb(urlString: reactor.currentState.url)
+                    self.pushSFSafariWeb(urlString: reactor.currentState.url)
                 case .trendingDevelopers(let reactor):
-                    self.presentModalWeb(urlString: reactor.currentState.url)
+                    self.pushSFSafariWeb(urlString: reactor.currentState.url)
                 case .empty:
                     break
                 }

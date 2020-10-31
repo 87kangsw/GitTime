@@ -45,7 +45,7 @@ final class SplashViewReactor: Reactor {
                 return .just(.setAuthentication(false))
             }
             return self.userService.fetchMe()
-                .map { true }
+                .map { _ in true }
                 .catchErrorJustReturn(false)
                 .map(Mutation.setAuthentication)
         }

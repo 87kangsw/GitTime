@@ -16,7 +16,7 @@ protocol PayloadType: ModelType {}
 /**
  * Represents a created repository, branch, or tag.
  */
-enum CreateEventType: String {
+enum CreateEventType: String, CaseIterable {
     case repository
     case branch
     case tag

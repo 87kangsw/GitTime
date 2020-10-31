@@ -22,7 +22,7 @@ def app_pods
   pod 'KeychainAccess'
   
   # DB
-  pod 'RealmSwift'
+  pod 'RealmSwift', '5.5.0'
   
   # Logger
   pod 'SwiftyBeaver'
@@ -39,6 +39,8 @@ def app_pods
   pod 'Bagel'
   pod 'Kanna'
   pod 'Then'
+  pod 'URLNavigator'
+  pod 'ReusableKit'
   
   # DI
   pod 'Pure'
@@ -47,6 +49,7 @@ end
 def firebase_pods
   pod 'Firebase/Core'
   pod 'Firebase/Analytics'
+  pod 'Firebase/Auth'
   pod 'Firebase/Crashlytics'
   pod 'Firebase/Performance'
 end

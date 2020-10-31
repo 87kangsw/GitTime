@@ -12,47 +12,28 @@ import UIKit
 
 import AcknowList
 import ReactorKit
+import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift
 import SnapKit
 
-class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
+class SettingViewController: BaseViewController, ReactorKit.View {
     
     typealias Reactor = SettingViewReactor
     
+	enum Reusable {
+		static let menuCell = ReusableCell<SettingCell>()
+	}
+	
     // MARK: - UI
-    @IBOutlet weak var tableView: UITableView!
+	private let tableView = UITableView(frame: .zero, style: .insetGrouped).then {
+		$0.rowHeight = 50.0
+		$0.register(Reusable.menuCell)
+		$0.backgroundColor = .systemGroupedBackground
+	}
     
     // MARK: - Properties
-    static var dataSource: RxTableViewSectionedReloadDataSource<SettingSection> {
-        return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
-            switch sectionItem {
-            case .myProfile(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SettingUserProfileCell.self)
-                cell.reactor = reactor
-                return cell
-            case .logout(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SettingLogoutCell.self)
-                cell.reactor = reactor
-                return cell
-            case .acknowledgements(let reactor),
-                 .contact(let reactor),
-                 .githubRepo(let reactor),
-                 .rateApp(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SettingItemCell.self)
-                cell.reactor = reactor
-                return cell
-            case .version(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SettingItemCell.self)
-                cell.reactor = reactor
-//                reactor.action.onNext(.updateSubTitle(version))
-                return cell
-            }
-        })
-    }
-    private lazy var dataSource: RxTableViewSectionedReloadDataSource<SettingSection> = type(of: self).dataSource
-    
     private var logoutActions: [RxAlertAction<Bool>] {
         var actions = [RxAlertAction<Bool>]()
         let logoutAction = RxAlertAction<Bool>(title: "Logout", style: .destructive, result: true)
@@ -61,40 +42,64 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
         actions.append(cancelAction)
         return actions
     }
-    
+	
+	private let presentLoginScreen: () -> Void
+	private let pushAppIconScreen: () -> AppIconsViewController
+	private let pushContributorsScreen: () -> ContributorsViewController
+	
+	// MARK: - Initializing
+	init(reactor: Reactor,
+		 presentLoginScreen: @escaping () -> Void,
+		 pushAppIconScreen: @escaping () -> AppIconsViewController,
+		 pushContributorsScreen: @escaping () -> ContributorsViewController) {
+		defer { self.reactor = reactor }
+		self.presentLoginScreen = presentLoginScreen
+		self.pushAppIconScreen = pushAppIconScreen
+		self.pushContributorsScreen = pushContributorsScreen
+		super.init()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
     }
-    
-    fileprivate func configureUI() {
-        
-        tableView.estimatedRowHeight = 64.0
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.separatorStyle = .none
-        
-        tableView.backgroundColor = .background
-        tableView.separatorColor = .underLine
-        
-        tableView.registerNib(cellType: SettingUserProfileCell.self)
-        tableView.registerNib(cellType: SettingItemCell.self)
-        tableView.registerNib(cellType: SettingLogoutCell.self)
-        
-        tableView.tableFooterView = UIView()
-    }
+	
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		self.tabBarController?.tabBar.isHidden = false
+	}
+	
+	override func addViews() {
+		super.addViews()
+		
+		self.view.addSubview(tableView)
+	}
+	
+	override func setupConstraints() {
+		super.setupConstraints()
+		
+		self.tableView.snp.makeConstraints { make in
+			make.edges.equalToSuperview()
+		}
+	}
     
     // MARK: - Configure
     func bind(reactor: Reactor) {
         
         // Action
-        Observable.just(Void())
-            .map { Reactor.Action.versionCheck }
-            .bind(to: reactor.action)
-            .disposed(by: self.disposeBag)
+//        Observable.just(Void())
+//            .map { Reactor.Action.versionCheck }
+//            .bind(to: reactor.action)
+//            .disposed(by: self.disposeBag)
         
         // State
+		let dataSource = self.dataSource()
+		
         reactor.state.map { $0.settingSections }
             .bind(to: self.tableView.rx.items(dataSource: dataSource))
             .disposed(by: self.disposeBag)
@@ -104,40 +109,43 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
             .filter { $0 }
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
-                self.goToLogin()
+				self.presentLoginScreen()
             }).disposed(by: self.disposeBag)
         
         // View
-        tableView.rx.setDelegate(self)
-            .disposed(by: self.disposeBag)
-        
         tableView.rx.itemSelected(dataSource: dataSource)
             .subscribe(onNext: { [weak self] sectionItem in
                 guard let self = self else { return }
                 switch sectionItem {
-                case .myProfile:
-                    self.goToMyProfile(reactor.currentState.pageURL)
-                case .githubRepo:
-                    self.goToRepository()
-                case .acknowledgements:
-                    self.goToAcknowledgements()
-                case .contact:
-                    self.goToContactEmail()
-                case .rateApp:
-                    self.goToRateApp()
-                case .version:
-                    self.goToAppStore()
-                case .logout:
-                    let alert = UIAlertController.rx_presentAlert(viewController: self,
-                                                                  title: "Are you sure you want to logout?",
-                                                                  message: nil,
-                                                                  preferredStyle: .alert,
-                                                                  animated: true,
-                                                                  actions: self.logoutActions)
-                    alert.subscribe(onNext: { loggedOut in
-                        guard loggedOut else { return }
-                        reactor.action.onNext(.logout)
-                    }).disposed(by: self.disposeBag)
+				case .appIcon:
+					self.goToAppIcon()
+				case .repo:
+					self.goToGitTimeRepository()
+				case .opensource:
+					self.goToAcknowledgements()
+				case .recommend:
+					self.goToRecommendApp()
+				case .appReview:
+					self.goToRateApp()
+				case .privacy:
+					self.goToPrivacy()
+				case .author:
+					self.goToAuthorTwitter()
+				case .contributors:
+					self.goToContributors()
+				case .shareFeedback:
+					self.goToSendFeedback()
+				case .logout:
+					let alert = UIAlertController.rx_presentAlert(viewController: self,
+																  title: "Are you sure you want to logout?",
+																  message: nil,
+																  preferredStyle: .alert,
+																  animated: true,
+																  actions: self.logoutActions)
+					alert.subscribe(onNext: { loggedOut in
+						guard loggedOut else { return }
+						reactor.action.onNext(.logout)
+					}).disposed(by: self.disposeBag)
                 }
             }).disposed(by: self.disposeBag)
         
@@ -147,73 +155,99 @@ class SettingViewController: BaseViewController, StoryboardView, ReactorBased {
             }).disposed(by: self.disposeBag)
         
     }
+	
+	private func dataSource() -> RxTableViewSectionedReloadDataSource<SettingSection> {
+		return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+			switch sectionItem {
+			case .appIcon(let reactor),
+				 .appReview(let reactor),
+				 .author(let reactor),
+				 .contributors(let reactor),
+				 .logout(let reactor),
+				 .opensource(let reactor),
+				 .privacy(let reactor),
+				 .recommend(let reactor),
+				 .repo(let reactor),
+				 .shareFeedback(let reactor):
+				let cell = tableView.dequeue(Reusable.menuCell, for: indexPath)
+				cell.reactor = reactor
+				return cell
+			}
+		})
+	}
     
     // MARK: - Go To
-    fileprivate func goToMyProfile(_ pageURL: String) {
-        self.presentModalWeb(urlString: pageURL)
-    }
-    
-    fileprivate func goToRepository() {
-        self.presentModalWeb(urlString: AppConstants.gitTimeRepositoryURL)
-    }
-    
-    fileprivate func goToAcknowledgements() {
-        let acknowVC = AcknowListViewController()
-        self.navigationController?.pushViewController(acknowVC, animated: true)
-    }
-    
-    fileprivate func goToContactEmail() {
+	private func goToAppIcon() {
+		let controller = self.pushAppIconScreen()
+		self.navigationController?.pushViewController(controller, animated: true)
+		self.tabBarController?.tabBar.isHidden = true
+	}
+	
+	private func goToGitTimeRepository() {
+		self.pushSFSafariWeb(urlString: Constants.URLs.gitTimeRepositoryURL)
+	}
+	
+	private func goToAcknowledgements() {
+		let acknowVC = AcknowListViewController()
+		self.navigationController?.pushViewController(acknowVC, animated: true)
+		self.tabBarController?.tabBar.isHidden = true
+	}
+	
+	private func goToRecommendApp() {
+		let url = URL(string: Constants.URLs.appStoreURL)
+		let activityController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+		self.present(activityController, animated: true, completion: nil)
+	}
+	
+	private func goToRateApp() {
+		let urlString = "https://itunes.apple.com/app/id\(AppConstants.appID)?action=write-review"
+		guard let url = URL(string: urlString) else { return }
+		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+	}
+	
+	private func goToPrivacy() {
+		self.pushSFSafariWeb(urlString: Constants.URLs.privacyURL)
+	}
+	
+	private func goToAuthorTwitter() {
+		let urlString = Constants.Schemes.twitter
+		guard let url = URL(string: urlString) else { return }
+		if UIApplication.shared.canOpenURL(url) {
+			UIApplication.shared.open(url, options: [:], completionHandler: nil)
+		} else {
+			self.pushSFSafariWeb(urlString: Constants.URLs.twitterURL)
+		}
+	}
+	
+	private func goToContributors() {
+		let controller = self.pushContributorsScreen()
+		self.navigationController?.pushViewController(controller, animated: true)
+		self.tabBarController?.tabBar.isHidden = true
+	}
+	
+    private func goToSendFeedback() {
         guard MFMailComposeViewController.canSendMail() else {
             let alert = UIAlertController(title: "Email Not available..",
                                           message: "Email is not available for this device.",
                                           preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Done", style: .cancel, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            return
-        }
-        
-        let composeVC = MFMailComposeViewController()
-        composeVC.mailComposeDelegate = self
-        composeVC.setToRecipients([AppConstants.contactMailAddress])
-        composeVC.setSubject(AppConstants.contactMailTitle)
-        
-        self.present(composeVC, animated: true, completion: nil)
-    }
-    
-    fileprivate func goToRateApp() {
-        let urlString = "https://itunes.apple.com/app/id\(AppConstants.appID)?action=write-review"
-        guard let url = URL(string: urlString) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    fileprivate func goToAppStore() {
-        let urlString = "https://itunes.apple.com/app/id\(AppConstants.appID)"
-        guard let url = URL(string: urlString) else { return }
-        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-    }
-    
-    fileprivate func goToLogin() {
-//        AppDependency.shared.configureCoordinator(launchOptions: nil,
-//                                                  window: UIApplication.shared.keyWindow!)
-    }
-}
-
-// MARK: - UITableViewDelegate
-extension SettingViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if section == 0 {
-            return nil
-        }
-        
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 20.0))
-        view.backgroundColor = .tableSectionHeader
-        return view
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 { return 0.0 }
-        return 32.0
-    }
+			return
+		}
+		
+		let composeVC = MFMailComposeViewController()
+		composeVC.mailComposeDelegate = self
+		composeVC.setToRecipients([AppConstants.contactMailAddress])
+		composeVC.setSubject(AppConstants.contactMailTitle)
+		
+		self.present(composeVC, animated: true, completion: nil)
+	}
+	
+	private func goToAppStore() {
+		let urlString = "https://itunes.apple.com/app/id\(AppConstants.appID)"
+		guard let url = URL(string: urlString) else { return }
+		UIApplication.shared.open(url, options: [:], completionHandler: nil)
+	}
 }
 
 // MARK: - MFMailComposeViewControllerDelegate

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // https://developer.github.com/v3/activity/events/types/
-enum EventType: String {
+enum EventType: String, CaseIterable {
     case createEvent = "CreateEvent"
     case watchEvent = "WatchEvent"
     case pullRequestEvent = "PullRequestEvent"
@@ -24,7 +24,7 @@ enum EventType: String {
     case none
 }
 
-enum EventActionState: String {
+enum EventActionState: String, CaseIterable {
     case opened
     case closed
 }
@@ -37,6 +37,11 @@ struct Event: ModelType {
     let payload: PayloadType?
     let isPublic: Bool
     let createdAt: Date
+	
+	var repositoryURL: String? {
+		self.handleRepositoryURL()
+	}
+	
     var description: String? {
         return self.handleDescription()
     }
@@ -66,6 +71,12 @@ struct Event: ModelType {
         type = EventType(rawValue: try container.decode(String.self, forKey: .type)) ?? .none
         actor = try container.decode(Actor.self, forKey: .actor)
         repo = try container.decode(RepositoryInfo.self, forKey: .repo)
+		isPublic = try container.decode(Bool.self, forKey: .isPublic)
+		let dateString = try container.decode(String.self, forKey: .createdAt)
+		let df = DateFormatter()
+		df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+		createdAt = df.date(from: dateString) ?? Date()
+		
         switch type {
         case .createEvent:
             payload = try container.decode(CreateEventPayload.self, forKey: .payload)
@@ -90,11 +101,6 @@ struct Event: ModelType {
         case .none:
             payload = nil
         }
-        isPublic = try container.decode(Bool.self, forKey: .isPublic)
-        let dateString = try container.decode(String.self, forKey: .createdAt)
-        let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        createdAt = df.date(from: dateString) ?? Date()
     }
     
     func encode(to encoder: Encoder) throws {
@@ -109,30 +115,47 @@ struct Event: ModelType {
 }
 
 extension Event {
-    
+	/// Activity Event Icon 처리용
     private func handleEventIconImage() -> UIImage? {
         var imageName: ImageNames
         switch self.type {
         case .createEvent:
             guard let payload = self.payload as? CreateEventPayload,
                 let eventType = payload.type else { return nil }
-            if eventType == .repository {
-                imageName = EventImages.createEventRepo
-            } else if eventType == .branch {
-                imageName = EventImages.createEventBranch
-            } else {
-                imageName = EventImages.createEventTag
-            }
+			switch eventType {
+			case .repository:
+				imageName = EventImages.createEventRepo
+			case .branch:
+				imageName = EventImages.createEventBranch
+			case .tag:
+				imageName = EventImages.createEventTag
+			}
         case .watchEvent:
             imageName = EventImages.watchEvent
         case .pullRequestEvent:
-            imageName = EventImages.pullRequestEvent
+			guard let payload = self.payload as? PullRequestEventPayload else { return nil }
+			let eventType = payload.action
+			switch eventType {
+			case .opened:
+				imageName = EventImages.pullRequestOpened
+			case .closed:
+				imageName = EventImages.pullRequestClosed
+			}
         case .pushEvent:
             imageName = EventImages.pushEvent
         case .forkEvent:
             imageName = EventImages.forkEvent
         case .issuesEvent:
-            imageName = EventImages.issuesEvnet
+			guard let payload = self.payload as? IssuesEventPayload else { return nil }
+			let eventType = payload.action
+			switch eventType {
+			case .opened:
+				imageName = EventImages.issuesEventOpened
+			case .closed:
+				imageName = EventImages.issuesEventClosed
+			default:
+				return nil
+			}
         case .issueCommentEvent:
             imageName = EventImages.issueCommentEvent
         case .releaseEvent:
@@ -146,7 +169,7 @@ extension Event {
         }
         return UIImage.assetImage(name: imageName)
     }
-    
+	/// TitleLabel 표시용
     private func handleEventMessage() -> String? {
         switch self.type {
         case .createEvent:
@@ -156,46 +179,43 @@ extension Event {
                 return "created a repository"
             } else if eventType == .branch {
                 let ref = payload.ref ?? ""
-                return "created a branch '\(ref)' in"
+                return "created a branch '\(ref)'"
             } else {
                 let ref = payload.ref ?? ""
-                return "created a tag '\(ref)' in"
+                return "created a tag '\(ref)'"
             }
         case .watchEvent:
             return "starred"
         case .pullRequestEvent:
             guard let payload = self.payload as? PullRequestEventPayload else { return nil }
             let action = payload.action
-            return "\(action) pull request in"
+            return "\(action) PR"
         case .pushEvent:
-            return "pushed at"
+            return "pushed"
         case .forkEvent:
-            guard let payload = self.payload as? ForkEventPayload else { return nil }
             let from = self.repo.name
-            let forkee = payload.forkee.name
-            return "forked \(forkee) from \(from)"
+            return "forked from \(from)"
         case .issuesEvent:
             guard let payload = self.payload as? IssuesEventPayload else { return nil }
-            return "\(payload.action) a issue \(payload.issue.number) at"
+            return "\(payload.action) #\(payload.issue.number)"
         case .issueCommentEvent:
             guard let payload = self.payload as? IssueCommentEventPayload else { return nil }
-            let action = payload.action
-            return "comment '\(action)' on issue #\(payload.issue.number) at"
+            return "commented on issue #\(payload.issue.number)"
         case .releaseEvent:
             guard let payload = self.payload as? ReleaseEventPayload else { return nil }
             let action = payload.action
-            return "\(action) released in"
+            return "\(action) released"
         case .pullRequestReviewCommentEvent:
             guard let payload = self.payload as? PullRequestReviewCommentEventPayload else { return nil }
-            let action = payload.action
-            return "comment '\(action)' on pull request #\(payload.pullRequest.number) at"
+            return "comment on PR #\(payload.pullRequest.number)"
         case .publicEvent:
             return "made public"
         case .none:
             return nil
         }
     }
-    
+	
+    /// SummaryLabel 표시용
     private func handleDescription() -> String? {
         switch self.type {
         case .createEvent:
@@ -205,34 +225,28 @@ extension Event {
             return nil
         case .pullRequestEvent:
             guard let payload = self.payload as? PullRequestEventPayload else { return nil }
-            var message: String = payload.pullRequest.title
-            if let body = payload.pullRequest.body {
-                message += "\n\(body)"
-            }
-            return message
+            return payload.pullRequest.title
         case .pushEvent:
             guard let payload = self.payload as? PushEventPayload else { return nil }
-            var message: String = ""
-            payload.commits.forEach { message.append($0.message ?? "") }
-            return message.isEmpty ? nil : message
+			if payload.commits.count == 1 {
+				return "committed"
+			} else {
+				return "\(payload.commits.count) commits"
+			}
         case .forkEvent:
             return nil
         case .issuesEvent:
             guard let payload = self.payload as? IssuesEventPayload else { return nil }
-            return payload.issue.title
+			return payload.issue.title
         case .issueCommentEvent:
             guard let payload = self.payload as? IssueCommentEventPayload else { return nil }
-            let issueTitle = payload.issue.title
-            let comment = payload.comment.body
-            return "\(issueTitle)\n>>>>>>>>>>>>\n\(comment)"
+            return payload.issue.title
         case .releaseEvent:
             guard let payload = self.payload as? ReleaseEventPayload else { return nil }
             return payload.release.body
         case .pullRequestReviewCommentEvent:
             guard let payload = self.payload as? PullRequestReviewCommentEventPayload else { return nil }
-            let pullRequestTitle = payload.pullRequest.title
-            let comment = payload.comment.body
-            return "\(pullRequestTitle)\n>>>>>>>>>>>>\n\(comment)"
+            return payload.pullRequest.title
         case .publicEvent:
             return nil
         case .none:
@@ -250,7 +264,7 @@ extension Event {
             guard let payload = self.payload as? PullRequestEventPayload else { return "" }
             return payload.pullRequest.url
         case .pushEvent:
-            return "\(AppConstants.gitHubDomain)/\(self.repo.name)/commits"
+			return "\(Constants.URLs.gitHubDomain)/\(self.repo.name)/commits"
         case .forkEvent:
             guard let payload = self.payload as? ForkEventPayload else { return "" }
             return payload.forkee.url
@@ -272,24 +286,19 @@ extension Event {
             return ""
         }
     }
+	
+	private func handleRepositoryURL() -> String? {
+		switch self.type {
+		case .forkEvent:
+			guard let payload = self.payload as? ForkEventPayload else { return nil }
+			return payload.forkee.name
+		default:
+			return self.repo.name
+		}
+	}
 }
 
-extension Event {
-    static func mockData() -> [Event]? {
-        if let url = Bundle.main.url(forResource: "eventMock", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let events = try decoder.decode([Event].self, from: data)
-                return events
-            } catch {
-                print("error:\(error)")
-            }
-        }
-        return nil
-    }
-}
-
+// MARK: Actor
 struct Actor: ModelType {
     let id: Int
     let name: String
@@ -304,11 +313,12 @@ struct Actor: ModelType {
     }
 }
 
+// MARK: Repository
 struct RepositoryInfo: ModelType {
     let id: Int
     let name: String
     var url: String {
-        return "\(AppConstants.gitHubDomain)/\(self.name)"
+        return "\(Constants.URLs.gitHubDomain)/\(self.name)"
     }
     
     enum CodingKeys: String, CodingKey {

@@ -8,4 +8,7 @@
 struct UserDefaultsConfig {
 	@UserDefaultsWrapper(Constants.UserDefaultKeys.firstLaunch.rawValue, defaultValue: true)
 	static var firstLaunch: Bool
+	
+	@UserDefaultsWrapper(Constants.UserDefaultKeys.appIconName.rawValue, defaultValue: "CFBundlePrimaryIcon")
+	static var appIconName: String
 }

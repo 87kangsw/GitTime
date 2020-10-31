@@ -134,7 +134,7 @@ final class FollowViewReactor: Reactor {
 //            return self.trialFollows()
 //        }
         
-        guard let me = self.userService.me else { return .empty() }
+        guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
         
         let currentFollowType = followType ?? self.currentState.followType
         let currentPage = page ?? self.currentState.page
@@ -170,7 +170,7 @@ final class FollowViewReactor: Reactor {
     
     private func requestFollowMore(page: Int? = 1) -> Observable<Mutation> {
         
-        guard let me = self.userService.me else { return .empty() }
+        guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
         
         let currentFollowType = self.currentState.followType
         let currentPage = self.currentState.page

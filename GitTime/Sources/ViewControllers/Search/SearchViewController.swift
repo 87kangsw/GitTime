@@ -10,6 +10,7 @@ import SafariServices
 import UIKit
 
 import ReactorKit
+import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxKeyboard
@@ -19,6 +20,13 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
     
     typealias Reactor = SearchViewReactor
     
+	enum Reusable {
+		static let searchUserCell = ReusableCell<SearchUserCell>()
+		static let searchReporCell = ReusableCell<SearchRepoCell>()
+		static let searchHistoryCell = ReusableCell<SearchHistoryCell>()
+		static let emptyCell = ReusableCell<EmptyTableViewCell>()
+	}
+	
     // MARK: - UI
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tableHeaderView: UIView!
@@ -52,10 +60,11 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
             segmentControl.setTitle(type.segmentTitle, forSegmentAt: index)
         }
         
-        tableView.registerNib(cellType: SearchUserCell.self)
-        tableView.registerNib(cellType: SearchRepoCell.self)
-        tableView.registerNib(cellType: SearchHistoryCell.self)
-        tableView.registerNib(cellType: EmptyTableViewCell.self)
+		tableView.register(Reusable.searchUserCell)
+		tableView.register(Reusable.searchReporCell)
+		tableView.register(Reusable.searchHistoryCell)
+		tableView.register(Reusable.emptyCell)
+		
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableView.automaticDimension
         
@@ -167,9 +176,9 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 guard let self = self else { return }
                 switch sectionItem {
                 case .searchedUser(let reactor):
-                    self.presentModalWeb(urlString: reactor.currentState.user.url)
+                    self.pushSFSafariWeb(urlString: reactor.currentState.user.url)
                 case .searchedRepository(let reactor):
-                    self.presentModalWeb(urlString: reactor.currentState.repo.url)
+                    self.pushSFSafariWeb(urlString: reactor.currentState.repo.url)
                 case .recentWord(let cellReactor):
                     let searchWords = cellReactor.currentState.history.text
                     self.searchBar.resignFirstResponder()
@@ -197,15 +206,15 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
         return .init(configureCell: { [weak self] (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .searchedUser(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SearchUserCell.self)
+				let cell = tableView.dequeue(Reusable.searchUserCell, for: indexPath)
                 cell.reactor = reactor
                 return cell
             case .searchedRepository(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SearchRepoCell.self)
+				let cell = tableView.dequeue(Reusable.searchReporCell, for: indexPath)
                 cell.reactor = reactor
                 return cell
             case .recentWord(let cellReactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: SearchHistoryCell.self)
+				let cell = tableView.dequeue(Reusable.searchHistoryCell, for: indexPath)
                 cell.reactor = cellReactor
                 
                 cell.rx.deleteButtonTap

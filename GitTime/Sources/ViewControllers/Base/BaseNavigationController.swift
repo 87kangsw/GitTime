@@ -25,8 +25,6 @@ class BaseNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationBar.prefersLargeTitles = true
-        self.navigationBar.hidesUnderLine(true)
-        self.navigationBar.hideShadowImage()
         self.navigationBar.barTintColor = .navigationTint
     }
     

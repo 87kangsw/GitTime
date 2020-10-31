@@ -10,27 +10,23 @@ import RxCocoa
 import RxSwift
 
 protocol UserServiceType {
-//    var me: Observable<User?> { get }
-    var me: Me? { get }
-    func fetchMe() -> Observable<Void>
+	func fetchMe() -> Observable<Me>
 }
 
 final class UserService: UserServiceType {
     
     fileprivate let networking: GitTimeProvider<GitHubAPI>
-    fileprivate let userSubject = BehaviorRelay<Me?>(value: nil)
-    lazy var me: Me? = self.userSubject.value
-    
+	
     init(networking: GitTimeProvider<GitHubAPI>) {
         self.networking = networking
     }
     
-    func fetchMe() -> Observable<Void> {
+    func fetchMe() -> Observable<Me> {
         return self.networking.request(.fetchMe)
             .map(Me.self)
             .asObservable()
-            .do(onNext: { [weak self] user in
-                self?.userSubject.accept(user)
-            }).map { _ in }
+            .do(onNext: { user in
+				GlobalStates.shared.currentUser.accept(user)
+            })
     }
 }
