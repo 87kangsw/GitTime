@@ -257,7 +257,7 @@ final class ActivityViewReactor: Reactor {
             for rect in doc.css("rect") {
                 if var date = rect["data-date"],
                     var count = rect["data-count"],
-                    var hexColor = rect["fill"] {
+                    let dataLevel = rect["data-level"] {
                     
                     date = date.replacingOccurrences(of: "\\", with: "")
                         .replacingOccurrences(of: "/", with: "")
@@ -265,15 +265,10 @@ final class ActivityViewReactor: Reactor {
                     count = count.replacingOccurrences(of: "\\", with: "")
                         .replacingOccurrences(of: "\"", with: "")
                     
-                    hexColor = hexColor.replacingOccurrences(of: "\\", with: "")
-                        .replacingOccurrences(of: "\"", with: "")
-                    
-                    let colorType = ContributionHexColorTypes.allCases.first { $0.fill == hexColor }
+                    let colorType = ContributionHexColorTypes.allCases.first { $0.rawValue == Int(dataLevel) }
                     if let hexString = colorType?.hexString {
-                        hexColor = hexString
+                        contributions.append(Contribution(date: date, contribution: Int(count)!, hexColor: hexString))
                     }
-
-                    contributions.append(Contribution(date: date, contribution: Int(count)!, hexColor: hexColor))
                 }
             }
             
