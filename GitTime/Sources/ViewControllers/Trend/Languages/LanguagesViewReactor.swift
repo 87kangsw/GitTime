@@ -45,15 +45,15 @@ final class LanguagesViewReactor: Reactor {
         
         var languageSections: [LanguageSection] {
             // All Language
-            let allLanguageSectionItem = allLanuage.map({ language -> LanguageListCellReactor in
-                return LanguageListCellReactor.init(language: language, isFavorite: false)
+            let allLanguageSectionItem = allLanuage.map({ language -> LanguageCellReactor in
+                return LanguageCellReactor.init(language: language, isFavorite: false)
             }).map(LanguageSectionItem.allLanguage)
             
             // Lanugages
             let languagesSectionItem = self.languages
-                .map({ language -> LanguageListCellReactor in
+                .map({ language -> LanguageCellReactor in
                     let isFavorite = self.favoriteLanguages.contains(where: { $0.id == language.id})
-                    return LanguageListCellReactor.init(language: language, isFavorite: isFavorite)
+                    return LanguageCellReactor.init(language: language, isFavorite: isFavorite)
                 }).map(LanguageSectionItem.languages)
             
             if !isSearchActive {
@@ -74,6 +74,8 @@ final class LanguagesViewReactor: Reactor {
     fileprivate let userDefaultsService: UserDefaultsServiceType
     fileprivate let realmService: RealmServiceType
     
+	let categoryViewReactor: LanguageCategoryViewReactor
+	
     init(languagesService: LanguagesServiceType,
          userDefaultsService: UserDefaultsServiceType,
          realmService: RealmServiceType) {
@@ -84,6 +86,8 @@ final class LanguagesViewReactor: Reactor {
         let selectedLanguage: String = userDefaultsService.value(forKey: UserDefaultsKey.langauge) ?? ""
         let initType = LanguageTypes(rawValue: selectedLanguage) ?? .programming
         
+		self.categoryViewReactor = LanguageCategoryViewReactor(languageCategoryType: initType)
+		
         self.initialState = State(query: nil,
                                   isSearchActive: false,
                                   languageType: initType,
@@ -112,6 +116,8 @@ final class LanguagesViewReactor: Reactor {
         case .selectCategory(let type):
             GitTimeAnalytics.shared.logEvent(key: "language_category",
                                              parameters: ["type": type.rawValue])
+			categoryViewReactor.action.onNext(.selectCategory(type))
+
             let categoryMutation: Observable<Mutation> = .just(.setCategory(type))
             let listMutation: Observable<Mutation> = self.categoryMutation(type)
             let favoriteLanguagesMutation: Observable<Mutation> = self.fetchFavoriteLanguages()

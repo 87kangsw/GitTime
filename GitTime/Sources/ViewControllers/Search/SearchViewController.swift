@@ -132,7 +132,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
                 let languageReactor = LanguagesViewReactor(languagesService: LanguagesService(),
                                                            userDefaultsService: UserDefaultsService(),
                                                            realmService: RealmService())
-                let languageVC = LanguagesViewController.instantiate(withReactor: languageReactor)
+                let languageVC = LanguagesViewController(reactor: languageReactor)
                 self.present(languageVC.navigationWrap(), animated: true, completion: nil)
                 return languageVC.selectedLanguage
         }.subscribe(onNext: { language in

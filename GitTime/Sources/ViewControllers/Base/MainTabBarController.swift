@@ -83,6 +83,7 @@ final class MainTabBarController: UITabBarController, ReactorKit.View {
             return
         }
         guard let scrollView = viewController.view.subviews.first as? UIScrollView else { return }
-        scrollView.setContentOffset(.zero, animated: true)
+		scrollView.scrollToTop(true)
+//		scrollView.setContentOffset(.zero, animated: true)
     }
 }

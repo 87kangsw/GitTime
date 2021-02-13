@@ -27,7 +27,7 @@ class FavoriteLanguageViewReactor: Reactor {
     struct State {
         var favoriteLanguages: [FavoriteLanguage]
         var sections: [FavoriteLanguageSection] {
-            let sectionItems = favoriteLanguages.map { FavoriteLanguageTableViewCellReactor(favoriteLanguage: $0) }
+            let sectionItems = favoriteLanguages.map { FavoriteLanguageCellReactor(favoriteLanguage: $0) }
                 .map(FavoriteLanguageSectionItem.favorite)
             return [.favorite(sectionItems)]
         }

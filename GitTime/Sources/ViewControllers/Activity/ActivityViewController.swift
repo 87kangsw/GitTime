@@ -30,7 +30,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 	// MARK: - UI
 	private var tableView = UITableView().then {
 		$0.separatorStyle = .none
-		$0.estimatedRowHeight = 60.0
+		$0.estimatedRowHeight = 100.0
 		$0.rowHeight = UITableView.automaticDimension
 		$0.backgroundColor = .background
 		

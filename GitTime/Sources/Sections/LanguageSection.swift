@@ -40,7 +40,7 @@ extension LanguageSection: SectionModelType {
 }
 
 enum LanguageSectionItem {
-    case allLanguage(LanguageListCellReactor)
-    case languages(LanguageListCellReactor)
-    case emptyFavorites(FavoriteLanguageTableViewCellReactor)
+    case allLanguage(LanguageCellReactor)
+    case languages(LanguageCellReactor)
+    case emptyFavorites(FavoriteLanguageCellReactor)
 }

@@ -9,6 +9,7 @@
 import RealmSwift
 import RxSwift
 
+
 protocol RealmServiceType {
     // Search History
     func addSearchText(text: String)
@@ -19,10 +20,16 @@ protocol RealmServiceType {
     func addFavoriteLanguage(_ language: Language)
     func removeFavoriteLanguage(_ language: FavoriteLanguage)
     func loadFavoriteLanguages() -> Observable<[FavoriteLanguage]>
+	
+	// Buddys
+	func checkIfExist(additionalName: String) -> Observable<Bool>
+	func addBuddy(userName: String, additionalName: String?, profileURL: String, contribution: [Contribution]) -> Observable<ContributionInfoObject>
+	func removeBuddy(_ buddy: ContributionInfoObject)
+	func loadBuddys() -> Observable<[ContributionInfoObject]>
 }
 
 class RealmService: RealmServiceType {
-    
+	
     // MARK: - Search History
     func addSearchText(text: String) {
         do {
@@ -111,6 +118,91 @@ class RealmService: RealmServiceType {
             return .empty()
         }
     }
+	
+	// MARK: Buddy
+	func checkIfExist(additionalName: String) -> Observable<Bool> {
+		return Observable.create { observer -> Disposable in
+			
+			do {
+				let realm = try Realm(configuration: Realm.Configuration.defaultConfiguration)
+				let predicate = NSPredicate(format: "additionalName == %@", additionalName)
+				let results = realm.objects(ContributionInfoObject.self).filter(predicate)
+				
+				observer.onNext(results.isEmpty == false)
+				observer.onCompleted()
+				
+			} catch {
+				log.error(error.localizedDescription)
+				observer.onError(RealmError.insertError)
+			}
+			
+			return Disposables.create {
+				
+			}
+		}
+	}
+	
+	func addBuddy(userName: String, additionalName: String?, profileURL: String, contribution: [Contribution]) -> Observable<ContributionInfoObject> {
+		return Observable.create { observer -> Disposable in
+			
+			do {
+				let realm = try Realm(configuration: Realm.Configuration.defaultConfiguration)
+				try realm.write {
+					/*
+					let count: Int
+					let contributions: [Contribution]
+					let userName: String
+					let additionalName: String?
+					let profileImageURL: String
+					*/
+					
+					let managedObjects = contribution.map { $0.managedObject() }
+					let result = realm.create(ContributionInfoObject.self,
+											  value: [
+												"count": 0,
+												"userName": userName,
+												"additionalName": additionalName ?? "",
+												"profileImageURL": profileURL,
+												"contributions": managedObjects
+											  ], update: .all)
+					observer.onNext(result)
+					observer.onCompleted()
+				}
+			} catch {
+				log.error(error.localizedDescription)
+				observer.onError(RealmError.insertError)
+			}
+			
+			return Disposables.create { }
+		}
+	}
+	
+	func removeBuddy(_ buddy: ContributionInfoObject) {
+		do {
+			let realm = try Realm(configuration: Realm.Configuration.defaultConfiguration)
+			let predicate = NSPredicate(format: "additionalName == %@", buddy.additionalName)
+			let results = realm.objects(ContributionInfoObject.self).filter(predicate)
+			
+			try realm.write {
+				realm.delete(results)
+			}
+		} catch {
+			log.error(error.localizedDescription)
+		}
+	}
+	
+	func loadBuddys() -> Observable<[ContributionInfoObject]> {
+		do {
+			let realm = try Realm(configuration: Realm.Configuration.defaultConfiguration)
+			let result = realm.objects(ContributionInfoObject.self)
+				.sorted(byKeyPath: "createdAt", ascending: true)
+				.toArray(ofType: ContributionInfoObject.self)
+			return .just(result)
+		} catch {
+			log.error(error.localizedDescription)
+			return .empty()
+		}
+	}
 }
 
 extension Results {
@@ -123,4 +215,14 @@ extension Results {
         }
         return array
     }
+}
+
+enum RealmError: Error {
+	case insertError
+}
+
+extension RealmCollection {
+	func toArray<T>() -> [T] {
+		return self.compactMap { $0 as? T }
+	}
 }

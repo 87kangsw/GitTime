@@ -32,6 +32,7 @@ struct Constants {
 		case selectedPeriod = "period"
 		case searchHistory
 		case appIconName
+		case buddyViewMode
 	}
 	
 	enum URLs {

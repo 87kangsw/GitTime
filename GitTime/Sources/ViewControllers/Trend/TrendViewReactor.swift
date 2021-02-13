@@ -38,7 +38,6 @@ final class TrendViewReactor: Reactor {
         var isLoading: Bool = false
         var isRefreshing: Bool = false
         var period: PeriodTypes
-        //        var language: String?
         var language: Language?
         var trendingType: TrendTypes
         var repositories: [TrendSectionItem] = []
@@ -49,35 +48,41 @@ final class TrendViewReactor: Reactor {
                 guard !self.isRefreshing else {
                     return [.repo([])]
                 }
-                guard !self.repositories.isEmpty else {
-                    let reactor = EmptyTableViewCellReactor(type: .trendingRepo)
-                    return [.repo([TrendSectionItem.empty(reactor)])]
-                }
+//                guard !self.repositories.isEmpty else {
+//                    let reactor = EmptyTableViewCellReactor(type: .trendingRepo)
+//                    return [.repo([TrendSectionItem.empty(reactor)])]
+//                }
                 return [.repo(self.repositories)]
             case .developers:
                 guard !self.isRefreshing else {
                     return [.developer([])]
                 }
-                guard !self.developers.isEmpty else {
-                    let reactor = EmptyTableViewCellReactor(type: .trendingDeveloper)
-                    return [.repo([TrendSectionItem.empty(reactor)])]
-                }
+//                guard !self.developers.isEmpty else {
+//                    let reactor = EmptyTableViewCellReactor(type: .trendingDeveloper)
+//                    return [.repo([TrendSectionItem.empty(reactor)])]
+//                }
                 return [.developer(self.developers)]
             }
         }
     }
-    
+	
     let initialState: TrendViewReactor.State
     
     fileprivate let crawlerService: GitTimeCrawlerServiceType
     fileprivate let userdefaultsService: UserDefaultsServiceType
     
+	let headerViewReactor: TrendingHeaderViewReactor
+	
     init(crawlerService: GitTimeCrawlerServiceType,
          userdefaultsService: UserDefaultsServiceType) {
         self.crawlerService = crawlerService
         self.userdefaultsService = userdefaultsService
         let period: PeriodTypes = PeriodTypes(rawValue: userdefaultsService.value(forKey: UserDefaultsKey.period) ?? "") ?? PeriodTypes.daily
         let language: Language? = userdefaultsService.structValue(forKey: UserDefaultsKey.langauge)
+		
+		headerViewReactor = TrendingHeaderViewReactor(period: period,
+													  language: language)
+		
         self.initialState = State(isLoading: false,
                                   isRefreshing: false,
                                   period: period,
@@ -101,6 +106,7 @@ final class TrendViewReactor: Reactor {
                                              parameters: ["period": period.periodText()])
             self.userdefaultsService.set(value: period.querySting(),
                                          forKey: UserDefaultsKey.period)
+			self.headerViewReactor.action.onNext(.selectPeriod(period))
             let periodMutation: Observable<Mutation> = .just(.setPeriod(period))
             let requestMutation = self.requestTrending(period: period)
             return .concat([periodMutation, requestMutation])
@@ -108,6 +114,7 @@ final class TrendViewReactor: Reactor {
             let languageName = language?.name ?? "All Language"
             GitTimeAnalytics.shared.logEvent(key: "select_language", parameters: ["language": languageName])
             self.userdefaultsService.setStruct(value: language, forKey: UserDefaultsKey.langauge)
+			self.headerViewReactor.action.onNext(.selectLanguage(language))
             let languageMutation: Observable<Mutation> = .just(.setLanguage(language))
             let requestMutation = self.requestTrending(language: language)
             return .concat([languageMutation, requestMutation])
@@ -117,6 +124,7 @@ final class TrendViewReactor: Reactor {
                                              parameters: ["type": trendType.segmentTitle])
             let trendMutation: Observable<Mutation> = .just(.setTrendType(trendType))
             let requestMutation: Observable<Mutation> = self.requestTrending(trendType: trendType)
+			
             return .concat([trendMutation, requestMutation])
         case .requestTrending:
             let requestMutation = self.requestTrending()
@@ -231,7 +239,6 @@ final class TrendViewReactor: Reactor {
                 
                 if let relativeURL = relativeURL.first?.text?.striped {
                     trendDeveloper.url = "\(url)\(relativeURL)"
-                    log.debug(trendDeveloper.url)
                 }
                 
                 if let userName = username.first?.text?.striped {
@@ -272,7 +279,16 @@ final class TrendViewReactor: Reactor {
             
             for item in doc.xpath("//article[@class='Box-row']") {
                 
-                var trendRepo: TrendRepo = TrendRepo(author: "", name: "", url: "", description: "", language: "", languageColor: "", stars: 0, forks: 0, currentPeriodStars: 0)
+				var trendRepo: TrendRepo = TrendRepo(author: "",
+													 name: "",
+													 url: "",
+													 description: "",
+													 language: "",
+													 languageColor: "",
+													 stars: 0,
+													 forks: 0,
+													 currentPeriodStars: 0,
+													 contributors: [])
                 
                 /// Repository Info
                 let repositoryInfo = item.xpath(".//h1[@class='h3 lh-condensed']/a")//[index]
@@ -282,7 +298,8 @@ final class TrendViewReactor: Reactor {
                 let star = item.xpath(".//div[@class='f6 text-gray mt-2']/a[1]")//[index]
                 let fork = item.xpath(".//div[@class='f6 text-gray mt-2']/a[2]")//[index]
                 let todayStar = item.xpath(".//div[@class='f6 text-gray mt-2']/span[@class='d-inline-block float-sm-right']")//[index]
-                
+				// let contributors = item.xpath(".//div[@class='f6 text-gray mt-2']/span[@class='d-inline-block mr-3']")
+				
                 // repository Info
                 if let repositoryInfo = repositoryInfo.first {
                     if let href = repositoryInfo["href"] {
@@ -330,7 +347,20 @@ final class TrendViewReactor: Reactor {
                     trendRepo.currentPeriodStars = Int(result) ?? 0
                 }
                 
-                repositories.append(trendRepo)
+				// Contributors
+				/*
+				/html/body[@class='logged-in env-production page-responsive']/div[@class='application-main ']/main/div[@class='explore-pjax-container container-lg p-responsive pt-6']/div[@class='Box']/div[2]/article[@class='Box-row'][1]/div[@class='f6 text-gray mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][1]/img[@class='avatar mb-1 avatar-user']/@src
+				*/
+				for i in 1...5 {
+					if let profile = item.xpath(".//div[@class='f6 text-gray mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][\(i)]/img[@class='avatar mb-1 avatar-user']/@src").first?.text?.striped,
+					   let name = item.xpath(".//div[@class='f6 text-gray mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][\(i)]/@href").first?.text?.striped {
+						let contributorModel = TrendRepoContributor(name: String(name.dropFirst()),
+																	profileURL: profile)
+						trendRepo.contributors.append(contributorModel)
+					}
+				}
+				
+				repositories.append(trendRepo)
             }
             
         }

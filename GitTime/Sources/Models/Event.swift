@@ -228,10 +228,13 @@ extension Event {
             return payload.pullRequest.title
         case .pushEvent:
             guard let payload = self.payload as? PushEventPayload else { return nil }
-			if payload.commits.count == 1 {
-				return "committed"
-			} else {
-				return "\(payload.commits.count) commits"
+//			if payload.commits.count == 1 {
+//				return "committed"
+//			} else {
+//				return "\(payload.commits.count) commits"
+//			}
+			return payload.commits.reduce("") { (s1, s2) -> String in
+				return s1 + "\(s2.message ?? "")\n"
 			}
         case .forkEvent:
             return nil

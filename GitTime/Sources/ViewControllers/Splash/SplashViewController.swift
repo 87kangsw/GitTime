@@ -28,6 +28,8 @@ class SplashViewController: BaseViewController, ReactorKit.View {
 		
 	private let logoImageView = UIImageView().then {
 		$0.image = UIImage(named: "logo")
+//		$0.backgroundColor = .white
+//		$0.isHidden = true
 	}
 	
     // MARK: - Properties
@@ -52,7 +54,7 @@ class SplashViewController: BaseViewController, ReactorKit.View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+		self.view.backgroundColor = .systemBackground
     }
     
     // MARK: - Configure

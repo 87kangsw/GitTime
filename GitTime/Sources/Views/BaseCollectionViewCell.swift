@@ -9,7 +9,7 @@ import UIKit
 
 import RxSwift
 
-class BaseCollectionCell: UICollectionViewCell {
+class BaseCollectionViewCell: UICollectionViewCell {
 	
 	private(set) var didSetupConstraints = false
 	

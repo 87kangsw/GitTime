@@ -13,6 +13,7 @@ enum UserDefaultsKey: String {
     case period
     case firstLaunch
     case searchHistory
+	case buddyViewMode
 }
 
 protocol UserDefaultsServiceType {

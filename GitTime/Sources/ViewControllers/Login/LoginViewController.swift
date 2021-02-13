@@ -11,7 +11,7 @@ import UIKit
 
 import ReactorKit
 
-class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
+class LoginViewController: BaseViewController, ReactorKit.View {
     
     typealias Reactor = LoginViewReactor
     
@@ -69,6 +69,7 @@ class LoginViewController: BaseViewController, StoryboardView, ReactorBased {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.view.backgroundColor = .background
     }
 	
 	override func addViews() {

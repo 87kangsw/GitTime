@@ -136,11 +136,11 @@ PODS:
   - ReactorKit (2.1.0):
     - RxSwift (~> 5.0)
     - WeakMapTable (~> 1.1)
-  - Realm (5.5.0):
-    - Realm/Headers (= 5.5.0)
-  - Realm/Headers (5.5.0)
-  - RealmSwift (5.5.0):
-    - Realm (= 5.5.0)
+  - Realm (10.1.1):
+    - Realm/Headers (= 10.1.1)
+  - Realm/Headers (10.1.1)
+  - RealmSwift (10.1.1):
+    - Realm (= 10.1.1)
   - ReusableKit (3.0.0):
     - ReusableKit/Core (= 3.0.0)
   - ReusableKit/Core (3.0.0)
@@ -191,7 +191,7 @@ DEPENDENCIES:
   - Pure
   - Quick
   - ReactorKit
-  - RealmSwift (= 5.5.0)
+  - RealmSwift
   - ReusableKit
   - RxBlocking
   - RxCocoa
@@ -306,8 +306,8 @@ SPEC CHECKSUMS:
   Pure: da92a66df10fc902db96290083c121f84ee73d6f
   Quick: 6d9559f40647bc4d510103842ef2fdd882d753e2
   ReactorKit: 12a93358c554bb3f167b16b14c40374fa9cd5acd
-  Realm: fb399d76f44042e5cdfc630f33828fdb4d077345
-  RealmSwift: 3b7e62356207ef16d34de4e55d475163bd2062bb
+  Realm: 784ca1da1453e31a9c9adc14445421a81f316119
+  RealmSwift: cc52fe0dcea56387274dff36e19219e055a3bb84
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
   RxBlocking: 5f700a78cad61ce253ebd37c9a39b5ccc76477b4
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
@@ -326,6 +326,6 @@ SPEC CHECKSUMS:
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
   WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: 051a1be8366915871071376fb8d28c5873c128a7
+PODFILE CHECKSUM: ecfb47752adb4f2669fe0fbed01e71aadb792c5e
 
 COCOAPODS: 1.10.0

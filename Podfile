@@ -22,7 +22,7 @@ def app_pods
   pod 'KeychainAccess'
   
   # DB
-  pod 'RealmSwift', '5.5.0'
+  pod 'RealmSwift'
   
   # Logger
   pod 'SwiftyBeaver'

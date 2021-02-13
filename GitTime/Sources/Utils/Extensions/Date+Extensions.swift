@@ -51,3 +51,12 @@ extension Date {
         }
     }
 }
+
+extension Date {
+	func toString() -> String {
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateStyle = .short
+		dateFormatter.timeStyle = .medium
+		return dateFormatter.string(from: self)
+	}
+}

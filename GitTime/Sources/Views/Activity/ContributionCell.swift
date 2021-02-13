@@ -10,7 +10,7 @@ import ReactorKit
 import RxCocoa
 import RxSwift
 
-final class ContributionCell: BaseCollectionCell, ReactorKit.View {
+final class ContributionCell: BaseCollectionViewCell, ReactorKit.View {
     
     typealias Reactor = ContributionCellReactor
     

@@ -34,20 +34,21 @@ final class CompositionRoot {
 		window.makeKeyAndVisible()
 		
 		// Navigator
-		let navigator = Navigator()
+		// let navigator = Navigator()
 		
 		// Services
 		let keychainService = KeychainService()
 		let authService = AuthService(keychainService: keychainService)
 		let userService = UserService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
-		let followService = FollowService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
-		let appStoreService = AppStoreService(networking: GitTimeProvider<AppStoreAPI>())
+		// let followService = FollowService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
+		// let appStoreService = AppStoreService(networking: GitTimeProvider<AppStoreAPI>())
 		let activityService = ActivityService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
 		let crawlerService = GitTimeCrawlerService(networking: GitTimeProvider<GitTimeCrawlerAPI>())
-		let searchService = SearchService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
+		// let searchService = SearchService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
 		let realmService = RealmService()
 		let languageService = LanguagesService()
 		let gitHubService = GitHubService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
+		let userDefaultService = UserDefaultsService()
 		
 		// First Launch
 		let firstLaunch: Bool = UserDefaultsConfig.firstLaunch
@@ -67,16 +68,24 @@ final class CompositionRoot {
 			let activityController = configureActivityScreen(activityService: activityService,
 															 userService: userService,
 															 crawlerService: crawlerService)
-
-//			let followController = configureFollowScreen(followService: followService,
-//														 userService: userService)
 			
-			 let settingController = configureSettingScreen(authService: authService,
-															githubService: gitHubService,
-															presentLoginScreen: goToLoginScreen)
+			let trendController = configureTrendingScreen(crawlerService: crawlerService,
+														  languagesService: languageService,
+														  userDefaultService: userDefaultService,
+														  realmService: realmService)
+			
+			let buddyController = configureBuddyScreen(crawlerService: crawlerService,
+													   realmService: realmService,
+													   userDefaultService: userDefaultService)
+			
+			let settingController = configureSettingScreen(authService: authService,
+														   githubService: gitHubService,
+														   presentLoginScreen: goToLoginScreen)
 			
 			tabBarController.viewControllers = [
 				activityController.navigationWrap(),
+				trendController.navigationWrap(),
+				buddyController.navigationWrap(),
 				settingController.navigationWrap()
 			]
 			window.rootViewController = tabBarController
@@ -123,6 +132,10 @@ final class CompositionRoot {
 		// Bagel
 		Bagel.start()
 		
+		let cache = ImageCache.default
+		cache.clearMemoryCache()
+		cache.clearDiskCache { print("Done") }
+		
 		#endif
 	}
 	
@@ -142,8 +155,8 @@ final class CompositionRoot {
 	}
 }
 
-// MARK: - Activity
 extension CompositionRoot {
+	// MARK: - Activity
 	static func configureActivityScreen(activityService: ActivityServiceType,
 										userService: UserServiceType,
 										crawlerService: GitTimeCrawlerServiceType) -> ActivityViewController {
@@ -158,6 +171,7 @@ extension CompositionRoot {
 		return controller
 	}
 	
+	// MARK: - Follow
 	static func configureFollowScreen(followService: FollowServiceType, userService: UserServiceType) -> FollowViewController {
 		let reactor = FollowViewReactor(followService: followService, userService: userService)
 		let controller = FollowViewController(reactor: reactor)
@@ -168,6 +182,7 @@ extension CompositionRoot {
 		return controller
 	}
 	
+	// MARK: - Setting
 	static func configureSettingScreen(authService: AuthServiceType,
 									   githubService: GitHubServiceType,
 									   presentLoginScreen: @escaping () -> Void) -> SettingViewController {
@@ -199,4 +214,53 @@ extension CompositionRoot {
 		controller.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.settingFilled)
 		return controller
 	}
+	
+	// MARK: - Buddy
+	static func configureBuddyScreen(crawlerService: GitTimeCrawlerServiceType,
+									 realmService: RealmServiceType,
+									 userDefaultService: UserDefaultsServiceType) -> BuddyViewController {
+		let reactor = BuddyViewReactor(crawlerService: crawlerService,
+									   realmService: realmService,
+									   userDefaultService: userDefaultService)
+		let controller = BuddyViewController(reactor: reactor)
+		controller.title = "Buddys"
+		controller.tabBarItem.title = "Buddys"
+		controller.tabBarItem.image = UIImage.assetImage(name: TabBarImages.follow)
+		controller.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.followFilled)
+		return controller
+	}
+	
+	// MARK: - Trending
+	static func configureTrendingScreen(crawlerService: GitTimeCrawlerServiceType,
+										languagesService: LanguagesServiceType,
+										userDefaultService: UserDefaultsServiceType,
+										realmService: RealmServiceType) -> TrendViewController {
+		
+		var presentLanguageScreen: () -> LanguagesViewController
+		presentLanguageScreen = {
+			let reactor = LanguagesViewReactor(languagesService: languagesService,
+											   userDefaultsService: userDefaultService,
+											   realmService: realmService)
+			return LanguagesViewController(reactor: reactor)
+		}
+		
+		var presentFavoriteScreen: () -> FavoriteLanguageViewController
+		presentFavoriteScreen = {
+			let reactor = FavoriteLanguageViewReactor(realmService: realmService)
+			return FavoriteLanguageViewController(reactor: reactor)
+		}
+		
+		let userdefaultsService = UserDefaultsService()
+		let reactor = TrendViewReactor(crawlerService: crawlerService,
+									   userdefaultsService: userdefaultsService)
+		let controller = TrendViewController(reactor: reactor,
+											 presentLanguageScreen: presentLanguageScreen,
+											 presentFavoriteScreen: presentFavoriteScreen)
+		controller.title = "Trending"
+		controller.tabBarItem.title = "Trending"
+		controller.tabBarItem.image = UIImage.assetImage(name: TabBarImages.trending)
+		controller.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.trendingFilled)
+		return controller
+	}
+	
 }
