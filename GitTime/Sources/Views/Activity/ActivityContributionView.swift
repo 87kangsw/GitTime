@@ -19,6 +19,11 @@ class ActivityContributionView: UIView, View {
     
     typealias Reactor = ActivityContributionViewReactor
     
+    private struct Metric {
+        static let cellSize: CGFloat = 8.0
+        static let spacing: CGFloat = 2.0
+    }
+    
 	enum Reusable {
 		static let contributionCell = ReusableCell<ContributionCell>()
 	}
@@ -42,35 +47,7 @@ class ActivityContributionView: UIView, View {
 		$0.backgroundColor = .background
 		$0.showsVerticalScrollIndicator = false
 		$0.register(Reusable.contributionCell)
-		
-//		$0.collectionViewLayout = UICollectionViewFlowLayout().then {
-//			$0.estimatedItemSize = CGSize(width: 10.0, height: 10.0)
-//			$0.scrollDirection = .horizontal
-//			$0.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//			$0.minimumLineSpacing = 2.0
-//			$0.minimumInteritemSpacing = 2.0
-//			$0.itemSize = CGSize(width: 5.0, height: 5.0)
-//		}
 	}
-	
-//    var collectionView: UICollectionView = {
-//
-//        let flowLayout = UICollectionViewFlowLayout()
-//        flowLayout.estimatedItemSize = CGSize(width: 10.0, height: 10.0)
-//        flowLayout.scrollDirection = .horizontal
-//        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//        flowLayout.minimumLineSpacing = 2.0
-//        flowLayout.minimumInteritemSpacing = 2.0
-//        flowLayout.itemSize = CGSize(width: 5.0, height: 5.0)
-//
-//        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-//        collectionView.backgroundColor = .background
-//        collectionView.showsVerticalScrollIndicator = false
-//        collectionView.registerNib(cellType: ContributionCell.self)
-//
-//
-//        return collectionView
-//    }()
     
     // MARK: - Properties
     var disposeBag = DisposeBag()
@@ -103,7 +80,8 @@ class ActivityContributionView: UIView, View {
             make.top.equalTo(contributionCountLabel.snp.bottom).offset(8.0)
             make.leading.equalTo(16.0)
             make.trailing.bottom.equalTo(-16.0)
-            make.height.equalTo(47.0)
+//            make.height.equalTo(47.0) // (5 * 7) + (2 * 6)
+            make.height.equalTo((Metric.cellSize * 7) + (Metric.spacing * 6))
         }
     }
     
@@ -151,14 +129,14 @@ extension ActivityContributionView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
+        return Metric.spacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 2.0
+        return Metric.spacing
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 5.0, height: 5.0)
+        return CGSize(width: Metric.cellSize, height: Metric.cellSize)
     }
 }
