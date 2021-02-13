@@ -18,8 +18,8 @@ platform :ios do
     version_number = get_version_number(xcodeproj: ENV['XCODEPROJ_NAME'])
     build_number = get_build_number(xcodeproj: ENV['XCODEPROJ_NAME'])
 
-    output_name = “#{ENV[‘IPA_NAME’]}_#{version_number}(#{build_number}).ipa”
-    full_output = “#{ENV[‘FASTLANE_PATH’]}#{version_number}/#{time.strftime(“%Y-%m-%d”)}/Build(#{build_number})#{ENV[‘DEVELOP_IPA_PATH’]}”
+    output_name = "#{ENV[‘IPA_NAME’]}_#{version_number}(#{build_number}).ipa"
+    full_output = "#{ENV[‘FASTLANE_PATH’]}#{version_number}/#{time.strftime("%Y-%m-%d")}/Build(#{build_number})#{ENV[‘DEVELOP_IPA_PATH’]}"
 
     add_badge(shield: "#{version_number}-#{build_number}-dark", no_badge: true)
 
