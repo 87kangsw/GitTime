@@ -1,4 +1,4 @@
-default_platform(:ios)
+default_platform :ios
 
 platform :ios do
 
@@ -7,39 +7,60 @@ platform :ios do
   end
 
   desc "Beta Deployment to TestFlight"
-  lane :testflight do
-    sigh
-    # version_number = get_version_number(xcodeproj: "GitTime.xcodeproj")
-    # build_number = get_build_number(xcodeproj: "GitTime.xcodeproj")
-    # add_badge(shield: "#{version_number}-#{build_number}-dark", shield_gravity: "South", no_badge: false)
-    add_badge(dark: true)
-    gym(
-      clean: true, # Should the project be cleaned before building it?
-      workspace: "GitTime.xcworkspace", # Path to the workspace file
-      scheme: "GitTime", # The project's scheme. Make sure it's marked as Shared
-      # configuration: "Debug" # The configuration to use when building the app. Defaults to 'Release'
-      include_bitcode: true, # Should the ipa file include bitcode?
-      include_symbols: true # Should the ipa file include symbols?
+  lane :develop do | options |
+
+    changelog = read_changelog(
+      changelog_path: './CHANGELOG.md',
+      section_identifier: '[Unreleased]',
+      exclude_markdown_elements: ['-', '###']
     )
+
+    version_number = get_version_number(xcodeproj: ENV['XCODEPROJ_NAME'])
+    build_number = get_build_number(xcodeproj: ENV['XCODEPROJ_NAME'])
+
+    output_name = “#{ENV[‘IPA_NAME’]}_#{version_number}(#{build_number}).ipa”
+    full_output = “#{ENV[‘FASTLANE_PATH’]}#{version_number}/#{time.strftime(“%Y-%m-%d”)}/Build(#{build_number})#{ENV[‘DEVELOP_IPA_PATH’]}”
+
+    add_badge(shield: "#{version_number}-#{build_number}-dark", no_badge: true)
+
+    match(
+      type: "development",
+      app_identifier: ENV['APPLE_APP_IDENTIFIER'],
+      readonly: true
+    )
+
+    gym(
+      workspace: ENV['XCWORKSPACE_NAME'],
+      include_bitcode: true,
+      clean: true,
+      include_symbols: true,
+      output_directory: full_output,
+      output_name: output_name,
+      export_method: "development"
+    )
+
     upload_to_testflight
+
   end
 
   after_all do |lane|
     clean_build_artifacts # Deletes files created as result of running gym, cert, sigh or download_dsyms
     reset_git_repo(skip_clean: true) # Resets git repo to a clean state by discarding uncommitted changes
-    version_number = get_version_number(xcodeproj: "GitTime.xcodeproj")
-    build_number = get_build_number(xcodeproj: "GitTime.xcodeproj")
-    slack(
-      slack_url: ENV['SLACK_URL'],
-      message: "GitTime v#{version_number}(#{build_number}) TestFlight upload success."
+    version_number = get_version_number(xcodeproj: ENV['XCODEPROJ_NAME'])
+    build_number = get_build_number(xcodeproj: ENV['XCODEPROJ_NAME'])
+    message_to_slack(
+      version: version_number,
+      build: build_number,
+      changelog: changelog,
+      beta: true
     )
   end
 
   error do |lane, exception|
     clean_build_artifacts # Deletes files created as result of running gym, cert, sigh or download_dsyms
     reset_git_repo(skip_clean: true) # Resets git repo to a clean state by discarding uncommitted changes
-    version_number = get_version_number(xcodeproj: "GitTime.xcodeproj")
-    build_number = get_build_number(xcodeproj: "GitTime.xcodeproj")
+    version_number = get_version_number(xcodeproj: ENV['XCODEPROJ_NAME'])
+    build_number = get_build_number(xcodeproj: ENV['XCODEPROJ_NAME'])
     slack(
       slack_url: ENV['SLACK_URL'],
       success: false,
