@@ -12,7 +12,7 @@ platform :ios do
     changelog = read_changelog(
       changelog_path: './CHANGELOG.md',
       section_identifier: '[Unreleased]',
-      exclude_markdown_elements: ['-', '###']
+      excluded_markdown_elements: ['-', '###']
     )
 
     version_number = get_version_number(xcodeproj: ENV['XCODEPROJ_NAME'])
