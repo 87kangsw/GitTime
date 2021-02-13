@@ -163,7 +163,8 @@ class RealmService: RealmServiceType {
 												"userName": userName,
 												"additionalName": additionalName ?? "",
 												"profileImageURL": profileURL,
-												"contributions": managedObjects
+												"contributions": managedObjects,
+												"updatedAt": Date()
 											  ], update: .all)
 					observer.onNext(result)
 					observer.onCompleted()

@@ -123,6 +123,14 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 			.bind(to: loadingIndicator.rx.isAnimating)
 			.disposed(by: self.disposeBag)
 		
+		reactor.state.map { $0.buddys }
+			.distinctUntilChanged()
+			.filterEmpty()
+			.take(1)
+			.map { _ in Reactor.Action.checkUpdate }
+			.bind(to: reactor.action)
+			.disposed(by: self.disposeBag)
+		
 		reactor.state.map { $0.viewMode }
 			.distinctUntilChanged()
 			.map { $0.systemIconName }

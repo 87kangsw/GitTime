@@ -45,6 +45,7 @@ final class BuddyViewReactor: Reactor {
 		case changeViewMode
 		case removeGitHubUsername(String?)
 		case toastMessage(String?)
+		case checkUpdate
 	}
 	
 	enum Mutation {
@@ -134,6 +135,16 @@ final class BuddyViewReactor: Reactor {
 			return .concat(removeBuddy, toastMessage)
 		case .toastMessage(let message):
 			return Observable.just(.setToastMessage(message))
+		case .checkUpdate:
+			guard self.currentState.buddys.isNotEmpty else { return .empty() }
+			
+			let needUpdateBuddys = self.currentState.buddys.filter { buddy in
+				return buddy.updatedAt == nil || (buddy.updatedAt?.anHourAfater() == true)
+			}
+			let requests = needUpdateBuddys.map { item in
+				return self.requestContribution(userName: item.additionalName)
+			}
+			return .concat(requests)
 		}
 	}
 	
@@ -144,7 +155,11 @@ final class BuddyViewReactor: Reactor {
 		switch mutation {
 		case .addBuddy(let buddy):
 			var addedBuddys = state.buddys
-			addedBuddys.append(buddy)
+			if let index = addedBuddys.firstIndex(where: { $0.additionalName == buddy.additionalName }) {
+				addedBuddys[index] = buddy
+			} else {
+				addedBuddys.append(buddy)
+			}
 			state.buddys = addedBuddys
 		case .setBuddys(let buddys):
 			state.buddys = buddys
@@ -186,7 +201,6 @@ final class BuddyViewReactor: Reactor {
 				let contributionInfo = self.parseContribution(response: response)
 				return contributionInfo
 			}
-			.debug()
 			.flatMap { [weak self] contributionInfo -> Observable<Mutation> in
 				guard let self = self else { return .empty() }
 				return self.realmService.addBuddy(userName: contributionInfo.userName,

@@ -60,3 +60,10 @@ extension Date {
 		return dateFormatter.string(from: self)
 	}
 }
+
+extension Date {
+	func anHourAfater() -> Bool {
+		let afterHour = Date().addingTimeInterval(60*60)
+		return self.compare(afterHour) == .orderedDescending
+	}
+}
