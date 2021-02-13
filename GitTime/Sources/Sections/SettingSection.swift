@@ -9,42 +9,59 @@
 import RxDataSources
 
 enum SettingSection {
-    case aboutMe([SettingSectionItem])
-    case aboutApp([SettingSectionItem])
-    case logout([SettingSectionItem])
+	case appPreference([SettingSectionItem])
+	case about([SettingSectionItem])
+	case privacy([SettingSectionItem])
+	case authors([SettingSectionItem])
+	case logout([SettingSectionItem])
 }
 
 extension SettingSection: SectionModelType {
     
     var items: [SettingSectionItem] {
         switch self {
-        case .aboutMe(let items):
+        case .appPreference(let items):
             return items
-        case .aboutApp(let items):
+        case .about(let items):
             return items
-        case .logout(let items):
+        case .privacy(let items):
             return items
+		case .authors(let items):
+			return items
+		case .logout(let items):
+			return items
         }
     }
     
     init(original: SettingSection, items: [SettingSectionItem]) {
         switch original {
-        case .aboutMe:
-            self = .aboutMe(items)
-        case .aboutApp:
-            self = .aboutApp(items)
-        case .logout:
-            self = .logout(items)
-        }
+		case .appPreference:
+			self = .appPreference(items)
+		case .about:
+			self = .about(items)
+		case .privacy:
+			self = .privacy(items)
+		case .authors:
+			self = .authors(items)
+		case .logout:
+			self = .logout(items)
+		}
     }
 }
 
 enum SettingSectionItem {
-    case myProfile(SettingUserProfileCellReactor)
-    case githubRepo(SettingItemCellReactor)
-    case acknowledgements(SettingItemCellReactor)
-    case contact(SettingItemCellReactor)
-    case rateApp(SettingItemCellReactor)
-    case version(SettingItemCellReactor)
-    case logout(SettingLogoutCellReactor)
+	case appIcon(SettingCellReactor)
+	
+	case repo(SettingCellReactor)
+	case opensource(SettingCellReactor)
+	case recommend(SettingCellReactor)
+	case appReview(SettingCellReactor)
+	
+	case privacy(SettingCellReactor)
+	
+	case author(SettingCellReactor)
+	case contributors(SettingCellReactor)
+	case shareFeedback(SettingCellReactor)
+	
+	case logout(SettingCellReactor)
 }

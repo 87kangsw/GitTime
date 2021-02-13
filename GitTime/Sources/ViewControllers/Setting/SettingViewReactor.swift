@@ -14,41 +14,52 @@ final class SettingViewReactor: Reactor {
     
     enum Action {
         case logout
-        case versionCheck
+//        case versionCheck
     }
     
     enum Mutation {
         case setLoggedOut
-        case setVersion(String)
+//        case setVersion(String)
     }
 
     struct State {
         var isLoggedOut: Bool
-        var pageURL: String
         var me: Me?
-        var storeVersion: String
-        var meSection: [SettingSection] {
-            guard let me = self.me else { return [] }
-            return [.aboutMe([.myProfile(SettingUserProfileCellReactor(me: me))])]
-        }
-        var logOutSection: [SettingSection] {
-            return [.logout([.logout(SettingLogoutCellReactor())])]
-        }
-        var aboutAppSection: [SettingSection] {
-            let version = self.storeVersion
-            return [.aboutApp([
-                .githubRepo(SettingItemCellReactor(title: "GitTime Repo", subTitle: "GitHub")),
-                .acknowledgements(SettingItemCellReactor(title: "Open Source License", subTitle: nil)),
-                .contact(SettingItemCellReactor(title: "Contact Email", subTitle: nil)),
-                .rateApp(SettingItemCellReactor(title: "Rate App", subTitle: nil)),
-                .version(SettingItemCellReactor(title: "App Version", subTitle: version))
-                ])]
-        }
+//        var currentVersion: String
+        
         var settingSections: [SettingSection] {
             var sections: [SettingSection] = []
-            sections += meSection
-            sections += aboutAppSection
-            sections += logOutSection
+			let preferenceSectionItems: [SettingSectionItem] = [
+				.appIcon(SettingCellReactor(settingType: .appIcon))
+			]
+			
+			let aboutSectionItems: [SettingSectionItem] = [
+				.repo(SettingCellReactor(settingType: .repo)),
+				.opensource(SettingCellReactor(settingType: .opensource)),
+				.recommend(SettingCellReactor(settingType: .recommend)),
+				.appReview(SettingCellReactor(settingType: .appReview))
+			]
+			
+			let privacySectionItems: [SettingSectionItem] = [
+				.privacy(SettingCellReactor(settingType: .privacy))
+			]
+			
+			let authorSectionItems: [SettingSectionItem] = [
+				.author(SettingCellReactor(settingType: .author)),
+				.contributors(SettingCellReactor(settingType: .contributors)),
+				.shareFeedback(SettingCellReactor(settingType: .shareFeedback))
+			]
+			
+			let logoutSectionItem: [SettingSectionItem] = [
+				.logout(SettingCellReactor(settingType: .logout))
+			]
+			
+			sections += [.appPreference(preferenceSectionItems)]
+			sections += [.about(aboutSectionItems)]
+			sections += [.privacy(privacySectionItems)]
+			sections += [.authors(authorSectionItems)]
+			sections += [.logout(logoutSectionItem)]
+				
             return sections
         }
         
@@ -56,23 +67,13 @@ final class SettingViewReactor: Reactor {
     
     let initialState: State
     
-    fileprivate let userService: UserServiceType
     fileprivate let authService: AuthServiceType
-    fileprivate let appStoreService: AppStoreServiceType
     
-    init(userService: UserServiceType,
-         authService: AuthServiceType,
-         appStoreService: AppStoreServiceType) {
-        self.userService = userService
+    init(authService: AuthServiceType) {
         self.authService = authService
-        self.appStoreService = appStoreService
-        
-        let me = userService.me
 
-        self.initialState = State(isLoggedOut: false,
-                                  pageURL: me?.url ?? "" ,
-                                  me: me,
-                                  storeVersion: "")
+		self.initialState = State(isLoggedOut: false,
+								  me: GlobalStates.shared.currentUser.value)
     }
     
     // MARK: Mutation
@@ -80,15 +81,8 @@ final class SettingViewReactor: Reactor {
         switch action {
         case .logout:
             self.authService.logOut()
-            AppDependency.shared.isTrial = false
+            // AppDependency.shared.isTrial = false
             return .just(.setLoggedOut)
-        case .versionCheck:
-            let versionMutation: Observable<Mutation> = self.appStoreService.getLatestVersion()
-                .map { version -> Mutation in
-                    let storeVersion = version.results[0].version
-                    return .setVersion(storeVersion)
-            }.catchErrorJustReturn(.setVersion("⚠️"))
-            return versionMutation
         }
     }
     
@@ -98,15 +92,7 @@ final class SettingViewReactor: Reactor {
         switch mutation {
         case .setLoggedOut:
             state.isLoggedOut = true
-        case .setVersion(let version):
-            state.storeVersion = version
         }
         return state
-    }
-    
-    private func configureProfileSection() -> [SettingSectionItem] {
-        guard let me = self.userService.me else { return [] }
-        let reactor = SettingUserProfileCellReactor(me: me)
-        return [.myProfile(reactor)]
     }
 }

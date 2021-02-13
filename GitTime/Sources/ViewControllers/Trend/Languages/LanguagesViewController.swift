@@ -9,27 +9,47 @@
 import UIKit
 
 import ReactorKit
+import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift
 import SnapKit
 import Toaster
 
-class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased {
+class LanguagesViewController: BaseViewController, ReactorKit.View {
     
     typealias Reactor = LanguagesViewReactor
     typealias ReturnType = Language
     
+	enum Reusable {
+		static let languageCell = ReusableCell<LanguageCell>()
+		static let favoriteLanguageCell = ReusableCell<FavoriteLanguageCell>()
+	}
+	
     // MARK: - UI
-    var closeButton: UIBarButtonItem!
-    var searchButton: UIBarButtonItem!
+    var closeButton: UIBarButtonItem = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: nil)
+    var searchButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: nil, action: nil)
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var headerView: UIView!
-    @IBOutlet weak var segmentControl: UISegmentedControl!
-    
+    private let tableView = UITableView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = true
+		$0.rowHeight = 44.0
+		$0.backgroundColor = .background
+		$0.separatorColor = .underLine
+		
+		$0.register(Reusable.languageCell)
+//		$0.register(Reusable.favoriteLanguageCell)
+    }
+
+    private let headerView = LanguageCategoryView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = true
+		$0.backgroundColor = .background
+		$0.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 65.0)
+    }
+	
     // MARK: - Properties
-    let searchController = UISearchController(searchResultsController: nil)
+	let searchController = UISearchController(searchResultsController: nil).then {
+		$0.obscuresBackgroundDuringPresentation = false
+	}
 
     private var dataSource: RxTableViewSectionedReloadDataSource<LanguageSection>!
     
@@ -38,40 +58,49 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
         return selectedLanguageSubject.asObservable()
     }
     
+	// MARK: - Initializing
+	init(reactor: Reactor) {
+		defer { self.reactor = reactor }
+		
+		super.init()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
+		self.title = "Languages"
+		
+		self.navigationItem.setLeftBarButton(closeButton, animated: false)
+		self.navigationItem.setRightBarButton(searchButton, animated: false)
+		navigationItem.searchController = searchController
     }
     
-    fileprivate func configureUI() {
-        self.title = "Languages"
-        
-        self.closeButton = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: nil)
-        self.navigationItem.setLeftBarButton(closeButton, animated: false)
-
-        self.searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: nil, action: nil)
-        self.navigationItem.setRightBarButton(searchButton, animated: false)
-        
-        searchController.obscuresBackgroundDuringPresentation = false
-        navigationItem.searchController = searchController
-        
-        tableView.rowHeight = 44.0
-        
-        tableView.backgroundColor = .background
-        tableView.separatorColor = .underLine
-        
-        tableView.registerNib(cellType: LanguageListCell.self)
-        
-        headerView.backgroundColor = .background
-        tableView.tableHeaderView = headerView
-        tableView.tableFooterView = UIView()
-    }
-    
+	override func addViews() {
+		super.addViews()
+		
+		self.view.addSubview(tableView)
+		tableView.tableHeaderView = headerView
+		tableView.tableFooterView = UIView()
+	}
+	
+	override func setupConstraints() {
+		super.setupConstraints()
+		
+		tableView.snp.makeConstraints { make in
+			make.edges.equalToSuperview()
+		}
+	}
+	
     // MARK: - Configure
     func bind(reactor: Reactor) {
         
-        configureUI()
+		bindCategoryViewReactor(reactor: reactor)
+		
         dataSource = self.dataSourceFactory()
         
         // Action
@@ -98,16 +127,6 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
                 reactor.action.onNext(.searchActive(true))
             }).disposed(by: self.disposeBag)
         
-        segmentControl.rx.controlEvent(.valueChanged)
-            .flatMap { [weak self] _ -> Observable<LanguageTypes> in
-                guard let self = self else { return Observable.empty() }
-                let index = self.segmentControl.selectedSegmentIndex
-                return Observable.just(LanguageTypes.indexToType(index))
-            }
-            .map { type in Reactor.Action.selectCategory(type) }
-            .bind(to: reactor.action)
-            .disposed(by: self.disposeBag)
-        
         searchController.rx.willPresent
             .subscribe(onNext: { [weak self] _ in
                 guard let self = self else { return }
@@ -130,11 +149,6 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
             .disposed(by: self.disposeBag)
         
         // State
-        reactor.state.map { $0.languageType }
-            .map { LanguageTypes.typeToIndex($0)}
-            .bind(to: segmentControl.rx.selectedSegmentIndex )
-            .disposed(by: self.disposeBag)
-        
         reactor.state.map { $0.languageSections }
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: self.disposeBag)
@@ -149,39 +163,26 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
             }).disposed(by: self.disposeBag)
         
         // View
-//        tableView.rx.itemSelected(dataSource: dataSource)
-//            .subscribe(onNext: { [weak self] sectionItem in
-//                guard let self = self else { return }
-//                self.searchController.isActive = false
-//                switch sectionItem {
-//                case .allLanguage(let reactor):
-//                    self.dismiss(animated: true, completion: { [weak self] in
-//                        guard let self = self else { return }
-//                        let language = reactor.currentState.language
-//                        self.selectedLanguageSubject.onNext(language)
-//                        self.selectedLanguageSubject.onCompleted()
-//                    })
-//                case .languages(let reactor):
-//                    self.dismiss(animated: true, completion: { [weak self] in
-//                        guard let self = self else { return }
-//                        let language = reactor.currentState.language
-//                        self.selectedLanguageSubject.onNext(language)
-//                        self.selectedLanguageSubject.onCompleted()
-//                    })
-//                }
-//            }).disposed(by: self.disposeBag)
-        
         tableView.rx.itemSelected
             .subscribe(onNext: { [weak tableView] indexPath in
                 tableView?.deselectRow(at: indexPath, animated: true)
             }).disposed(by: self.disposeBag)
     }
+	
+	private func bindCategoryViewReactor(reactor: Reactor) {
+		self.headerView.reactor = reactor.categoryViewReactor
+		
+		self.headerView.languageCategoryObservable
+			.map { type in Reactor.Action.selectCategory(type) }
+			.bind(to: reactor.action)
+			.disposed(by: self.disposeBag)
+	}
     
     private func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<LanguageSection> {
         return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .allLanguage(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LanguageListCell.self)
+				let cell = tableView.dequeue(Reusable.languageCell, for: indexPath)
                 cell.reactor = reactor
                 
                 cell.rx.languageTapped
@@ -200,7 +201,7 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
                 
                 return cell
             case .languages(let reactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: LanguageListCell.self)
+				let cell = tableView.dequeue(Reusable.languageCell, for: indexPath)
                 cell.reactor = reactor
                 
                 cell.rx.favoriteTapped
@@ -226,7 +227,7 @@ class LanguagesViewController: BaseViewController, StoryboardView, ReactorBased 
                 return cell
                 
             case .emptyFavorites(let cellReactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FavoriteLanguageTableViewCell.self)
+				let cell = tableView.dequeue(Reusable.favoriteLanguageCell, for: indexPath)
                 cell.reactor = cellReactor
                 return cell
             }

@@ -10,7 +10,7 @@ import RxSwift
 import Moya
 
 enum GitTimeCrawlerAPI {
-    case trendingRepositories(language: String?, period: String?)
+    case trendingRepositories(language: String?, period: String?, spokenLanguage: String?)
     case trendingDevelopers(language: String?, period: String?)
     case fetchContributions(userName: String, darkMode: Bool)
     
@@ -62,7 +62,7 @@ extension GitTimeCrawlerAPI: TargetType {
     
     var task: Task {
         switch self {
-        case .trendingRepositories(let language, let period):
+        case .trendingRepositories(let language, let period, let spokenLanguage):
             var params: [String: Any] = [:]
             if let language = language {
                 params["language"] = language
@@ -70,6 +70,9 @@ extension GitTimeCrawlerAPI: TargetType {
             if let period = period {
                 params["since"] = period
             }
+			if let spokenLanguage = spokenLanguage {
+				params["spoken_language_code"] = spokenLanguage
+			}
             return .requestParameters(parameters: params, encoding: URLEncoding.default)
             
         case .trendingDevelopers(let language, let period):

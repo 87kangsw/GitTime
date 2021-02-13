@@ -10,7 +10,7 @@ import RxSwift
 import Moya
 
 protocol GitTimeCrawlerServiceType: class {
-    func fetchTrendingRepositories(language: String?, period: String?) -> Observable<[TrendRepo]>
+	func fetchTrendingRepositories(language: String?, period: String?, spokenLanguage: String?) -> Observable<[TrendRepo]>
     func fetchTrendingDevelopers(language: String?, period: String?) -> Observable<[TrendDeveloper]>
     func fetchContributions(userName: String) -> Observable<ContributionInfo>
 
@@ -29,8 +29,8 @@ class GitTimeCrawlerService: GitTimeCrawlerServiceType {
         self.networking = networking
     }
     
-    func fetchTrendingRepositories(language: String?, period: String?) -> Observable<[TrendRepo]> {
-        return self.networking.request(.trendingRepositories(language: language, period: period)) 
+    func fetchTrendingRepositories(language: String?, period: String?, spokenLanguage: String?) -> Observable<[TrendRepo]> {
+		return self.networking.request(.trendingRepositories(language: language, period: period, spokenLanguage: spokenLanguage))
             .map([TrendRepo].self)
             .asObservable()
     }

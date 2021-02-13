@@ -18,4 +18,14 @@ struct TrendRepo: ModelType {
     var stars: Int
     var forks: Int
     var currentPeriodStars: Int
+	var contributors: [TrendRepoContributor]
+}
+
+struct TrendRepoContributor: ModelType {
+	var name: String
+	var profileURL: String
+	
+	var githubURL: String {
+		return "\(Constants.URLs.gitHubDomain)/\(self.name)"
+	}
 }

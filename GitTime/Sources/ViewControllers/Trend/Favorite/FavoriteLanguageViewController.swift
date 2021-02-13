@@ -10,49 +10,75 @@ import UIKit
 
 import PanModal
 import ReactorKit
+import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift
 import Toaster
 
-class FavoriteLanguageViewController: BaseViewController, StoryboardView, ReactorBased {
+class FavoriteLanguageViewController: BaseViewController, ReactorKit.View {
 
     typealias Reactor = FavoriteLanguageViewReactor
     
+	enum Reusable {
+		static let favoriteLanguageCell = ReusableCell<FavoriteLanguageCell>()
+	}
+	
     // MARK: - UI
-    @IBOutlet weak var tableView: UITableView!
     private let close = UIBarButtonItem(title: "Close", style: .plain, target: nil, action: nil)
-    
+	private let tableView = UITableView(frame: .zero, style: .plain).then {
+		$0.rowHeight = 44.0
+		$0.register(Reusable.favoriteLanguageCell)
+//		$0.register(Reusable.emptyCell)
+		$0.backgroundColor = .background
+		$0.separatorColor = .underLine
+	}
+	
     // MARK: - Properties
     private let selectLanguageSubject = PublishSubject<Language>()
     var selectLanguage: Observable<Language> {
         return selectLanguageSubject.asObservable()
     }
     
+	// MARK: - Initializing
+	init(reactor: Reactor) {
+		defer { self.reactor = reactor }
+		
+		super.init()
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
     // MARK: - Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+		self.title = "Favorite Languages"
+		self.navigationItem.leftBarButtonItem = close
     }
     
+	override func addViews() {
+		super.addViews()
+		self.view.addSubview(tableView)
+		
+		tableView.tableFooterView = UIView()
+	}
+	
+	override func setupConstraints() {
+		super.setupConstraints()
+		
+		tableView.snp.makeConstraints { make in
+			make.edges.equalToSuperview()
+		}
+	}
+	
     // MARK: - UI Setup
-    private func configureUI() {
-        self.title = "Favorite Languages"
-        self.navigationItem.leftBarButtonItem = close
-        
-        tableView.rowHeight = 44.0
-        
-        tableView.backgroundColor = .background
-        tableView.separatorColor = .underLine
-        tableView.registerNib(cellType: FavoriteLanguageTableViewCell.self)
-        tableView.tableFooterView = UIView()
-    }
-    
+	
     // MARK: - Binding
     func bind(reactor: Reactor) {
-        
-        configureUI()
         
         // Action
         Observable.just(Void())
@@ -61,7 +87,7 @@ class FavoriteLanguageViewController: BaseViewController, StoryboardView, Reacto
             .disposed(by: self.disposeBag)
         
         let didAppearObservable = self.rx.viewDidAppear
-        let emptyObservable = reactor.state.map { $0.favoriteLanguages.isEmpty }.filter { $0 == true}
+        let emptyObservable = reactor.state.map { $0.favoriteLanguages.isEmpty }.filter { $0 == true }
         
         Observable.combineLatest(didAppearObservable, emptyObservable)
             .filter { $0.0 == true && $0.1 == true }
@@ -102,7 +128,7 @@ class FavoriteLanguageViewController: BaseViewController, StoryboardView, Reacto
         return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .favorite(let cellReactor):
-                let cell = tableView.dequeueReusableCell(for: indexPath, cellType: FavoriteLanguageTableViewCell.self)
+				let cell = tableView.dequeue(Reusable.favoriteLanguageCell, for: indexPath)
                 cell.reactor = cellReactor
                 
                 cell.rx.favoriteTapped

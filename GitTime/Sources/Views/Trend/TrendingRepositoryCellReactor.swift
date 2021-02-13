@@ -25,6 +25,7 @@ class TrendingRepositoryCellReactor: Reactor {
         var period: PeriodTypes
         var periodStar: Int
         var url: String
+		var contributors: [TrendRepoContributor]
     }
     
     let initialState: State
@@ -39,7 +40,8 @@ class TrendingRepositoryCellReactor: Reactor {
                                   languageColor: repo.languageColor,
                                   period: period,
                                   periodStar: repo.currentPeriodStars,
-                                  url: repo.url)
+								  url: repo.url,
+								  contributors: repo.contributors)
         _ = self.state
     }
 

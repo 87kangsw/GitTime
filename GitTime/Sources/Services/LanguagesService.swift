@@ -55,7 +55,7 @@ final class LanguagesService: LanguagesServiceType {
         guard !searchText.isEmpty else { return allDatas.asObservable() }
         return allDatas.map {
             $0.filter({ language -> Bool in
-                return language.name.lowercased().contains(searchText) || language.name.uppercased().contains(searchText)
+				return language.name.lowercased().contains(searchText.lowercased())
             })
         }
     }
