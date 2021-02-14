@@ -7,4 +7,4 @@ clean:
 	pod deintegrate
 
 dev-upload:
-	fastlane ios develop
+	fastlane ios develop firebase_upload:true groups:iOS slack_notify:true

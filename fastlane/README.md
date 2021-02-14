@@ -21,6 +21,16 @@ or alternatively using `brew install fastlane`
 fastlane ios develop
 ```
 Beta Deployment to TestFlight
+### ios firebase_upload
+```
+fastlane ios firebase_upload
+```
+
+### ios message_to_slack
+```
+fastlane ios message_to_slack
+```
+
 
 ----
 
