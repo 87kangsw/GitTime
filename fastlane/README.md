@@ -31,6 +31,11 @@ fastlane ios firebase_upload
 fastlane ios message_to_slack
 ```
 
+### ios new_member
+```
+fastlane ios new_member
+```
+
 
 ----
 

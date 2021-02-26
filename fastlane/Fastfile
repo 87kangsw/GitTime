@@ -21,7 +21,7 @@ platform :ios do
     output_name = "#{ENV[‘IPA_NAME’]}_#{version_number}(#{build_number}).ipa"
     full_output = "#{ENV[‘FASTLANE_PATH’]}#{version_number}/#{time.strftime("%Y-%m-%d")}/Build(#{build_number})#{ENV[‘DEVELOP_IPA_PATH’]}"
 
-    add_badge(shield: "#{version_number}-#{build_number}-dark", no_badge: true)
+    # add_badge(shield: "#{version_number}-#{build_number}-dark", no_badge: true)
 
     match(
       type: "development",
@@ -139,12 +139,40 @@ platform :ios do
       )
 
     #아이콘 이미지를 원상복구 합니다
-    reset_git_repo(
-      force: true,
-      files: [
-        ENV['APP_ICON_PATH']
-      ]
-    )
+    #reset_git_repo(
+    #  force: true,
+    #  files: [
+    #    ENV['APP_ICON_PATH']
+    #  ]
+    #)
+   end
+
+
+  lane :new_member do |options|
+
+    username = options[:username]
+    uuid = options[:uuid]
+    type = options[:type]
+
+    if 0 < username.length && 0 < uuid.length
+      staff_name_prefix = "🧑‍💻User"
+      device_prefix = "📱Device"
+      device_name = ""
+
+      if "user" == type
+         device_name = "#{staff_name_prefix}--#{username}"
+      end
+
+      if "device" == type
+          device_name = "#{device_prefix}--#{username}"
+      end
+
+      register_devices(
+        devices: {
+          device_name => uuid
+        }
+      )
+    end
   end
 end
 
