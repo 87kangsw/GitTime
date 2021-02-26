@@ -63,7 +63,8 @@ extension Date {
 
 extension Date {
 	func anHourAfater() -> Bool {
-		let afterHour = Date().addingTimeInterval(60*60)
-		return self.compare(afterHour) == .orderedDescending
+		let afterHour = self.addingTimeInterval(60*60)
+		let now = Date()
+		return now.compare(afterHour) == .orderedDescending
 	}
 }

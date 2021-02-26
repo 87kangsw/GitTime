@@ -46,6 +46,7 @@ final class BuddyViewReactor: Reactor {
 		case removeGitHubUsername(String?)
 		case toastMessage(String?)
 		case checkUpdate
+		case refresh
 	}
 	
 	enum Mutation {
@@ -56,10 +57,12 @@ final class BuddyViewReactor: Reactor {
 		case setAlreadyExistUser((Bool, String)?)
 		case setToastMessage(String?)
 		case setLoading(Bool)
+		case setRefreshing(Bool)
 	}
 	
 	struct State {
 		var isLoading: Bool = false
+		var isRefreshing: Bool = false
 		var viewMode: BuddyViewMode
 		var buddys: [ContributionInfoObject] = []
 		var sections: [BuddySection] {
@@ -145,6 +148,18 @@ final class BuddyViewReactor: Reactor {
 				return self.requestContribution(userName: item.additionalName)
 			}
 			return .concat(requests)
+		case .refresh:
+			guard !self.currentState.isRefreshing else { return .empty() }
+			let startRefreshing: Observable<Mutation> = .just(.setRefreshing(true))
+			let endRefreshing: Observable<Mutation> = .just(.setRefreshing(false))
+			
+			let requests = self.currentState.buddys.map { item in
+				return self.requestContribution(userName: item.additionalName)
+			}
+			
+			let mergedRequests = Observable.merge(requests)
+			
+			return .concat(startRefreshing, mergedRequests, endRefreshing)
 		}
 	}
 	
@@ -175,6 +190,8 @@ final class BuddyViewReactor: Reactor {
 			state.toastMessage = message
 		case .setLoading(let isLoading):
 			state.isLoading = isLoading
+		case let .setRefreshing(isRefreshing):
+			state.isRefreshing = isRefreshing
 		}
 		return state
 	}
@@ -257,7 +274,7 @@ final class BuddyViewReactor: Reactor {
 			
 			//
 			for link in doc.css("img") {
-				if let imgClass = link["class"], imgClass == "avatar avatar-user width-full border bg-white" {
+				if let imgClass = link["class"], imgClass == "avatar avatar-user width-full border color-bg-primary" {
 					profileURL = link["src"] ?? ""
 				}
 			}
