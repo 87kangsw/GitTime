@@ -274,7 +274,7 @@ final class BuddyViewReactor: Reactor {
 			
 			//
 			for link in doc.css("img") {
-				if let imgClass = link["class"], imgClass == "avatar avatar-user width-full border bg-white" {
+				if let imgClass = link["class"], imgClass == "avatar avatar-user width-full border color-bg-primary" {
 					profileURL = link["src"] ?? ""
 				}
 			}
