@@ -29,8 +29,7 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 		$0.setImage(UIImage(systemName: "square.grid.2x2"), for: .normal)
 	}
 	lazy var modeButtonItem = UIBarButtonItem(customView: modeButton)
-//	private let modeButtonItem = UIBarButtonItem(title: "Daily", style: .plain, target: nil, action: nil)
-	private let deleteButtonItem = UIBarButtonItem(barButtonSystemItem: .trash, target: nil, action: nil)
+	private let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
 	
 	private let tableView = UITableView(frame: .zero, style: .insetGrouped).then {
 		$0.estimatedRowHeight = 100.0
@@ -44,8 +43,10 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 		$0.style = .large
 		$0.color = .invertBackground
 	}
+	private let refreshControl = UIRefreshControl()
 	
     // MARK: Properties
+	private var dataSource: RxTableViewSectionedReloadDataSource<BuddySection>!
     
     // MARK: Initializing
     init(reactor: BuddyViewReactor) {
@@ -61,13 +62,15 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.title = "Buddys"
-		self.navigationItem.rightBarButtonItems = [addBuddyButtonItem, modeButtonItem, deleteButtonItem]
+		self.navigationItem.leftBarButtonItem = editButton
+		self.navigationItem.rightBarButtonItems = [addBuddyButtonItem, modeButtonItem]
     }
     
     override func addViews() {
         super.addViews()
 		self.view.addSubview(tableView)
 		self.view.addSubview(loadingIndicator)
+		tableView.refreshControl = refreshControl
     }
     
     override func setupConstraints() {
@@ -104,16 +107,19 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 			.bind(to: reactor.action)
 			.disposed(by: self.disposeBag)
 		
-		self.deleteButtonItem.rx.tap
-			.flatMap { [weak self] _ -> Observable<String?> in
-				guard let self = self else { return .empty() }
-				return self.showUserNameInputAlert()
-			}
-			.map { Reactor.Action.removeGitHubUsername($0) }
+		self.editButton.rx.tap
+			.subscribe(onNext: { [weak self] _ in
+				guard let self = self else { return }
+				let editing = self.tableView.isEditing
+				self.tableView.setEditing(!editing, animated: true)
+			}).disposed(by: self.disposeBag)
+		
+		refreshControl.rx.controlEvent(.valueChanged)
+			.map { Reactor.Action.refresh }
 			.bind(to: reactor.action)
 			.disposed(by: self.disposeBag)
 		
-		let dataSource = self.dataSource()
+		dataSource = self.dataSourceFactory()
 		reactor.state.map { $0.sections }
 			.bind(to: tableView.rx.items(dataSource: dataSource))
 			.disposed(by: self.disposeBag)
@@ -121,6 +127,11 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 		// State
 		reactor.state.map { $0.isLoading }
 			.bind(to: loadingIndicator.rx.isAnimating)
+			.disposed(by: self.disposeBag)
+		
+		reactor.state.map { $0.isRefreshing }
+			.distinctUntilChanged()
+			.bind(to: refreshControl.rx.isRefreshing)
 			.disposed(by: self.disposeBag)
 		
 		reactor.state.map { $0.buddys }
@@ -150,9 +161,12 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 				}
 				log.debug(exist)
 			}).disposed(by: self.disposeBag)
+		
+		tableView.rx.setDelegate(self)
+			.disposed(by: self.disposeBag)
     }
 	
-	private func dataSource() -> RxTableViewSectionedReloadDataSource<BuddySection> {
+	private func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<BuddySection> {
 		return .init(configureCell: { (dataSource, tableView, indexPath, sectionItem) -> UITableViewCell in
 			switch sectionItem {
 			case .daily(let cellReactor):
@@ -204,5 +218,31 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 		let alert = UIAlertController(title: "Already Exist User", message: "Pl", preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 		self.present(alert, animated: true, completion: nil)
+	}
+}
+
+extension BuddyViewController: UITableViewDelegate {
+	func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+		
+		let section = dataSource[indexPath.section]
+		switch section {
+		case .buddys(let items):
+			guard let reactor = self.reactor else { return nil }
+			let sectionItem = items[indexPath.row]
+			switch sectionItem {
+			case .daily(let cellReactor):
+				let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
+					reactor.action.onNext(.removeGitHubUsername(cellReactor.currentState.contributionInfo.additionalName))
+					completion(true)
+				}
+				return UISwipeActionsConfiguration(actions: [deleteAction])
+			case .weekly(let cellReactor):
+				let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
+					reactor.action.onNext(.removeGitHubUsername(cellReactor.currentState.contributionInfo.additionalName))
+					completion(true)
+				}
+				return UISwipeActionsConfiguration(actions: [deleteAction])
+			}
+		}
 	}
 }
