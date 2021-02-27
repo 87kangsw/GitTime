@@ -230,7 +230,7 @@ final class TrendViewReactor: Reactor {
                 let avatar = item.xpath(".//div[@class='mx-3']/a/img[@class='rounded-1 avatar-user']/@src")
                 let repoName = item.xpath(".//h1[@class='h4 lh-condensed']")
                 let repoURL = item.xpath(".//h1[@class='h4 lh-condensed']/a/@href")
-                let repoDescription = item.xpath(".//div[@class='f6 text-gray mt-1']")
+                let repoDescription = item.xpath(".//div[@class='f6 color-text-secondary mt-1']")
                 let relativeURL = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/h1/a/@href")
                 
                 if let name = name.first?.text?.striped {
@@ -292,12 +292,12 @@ final class TrendViewReactor: Reactor {
                 
                 /// Repository Info
                 let repositoryInfo = item.xpath(".//h1[@class='h3 lh-condensed']/a")//[index]
-                let description = item.xpath(".//p[@class='col-9 text-gray my-1 pr-4']")//[index]
+                let description = item.xpath(".//p[@class='col-9 color-text-secondary my-1 pr-4']")//[index]
                 let languageColor = item.xpath(".//span[@class='d-inline-block ml-0 mr-3']/span[1]")
                 let language = item.xpath(".//span[@class='d-inline-block ml-0 mr-3']/span[2]")
-                let star = item.xpath(".//div[@class='f6 text-gray mt-2']/a[1]")//[index]
-                let fork = item.xpath(".//div[@class='f6 text-gray mt-2']/a[2]")//[index]
-                let todayStar = item.xpath(".//div[@class='f6 text-gray mt-2']/span[@class='d-inline-block float-sm-right']")//[index]
+                let star = item.xpath(".//div[@class='f6 color-text-secondary mt-2']/a[1]")//[index]
+                let fork = item.xpath(".//div[@class='f6 color-text-secondary mt-2']/a[2]")//[index]
+                let todayStar = item.xpath(".//div[@class='f6 color-text-secondary mt-2']/span[@class='d-inline-block float-sm-right']")//[index]
 				// let contributors = item.xpath(".//div[@class='f6 text-gray mt-2']/span[@class='d-inline-block mr-3']")
 				
                 // repository Info
