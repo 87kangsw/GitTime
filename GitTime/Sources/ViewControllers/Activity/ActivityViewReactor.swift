@@ -173,9 +173,9 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 	
 	private func requestContributions() -> Observable<Mutation> {
 		
-		//        if AppDependency.shared.isTrial {
-		//            return self.requestTrialContributions()
-		//        }
+		if GlobalStates.shared.isTrial.value == true {
+			return self.requestTrialContributions()
+		}
 		
 		guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
 		
@@ -194,6 +194,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 	
 	private func requestTrialContributions() -> Observable<Mutation> {
 		return self.crawlerService.fetchTrialContributions()
+			.delay(.milliseconds(300), scheduler: MainScheduler.asyncInstance)
 			.map { contributionInfo -> Mutation in
 				return .setContributionInfo(contributionInfo)
 			}
@@ -201,9 +202,9 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 	
 	private func requestActivities(page: Int? = 1) -> Observable<Mutation> {
 		
-		//        if AppDependency.shared.isTrial {
-		//            return self.requestTrialActivities()
-		//        }
+		if GlobalStates.shared.isTrial.value == true {
+			return self.requestTrialActivities()
+		}
 		
 		guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
 		
@@ -235,6 +236,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 	
 	private func requestTrialActivities() -> Observable<Mutation> {
 		return self.activityService.trialActivities()
+			.delay(.milliseconds(300), scheduler: MainScheduler.asyncInstance)
 			.map { events -> Mutation in
 				return .fetchActivityMore(events, nextPage: 1, canLoadMore: false)
 			}

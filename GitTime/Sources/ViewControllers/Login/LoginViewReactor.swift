@@ -73,7 +73,8 @@ final class LoginViewReactor: Reactor {
             return .concat([startLoading, setLoggedIn, endLoading])
         case .trial:
             GitTimeAnalytics.shared.logEvent(key: "trial", parameters: nil)
-//            AppDependency.shared.isTrial = true
+			// AppDependency.shared.isTrial = true
+			GlobalStates.shared.isTrial.accept(true)
             return .just(.setLoggedIn(true))
         }
     }
