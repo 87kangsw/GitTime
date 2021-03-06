@@ -198,7 +198,6 @@ final class BuddyViewReactor: Reactor {
 	
 	private func fetchBuddys() -> Observable<Mutation> {
 		return self.realmService.loadBuddys()
-			.debug()
 			.map { buddys -> Mutation in
 				return .setBuddys(buddys)
 			}

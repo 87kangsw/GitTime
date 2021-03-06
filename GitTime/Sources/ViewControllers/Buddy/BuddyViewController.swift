@@ -135,6 +135,7 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 			.disposed(by: self.disposeBag)
 		
 		reactor.state.map { $0.buddys }
+			.observeOn(MainScheduler.asyncInstance)
 			.distinctUntilChanged()
 			.filterEmpty()
 			.take(1)
