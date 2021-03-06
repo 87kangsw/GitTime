@@ -82,6 +82,7 @@ final class SettingViewReactor: Reactor {
         case .logout:
             self.authService.logOut()
             // AppDependency.shared.isTrial = false
+			GlobalStates.shared.isTrial.accept(nil)
             return .just(.setLoggedOut)
         }
     }

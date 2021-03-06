@@ -17,4 +17,6 @@ final class GlobalStates {
 	
 	// Current Access Token
 	var currentAccessToken: String?
+	
+	var isTrial: BehaviorRelay = BehaviorRelay<Bool?>(value: nil)
 }
