@@ -16,19 +16,16 @@ final class LoginViewReactor: Reactor {
     enum Action {
         case login
         case trial
-        // case checkTestMode(Bool)
     }
     
     enum Mutation {
         case setLoading(Bool)
         case setLoggedIn(Bool)
-        // case setLoginTestMode(Bool)
     }
     
     struct State {
         var isLoading: Bool = false
         var isLoggedIn: Bool = false
-        // var isTestLoginMode: Bool = false
     }
     
     let initialState = State()
@@ -44,14 +41,11 @@ final class LoginViewReactor: Reactor {
         self.authService = authService
         self.keychainService = keychainService
         self.userService = userService
-        // self.connectRemoteConfig()
     }
     
     // MARK: Mutation
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-//        case .checkTestMode(let isTestMode):
-//            return .just(.setLoginTestMode(isTestMode))
         case .login:
             GitTimeAnalytics.shared.logEvent(key: "login", parameters: nil)
             let startLoading: Observable<Mutation> = .just(Mutation.setLoading(true))
@@ -87,8 +81,6 @@ final class LoginViewReactor: Reactor {
             state.isLoading = isLoading
         case .setLoggedIn(let isLoggedIn):
             state.isLoggedIn = isLoggedIn
-//        case .setLoginTestMode(let isTestMode):
-//            state.isTestLoginMode = isTestMode
         }
         return state
     }
@@ -96,32 +88,11 @@ final class LoginViewReactor: Reactor {
     private func testLogin() -> Observable<GitHubAccessToken> {
         return Observable.just(GitHubAccessToken.devAccessToken()) 
     }
-    /*
-    private func connectRemoteConfig() {
-        remoteConfig = RemoteConfig.remoteConfig()
-            let settings = RemoteConfigSettings()
-        settings.minimumFetchInterval = 0
-        remoteConfig.configSettings = settings
-        remoteConfig.setDefaults(fromPlist: "RemoteConfigDefaults")
-        remoteConfig.fetchAndActivate { [weak self] (status, error) in
-            guard let self = self else { return }
-            if let error = error {
-                log.error(error.localizedDescription)
-                self.action.onNext(.checkTestMode(false))
-            } else if status == .successFetchedFromRemote {
-                let isTestMode = self.remoteConfig["review_version"].stringValue == AppInfo.shared.appVersion
-                log.debug("isTestMode: \(isTestMode)")
-                self.action.onNext(.checkTestMode(isTestMode))
-            }
-        }
-    }
-    */
+    
     private func getAccessToken() -> Observable<GitHubAccessToken> {
-//        guard !self.currentState.isTestLoginMode else {
-//            return self.testLogin()
-//        }
-        
         return self.authService.authorize()
-            .flatMap { code in self.authService.requestAccessToken(code: code) }
+            .flatMap { code in
+				self.authService.requestAccessToken(code: code)
+			}
     }
 }
