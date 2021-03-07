@@ -108,11 +108,15 @@ class SearchViewReactor: Reactor {
             let showRecentWordsMutation: Observable<Mutation> = .just(.setShowRecentSearchWords(false))
             // Words store in realm..
             self.storeSearchWord(query)
+            GitTimeAnalytics.shared.logEvent(key: "search_query",
+                                             parameters: ["query": query])
             return .concat([showRecentWordsMutation, startLoadingMutation, queryMutation, requestMutation, endLoadingMutation])
         case .selectType(let type):
             let clearPagingMutation = self.clearPaging()
             let clearResults = self.clearResults()
             let searchTypeMutation: Observable<Mutation> = .just(.setType(type))
+            GitTimeAnalytics.shared.logEvent(key: "switch_search",
+                                             parameters: ["type": type.segmentTitle.lowercased()])
             return .concat([clearPagingMutation, clearResults, searchTypeMutation])
         case .loadMore:
             guard !self.currentState.isLoading else { return .empty() }
@@ -129,12 +133,15 @@ class SearchViewReactor: Reactor {
         case .removeRecentSearchWord(let indexPath, let text):
             // Word remove from realm..
             self.removeSearchWord(text)
+            GitTimeAnalytics.shared.logEvent(key: "remove_recent_word", parameters: nil)
             return .just(.removeRecentSearchWord(indexPath))
         case .selectLanguage(let language):
             guard self.currentState.segmentType == SearchTypes.repositories else { return .empty() }
             self.userdefaultsService.setStruct(value: language, forKey: UserDefaultsKey.langauge)
             let languageMutation: Observable<Mutation> = .just(.setLanguage(language))
-            
+            let languageName = language?.name ?? "All Language"
+            GitTimeAnalytics.shared.logEvent(key: "select_language",
+                                             parameters: ["language": languageName])
             guard let query = self.currentState.query, !query.isEmpty else { return .empty() }
             let startLoadingMutation: Observable<Mutation> = .just(.setLoading(true))
             let endLoadingMutation: Observable<Mutation> = .just(.setLoading(false))

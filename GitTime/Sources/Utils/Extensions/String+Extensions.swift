@@ -26,3 +26,18 @@ extension String {
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
 }
+
+// MARK: - Dates
+extension String {
+	func convertDateFormattedString(_ from: String = "YYYY-MM-dd", format: String) -> String {
+		
+		let formatter = DateFormatter()
+		formatter.dateFormat = from
+		
+		guard let date = formatter.date(from: self) else { return "" }
+
+		formatter.dateFormat = format
+		
+		return formatter.string(from: date)
+	}
+}

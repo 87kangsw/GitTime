@@ -29,5 +29,5 @@ extension FavoriteLanguageSection: SectionModelType {
 }
 
 enum FavoriteLanguageSectionItem {
-    case favorite(FavoriteLanguageTableViewCellReactor)
+    case favorite(FavoriteLanguageCellReactor)
 }

@@ -26,22 +26,19 @@ extension UIViewController {
     }
 }
 
-// MARK: - Pan Modal
+// MARK: - SFSafariViewController
 extension UIViewController {
-    /*
-    func presentPanModalWeb(urlString: String) {
-        guard let url = URL(string: urlString) else { return }
-        
-        let safariVC = SFSafariViewController(url: url)
-        let nav = PanModalNaivgationController(rootViewController: safariVC)
-        presentPanModal(nav)
-    }
-    */
     func presentModalWeb(urlString: String) {
         guard let url = URL(string: urlString) else { return }
-        
+        GitTimeAnalytics.shared.logEvent(key: "web", parameters: nil)
         let safariVC = SFSafariViewController(url: url)
         safariVC.modalPresentationStyle = .formSheet
         self.present(safariVC, animated: true, completion: nil)
     }
+	
+	func pushSFSafariWeb(urlString: String) {
+		guard let url = URL(string: urlString) else { return }
+		let safariVC = SFSafariViewController(url: url)
+		self.present(safariVC, animated: true, completion: nil)
+	}
 }

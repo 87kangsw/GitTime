@@ -48,3 +48,15 @@ extension Int {
         return numFormatter.string(from: NSNumber(value: value))!
     }
 }
+
+// MARK: Contributios
+extension Int {
+	func toContributionIcon() -> String {
+		switch self {
+		case 0: return "🔥"
+		case 1...3: return "🌱"
+		case 4...9: return "🌿"
+		default: return "🌳"
+		}
+	}
+}

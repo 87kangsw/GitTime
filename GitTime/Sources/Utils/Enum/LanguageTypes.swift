@@ -53,4 +53,19 @@ enum LanguageTypes: String, CaseIterable, Codable {
             return self.rawValue
         }
     }
+	
+	func iconName() -> String {
+		switch self {
+		case .programming:
+			return "languageProgramming"
+		case .data:
+			return "languageData"
+		case .markup:
+			return "languageMarkup"
+		case .prose:
+			return "languageProse"
+		case .all:
+			return ""
+		}
+	}
 }

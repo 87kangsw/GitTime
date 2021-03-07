@@ -73,6 +73,8 @@ final class FollowViewReactor: Reactor {
             return .concat([clearPagingMutation, startRefreshing, endRefreshing, requestMutation])
         case .switchSegmentControl:
             let followType = self.currentState.followType == .followers ? FollowTypes.following : FollowTypes.followers
+            GitTimeAnalytics.shared.logEvent(key: "switch_follow",
+                                             parameters: ["type": followType.segmentTitle])
             let clearPagingMutation = self.clearPaging()
             let followMutation: Observable<Mutation> = .just(.setFollowType(followType))
             let requestMutation: Observable<Mutation> = self.requestFollow(followType: followType)
@@ -128,11 +130,11 @@ final class FollowViewReactor: Reactor {
     
     private func requestFollow(followType: FollowTypes? = nil, page: Int? = 1) -> Observable<Mutation> {
         
-        if AppDependency.shared.isTrial {
-            return self.trialFollows()
-        }
+//        if AppDependency.shared.isTrial {
+//            return self.trialFollows()
+//        }
         
-        guard let me = self.userService.me else { return .empty() }
+        guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
         
         let currentFollowType = followType ?? self.currentState.followType
         let currentPage = page ?? self.currentState.page
@@ -168,7 +170,7 @@ final class FollowViewReactor: Reactor {
     
     private func requestFollowMore(page: Int? = 1) -> Observable<Mutation> {
         
-        guard let me = self.userService.me else { return .empty() }
+        guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
         
         let currentFollowType = self.currentState.followType
         let currentPage = self.currentState.page

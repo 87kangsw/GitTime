@@ -28,6 +28,7 @@ class TrendingDeveloperCellReactor: Reactor {
         var repoName: String
         var repoDescription: String?
         var url: String
+		var popularRepoURL: String
     }
     
     let initialState: State
@@ -39,7 +40,8 @@ class TrendingDeveloperCellReactor: Reactor {
                                   userName: developer.userName,
                                   repoName: developer.repo.name ?? "",
                                   repoDescription: developer.repo.description,
-                                  url: developer.url)
+                                  url: developer.url,
+								  popularRepoURL: developer.repo.url)
         _ = self.state
     }
     

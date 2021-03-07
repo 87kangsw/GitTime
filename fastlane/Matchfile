@@ -1,0 +1,5 @@
+git_url(ENV['GIT_URL'])
+app_identifier(ENV['APPLE_APP_IDENTIFIER'])
+storage_mode("git")
+username(ENV['APPLE_ID'])
+readonly(true)

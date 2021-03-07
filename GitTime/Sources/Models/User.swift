@@ -56,19 +56,3 @@ struct User: ModelType {
         try container.encode(type.rawValue, forKey: .type)
     }
 }
-
-extension User {
-    static func mockData() -> [User]? {
-        if let url = Bundle.main.url(forResource: "followMock", withExtension: "json") {
-            do {
-                let data = try Data(contentsOf: url)
-                let decoder = JSONDecoder()
-                let mocks = try decoder.decode([User].self, from: data)
-                return mocks
-            } catch {
-                print("error:\(error)")
-            }
-        }
-        return nil
-    }
-}

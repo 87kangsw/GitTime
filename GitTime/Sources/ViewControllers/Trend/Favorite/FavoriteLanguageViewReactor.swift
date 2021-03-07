@@ -27,7 +27,7 @@ class FavoriteLanguageViewReactor: Reactor {
     struct State {
         var favoriteLanguages: [FavoriteLanguage]
         var sections: [FavoriteLanguageSection] {
-            let sectionItems = favoriteLanguages.map { FavoriteLanguageTableViewCellReactor(favoriteLanguage: $0) }
+            let sectionItems = favoriteLanguages.map { FavoriteLanguageCellReactor(favoriteLanguage: $0) }
                 .map(FavoriteLanguageSectionItem.favorite)
             return [.favorite(sectionItems)]
         }
@@ -51,6 +51,8 @@ class FavoriteLanguageViewReactor: Reactor {
             return self.fetchFavoriteLanguages()
             
         case .removeFavorite(let favoriteLanguage):
+            GitTimeAnalytics.shared.logEvent(key: "remove_favorite",
+                                             parameters: ["language": favoriteLanguage.name])
             let favoriteLanguages = self.currentState.favoriteLanguages
             guard let favoriteItem = favoriteLanguages.enumerated().first(where: { $0.element.id == favoriteLanguage.id }) else {
                 return .empty()

@@ -9,6 +9,7 @@
 import AuthenticationServices
 import Foundation
 
+import FirebaseAuth
 import RxSwift
 
 protocol AuthServiceType {
@@ -16,6 +17,7 @@ protocol AuthServiceType {
     func authorize() -> Observable<String>
     func requestAccessToken(code: String) -> Observable<GitHubAccessToken>
     func logOut()
+//	func firebaseLogin() -> Observable<String>
 }
 
 final class AuthService: AuthServiceType {
@@ -74,10 +76,44 @@ final class AuthService: AuthServiceType {
     func requestAccessToken(code: String) -> Observable<GitHubAccessToken> {
         return self.provider.request(.login(code: code))
             .map(GitHubAccessToken.self)
+			.flatMap { [weak self] accessToken -> Observable<GitHubAccessToken> in
+				guard let self = self else { return .empty() }
+				return self.sendFirebaseCredential(accessToken)
+			}
             .asObservable()
     }
     
     func logOut() {
         try? self.keychainService.removeAccessToken()
     }
+	
+	// MARK: - Firebase
+	private func sendFirebaseCredential(_ accessToken: GitHubAccessToken) -> Observable<GitHubAccessToken> {
+		return Observable.create { observer -> Disposable in
+			
+			let credential = GitHubAuthProvider.credential(withToken: accessToken.accessToken)
+			
+			Auth.auth().signIn(with: credential) { (authResult, error) in
+				if let error = error {
+					log.error(error)
+					observer.onNext(accessToken)
+					observer.onCompleted()
+					return
+				} else {
+					// log.debug(authResult)
+					let uID = authResult?.user.uid ?? ""
+					let name = authResult?.user.displayName ?? ""
+					let profileImageURL = authResult?.additionalUserInfo?.profile?["picture"] as? String ?? ""
+					log.debug("uID: \(uID), name: \(name), profileImageURL: \(profileImageURL)")
+					
+					observer.onNext(accessToken)
+					observer.onCompleted()
+				}
+			}
+			
+			return Disposables.create {
+				
+			}
+		}
+	}
 }

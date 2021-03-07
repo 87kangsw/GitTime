@@ -9,6 +9,7 @@
 import UIKit
 
 import ReactorKit
+import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift
@@ -23,27 +24,30 @@ class ActivityContributionView: UIView, View {
         static let spacing: CGFloat = 2.0
     }
     
+	enum Reusable {
+		static let contributionCell = ReusableCell<ContributionCell>()
+	}
+	
     // MARK: - UI
     private let contributionCountLabel: UILabel = {
         let label = UILabel()
         return label
     }()
-    var collectionView: UICollectionView = {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.estimatedItemSize = CGSize(width: 10.0, height: 10.0)
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        flowLayout.minimumLineSpacing = Metric.spacing
-        flowLayout.minimumInteritemSpacing = Metric.spacing
-        flowLayout.itemSize = CGSize(width: Metric.cellSize, height: Metric.cellSize)
-        
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
-        collectionView.backgroundColor = .background
-        collectionView.showsVerticalScrollIndicator = false
-        collectionView.registerNib(cellType: ContributionCell.self)
-        
-        return collectionView
-    }()
+	
+	private let flowLayout = UICollectionViewFlowLayout().then {
+		$0.estimatedItemSize = CGSize(width: 10.0, height: 10.0)
+		$0.scrollDirection = .horizontal
+		$0.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+		$0.minimumLineSpacing = 2.0
+		$0.minimumInteritemSpacing = 2.0
+		$0.itemSize = CGSize(width: 5.0, height: 5.0)
+	}
+	
+	lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
+		$0.backgroundColor = .background
+		$0.showsVerticalScrollIndicator = false
+		$0.register(Reusable.contributionCell)
+	}
     
     // MARK: - Properties
     var disposeBag = DisposeBag()
@@ -51,7 +55,8 @@ class ActivityContributionView: UIView, View {
         return .init(configureCell: { (datasource, collectionView, indexPath, sectionItem) -> UICollectionViewCell in
             switch sectionItem {
             case .contribution(let reactor):
-                let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ContributionCell.self)
+//                let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ContributionCell.self)
+				let cell = collectionView.dequeue(Reusable.contributionCell, for: indexPath)
                 cell.reactor = reactor
                 return cell
             }
