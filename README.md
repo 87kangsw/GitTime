@@ -1,7 +1,7 @@
 # GitTime
 
 <p align=center>
-<img onerror="this.style.display='none';" src="https://is5-ssl.mzstatic.com/image/thumb/Purple124/v4/10/dd/73/10dd7379-af44-0950-1fe6-e53ab010334a/AppIcon-0-0-1x_U007emarketing-0-0-0-10-0-0-sRGB-0-0-0-GLES2_U002c0-512MB-85-220-0-0.png/400x400bb.jpg" alt="400x400bb" width="200" height="200">
+<img onerror="this.style.display='none';" src="/.github/images/appicon_white.png" alt="400x400bb" width="200" height="200">
 <br/>
 <br/>
 <a href="https://apps.apple.com/us/app/gittime/id1469013856?mt=8">
@@ -24,12 +24,14 @@
 
 1. Activity: GitHub Contributions graph & Event lists
 2. Trending: Trending Repositories & Developers
-3. Follow: My Followers & Following
-4. Search: Search Users and Repositories
+3. Buddys: Show your buddy's contributions
+4. Settings: About GitTime project
 
 ## Screenshots
 
-<img src="https://github.com/87kangsw/resume/raw/master/images/gittime.png">
+| <img src="/.github/images/screen1.png"> | <img src="/.github/images/screen2.png"> | <img src="/.github/images/screen3.png"> | <img src="/.github/images/screen4.png"> |
+| :-------------------------------------: | :-------------------------------------: | :-------------------------------------: | :-------------------------------------: |
+|                Activity                 |                Trending                 |                 Buddys                  |                Settings                 |
 
 ## Skills
 
@@ -47,6 +49,11 @@
 - Networking
 
   - [Moya](https://github.com/Moya/Moya)
+
+- Build & Automation
+
+  - [XcodeGen](https://github.com/yonaskolb/XcodeGen)
+  - [fastlane](https://docs.fastlane.tools)
 
 - Image Cache
 
