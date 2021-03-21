@@ -12,39 +12,71 @@ import ReactorKit
 import RxCocoa
 import RxSwift
 
-final class FollowUserCell: BaseTableViewCell, View, CellType {
+final class FollowUserCell: BaseTableViewCell, ReactorKit.View {
 
     typealias Reactor = FollowUserCellReactor
     
     // MARK: - UI
-    @IBOutlet weak var profileImageView: UIImageView!
-    @IBOutlet weak var userNameLabel: UILabel!
-    
+    private let profileImageView = UIImageView().then {
+        $0.translatesAutoresizingMaskIntoConstraints = true
+		$0.layer.cornerRadius = 8.0
+		$0.layer.masksToBounds = true
+		$0.contentMode = .scaleAspectFill
+		$0.clipsToBounds = true
+    }
+
+    private let userNameLabel = UILabel().then {
+        $0.translatesAutoresizingMaskIntoConstraints = true
+		$0.font = .systemFont(ofSize: 16.0)
+		$0.textColor = .title
+    }
+
     // MARK: - Properties
     
-    // MARK: - LifeCycle
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        configureUI()
-    }
-    
+	// MARK: - Initializing
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+		super.init(style: style, reuseIdentifier: reuseIdentifier)
+		self.selectionStyle = .none
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+	
     override func prepareForReuse() {
         super.prepareForReuse()
         reset()
-    }
-    
-    fileprivate func configureUI() {
-        profileImageView.layer.cornerRadius = 8.0
-        profileImageView.layer.masksToBounds = true
-        profileImageView.contentMode = .scaleAspectFill
-        profileImageView.clipsToBounds = true
     }
     
     fileprivate func reset() {
         userNameLabel.text = ""
         profileImageView.image = nil
     }
+	
+	// MARK: - UI Setup
+	override func addViews() {
+		super.addViews()
+		
+		self.contentView.addSubview(profileImageView)
+		self.contentView.addSubview(userNameLabel)
+	}
+	
+	override func setupConstraints() {
+		super.setupConstraints()
+		
+		profileImageView.snp.makeConstraints { make in
+			make.width.height.equalTo(48.0)
+			make.leading.equalTo(16.0)
+			make.top.equalTo(8.0)
+			make.bottom.equalTo(-8.0)
+		}
+		
+		userNameLabel.snp.makeConstraints { make in
+			make.top.bottom.equalToSuperview()
+			make.trailing.equalTo(-16.0)
+			make.leading.equalTo(profileImageView.snp.trailing).offset(10.0)
+		}
+	}
     
     fileprivate func updateUI(_ state: Reactor.State) {
         

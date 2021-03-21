@@ -40,7 +40,7 @@ final class CompositionRoot {
 		let keychainService = KeychainService()
 		let authService = AuthService(keychainService: keychainService)
 		let userService = UserService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
-		// let followService = FollowService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
+		 let followService = FollowService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
 		// let appStoreService = AppStoreService(networking: GitTimeProvider<AppStoreAPI>())
 		let activityService = ActivityService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
 		let crawlerService = GitTimeCrawlerService(networking: GitTimeProvider<GitTimeCrawlerAPI>())
@@ -76,7 +76,10 @@ final class CompositionRoot {
 			
 			let buddyController = configureBuddyScreen(crawlerService: crawlerService,
 													   realmService: realmService,
-													   userDefaultService: userDefaultService)
+													   userDefaultService: userDefaultService,
+													   followService: followService,
+													   userService: userService,
+													   githubService: gitHubService)
 			
 			let settingController = configureSettingScreen(authService: authService,
 														   githubService: gitHubService,
@@ -218,11 +221,25 @@ extension CompositionRoot {
 	// MARK: - Buddy
 	static func configureBuddyScreen(crawlerService: GitTimeCrawlerServiceType,
 									 realmService: RealmServiceType,
-									 userDefaultService: UserDefaultsServiceType) -> BuddyViewController {
+									 userDefaultService: UserDefaultsServiceType,
+									 followService: FollowServiceType,
+									 userService: UserServiceType,
+									 githubService: GitHubServiceType) -> BuddyViewController {
+		
+		var presentFollowScreen: () -> FollowViewController
+		presentFollowScreen = {
+			let reactor = FollowViewReactor(followService: followService,
+											userService: userService)
+			let controller = FollowViewController(reactor: reactor)
+			return controller
+		}
+		
 		let reactor = BuddyViewReactor(crawlerService: crawlerService,
 									   realmService: realmService,
-									   userDefaultService: userDefaultService)
-		let controller = BuddyViewController(reactor: reactor)
+									   userDefaultService: userDefaultService,
+									   githubService: githubService)
+		let controller = BuddyViewController(reactor: reactor,
+											 presentFollowScreen: presentFollowScreen)
 		controller.title = "Buddys"
 		controller.tabBarItem.title = "Buddys"
 		controller.tabBarItem.image = UIImage.assetImage(name: TabBarImages.follow)
