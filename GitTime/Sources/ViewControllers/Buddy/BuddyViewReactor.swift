@@ -47,6 +47,7 @@ final class BuddyViewReactor: Reactor {
 		case toastMessage(String?)
 		case checkUpdate
 		case refresh
+		case checkGitHubUser(String?)
 	}
 	
 	enum Mutation {
@@ -86,16 +87,19 @@ final class BuddyViewReactor: Reactor {
 	private let crawlerService: GitTimeCrawlerServiceType
 	private let realmService: RealmServiceType
 	private let userDefaultService: UserDefaultsServiceType
+	private let githubService: GitHubServiceType
 	
 	let initialState: State
 	
 	// MARK: Initializing
 	init(crawlerService: GitTimeCrawlerServiceType,
 		 realmService: RealmServiceType,
-		 userDefaultService: UserDefaultsServiceType) {
+		 userDefaultService: UserDefaultsServiceType,
+		 githubService: GitHubServiceType) {
 		self.crawlerService = crawlerService
 		self.realmService = realmService
 		self.userDefaultService = userDefaultService
+		self.githubService = githubService
 		
 		// let period: PeriodTypes = PeriodTypes(rawValue: userdefaultsService.value(forKey: UserDefaultsKey.period) ?? "") ?? PeriodTypes.daily
 		let viewMode = BuddyViewMode(rawValue: userDefaultService.value(forKey: UserDefaultsKey.buddyViewMode) ?? "yearly") ?? .yearly
@@ -125,7 +129,7 @@ final class BuddyViewReactor: Reactor {
 			self.userDefaultService.set(value: newViewMode.rawValue, forKey: UserDefaultsKey.buddyViewMode)
 			return .just(.setViewMode(newViewMode))
 		case .removeGitHubUsername(let userName):
-			guard let userName = userName, userName.isNotEmpty else { return .empty() }
+			guard let userName = userName else { return .empty() }
 			
 			let buddys = self.currentState.buddys
 			guard let buddyItem = buddys.enumerated().first(where: { $0.element.additionalName == userName }) else {
@@ -160,6 +164,10 @@ final class BuddyViewReactor: Reactor {
 			let mergedRequests = Observable.merge(requests)
 			
 			return .concat(startRefreshing, mergedRequests, endRefreshing)
+			
+		case .checkGitHubUser(let userName):
+			guard let userName = userName, userName.isNotEmpty else { return .empty() }
+			return self.checkGitHubUser(userName: userName)
 		}
 	}
 	
@@ -295,5 +303,14 @@ final class BuddyViewReactor: Reactor {
 								userName: userName,
 								additionalName: additionalName,
 								profileImageURL: profileURL)
+	}
+	
+	private func checkGitHubUser(userName: String) -> Observable<Mutation> {
+		return self.githubService.userInfo(userName: userName)
+			.flatMap { [weak self] _ -> Observable<Mutation> in
+				guard let self = self else { return .empty() }
+				return self.checkIfExist(userName: userName)
+			}
+			.catchErrorJustReturn(.setToastMessage("User does not exist. Please check User's ID."))
 	}
 }
