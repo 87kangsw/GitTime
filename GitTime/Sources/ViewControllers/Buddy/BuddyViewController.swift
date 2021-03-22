@@ -13,6 +13,31 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 import ReusableKit
+import Toaster
+
+enum ButtonAddType: CaseIterable {
+	case follow
+	case manualInput
+	case cancel
+	
+	var title: String {
+		switch self {
+		case .follow:
+			return "Follow"
+		case .manualInput:
+			return "Manual Input"
+		case .cancel:
+			return "Cancel"
+		}
+	}
+	
+	var style: UIAlertAction.Style {
+		switch self {
+		case .cancel: return .cancel
+		default: return .default
+		}
+	}
+}
 
 final class BuddyViewController: BaseViewController, ReactorKit.View {
     
@@ -47,11 +72,26 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 	
     // MARK: Properties
 	private var dataSource: RxTableViewSectionedReloadDataSource<BuddySection>!
+	
+	private var addActions: [RxAlertAction<ButtonAddType>] {
+		var actions: [RxAlertAction<ButtonAddType>] = []
+		
+		ButtonAddType.allCases.forEach { type in
+			let action = RxAlertAction<ButtonAddType>(title: type.title, style: type.style, result: type)
+			actions.append(action)
+		}
+		
+		return actions
+	}
     
+	private let presentFollowScreen: () -> FollowViewController
+	
     // MARK: Initializing
-    init(reactor: BuddyViewReactor) {
+	init(reactor: BuddyViewReactor,
+		 presentFollowScreen: @escaping () -> FollowViewController) {
+		defer { self.reactor = reactor }
+		self.presentFollowScreen = presentFollowScreen
         super.init()
-        self.reactor = reactor
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -92,15 +132,34 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 			.map { Reactor.Action.firstLoad }
 			.bind(to: reactor.action)
 			.disposed(by: self.disposeBag)
-		
+
 		self.addBuddyButtonItem.rx.tap
-			.flatMap { [weak self] _ -> Observable<String?> in
-				guard let self = self else { return .empty() }
-				return self.showUserNameInputAlert()
-			}
-			.map { Reactor.Action.checkUserExist($0) }
-			.bind(to: reactor.action)
-			.disposed(by: self.disposeBag)
+			.subscribe(onNext: { [weak self] _ in
+				guard let self = self else { return }
+				let sheet = UIAlertController.rx_presentAlert(viewController: self,
+															  preferredStyle: .actionSheet,
+															  animated: true,
+															  button: self.addBuddyButtonItem,
+															  actions: self.addActions)
+				sheet.subscribe(onNext: { [weak self] type in
+					guard let self = self else { return }
+					switch type {
+					case .cancel:
+						break
+					case .manualInput:
+						self.showUserNameInputAlert()
+							.map { Reactor.Action.checkGitHubUser($0) }
+							.bind(to: reactor.action)
+							.disposed(by: self.disposeBag)
+					case .follow:
+						self.presentFollowViewController()
+							.map { Reactor.Action.checkUserExist($0.name) }
+							.bind(to: reactor.action)
+							.disposed(by: self.disposeBag)
+					}
+				}).disposed(by: self.disposeBag)
+				
+			}).disposed(by: self.disposeBag)
 		
 		self.modeButton.rx.tap
 			.map { Reactor.Action.changeViewMode }
@@ -165,6 +224,15 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 		
 		tableView.rx.setDelegate(self)
 			.disposed(by: self.disposeBag)
+		
+		reactor.state.map { $0.toastMessage }
+			.filterNil()
+			.filterEmpty()
+			.subscribe(onNext: { message in
+				reactor.action.onNext(.toastMessage(nil))
+				ToastCenter.default.cancelAll()
+				Toast(text: message, duration: Delay.short).show()
+			}).disposed(by: self.disposeBag)
     }
 	
 	private func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<BuddySection> {
@@ -219,6 +287,12 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 		let alert = UIAlertController(title: "Already Exist User", message: "Pl", preferredStyle: .alert)
 		alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 		self.present(alert, animated: true, completion: nil)
+	}
+	
+	private func presentFollowViewController() -> Observable<User> {
+		let controller = self.presentFollowScreen()
+		self.present(controller.navigationWrap(), animated: true, completion: nil)
+		return controller.selectedUser
 	}
 }
 

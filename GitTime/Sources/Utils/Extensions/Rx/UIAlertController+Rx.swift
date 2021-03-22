@@ -45,6 +45,7 @@ extension UIAlertController {
                                                                    message: String? = nil,
                                                                    preferredStyle: UIAlertController.Style = .alert,
                                                                    animated: Bool = true,
+																   button: Any? = nil,
                                                                    actions: [Action]) -> Observable<Result> where Action.Result == Result {
         return Observable.create { observer -> Disposable in
             let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
@@ -57,8 +58,20 @@ extension UIAlertController {
                 }
                 .forEach(alertController.addAction)
             
-            viewController.present(alertController, animated: animated, completion: nil)
-            
+			if UIDevice.isPhone {
+				viewController.present(alertController, animated: animated, completion: nil)
+			} else {
+				
+				if let button = button as? UIButton {
+					alertController.popoverPresentationController?.sourceView = viewController.view
+					alertController.popoverPresentationController?.sourceRect = button.frame
+					viewController.present(alertController, animated: animated, completion: nil)
+				} else if let barButtonItem = button as? UIBarButtonItem {
+					alertController.popoverPresentationController?.barButtonItem = barButtonItem
+					viewController.present(alertController, animated: animated, completion: nil)
+				}
+				
+			}
             return Disposables.create {
                 alertController.dismiss(animated: true, completion: nil)
             }

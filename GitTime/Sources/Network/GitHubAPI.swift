@@ -17,6 +17,7 @@ enum GitHubAPI {
     case searchUser(query: String, page: Int)
     case searchRepo(query: String, page: Int, language: String?)
 	case contributors
+	case userInfo(userName: String)
 }
 
 extension GitHubAPI: TargetType {
@@ -40,12 +41,14 @@ extension GitHubAPI: TargetType {
             return "/search/repositories"
 		case .contributors:
 			return "/repos/87kangsw/GitTime/contributors"
+		case .userInfo(let userName):
+			return "/users/\(userName)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-		case .fetchMe, .activityEvent, .followers, .following, .searchUser, .searchRepo, .contributors:
+		case .fetchMe, .activityEvent, .followers, .following, .searchUser, .searchRepo, .contributors, .userInfo:
             return .get
         }
     }

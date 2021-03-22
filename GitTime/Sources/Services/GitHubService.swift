@@ -12,6 +12,9 @@ protocol GitHubServiceType {
 	
 	// Contributors
 	func contributors() -> Observable<[User]>
+	
+	// UserInfo
+	func userInfo(userName: String) -> Observable<User>
 }
 
 final class GitHubService: GitHubServiceType {
@@ -27,6 +30,13 @@ final class GitHubService: GitHubServiceType {
 	func contributors() -> Observable<[User]> {
 		self.networking.request(.contributors)
 			.map([User].self)
+			.asObservable()
+	}
+	
+	// MARK: UserInfo (exist)
+	func userInfo(userName: String) -> Observable<User> {
+		self.networking.request(.userInfo(userName: userName))
+			.map(User.self)
 			.asObservable()
 	}
 }
