@@ -139,6 +139,7 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 				let sheet = UIAlertController.rx_presentAlert(viewController: self,
 															  preferredStyle: .actionSheet,
 															  animated: true,
+															  button: self.addBuddyButtonItem,
 															  actions: self.addActions)
 				sheet.subscribe(onNext: { [weak self] type in
 					guard let self = self else { return }

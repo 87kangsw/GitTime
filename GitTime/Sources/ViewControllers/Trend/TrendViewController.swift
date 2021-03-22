@@ -225,6 +225,7 @@ class TrendViewController: BaseViewController, ReactorKit.View {
 				let sheet = UIAlertController.rx_presentAlert(viewController: self,
 															  preferredStyle: .actionSheet,
 															  animated: true,
+															  button: self.tableHeaderView.periodButton,
 															  actions: self.periodActions)
 				sheet.subscribe(onNext: { selectedPeriod in
 					guard let period = PeriodTypes(rawValue: selectedPeriod) else { return }
