@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-- v2.0
+- Trending Developer parsing error fixed.
+
+## [2.0.1] - 2021-03-22
+
+- Buddy Tab enhanced.
+
+## [2.0.0] - 2021-03-07
+
+- v2.0 Released.
 
 - Update Fastlane.
