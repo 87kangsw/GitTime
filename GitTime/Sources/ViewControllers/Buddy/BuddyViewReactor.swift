@@ -294,9 +294,9 @@ final class BuddyViewReactor: Reactor {
 			for span in doc.css("span") {
 				if let itemProp = span["itemprop"], itemProp.isNotEmpty {
 					if itemProp == "name" {
-						userName = span.content ?? ""
+						userName = span.content?.trimmed ?? ""
 					} else if itemProp == "additionalName" {
-						additionalName = span.content ?? ""
+						additionalName = span.content?.trimmed ?? ""
 					}
 				}
 			}
