@@ -36,10 +36,12 @@ final class BuddyDailyCell: BaseTableViewCell, ReactorKit.View {
 		$0.text = 10.toContributionIcon()
 		$0.textAlignment = .center
 		$0.font = .systemFont(ofSize: 16.0)
+		$0.setContentHuggingPriority(.required, for: .horizontal)
+		$0.setContentCompressionResistancePriority(.required, for: .horizontal)
 	}
 	
     // MARK: - Initializing
-	override init(style:UITableViewCell.CellStyle, reuseIdentifier: String?) {
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 		self.accessoryType = .none
 		self.backgroundColor = .secondarySystemGroupedBackground
