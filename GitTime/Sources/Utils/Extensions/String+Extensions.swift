@@ -25,6 +25,10 @@ extension String {
         return replacingOccurrences(of: "\n", with: "")
             .trimmingCharacters(in: .whitespacesAndNewlines)
     }
+	
+	var trimmed: String {
+		return self.trimmingCharacters(in: .whitespacesAndNewlines)
+	}
 }
 
 // MARK: - Dates
