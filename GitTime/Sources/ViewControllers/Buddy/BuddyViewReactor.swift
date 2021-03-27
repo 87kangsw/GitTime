@@ -227,6 +227,10 @@ final class BuddyViewReactor: Reactor {
 			}
 			.flatMap { [weak self] contributionInfo -> Observable<Mutation> in
 				guard let self = self else { return .empty() }
+				guard self.checkUserNameIsValid(originalName: userName,
+												userName: contributionInfo.userName,
+												additionalName: contributionInfo.additionalName) == true else { return .empty() }
+				
 				return self.realmService.addBuddy(userName: contributionInfo.userName,
 												  additionalName: contributionInfo.additionalName,
 												  profileURL: contributionInfo.profileImageURL,
@@ -290,9 +294,9 @@ final class BuddyViewReactor: Reactor {
 			for span in doc.css("span") {
 				if let itemProp = span["itemprop"], itemProp.isNotEmpty {
 					if itemProp == "name" {
-						userName = span.content ?? ""
+						userName = span.content?.trimmed ?? ""
 					} else if itemProp == "additionalName" {
-						additionalName = span.content ?? ""
+						additionalName = span.content?.trimmed ?? ""
 					}
 				}
 			}
@@ -312,5 +316,21 @@ final class BuddyViewReactor: Reactor {
 				return self.checkIfExist(userName: userName)
 			}
 			.catchErrorJustReturn(.setToastMessage("User does not exist. Please check User's ID."))
+	}
+	
+	/**
+	사용자가 등록한 userName으로 파싱을 하는데, hotfix 2.0.2 처럼 \n UserName \n 이런식으로
+	포맷이 변경되서 Realm에 잘못되는 경우를 방지
+	*/
+	private func checkUserNameIsValid(originalName: String, userName: String?, additionalName: String?) -> Bool {
+		var isValid = false
+		
+		if originalName == userName {
+			isValid = true
+		} else if originalName == additionalName {
+			isValid = true
+		}
+		
+		return isValid
 	}
 }

@@ -224,10 +224,14 @@ final class TrendViewReactor: Reactor {
                 var trendDeveloperRepo = TrendDeveloperRepo(name: nil, url: "", description: "")
                 var trendDeveloper = TrendDeveloper(userName: "", name: nil, url: "", profileURL: "", repo: trendDeveloperRepo)
                 
+				/*
+				/html/body[@class='logged-out env-production page-responsive intent-mouse']/div[@class='application-main ']/main[@id='js-pjax-container']/div[@class='position-relative container-lg p-responsive pt-6']/div[@class='Box']/div[2]/article[@id='pa-hathach']/div[@class='mx-3']/a/img[@class='rounded avatar-user']/@src
+				*/
+				
                 let name = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/h1")
                 let username = item.xpath(".//div[@class='d-sm-flex flex-auto']/div[@class='col-sm-8 d-md-flex']/div[@class='col-md-6'][1]/p")
                 let url = "https://github.com"
-                let avatar = item.xpath(".//div[@class='mx-3']/a/img[@class='rounded-1 avatar-user']/@src")
+                let avatar = item.xpath(".//div[@class='mx-3']/a/img[@class='rounded avatar-user']/@src")
                 let repoName = item.xpath(".//h1[@class='h4 lh-condensed']")
                 let repoURL = item.xpath(".//h1[@class='h4 lh-condensed']/a/@href")
                 let repoDescription = item.xpath(".//div[@class='f6 color-text-secondary mt-1']")
