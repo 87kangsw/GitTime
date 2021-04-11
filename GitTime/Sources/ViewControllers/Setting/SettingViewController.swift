@@ -8,6 +8,7 @@
 
 import MessageUI
 import SafariServices
+import StoreKit
 import UIKit
 
 import AcknowList
@@ -92,10 +93,11 @@ class SettingViewController: BaseViewController, ReactorKit.View {
     func bind(reactor: Reactor) {
         
         // Action
-//        Observable.just(Void())
-//            .map { Reactor.Action.versionCheck }
-//            .bind(to: reactor.action)
-//            .disposed(by: self.disposeBag)
+		self.rx.viewDidAppear
+			.take(1)
+			.map { _ in Reactor.Action.reviewRequest }
+			.bind(to: reactor.action)
+			.disposed(by: self.disposeBag)
         
         // State
 		let dataSource = self.dataSource()
@@ -112,6 +114,14 @@ class SettingViewController: BaseViewController, ReactorKit.View {
 				self.presentLoginScreen()
             }).disposed(by: self.disposeBag)
         
+		reactor.state.map { $0.isShowReviewRereuqestAlert }
+			.distinctUntilChanged()
+			.filter { $0 == true }
+			.take(1)
+			.subscribe(onNext: { _ in
+				SKStoreReviewController.requestReview()
+			}).disposed(by: self.disposeBag)
+		
         // View
         tableView.rx.itemSelected(dataSource: dataSource)
             .subscribe(onNext: { [weak self] sectionItem in
@@ -248,6 +258,7 @@ class SettingViewController: BaseViewController, ReactorKit.View {
 		guard let url = URL(string: urlString) else { return }
 		UIApplication.shared.open(url, options: [:], completionHandler: nil)
 	}
+	
 }
 
 // MARK: - MFMailComposeViewControllerDelegate
