@@ -33,6 +33,10 @@ struct Constants {
 		case searchHistory
 		case appIconName
 		case buddyViewMode
+		
+		// AppReview
+		case processCompletedCountKey
+		case lastVersionPromptedForReviewKey
 	}
 	
 	enum URLs {
