@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 - 앱스토어 리뷰 요청 기능 추가
+- 버디탭에서 친구 클릭시, GitHub으로 연결되게 변경
 
 ## [2.0.3] - 2021-03-28
 
