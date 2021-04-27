@@ -6,7 +6,7 @@
 //  Copyright © 2020 KanzDevelop. All rights reserved.
 //
 
-import Firebase
+import FirebaseAnalytics
 
 final class GitTimeAnalytics {
     
@@ -17,7 +17,7 @@ final class GitTimeAnalytics {
     }
     
     func setScreenName(screenName: String) {
-        Analytics.setScreenName(screenName, screenClass: nil)
+		Analytics.logEvent(AnalyticsEventScreenView, parameters: nil)
     }
     
     func setUserIdentifier(identifiler: String) {
