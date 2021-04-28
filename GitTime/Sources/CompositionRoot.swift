@@ -136,8 +136,7 @@ final class CompositionRoot {
 		Bagel.start()
 		
 		let cache = ImageCache.default
-		cache.clearMemoryCache()
-		cache.clearDiskCache { print("Done") }
+		cache.clearCache()
 		
 		#endif
 	}

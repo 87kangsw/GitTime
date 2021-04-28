@@ -233,6 +233,23 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 				ToastCenter.default.cancelAll()
 				Toast(text: message, duration: Delay.short).show()
 			}).disposed(by: self.disposeBag)
+		
+		tableView.rx.itemSelected(dataSource: dataSource)
+			.subscribe(onNext: { [weak self] sectionItem in
+				guard let self = self else { return }
+				switch sectionItem {
+				case .daily(let cellReactor):
+					let user = cellReactor.currentState.contributionInfo.additionalName
+					guard user.isNotEmpty else { return }
+					let urlString = "https://github.com/\(user)"
+					self.pushSFSafariWeb(urlString: urlString)
+				case .weekly(let cellReactor):
+					let user = cellReactor.currentState.contributionInfo.additionalName
+					guard user.isNotEmpty else { return }
+					let urlString = "https://github.com/\(user)"
+					self.pushSFSafariWeb(urlString: urlString)
+				}
+			}).disposed(by: self.disposeBag)
     }
 	
 	private func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<BuddySection> {
