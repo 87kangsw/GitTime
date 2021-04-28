@@ -14,12 +14,12 @@ final class SettingViewReactor: Reactor {
     
     enum Action {
         case logout
-//        case versionCheck
+		case reviewRequest
     }
     
     enum Mutation {
         case setLoggedOut
-//        case setVersion(String)
+		case setIsShowReviewRequestAlert(Bool)
     }
 
     struct State {
@@ -63,6 +63,7 @@ final class SettingViewReactor: Reactor {
             return sections
         }
         
+		var isShowReviewRereuqestAlert: Bool = false
     }
     
     let initialState: State
@@ -84,6 +85,9 @@ final class SettingViewReactor: Reactor {
             // AppDependency.shared.isTrial = false
 			GlobalStates.shared.isTrial.accept(nil)
             return .just(.setLoggedOut)
+			
+		case .reviewRequest:
+			return self.checkIfReviewRequestEnable()
         }
     }
     
@@ -93,7 +97,28 @@ final class SettingViewReactor: Reactor {
         switch mutation {
         case .setLoggedOut:
             state.isLoggedOut = true
+		case .setIsShowReviewRequestAlert(let isShow):
+			state.isShowReviewRereuqestAlert = isShow
         }
         return state
     }
+	
+	private func checkIfReviewRequestEnable() -> Observable<Mutation> {
+		var isShow: Bool = false
+		
+		var count = UserDefaultsConfig.processCompletedCountKey
+		count += 1
+		UserDefaultsConfig.processCompletedCountKey = count
+		
+		let currentVersion = BundleInfoConfig.appVersion
+		let lastVersionPromptedForReview = UserDefaultsConfig.lastVersionPromptedForReviewKey
+		
+		if count >= 4 && currentVersion != lastVersionPromptedForReview {
+			UserDefaultsConfig.lastVersionPromptedForReviewKey = currentVersion
+			isShow = true
+		}
+		
+		return .just(.setIsShowReviewRequestAlert(isShow))
+	}
+	
 }
