@@ -35,8 +35,8 @@ class FavoriteLanguageViewController: BaseViewController, ReactorKit.View {
 	}
 	
     // MARK: - Properties
-    private let selectLanguageSubject = PublishSubject<Language>()
-    var selectLanguage: Observable<Language> {
+    private let selectLanguageSubject = PublishSubject<GithubLanguage>()
+    var selectLanguage: Observable<GithubLanguage> {
         return selectLanguageSubject.asObservable()
     }
     

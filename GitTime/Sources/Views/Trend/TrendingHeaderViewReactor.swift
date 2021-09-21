@@ -14,23 +14,23 @@ class TrendingHeaderViewReactor: Reactor {
     
     enum Action {
 		case selectPeriod(PeriodTypes)
-		case selectLanguage(Language?)
+		case selectLanguage(GithubLanguage?)
     }
     
     enum Mutation {
 		case selectPeriod(PeriodTypes)
-		case selectLanguage(Language?)
+		case selectLanguage(GithubLanguage?)
     }
     
     struct State {
 		var period: PeriodTypes
-		var language: Language?
+		var language: GithubLanguage?
 		var trendingType: TrendTypes = .repositories
     }
     
 	let initialState: State
 	
-	init(period: PeriodTypes, language: Language?) {
+	init(period: PeriodTypes, language: GithubLanguage?) {
 		initialState = State(period: period,
 							 language: language)
 	}

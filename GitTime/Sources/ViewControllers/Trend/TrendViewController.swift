@@ -96,12 +96,12 @@ class TrendViewController: BaseViewController, ReactorKit.View {
         return actions
     }
     
-	private let presentLanguageScreen: () -> LanguagesViewController
+	private let presentLanguageScreen: () -> LanguageListViewController
 	private let presentFavoriteScreen: () -> FavoriteLanguageViewController
 	
 	// MARK: - Initializing
 	init(reactor: Reactor,
-		 presentLanguageScreen: @escaping () -> LanguagesViewController,
+		 presentLanguageScreen: @escaping () -> LanguageListViewController,
 		 presentFavoriteScreen: @escaping () -> FavoriteLanguageViewController) {
 		defer { self.reactor = reactor }		
 		self.presentLanguageScreen = presentLanguageScreen
@@ -165,7 +165,7 @@ class TrendViewController: BaseViewController, ReactorKit.View {
             .disposed(by: self.disposeBag)
 		
 		favoriteButton.rx.tap
-			.flatMap { [weak self] _ -> Observable<Language> in
+			.flatMap { [weak self] _ -> Observable<GithubLanguage> in
 				guard let self = self else { return .empty() }
 				return self.presentFavorite()
 			}
@@ -234,7 +234,7 @@ class TrendViewController: BaseViewController, ReactorKit.View {
 			}).disposed(by: self.disposeBag)
 		
 		tableHeaderView.rx.languageButtonTapped
-			.flatMap { [weak self] _ -> Observable<Language> in
+			.flatMap { [weak self] _ -> Observable<GithubLanguage> in
 				guard let self = self else { return .empty() }
 				let controller = self.presentLanguageScreen()
 				self.present(controller.navigationWrap(), animated: true, completion: nil)
@@ -246,7 +246,7 @@ class TrendViewController: BaseViewController, ReactorKit.View {
 	}
     
     // MARK: - Route
-    private func presentFavorite() -> Observable<Language> {
+    private func presentFavorite() -> Observable<GithubLanguage> {
 		let controller = self.presentFavoriteScreen()
         let navVC = PanModalNaivgationController()
         navVC.viewControllers = [controller]
