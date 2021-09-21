@@ -54,7 +54,7 @@ class FavoriteLanguageViewReactor: Reactor {
             GitTimeAnalytics.shared.logEvent(key: "remove_favorite",
                                              parameters: ["language": favoriteLanguage.name])
             let favoriteLanguages = self.currentState.favoriteLanguages
-            guard let favoriteItem = favoriteLanguages.enumerated().first(where: { $0.element.id == favoriteLanguage.id }) else {
+            guard let favoriteItem = favoriteLanguages.enumerated().first(where: { $0.element.name == favoriteLanguage.name }) else {
                 return .empty()
             }
             

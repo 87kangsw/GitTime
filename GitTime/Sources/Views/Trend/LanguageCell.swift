@@ -104,7 +104,7 @@ final class LanguageCell: BaseTableViewCell, ReactorKit.View {
 		
 		let languageName = state.language.name
 		languageLabel.text = languageName
-		languageLabel.font = state.language.type == .all ?
+		languageLabel.font = state.language == GithubLanguage.allLanguage ?
 			.boldSystemFont(ofSize: 15.0) : .systemFont(ofSize: 14.0)
 		
 		let colorName = state.language.color
@@ -115,14 +115,14 @@ final class LanguageCell: BaseTableViewCell, ReactorKit.View {
 			colorView.backgroundColor = .clear
 		}
 		
-		favoriteButton.isHidden = state.language.type == .all
+		favoriteButton.isHidden = state.language == GithubLanguage.allLanguage
 	}
 	
 }
 
 // MARK: - Reactive Extension
 extension Reactive where Base: LanguageCell {
-	var favoriteTapped: Observable<Language> {
+	var favoriteTapped: Observable<GithubLanguage> {
 		return base.favoriteButton.rx.tap
 			.map { self.base.reactor?.currentState.language }
 			.filterNil()

@@ -21,7 +21,7 @@ class SearchViewReactor: Reactor {
         case loadMore
         case showRecentSearchWords(Bool)
         case removeRecentSearchWord(IndexPath, String)
-        case selectLanguage(Language?)
+        case selectLanguage(GithubLanguage?)
     }
     
     enum Mutation {
@@ -37,7 +37,7 @@ class SearchViewReactor: Reactor {
         case setLoadMore(Bool)
         case setShowRecentSearchWords(Bool)
         case removeRecentSearchWord(IndexPath)
-        case setLanguage(Language?)
+        case setLanguage(GithubLanguage?)
     }
     
     struct State {
@@ -64,7 +64,7 @@ class SearchViewReactor: Reactor {
         var page: Int = 1
         var canLoadMore: Bool = true
         var isShowRecentSearchWords: Bool = false
-        var language: Language?
+        var language: GithubLanguage?
     }
     
     fileprivate let searchService: SearchServiceType
@@ -82,7 +82,8 @@ class SearchViewReactor: Reactor {
         self.realmService = realmService
         self.userdefaultsService = userdefaultsService
         
-        let language: Language? = userdefaultsService.structValue(forKey: UserDefaultsKey.langauge)
+        let language: GithubLanguage? = userdefaultsService.structValue(forKey: UserDefaultsKey.langauge)
+		
         self.initialState = State(query: nil,
                              segmentType: .users,
                              isLoading: false,
@@ -217,7 +218,7 @@ class SearchViewReactor: Reactor {
             }.catchErrorJustReturn(.setSearchUsers([], nextPage: currentPage, canLoadMore: false))
     }
 
-    private func searchRepositoriesMutation(query: String, language: Language? = nil) -> Observable<Mutation> {
+    private func searchRepositoriesMutation(query: String, language: GithubLanguage? = nil) -> Observable<Mutation> {
         let currentPage = SearchViewReactor.INITIAL_PAGE
         guard !query.isEmpty else { return .just(.setSearchRepos([], nextPage: currentPage, canLoadMore: false)) }
         let language = language ?? self.currentState.language
