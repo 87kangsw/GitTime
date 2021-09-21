@@ -18,7 +18,7 @@ final class TrendViewReactor: Reactor {
         case refresh
         case selectPeriod(PeriodTypes)
         //        case selectLanguage(String?)
-        case selectLanguage(Language?)
+        case selectLanguage(GithubLanguage?)
         case switchSegmentControl
         case requestTrending
     }
@@ -28,7 +28,7 @@ final class TrendViewReactor: Reactor {
         case setRefreshing(Bool)
         case setPeriod(PeriodTypes)
         //        case setLanguage(String?)
-        case setLanguage(Language?)
+        case setLanguage(GithubLanguage?)
         case setTrendType(TrendTypes)
         case fetchRepositories([TrendRepo])
         case fetchDevelopers([TrendDeveloper])
@@ -38,7 +38,7 @@ final class TrendViewReactor: Reactor {
         var isLoading: Bool = false
         var isRefreshing: Bool = false
         var period: PeriodTypes
-        var language: Language?
+        var language: GithubLanguage?
         var trendingType: TrendTypes
         var repositories: [TrendSectionItem] = []
         var developers: [TrendSectionItem] = []
@@ -78,7 +78,7 @@ final class TrendViewReactor: Reactor {
         self.crawlerService = crawlerService
         self.userdefaultsService = userdefaultsService
         let period: PeriodTypes = PeriodTypes(rawValue: userdefaultsService.value(forKey: UserDefaultsKey.period) ?? "") ?? PeriodTypes.daily
-        let language: Language? = userdefaultsService.structValue(forKey: UserDefaultsKey.langauge)
+        let language: GithubLanguage? = userdefaultsService.structValue(forKey: UserDefaultsKey.langauge)
 		
 		headerViewReactor = TrendingHeaderViewReactor(period: period,
 													  language: language)
@@ -165,12 +165,12 @@ final class TrendViewReactor: Reactor {
     
     fileprivate func requestTrending(trendType: TrendTypes? = nil,
                                      period: PeriodTypes? = nil,
-                                     language: Language? = nil) -> Observable<Mutation> {
+                                     language: GithubLanguage? = nil) -> Observable<Mutation> {
         let currentTrendType = trendType ?? self.currentState.trendingType
         let currentPeriod = period ?? self.currentState.period
         
         let currentLanguage = language ?? self.currentState.language
-        let currentLanguageName = currentLanguage?.type == LanguageTypes.all ? "" : currentLanguage?.name
+		let currentLanguageName = currentLanguage == GithubLanguage.allLanguage ? "" : currentLanguage?.name
         
         let startLoading: Observable<Mutation> = .just(.setLoading(true))
         let endLoading: Observable<Mutation> = .just(.setLoading(false))

@@ -127,14 +127,9 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
             .disposed(by: self.disposeBag)
         
         languageButton.rx.tap
-            .flatMap { [weak self] _ -> Observable<Language> in
+            .flatMap { [weak self] _ -> Observable<GithubLanguage> in
                 guard let self = self else { return .empty() }
-                let languageReactor = LanguagesViewReactor(languagesService: LanguagesService(),
-                                                           userDefaultsService: UserDefaultsService(),
-                                                           realmService: RealmService())
-                let languageVC = LanguagesViewController(reactor: languageReactor)
-                self.present(languageVC.navigationWrap(), animated: true, completion: nil)
-                return languageVC.selectedLanguage
+				return self.presentLanguage()
         }.subscribe(onNext: { language in
             // let languageName = language.type != .all ? language.name : nil
             reactor.action.onNext(.selectLanguage(language))
@@ -254,4 +249,14 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
         headerView.setNeedsLayout()
         headerView.layoutIfNeeded()
     }
+	
+	// MARK: - Route
+	private func presentLanguage() -> Observable<GithubLanguage> {
+		let languageReactor = LanguageListViewReactor(languagesService: LanguagesService(),
+												   userDefaultsService: UserDefaultsService(),
+												   realmService: RealmService())
+		let languageVC = LanguageListViewController(reactor: languageReactor)
+		self.present(languageVC.navigationWrap(), animated: true, completion: nil)
+		return languageVC.selectedLanguage
+	}
 }

@@ -14,13 +14,13 @@ class LanguageCellReactor: Reactor {
 	typealias Action = NoAction
 	
 	struct State {
-		var language: Language
+		var language: GithubLanguage
 		var isFavorite: Bool
 	}
 	
 	let initialState: State
 	
-	init(language: Language, isFavorite: Bool) {
+	init(language: GithubLanguage, isFavorite: Bool) {
 		self.initialState = State(language: language, isFavorite: isFavorite)
 	}
 }

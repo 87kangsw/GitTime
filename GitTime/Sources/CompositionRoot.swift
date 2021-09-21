@@ -46,6 +46,8 @@ final class CompositionRoot {
 		let crawlerService = GitTimeCrawlerService(networking: GitTimeProvider<GitTimeCrawlerAPI>())
 		// let searchService = SearchService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
 		let realmService = RealmService()
+		realmService.migration()
+		
 		let languageService = LanguagesService()
 		let gitHubService = GitHubService(networking: GitTimeProvider<GitHubAPI>(plugins: [AuthPlugin(keychainService: keychainService)]))
 		let userDefaultService = UserDefaultsService()
@@ -242,7 +244,7 @@ extension CompositionRoot {
 		controller.title = "Buddys"
 		controller.tabBarItem.title = "Buddys"
 		controller.tabBarItem.image = UIImage.assetImage(name: TabBarImages.follow)
-		controller.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.followFilled)
+		controller.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.followFilled)         
 		return controller
 	}
 	
@@ -252,12 +254,12 @@ extension CompositionRoot {
 										userDefaultService: UserDefaultsServiceType,
 										realmService: RealmServiceType) -> TrendViewController {
 		
-		var presentLanguageScreen: () -> LanguagesViewController
+		var presentLanguageScreen: () -> LanguageListViewController
 		presentLanguageScreen = {
-			let reactor = LanguagesViewReactor(languagesService: languagesService,
+			let reactor = LanguageListViewReactor(languagesService: languagesService,
 											   userDefaultsService: userDefaultService,
 											   realmService: realmService)
-			return LanguagesViewController(reactor: reactor)
+			return LanguageListViewController(reactor: reactor)
 		}
 		
 		var presentFavoriteScreen: () -> FavoriteLanguageViewController

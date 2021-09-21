@@ -8,6 +8,7 @@
 
 import RealmSwift
 import RxSwift
+import SwiftUI
 
 
 protocol RealmServiceType {
@@ -17,7 +18,7 @@ protocol RealmServiceType {
     func removeSearchText(text: String)
     
     // Favorite Language
-    func addFavoriteLanguage(_ language: Language)
+    func addFavoriteLanguage(_ language: GithubLanguage)
     func removeFavoriteLanguage(_ language: FavoriteLanguage)
     func loadFavoriteLanguages() -> Observable<[FavoriteLanguage]>
 	
@@ -29,6 +30,34 @@ protocol RealmServiceType {
 }
 
 class RealmService: RealmServiceType {
+	
+	var disposeBag = DisposeBag()
+	
+	static let schemaVersion: UInt64 = 1
+	
+	init() {
+		migration()
+	}
+	
+	func migration() {
+		let config = Realm.Configuration(schemaVersion: RealmService.schemaVersion, migrationBlock: { migration, oldSchemaVersion in
+			if oldSchemaVersion < RealmService.schemaVersion {
+				
+				let languageService = LanguagesService()
+				languageService.getLanguageList()
+					.subscribe(onNext: { languages in
+						migration.enumerateObjects(ofType: FavoriteLanguage.className()) { oldObject, newObject in
+							if let filterLanguage = languages.first(where: { $0.name == oldObject!["name"] as? String}) {
+								newObject!["color"] = filterLanguage.color
+							}
+						}
+					})
+					.disposed(by: self.disposeBag)
+			}
+		})
+
+		Realm.Configuration.defaultConfiguration = config
+	}
 	
     // MARK: - Search History
     func addSearchText(text: String) {
@@ -76,16 +105,14 @@ class RealmService: RealmServiceType {
     }
     
     // MARK: Favorite Lanuages
-    func addFavoriteLanguage(_ language: Language) {
+    func addFavoriteLanguage(_ language: GithubLanguage) {
         do {
             let realm = try Realm(configuration: Realm.Configuration.defaultConfiguration)
             try realm.write {
                 realm.create(FavoriteLanguage.self,
                              value: [
-                                "id": language.id,
                                 "name": language.name,
-                                "color": language.color,
-                                "type": language.type.rawValue
+                                "color": language.color
                 ], update: Realm.UpdatePolicy.all)
             }
         } catch {
@@ -96,7 +123,7 @@ class RealmService: RealmServiceType {
     func removeFavoriteLanguage(_ language: FavoriteLanguage) {
         do {
             let realm = try Realm(configuration: Realm.Configuration.defaultConfiguration)
-            let predicate = NSPredicate(format: "id == %d", language.id)
+            let predicate = NSPredicate(format: "name == %@", language.name)
             let results = realm.objects(FavoriteLanguage.self).filter(predicate)
             
             try realm.write {

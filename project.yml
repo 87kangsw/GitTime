@@ -27,8 +27,11 @@ targets:
       - path: 'GitTime/Resources'
         type: group
     postCompileScripts:
-      - script: '${PODS_ROOT}/SwiftLint/swiftlint'
+      - path: BuildScripts/SwiftLint.sh
         name: Swiftlint
+    postBuildScripts:
+      - path: BuildScripts/FirebaseCrashlytics.sh
+        name: Firebase Crashlytics
     settings:
       INFOPLIST_FILE: GitTime/Supporting Files/Info.plist
       DEVELOPMENT_TEAM: R46Q3HW9V3
