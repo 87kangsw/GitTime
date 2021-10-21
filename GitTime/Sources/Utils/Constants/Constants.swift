@@ -37,6 +37,9 @@ struct Constants {
 		// AppReview
 		case processCompletedCountKey
 		case lastVersionPromptedForReviewKey
+		
+		// Background Refresh
+		case didEnterBackground
 	}
 	
 	enum URLs {
@@ -50,4 +53,8 @@ struct Constants {
 	enum Schemes {
 		static let twitter = "twitter://user?screen_name=87kangsw"
 	}
+}
+
+extension Notification.Name {
+	static let backgroundRefresh = Notification.Name("backgroundRefresh")
 }

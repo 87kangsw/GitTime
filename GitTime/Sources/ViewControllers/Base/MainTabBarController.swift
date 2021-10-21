@@ -45,7 +45,7 @@ final class MainTabBarController: UITabBarController, ReactorKit.View {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        addNotifications()
     }
     
     // MARK: - Layout Constraints
@@ -86,4 +86,17 @@ final class MainTabBarController: UITabBarController, ReactorKit.View {
 		scrollView.scrollToTop(true)
 //		scrollView.setContentOffset(.zero, animated: true)
     }
+	
+	// MARK: Notification
+	
+	func addNotifications() {
+		NotificationCenter.default.addObserver(self,
+											   selector: #selector(backgroundRefresh),
+											   name: .backgroundRefresh,
+											   object: nil)
+	}
+	
+	@objc func backgroundRefresh() {
+		self.selectedIndex = 0
+	}
 }
