@@ -59,6 +59,8 @@ final class CompositionRoot {
 			UserDefaultsConfig.firstLaunch = false
 		}
 		
+		UserDefaultsConfig.didEnterBackgroundTime = nil
+		
 		var goToMainScreen: (() -> Void)!
 		var goToLoginScreen: (() -> Void)!
 		

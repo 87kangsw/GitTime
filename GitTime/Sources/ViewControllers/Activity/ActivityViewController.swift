@@ -97,6 +97,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		self.navigationItem.rightBarButtonItem = rightBarButton
+		addNotifications()
 	}
 	
 	override func addViews() {
@@ -218,6 +219,13 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 			}).disposed(by: self.disposeBag)
 	}
 	
-	// MARK: Go To
+	// MARK: Notifications
+	private func addNotifications() {
+		NotificationCenter.default.rx.notification(.backgroundRefresh)
+			.subscribe(onNext: { [weak self] _ in
+				guard let self = self else { return }
+				self.reactor?.action.onNext(.firstLoad)
+			}).disposed(by: self.disposeBag)
+	}
 	
 }
