@@ -224,6 +224,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 		NotificationCenter.default.rx.notification(.backgroundRefresh)
 			.subscribe(onNext: { [weak self] _ in
 				guard let self = self else { return }
+				self.tableView.scrollToTop(false)
 				self.reactor?.action.onNext(.firstLoad)
 			}).disposed(by: self.disposeBag)
 	}

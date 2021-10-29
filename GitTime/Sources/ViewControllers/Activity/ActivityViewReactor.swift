@@ -132,8 +132,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 	}
 	
 	private func clearPaging() -> Observable<Mutation> {
-		let clearData: Observable<Mutation> = .just(.fetchActivity([], nextPage: 1, canLoadMore: true))
-		return .concat([clearData])
+		return .concat([.just(.setPage(1)), .just(.setLoadMore(true))])
 	}
 	
 	private func activitiesToSectionItem(_ activities: [Event]) -> [ActivitySectionItem] {
