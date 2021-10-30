@@ -21,4 +21,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		return true
 	}
 	
+	func applicationDidEnterBackground(_ application: UIApplication) {
+		UserDefaultsConfig.didEnterBackgroundTime = Date()
+	}
+	
+	func applicationWillEnterForeground(_ application: UIApplication) {
+		if let didEnterBackgroundTime = UserDefaultsConfig.didEnterBackgroundTime {
+			if didEnterBackgroundTime.anHourAfater() == true {
+				NotificationCenter.default.post(name: .backgroundRefresh, object: nil)
+			}
+		}
+		
+		UserDefaultsConfig.didEnterBackgroundTime = nil
+	}
 }

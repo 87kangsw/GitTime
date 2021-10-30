@@ -117,6 +117,7 @@ class TrendViewController: BaseViewController, ReactorKit.View {
     override func viewDidLoad() {
         super.viewDidLoad()
 		self.navigationItem.rightBarButtonItem = favoriteBarButton
+		addNotifications()
     }
     
 	override func addViews() {
@@ -245,6 +246,16 @@ class TrendViewController: BaseViewController, ReactorKit.View {
 			}).disposed(by: self.disposeBag)
 	}
     
+	// MARK: Notifications
+	private func addNotifications() {
+		NotificationCenter.default.rx.notification(.backgroundRefresh)
+			.subscribe(onNext: { [weak self] _ in
+				guard let self = self else { return }
+				self.tableView.scrollToTop(false)
+				self.reactor?.action.onNext(.refresh)
+			}).disposed(by: self.disposeBag)
+	}
+	
     // MARK: - Route
     private func presentFavorite() -> Observable<GithubLanguage> {
 		let controller = self.presentFavoriteScreen()

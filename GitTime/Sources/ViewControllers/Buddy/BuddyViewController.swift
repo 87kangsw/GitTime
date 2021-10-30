@@ -104,6 +104,7 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 		self.title = "Buddys"
 		self.navigationItem.leftBarButtonItem = editButton
 		self.navigationItem.rightBarButtonItems = [addBuddyButtonItem, modeButtonItem]
+		addNotifications()
     }
     
     override func addViews() {
@@ -267,6 +268,16 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 		}, canEditRowAtIndexPath: { (dataSource, indexPath) -> Bool in
 			return true
 		})
+	}
+	
+	// MARK: Notifications
+	private func addNotifications() {
+		NotificationCenter.default.rx.notification(.backgroundRefresh)
+			.subscribe(onNext: { [weak self] _ in
+				guard let self = self else { return }
+				self.tableView.scrollToTop(false)
+				self.reactor?.action.onNext(.firstLoad)
+			}).disposed(by: self.disposeBag)
 	}
 	
 	// MARK: Route
