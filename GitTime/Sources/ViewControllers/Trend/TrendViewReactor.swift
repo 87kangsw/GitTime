@@ -294,14 +294,14 @@ final class TrendViewReactor: Reactor {
 													 currentPeriodStars: 0,
 													 contributors: [])
                 
-                /// Repository Info
-                let repositoryInfo = item.xpath(".//h1[@class='h3 lh-condensed']/a")//[index]
-                let description = item.xpath(".//p[@class='col-9 color-text-secondary my-1 pr-4']")//[index]
+                // Repository Info
+				let repositoryInfo = item.xpath(".//h1[@class='h3 lh-condensed']/a")
+                let description = item.xpath(".//p[@class='col-9 color-fg-muted my-1 pr-4']")
                 let languageColor = item.xpath(".//span[@class='d-inline-block ml-0 mr-3']/span[1]")
                 let language = item.xpath(".//span[@class='d-inline-block ml-0 mr-3']/span[2]")
-                let star = item.xpath(".//div[@class='f6 color-text-secondary mt-2']/a[1]")//[index]
-                let fork = item.xpath(".//div[@class='f6 color-text-secondary mt-2']/a[2]")//[index]
-                let todayStar = item.xpath(".//div[@class='f6 color-text-secondary mt-2']/span[@class='d-inline-block float-sm-right']")//[index]
+                let star = item.xpath(".//div[@class='f6 color-fg-muted mt-2']/a[1]")
+                let fork = item.xpath(".//div[@class='f6 color-fg-muted mt-2']/a[2]")
+                let todayStar = item.xpath(".//div[@class='f6 color-fg-muted mt-2']/span[@class='d-inline-block float-sm-right']")
 				// let contributors = item.xpath(".//div[@class='f6 text-gray mt-2']/span[@class='d-inline-block mr-3']")
 				
                 // repository Info
@@ -355,9 +355,15 @@ final class TrendViewReactor: Reactor {
 				/*
 				/html/body[@class='logged-in env-production page-responsive']/div[@class='application-main ']/main/div[@class='position-relative container-lg p-responsive pt-6']/div[@class='Box']/div[2]/article[@class='Box-row'][1]/div[@class='f6 color-text-secondary mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][1]/img[@class='avatar mb-1 avatar-user']/@src
 				*/
+				
+				/*
+				 /html/body[@class='logged-in env-production page-responsive issue-closed-done']/div[@class='application-main ']/main[@id='js-pjax-container']/div[@class='position-relative container-lg p-responsive pt-6']/div[@class='Box']/div[2]/article[@class='Box-row'][2]/div[@class='f6 color-fg-muted mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][1]/img[@class='avatar mb-1 avatar-user']/@src
+				 */
+				
+				
 				for i in 1...5 {
-					if let profile = item.xpath(".//div[@class='f6 color-text-secondary mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][\(i)]/img[@class='avatar mb-1 avatar-user']/@src").first?.text?.striped,
-					   let name = item.xpath(".//div[@class='f6 color-text-secondary mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][\(i)]/@href").first?.text?.striped {
+					if let profile = item.xpath(".//div[@class='f6 color-fg-muted mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][\(i)]/img[@class='avatar mb-1 avatar-user']/@src").first?.text?.striped,
+					   let name = item.xpath(".//div[@class='f6 color-fg-muted mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][\(i)]/@href").first?.text?.striped {
 						let contributorModel = TrendRepoContributor(name: String(name.dropFirst()),
 																	profileURL: profile)
 						trendRepo.contributors.append(contributorModel)
