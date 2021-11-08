@@ -204,8 +204,13 @@ class SettingViewController: BaseViewController, ReactorKit.View {
 	}
 	
 	private func goToRecommendApp() {
-		let url = URL(string: Constants.URLs.appStoreURL)
+		guard let url = URL(string: Constants.URLs.appStoreURL) else { return }
 		let activityController = UIActivityViewController(activityItems: [url], applicationActivities: nil)
+		if UIDevice.isPad == true {
+			guard let cell = tableView.cellForRow(at: IndexPath(row: 2, section: 1)) else { return }
+			activityController.popoverPresentationController?.sourceView = self.tableView
+			activityController.popoverPresentationController?.sourceRect = cell.frame
+		}
 		self.present(activityController, animated: true, completion: nil)
 	}
 	

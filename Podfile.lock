@@ -1,5 +1,5 @@
 PODS:
-  - AcknowList (2.0.2)
+  - AcknowList (2.0.3)
   - Alamofire (5.4.4)
   - Bagel (1.4.0):
     - CocoaAsyncSocket
@@ -279,7 +279,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/devxoul/Toaster.git
 
 SPEC CHECKSUMS:
-  AcknowList: 209323b0f72625a61e1325f4e67a39015b62d48b
+  AcknowList: 6d4faca4c3e0173377fe5649e086d627cd60b003
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   Bagel: c3fa6bcbd52db9ca976edbafd7638f0553ded101
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
@@ -332,4 +332,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: ecfb47752adb4f2669fe0fbed01e71aadb792c5e
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.11.2
