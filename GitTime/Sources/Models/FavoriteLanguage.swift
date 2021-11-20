@@ -12,6 +12,10 @@ import RealmSwift
 class FavoriteLanguage: Object {
     @objc dynamic var name: String = ""
     @objc dynamic var color: String = ""
+	
+	override class func primaryKey() -> String? {
+		return "name"
+	}
 }
 
 extension FavoriteLanguage {
