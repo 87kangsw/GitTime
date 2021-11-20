@@ -284,7 +284,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 			/html/body[@class='logged-in env-production page-responsive page-profile']/div[@class='application-main ']/main[@id='js-pjax-container']/div[@class='container-xl px-3 px-md-4 px-lg-5']/div[@class='gutter-condensed gutter-lg flex-column flex-md-row d-flex']/div[@class='flex-shrink-0 col-12 col-md-3 mb-4 mb-md-0']/div[@class='h-card mt-md-n5']/div[@class='clearfix d-flex d-md-block flex-items-center mb-4 mb-md-0']/div[@class='position-relative d-inline-block col-2 col-md-12 mr-3 mr-md-0 flex-shrink-0']/a/img[@class='avatar avatar-user width-full border color-bg-primary']/@src
 			*/
 			for link in doc.css("img") {
-				if let imgClass = link["class"], imgClass == "avatar avatar-user width-full border color-bg-primary" {
+				if let imgClass = link["class"], imgClass == "avatar avatar-user width-full border color-bg-default" {
 					profileURL = link["src"] ?? ""
 				}
 			}
