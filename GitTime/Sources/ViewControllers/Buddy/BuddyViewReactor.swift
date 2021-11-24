@@ -283,14 +283,12 @@ final class BuddyViewReactor: Reactor {
 				}
 			}
 			
-			//
 			for link in doc.css("img") {
-				if let imgClass = link["class"], imgClass == "avatar avatar-user width-full border color-bg-primary" {
+				if let imgClass = link["class"], imgClass == "avatar avatar-user width-full border color-bg-default" {
 					profileURL = link["src"] ?? ""
 				}
 			}
 			
-			//
 			for span in doc.css("span") {
 				if let itemProp = span["itemprop"], itemProp.isNotEmpty {
 					if itemProp == "name" {
