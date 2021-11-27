@@ -32,7 +32,7 @@ class RealmService: RealmServiceType {
 	
 	var disposeBag = DisposeBag()
 	
-	static let schemaVersion: UInt64 = 1
+	static let schemaVersion: UInt64 = 2
 	
 	init() {
 		migration()
