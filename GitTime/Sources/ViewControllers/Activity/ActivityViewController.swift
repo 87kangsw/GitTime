@@ -46,7 +46,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 		$0.frame = .zero
 	}
 	private let refreshControl = UIRefreshControl()
-	private let profileButton = UIButton().then {
+	private let profileButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30)).then {
 		$0.setImage(UIImage(systemName: "person.circle"), for: .normal)
 		$0.layer.cornerRadius = 30.0 / 2
 		$0.layer.masksToBounds = true
@@ -190,6 +190,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 			.subscribe(onNext: { [weak self] profileURL in
 				guard let self = self, let url = URL(string: profileURL) else { return }
 				self.profileButton.kf.setImage(with: url, for: .normal)
+				self.profileButton.layoutIfNeeded()
 			}).disposed(by: self.disposeBag)
 
 		// View
