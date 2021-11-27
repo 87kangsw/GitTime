@@ -105,7 +105,7 @@ final class ContributorsViewController: BaseViewController, ReactorKit.View {
     }
 	
 	private func dataSource() -> RxTableViewSectionedReloadDataSource<ContributorSection> {
-		return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+		return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
 			switch sectionItem {
 			case .contributor(let cellReactor):
 				let cell = tableView.dequeue(Reusable.contributorCell, for: indexPath)

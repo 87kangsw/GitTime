@@ -55,9 +55,11 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 	fileprivate let userService: UserServiceType
 	fileprivate let crawlerService: GitTimeCrawlerServiceType
 	
-	init(activityService: ActivityServiceType,
-		 userService: UserServiceType,
-		 crawlerService: GitTimeCrawlerServiceType) {
+	init(
+		activityService: ActivityServiceType,
+		userService: UserServiceType,
+		crawlerService: GitTimeCrawlerServiceType
+	) {
 		self.activityService = activityService
 		self.userService = userService
 		self.crawlerService = crawlerService
@@ -184,7 +186,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 				let contributionInfo = self.parseContribution(response: response)
 				return .setContributionInfo(contributionInfo)
 			}
-			.catchError { error -> Observable<ActivityViewReactor.Mutation> in
+			.catch { error -> Observable<ActivityViewReactor.Mutation> in
 				log.error(error.localizedDescription)
 				return self.crawlerService.fetchContributions(userName: me.name)
 					.map { contributionInfo -> Mutation in
@@ -215,7 +217,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 				let newPage = events.count < ActivityViewReactor.PER_PAGE ? currentPage : currentPage + 1
 				let canLoadMore = events.count == ActivityViewReactor.PER_PAGE
 				return .fetchActivity(events, nextPage: newPage, canLoadMore: canLoadMore)
-			}.catchErrorJustReturn(.fetchActivity([], nextPage: currentPage, canLoadMore: false))
+			}.catchAndReturn(.fetchActivity([], nextPage: currentPage, canLoadMore: false))
 	}
 	
 	private func requestMoreActivities(page: Int? = 1) -> Observable<Mutation> {
@@ -231,7 +233,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 				let newPage = events.count < ActivityViewReactor.PER_PAGE ? currentPage : currentPage + 1
 				let canLoadMore = events.count == ActivityViewReactor.PER_PAGE
 				return .fetchActivityMore(events, nextPage: newPage, canLoadMore: canLoadMore)
-			}.catchErrorJustReturn(.fetchActivityMore([], nextPage: currentPage, canLoadMore: false))
+			}.catchAndReturn(.fetchActivityMore([], nextPage: currentPage, canLoadMore: false))
 	}
 	
 	private func requestTrialActivities() -> Observable<Mutation> {

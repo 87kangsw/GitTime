@@ -64,7 +64,7 @@ class TrendViewController: BaseViewController, ReactorKit.View {
     
     // MARK: - Properties
     static var dataSource: RxTableViewSectionedReloadDataSource<TrendSection> {
-        return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+        return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .trendingRepos(let reactor):
 				let cell = tableView.dequeue(Reusable.trendingRepoCell, for: indexPath)
@@ -100,9 +100,11 @@ class TrendViewController: BaseViewController, ReactorKit.View {
 	private let presentFavoriteScreen: () -> FavoriteLanguageViewController
 	
 	// MARK: - Initializing
-	init(reactor: Reactor,
-		 presentLanguageScreen: @escaping () -> LanguageListViewController,
-		 presentFavoriteScreen: @escaping () -> FavoriteLanguageViewController) {
+	init(
+		reactor: Reactor,
+		presentLanguageScreen: @escaping () -> LanguageListViewController,
+		presentFavoriteScreen: @escaping () -> FavoriteLanguageViewController
+	) {
 		defer { self.reactor = reactor }		
 		self.presentLanguageScreen = presentLanguageScreen
 		self.presentFavoriteScreen = presentFavoriteScreen

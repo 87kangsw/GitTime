@@ -13,7 +13,7 @@ import Toaster
 class GitTimeProvider<Target: TargetType>: MoyaProvider<Target> {
     
     init(plugins: [PluginType]? = nil) {
-        var finalPlugins: [PluginType] = plugins ?? [PluginType]()
+		let finalPlugins: [PluginType] = plugins ?? [PluginType]()
         // finalPlugins.append(NetworkLoggerPlugin(verbose: true))
         super.init(plugins: finalPlugins)
     }

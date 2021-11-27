@@ -40,24 +40,26 @@ enum RxAlertControllerResult {
 }
 
 extension UIAlertController {
-    static func rx_presentAlert<Action: RxAlertActionType, Result>(viewController: UIViewController,
-                                                                   title: String? = nil,
-                                                                   message: String? = nil,
-                                                                   preferredStyle: UIAlertController.Style = .alert,
-                                                                   animated: Bool = true,
-																   button: Any? = nil,
-                                                                   actions: [Action]) -> Observable<Result> where Action.Result == Result {
-        return Observable.create { observer -> Disposable in
-            let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
-            
-            actions.map { rxAction in
-                UIAlertAction(title: rxAction.title, style: rxAction.style, handler: { _ in
-                    observer.onNext(rxAction.result)
-                    observer.onCompleted()
-                })
-                }
-                .forEach(alertController.addAction)
-            
+	static func rx_presentAlert<Action: RxAlertActionType, Result>(
+		viewController: UIViewController,
+		title: String? = nil,
+		message: String? = nil,
+		preferredStyle: UIAlertController.Style = .alert,
+		animated: Bool = true,
+		button: Any? = nil,
+		actions: [Action]
+	) -> Observable<Result> where Action.Result == Result {
+		return Observable.create { observer -> Disposable in
+			let alertController = UIAlertController(title: title, message: message, preferredStyle: preferredStyle)
+			
+			actions.map { rxAction in
+				UIAlertAction(title: rxAction.title, style: rxAction.style, handler: { _ in
+					observer.onNext(rxAction.result)
+					observer.onCompleted()
+				})
+			}
+			.forEach(alertController.addAction)
+			
 			if UIDevice.isPhone {
 				viewController.present(alertController, animated: animated, completion: nil)
 			} else {

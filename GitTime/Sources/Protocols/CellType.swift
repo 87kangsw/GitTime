@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol CellType: class {
+protocol CellType: AnyObject {
     static var reuseIdentifier: String { get }
     static var cellFromNib: Self { get }
 }

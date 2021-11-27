@@ -58,7 +58,7 @@ final class LoginViewReactor: Reactor {
                 })
                 .flatMap { _ in self.userService.fetchMe() }
                 .map { _ in true }
-                .catchError({ error -> Observable<Bool> in
+				.catch({ error -> Observable<Bool> in
                     log.error(error.localizedDescription)
                     try? self.keychainService.removeAccessToken()
                     return Observable.just(false)

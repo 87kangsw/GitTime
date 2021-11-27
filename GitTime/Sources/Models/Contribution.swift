@@ -96,7 +96,7 @@ extension ContributionInfo: RealmPersistable {
 		let contributionInfo = ContributionInfoObject()
 		contributionInfo.count = self.count
 		contributionInfo.userName = self.userName
-		contributionInfo.additionalName = self.additionalName ?? ""
+		contributionInfo.additionalName = self.additionalName
 //		contributionInfo.contributions = self.contributions.map { $0.managedObject() }
 		contributionInfo.createdAt = Date()
 		return contributionInfo

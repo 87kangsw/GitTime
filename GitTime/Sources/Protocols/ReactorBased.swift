@@ -12,7 +12,7 @@ import ReactorKit
 import RxCocoa
 import RxSwift
 
-protocol ReactorBased: class {
+protocol ReactorBased: AnyObject {
     
 }
 

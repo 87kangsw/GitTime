@@ -121,7 +121,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
             }).disposed(by: self.disposeBag)
         
         tableView.rx.reachedBottom
-            .observeOn(MainScheduler.instance)
+			.observe(on: MainScheduler.instance)
             .map { Reactor.Action.loadMore }
             .bind(to: reactor.action)
             .disposed(by: self.disposeBag)
@@ -198,7 +198,7 @@ class SearchViewController: BaseViewController, StoryboardView, ReactorBased {
     }
     
     fileprivate func dataSource() -> RxTableViewSectionedReloadDataSource<SearchResultsSection> {
-        return .init(configureCell: { [weak self] (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+        return .init(configureCell: { [weak self] (_, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .searchedUser(let reactor):
 				let cell = tableView.dequeue(Reusable.searchUserCell, for: indexPath)
