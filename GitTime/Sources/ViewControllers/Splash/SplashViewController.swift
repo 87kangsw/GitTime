@@ -35,11 +35,13 @@ class SplashViewController: BaseViewController, ReactorKit.View {
     // MARK: - Properties
     var goToLogin: GoToLoginFunction!
     var goToMain: GoToMainFunction!
-    
+	
 	// MARK: - Initializing
-	init(reactor: Reactor,
-		 goToLoginScreen: @escaping () -> Void,
-		 goToMainScreen: @escaping () -> Void) {
+	init(
+		reactor: Reactor,
+		goToLoginScreen: @escaping () -> Void,
+		goToMainScreen: @escaping () -> Void
+	) {
 		defer { self.reactor = reactor }
 		self.goToLogin = goToLoginScreen
 		self.goToMain = goToMainScreen

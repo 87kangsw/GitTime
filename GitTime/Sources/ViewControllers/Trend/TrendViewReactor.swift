@@ -352,15 +352,6 @@ final class TrendViewReactor: Reactor {
                 }
                 
 				// Contributors
-				/*
-				/html/body[@class='logged-in env-production page-responsive']/div[@class='application-main ']/main/div[@class='position-relative container-lg p-responsive pt-6']/div[@class='Box']/div[2]/article[@class='Box-row'][1]/div[@class='f6 color-text-secondary mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][1]/img[@class='avatar mb-1 avatar-user']/@src
-				*/
-				
-				/*
-				 /html/body[@class='logged-in env-production page-responsive issue-closed-done']/div[@class='application-main ']/main[@id='js-pjax-container']/div[@class='position-relative container-lg p-responsive pt-6']/div[@class='Box']/div[2]/article[@class='Box-row'][2]/div[@class='f6 color-fg-muted mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][1]/img[@class='avatar mb-1 avatar-user']/@src
-				 */
-				
-				
 				for i in 1...5 {
 					if let profile = item.xpath(".//div[@class='f6 color-fg-muted mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][\(i)]/img[@class='avatar mb-1 avatar-user']/@src").first?.text?.striped,
 					   let name = item.xpath(".//div[@class='f6 color-fg-muted mt-2']/span[@class='d-inline-block mr-3']/a[@class='d-inline-block'][\(i)]/@href").first?.text?.striped {

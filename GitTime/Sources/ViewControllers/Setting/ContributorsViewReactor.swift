@@ -75,6 +75,6 @@ final class ContributorsViewReactor: Reactor {
 		self.gitHubService.contributors()
 			.map { users -> Mutation in
 				return .setContributors(users)
-			}.catchErrorJustReturn(.setContributors([]))
+			}.catchAndReturn(.setContributors([]))
 	}
 }

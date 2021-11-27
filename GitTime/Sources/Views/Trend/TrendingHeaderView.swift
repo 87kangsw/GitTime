@@ -19,7 +19,7 @@ final class TrendingHeaderView: BaseView, ReactorKit.View {
     typealias Reactor = TrendingHeaderViewReactor
     
     // MARK: UI Views
-	let segmentControl = UISegmentedControl(items: TrendTypes.allCases.map { $0.segmentTitle} ).then {
+	let segmentControl = UISegmentedControl(items: TrendTypes.allCases.map({ $0.segmentTitle })).then {
 		$0.translatesAutoresizingMaskIntoConstraints = false
 		$0.selectedSegmentIndex = 0
 	}

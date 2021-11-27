@@ -57,7 +57,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 	
 	// MARK: - Properties
 	static var dataSource: RxTableViewSectionedReloadDataSource<ActivitySection> {
-		return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+		return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
 			switch sectionItem {
 			case .createEvent(let reactor),
 				 .forkEvent(let reactor),
@@ -145,7 +145,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 			.disposed(by: self.disposeBag)
 		
 		tableView.rx.reachedBottom
-			.observeOn(MainScheduler.instance)
+			.observe(on: MainScheduler.instance)
 			.map { Reactor.Action.loadMoreActivities }
 			.bind(to: reactor.action)
 			.disposed(by: self.disposeBag)

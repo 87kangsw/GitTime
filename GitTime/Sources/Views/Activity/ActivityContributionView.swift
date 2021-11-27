@@ -52,7 +52,7 @@ class ActivityContributionView: UIView, View {
     // MARK: - Properties
     var disposeBag = DisposeBag()
     static var dataSource: RxCollectionViewSectionedReloadDataSource<ContributionSection> {
-        return .init(configureCell: { (datasource, collectionView, indexPath, sectionItem) -> UICollectionViewCell in
+        return .init(configureCell: { (_, collectionView, indexPath, sectionItem) -> UICollectionViewCell in
             switch sectionItem {
             case .contribution(let reactor):
 //                let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ContributionCell.self)

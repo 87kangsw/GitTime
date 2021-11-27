@@ -92,10 +92,12 @@ final class BuddyViewReactor: Reactor {
 	let initialState: State
 	
 	// MARK: Initializing
-	init(crawlerService: GitTimeCrawlerServiceType,
-		 realmService: RealmServiceType,
-		 userDefaultService: UserDefaultsServiceType,
-		 githubService: GitHubServiceType) {
+	init(
+		crawlerService: GitTimeCrawlerServiceType,
+		realmService: RealmServiceType,
+		userDefaultService: UserDefaultsServiceType,
+		githubService: GitHubServiceType
+	) {
 		self.crawlerService = crawlerService
 		self.realmService = realmService
 		self.userDefaultService = userDefaultService
@@ -209,7 +211,7 @@ final class BuddyViewReactor: Reactor {
 			.map { buddys -> Mutation in
 				return .setBuddys(buddys)
 			}
-			.catchErrorJustReturn(.setBuddys([]))
+			.catchAndReturn(.setBuddys([]))
 	}
 	
 	private func checkIfExist(userName: String) -> Observable<Mutation> {
@@ -239,7 +241,7 @@ final class BuddyViewReactor: Reactor {
 						.addBuddy(buddy)
 					}
 			}
-			.catchError { error -> Observable<Mutation> in
+			.catch { error -> Observable<Mutation> in
 				log.error(error.localizedDescription)
 				return .empty()
 			}
@@ -313,7 +315,7 @@ final class BuddyViewReactor: Reactor {
 				guard let self = self else { return .empty() }
 				return self.checkIfExist(userName: userName)
 			}
-			.catchErrorJustReturn(.setToastMessage("User does not exist. Please check User's ID."))
+			.catchAndReturn(.setToastMessage("User does not exist. Please check User's ID."))
 	}
 	
 	/**

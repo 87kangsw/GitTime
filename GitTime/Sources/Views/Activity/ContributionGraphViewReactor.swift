@@ -18,7 +18,7 @@ class ContributionGraphViewReactor: Reactor {
 		var contributions: [ContributionObject]
 		var sections: [ContributionSection] {
 			let items = contributions.map { contributionObject -> ContributionSectionItem in
-				var contribution = Contribution(managedObject: contributionObject)
+				let contribution = Contribution(managedObject: contributionObject)
 				let reactor = ContributionCellReactor(contribution: contribution)
 				return ContributionSectionItem.contribution(reactor)
 			}
@@ -34,4 +34,3 @@ class ContributionGraphViewReactor: Reactor {
 	}
     
 }
-

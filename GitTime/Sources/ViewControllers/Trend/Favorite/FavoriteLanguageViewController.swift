@@ -125,7 +125,7 @@ class FavoriteLanguageViewController: BaseViewController, ReactorKit.View {
     }
     
     private func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<FavoriteLanguageSection> {
-        return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+        return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
             switch sectionItem {
             case .favorite(let cellReactor):
 				let cell = tableView.dequeue(Reusable.favoriteLanguageCell, for: indexPath)

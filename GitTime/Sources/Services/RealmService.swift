@@ -10,7 +10,6 @@ import RealmSwift
 import RxSwift
 import SwiftUI
 
-
 protocol RealmServiceType {
     // Search History
     func addSearchText(text: String)

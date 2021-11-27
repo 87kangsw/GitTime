@@ -88,6 +88,6 @@ class FavoriteLanguageViewReactor: Reactor {
         self.realmService.loadFavoriteLanguages()
             .map { list -> Mutation in
                 return .setFavoriteLanguaes(list)
-        }.catchErrorJustReturn(.setFavoriteLanguaes([]))
+        }.catchAndReturn(.setFavoriteLanguaes([]))
     }
 }

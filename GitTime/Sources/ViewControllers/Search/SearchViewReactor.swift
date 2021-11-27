@@ -215,7 +215,7 @@ class SearchViewReactor: Reactor {
             .map { (lists, canLoadMore) -> Mutation in
                 let newPage = !canLoadMore ? currentPage : currentPage + 1
                 return .setSearchUsers(lists, nextPage: newPage, canLoadMore: canLoadMore)
-            }.catchErrorJustReturn(.setSearchUsers([], nextPage: currentPage, canLoadMore: false))
+            }.catchAndReturn(.setSearchUsers([], nextPage: currentPage, canLoadMore: false))
     }
 
     private func searchRepositoriesMutation(query: String, language: GithubLanguage? = nil) -> Observable<Mutation> {
@@ -226,7 +226,7 @@ class SearchViewReactor: Reactor {
             .map { (lists, canLoadMore) -> Mutation in
                 let newPage = !canLoadMore ? currentPage : currentPage + 1
                 return .setSearchRepos(lists, nextPage: newPage, canLoadMore: canLoadMore)
-        }.catchErrorJustReturn(.setSearchRepos([], nextPage: currentPage, canLoadMore: false))
+        }.catchAndReturn(.setSearchRepos([], nextPage: currentPage, canLoadMore: false))
     }
     
     private func clearPaging() -> Observable<Mutation> {
@@ -251,13 +251,13 @@ class SearchViewReactor: Reactor {
                 .map { (lists, canLoadMore) -> Mutation in
                     let newPage = !canLoadMore ? currentPage : currentPage + 1
                     return .setMoreSearchUsers(lists, nextPage: newPage, canLoadMore: canLoadMore)
-                }.catchErrorJustReturn(.setMoreSearchUsers([], nextPage: currentPage, canLoadMore: false))
+                }.catchAndReturn(.setMoreSearchUsers([], nextPage: currentPage, canLoadMore: false))
         case .repositories:
             return self.searchService.searchRepo(query: query, page: currentPage, language: language?.name)
                 .map { (lists, canLoadMore) -> Mutation in
                     let newPage = !canLoadMore ? currentPage : currentPage + 1
                     return .setMoreSearchRepos(lists, nextPage: newPage, canLoadMore: canLoadMore)
-                }.catchErrorJustReturn(.setMoreSearchRepos([], nextPage: currentPage, canLoadMore: false))
+                }.catchAndReturn(.setMoreSearchRepos([], nextPage: currentPage, canLoadMore: false))
         }
     }
     

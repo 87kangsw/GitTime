@@ -79,7 +79,7 @@ final class AppIconsViewController: BaseViewController, ReactorKit.View {
     }
 	
 	private func dataSource() -> RxTableViewSectionedReloadDataSource<AppIconSection> {
-		return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+		return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
 			switch sectionItem {
 			case .appIcon(let cellReactor):
 				let cell = tableView.dequeue(Reusable.appIconCell, for: indexPath)

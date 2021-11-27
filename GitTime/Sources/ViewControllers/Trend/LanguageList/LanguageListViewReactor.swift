@@ -70,11 +70,12 @@ final class LanguageListViewReactor: Reactor {
 	private let userDefaultsService: UserDefaultsServiceType
 	private let realmService: RealmServiceType
 	
-    // MARK: Initializing
-	init(languagesService: LanguagesServiceType,
-		 userDefaultsService: UserDefaultsServiceType,
-		 realmService: RealmServiceType) {
-		
+	// MARK: Initializing
+	init(
+		languagesService: LanguagesServiceType,
+		userDefaultsService: UserDefaultsServiceType,
+		realmService: RealmServiceType
+	) {
 		self.languagesService = languagesService
 		self.userDefaultsService = userDefaultsService
 		self.realmService = realmService
@@ -168,23 +169,23 @@ final class LanguageListViewReactor: Reactor {
 	
 	private func searchMutation(_ query: String) -> Observable<Mutation> {
 		return self.languagesService.searchLanguage(searchText: query)
-			.takeUntil(self.action.filter(isUpdateQueryAction))
+			.take(until: self.action.filter(isUpdateQueryAction))
 			.map { result -> Mutation in
 				return .setLanguage(result)
-			}.catchErrorJustReturn(.setLanguage([]))
+			}.catchAndReturn(.setLanguage([]))
 	}
 	
 	private func fetchFavoriteLanguages() -> Observable<Mutation> {
 		self.realmService.loadFavoriteLanguages()
 			.map { list -> Mutation in
 				return .setFavoriteLanguaes(list)
-		}.catchErrorJustReturn(.setFavoriteLanguaes([]))
+		}.catchAndReturn(.setFavoriteLanguaes([]))
 	}
 	
 	private func languageList() -> Observable<Mutation> {
 		return self.languagesService.getLanguageList()
 			.map { list -> Mutation in
 				return .setLanguage(list)
-			}.catchErrorJustReturn(.setLanguage([]))
+			}.catchAndReturn(.setLanguage([]))
 	}
 }

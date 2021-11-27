@@ -153,7 +153,7 @@ final class FollowViewReactor: Reactor {
                     let newPage = users.count < FollowViewReactor.PER_PAGE ? currentPage : currentPage + 1
                     let canLoadMore = users.count == FollowViewReactor.PER_PAGE
                     return .fetchFollow(users, nextPage: newPage, canLoadMore: canLoadMore)
-                }.catchErrorJustReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
+                }.catchAndReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
             return .concat([startLoading, fetchFollowers, endLoading])
             
         case .following:
@@ -163,7 +163,7 @@ final class FollowViewReactor: Reactor {
                     let newPage = users.count < FollowViewReactor.PER_PAGE ? currentPage : currentPage + 1
                     let canLoadMore = users.count == FollowViewReactor.PER_PAGE
                     return .fetchFollow(users, nextPage: newPage, canLoadMore: canLoadMore)
-                }.catchErrorJustReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
+                }.catchAndReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
             return .concat([startLoading, fetchFollowing, endLoading])
         }
     }
@@ -189,7 +189,7 @@ final class FollowViewReactor: Reactor {
                     let newPage = users.count < FollowViewReactor.PER_PAGE ? currentPage : currentPage + 1
                     let canLoadMore = users.count == FollowViewReactor.PER_PAGE
                     return .fetchMoreFollow(users, nextPage: newPage, canLoadMore: canLoadMore)
-                }.catchErrorJustReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
+                }.catchAndReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
             return .concat([startLoading, fetchFollowers, endLoading])
             
         case .following:
@@ -199,7 +199,7 @@ final class FollowViewReactor: Reactor {
                     let newPage = users.count < FollowViewReactor.PER_PAGE ? currentPage : currentPage + 1
                     let canLoadMore = users.count == FollowViewReactor.PER_PAGE
                     return .fetchMoreFollow(users, nextPage: newPage, canLoadMore: canLoadMore)
-                }.catchErrorJustReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
+                }.catchAndReturn(.fetchFollow([], nextPage: currentPage, canLoadMore: false))
             return .concat([startLoading, fetchFollowing, endLoading])
         }
     }
