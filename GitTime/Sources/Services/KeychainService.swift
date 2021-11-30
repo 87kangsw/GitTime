@@ -12,7 +12,7 @@ enum KeychainKey {
     static let accessToken = "accessToken"
 }
 
-protocol KeychainServiceType: class {
+protocol KeychainServiceType: AnyObject {
     func getAccessToken() -> String?
     func setAccessToken(_ token: String) throws
     func removeAccessToken() throws

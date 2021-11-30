@@ -10,7 +10,6 @@ import RealmSwift
 import RxSwift
 import SwiftUI
 
-
 protocol RealmServiceType {
     // Search History
     func addSearchText(text: String)
@@ -33,7 +32,7 @@ class RealmService: RealmServiceType {
 	
 	var disposeBag = DisposeBag()
 	
-	static let schemaVersion: UInt64 = 1
+	static let schemaVersion: UInt64 = 2
 	
 	init() {
 		migration()

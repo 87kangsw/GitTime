@@ -49,10 +49,12 @@ class SettingViewController: BaseViewController, ReactorKit.View {
 	private let pushContributorsScreen: () -> ContributorsViewController
 	
 	// MARK: - Initializing
-	init(reactor: Reactor,
-		 presentLoginScreen: @escaping () -> Void,
-		 pushAppIconScreen: @escaping () -> AppIconsViewController,
-		 pushContributorsScreen: @escaping () -> ContributorsViewController) {
+	init(
+		reactor: Reactor,
+		presentLoginScreen: @escaping () -> Void,
+		pushAppIconScreen: @escaping () -> AppIconsViewController,
+		pushContributorsScreen: @escaping () -> ContributorsViewController
+	) {
 		defer { self.reactor = reactor }
 		self.presentLoginScreen = presentLoginScreen
 		self.pushAppIconScreen = pushAppIconScreen
@@ -167,7 +169,7 @@ class SettingViewController: BaseViewController, ReactorKit.View {
     }
 	
 	private func dataSource() -> RxTableViewSectionedReloadDataSource<SettingSection> {
-		return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+		return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
 			switch sectionItem {
 			case .appIcon(let reactor),
 				 .appReview(let reactor),

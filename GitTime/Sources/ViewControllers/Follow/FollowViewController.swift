@@ -51,7 +51,7 @@ class FollowViewController: BaseViewController, ReactorKit.View {
 	
 	// MARK: - Properties
 	static var dataSource: RxTableViewSectionedReloadDataSource<FollowSection> {
-		return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+		return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
 			switch sectionItem {
 			case .followUsers(let reactor):
 				let cell = tableView.dequeue(Reusable.followUserCell, for: indexPath)
@@ -156,7 +156,7 @@ class FollowViewController: BaseViewController, ReactorKit.View {
 			.disposed(by: self.disposeBag)
 		
 		tableView.rx.reachedBottom
-			.observeOn(MainScheduler.instance)
+			.observe(on: MainScheduler.instance)
 			.map { Reactor.Action.loadMore }
 			.bind(to: reactor.action)
 			.disposed(by: self.disposeBag)

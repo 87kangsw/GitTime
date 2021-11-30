@@ -110,8 +110,7 @@ final class LanguageListViewController: BaseViewController, ReactorKit.View {
 			}).disposed(by: self.disposeBag)
 		
 		searchController.rx.willDismiss
-			.subscribe(onNext: { [weak self] _ in
-				guard let self = self else { return }
+			.subscribe(onNext: { _ in
 				reactor.action.onNext(.searchActive(false))
 			}).disposed(by: self.disposeBag)
 		
@@ -151,7 +150,7 @@ final class LanguageListViewController: BaseViewController, ReactorKit.View {
     }
 	
 	private func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<LanguageSection> {
-		return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+		return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
 			switch sectionItem {
 			case .allLanguage(let reactor):
 				let cell = tableView.dequeue(Reusable.languageCell, for: indexPath)

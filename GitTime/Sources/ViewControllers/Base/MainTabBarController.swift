@@ -26,13 +26,15 @@ final class MainTabBarController: UITabBarController, ReactorKit.View {
     var disposeBag = DisposeBag()
     
     // MARK: - Initialize
-    
-    init(reactor: MainTabBarReactor,
-		 launchOptions: [UIApplication.LaunchOptionsKey: Any]?) {
-        defer { self.reactor = reactor }
-        super.init(nibName: nil, bundle: nil)
-    }
-    
+	
+	init(
+		reactor: MainTabBarReactor,
+		launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+	) {
+		defer { self.reactor = reactor }
+		super.init(nibName: nil, bundle: nil)
+	}
+	
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

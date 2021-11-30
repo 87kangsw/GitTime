@@ -163,9 +163,11 @@ final class CompositionRoot {
 
 extension CompositionRoot {
 	// MARK: - Activity
-	static func configureActivityScreen(activityService: ActivityServiceType,
-										userService: UserServiceType,
-										crawlerService: GitTimeCrawlerServiceType) -> ActivityViewController {
+	static func configureActivityScreen(
+		activityService: ActivityServiceType,
+		userService: UserServiceType,
+		crawlerService: GitTimeCrawlerServiceType
+	) -> ActivityViewController {
 		let reactor = ActivityViewReactor(activityService: activityService,
 										  userService: userService,
 										  crawlerService: crawlerService)
@@ -189,9 +191,11 @@ extension CompositionRoot {
 	}
 	
 	// MARK: - Setting
-	static func configureSettingScreen(authService: AuthServiceType,
-									   githubService: GitHubServiceType,
-									   presentLoginScreen: @escaping () -> Void) -> SettingViewController {
+	static func configureSettingScreen(
+		authService: AuthServiceType,
+		githubService: GitHubServiceType,
+		presentLoginScreen: @escaping () -> Void
+	) -> SettingViewController {
 		
 		// 앱아이콘 변경
 		var pushAppIconScreen: () -> AppIconsViewController
@@ -222,12 +226,14 @@ extension CompositionRoot {
 	}
 	
 	// MARK: - Buddy
-	static func configureBuddyScreen(crawlerService: GitTimeCrawlerServiceType,
-									 realmService: RealmServiceType,
-									 userDefaultService: UserDefaultsServiceType,
-									 followService: FollowServiceType,
-									 userService: UserServiceType,
-									 githubService: GitHubServiceType) -> BuddyViewController {
+	static func configureBuddyScreen(
+		crawlerService: GitTimeCrawlerServiceType,
+		realmService: RealmServiceType,
+		userDefaultService: UserDefaultsServiceType,
+		followService: FollowServiceType,
+		userService: UserServiceType,
+		githubService: GitHubServiceType
+	) -> BuddyViewController {
 		
 		var presentFollowScreen: () -> FollowViewController
 		presentFollowScreen = {
@@ -246,15 +252,17 @@ extension CompositionRoot {
 		controller.title = "Buddys"
 		controller.tabBarItem.title = "Buddys"
 		controller.tabBarItem.image = UIImage.assetImage(name: TabBarImages.follow)
-		controller.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.followFilled)         
+		controller.tabBarItem.selectedImage = UIImage.assetImage(name: TabBarImages.followFilled)
 		return controller
 	}
 	
 	// MARK: - Trending
-	static func configureTrendingScreen(crawlerService: GitTimeCrawlerServiceType,
-										languagesService: LanguagesServiceType,
-										userDefaultService: UserDefaultsServiceType,
-										realmService: RealmServiceType) -> TrendViewController {
+	static func configureTrendingScreen(
+		crawlerService: GitTimeCrawlerServiceType,
+		languagesService: LanguagesServiceType,
+		userDefaultService: UserDefaultsServiceType,
+		realmService: RealmServiceType
+	) -> TrendViewController {
 		
 		var presentLanguageScreen: () -> LanguageListViewController
 		presentLanguageScreen = {

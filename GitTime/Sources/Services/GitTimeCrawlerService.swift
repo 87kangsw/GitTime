@@ -9,7 +9,7 @@
 import RxSwift
 import Moya
 
-protocol GitTimeCrawlerServiceType: class {
+protocol GitTimeCrawlerServiceType: AnyObject {
 	func fetchTrendingRepositories(language: String?, period: String?, spokenLanguage: String?) -> Observable<[TrendRepo]>
     func fetchTrendingDevelopers(language: String?, period: String?) -> Observable<[TrendDeveloper]>
     func fetchContributions(userName: String) -> Observable<ContributionInfo>

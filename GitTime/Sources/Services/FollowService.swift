@@ -8,7 +8,7 @@
 
 import RxSwift
 
-protocol FollowServiceType: class {
+protocol FollowServiceType: AnyObject {
     func fetchFollowers(userName: String, page: Int) -> Observable<[User]>
     func fetchFollowing(userName: String, page: Int) -> Observable<[User]>
     func trialFollow() -> Observable<[User]>

@@ -86,9 +86,11 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
     
 	private let presentFollowScreen: () -> FollowViewController
 	
-    // MARK: Initializing
-	init(reactor: BuddyViewReactor,
-		 presentFollowScreen: @escaping () -> FollowViewController) {
+	// MARK: Initializing
+	init(
+		reactor: BuddyViewReactor,
+		presentFollowScreen: @escaping () -> FollowViewController
+	) {
 		defer { self.reactor = reactor }
 		self.presentFollowScreen = presentFollowScreen
         super.init()
@@ -195,7 +197,7 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 			.disposed(by: self.disposeBag)
 		
 		reactor.state.map { $0.buddys }
-			.observeOn(MainScheduler.asyncInstance)
+		.observe(on: MainScheduler.asyncInstance)
 			.distinctUntilChanged()
 			.filterEmpty()
 			.take(1)
@@ -254,7 +256,7 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
     }
 	
 	private func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<BuddySection> {
-		return .init(configureCell: { (dataSource, tableView, indexPath, sectionItem) -> UITableViewCell in
+		return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
 			switch sectionItem {
 			case .daily(let cellReactor):
 				let cell = tableView.dequeue(Reusable.dailyCell, for: indexPath)
@@ -265,7 +267,7 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 				cell.reactor = cellReactor
 				return cell
 			}
-		}, canEditRowAtIndexPath: { (dataSource, indexPath) -> Bool in
+		}, canEditRowAtIndexPath: { (_, _) -> Bool in
 			return true
 		})
 	}

@@ -30,7 +30,7 @@ import Foundation
 	}
 }
  
-fileprivate protocol OptionalProtocol {
+private protocol OptionalProtocol {
 	func isNil() -> Bool
 }
 

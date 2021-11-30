@@ -54,8 +54,10 @@ class LoginViewController: BaseViewController, ReactorKit.View {
     var goToMain: GoToMainFunction!
     
 	// MARK: - Initializing
-	init(reactor: Reactor,
-		 goToMainScreen: @escaping () -> Void) {
+	init(
+		reactor: Reactor,
+		goToMainScreen: @escaping () -> Void
+	) {
 		defer { self.reactor = reactor }
 		self.goToMain = goToMainScreen
 		super.init()

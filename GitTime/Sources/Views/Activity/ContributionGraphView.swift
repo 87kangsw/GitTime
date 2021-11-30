@@ -49,10 +49,9 @@ final class ContributionGraphView: BaseView, ReactorKit.View {
 	}
 	
 	static var dataSource: RxCollectionViewSectionedReloadDataSource<ContributionSection> {
-		return .init(configureCell: { (datasource, collectionView, indexPath, sectionItem) -> UICollectionViewCell in
+		return .init(configureCell: { (_, collectionView, indexPath, sectionItem) -> UICollectionViewCell in
 			switch sectionItem {
 			case .contribution(let reactor):
-//                let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ContributionCell.self)
 				let cell = collectionView.dequeue(Reusable.contributionCell, for: indexPath)
 				cell.reactor = reactor
 				return cell
@@ -60,7 +59,6 @@ final class ContributionGraphView: BaseView, ReactorKit.View {
 		})
 	}
 	private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<ContributionSection> = type(of: self).dataSource
-	
 	
     // MARK: - Initializing
     override init() {

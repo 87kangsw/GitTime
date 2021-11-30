@@ -46,7 +46,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 		$0.frame = .zero
 	}
 	private let refreshControl = UIRefreshControl()
-	private let profileButton = UIButton().then {
+	private let profileButton = UIButton(frame: CGRect(x: 0, y: 0, width: 30, height: 30)).then {
 		$0.setImage(UIImage(systemName: "person.circle"), for: .normal)
 		$0.layer.cornerRadius = 30.0 / 2
 		$0.layer.masksToBounds = true
@@ -57,7 +57,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 	
 	// MARK: - Properties
 	static var dataSource: RxTableViewSectionedReloadDataSource<ActivitySection> {
-		return .init(configureCell: { (datasource, tableView, indexPath, sectionItem) -> UITableViewCell in
+		return .init(configureCell: { (_, tableView, indexPath, sectionItem) -> UITableViewCell in
 			switch sectionItem {
 			case .createEvent(let reactor),
 				 .forkEvent(let reactor),
@@ -145,7 +145,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 			.disposed(by: self.disposeBag)
 		
 		tableView.rx.reachedBottom
-			.observeOn(MainScheduler.instance)
+			.observe(on: MainScheduler.instance)
 			.map { Reactor.Action.loadMoreActivities }
 			.bind(to: reactor.action)
 			.disposed(by: self.disposeBag)
@@ -190,6 +190,7 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 			.subscribe(onNext: { [weak self] profileURL in
 				guard let self = self, let url = URL(string: profileURL) else { return }
 				self.profileButton.kf.setImage(with: url, for: .normal)
+				self.profileButton.layoutIfNeeded()
 			}).disposed(by: self.disposeBag)
 
 		// View

@@ -52,7 +52,7 @@ class ActivityContributionView: UIView, View {
     // MARK: - Properties
     var disposeBag = DisposeBag()
     static var dataSource: RxCollectionViewSectionedReloadDataSource<ContributionSection> {
-        return .init(configureCell: { (datasource, collectionView, indexPath, sectionItem) -> UICollectionViewCell in
+        return .init(configureCell: { (_, collectionView, indexPath, sectionItem) -> UICollectionViewCell in
             switch sectionItem {
             case .contribution(let reactor):
 //                let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ContributionCell.self)
@@ -117,6 +117,16 @@ class ActivityContributionView: UIView, View {
             .bind(to: collectionView.rx.items(dataSource: dataSource))
             .disposed(by: self.disposeBag)
         
+		collectionView.rx.observe(CGSize.self, "contentSize")
+			.filterNil()
+			.filter { $0.width > 0.0 }
+			.take(1)
+			.subscribe(onNext: { [weak self] contentSize in
+				guard let self = self else { return }
+				let offSet = self.collectionView.contentSize.width - self.collectionView.frame.width
+				self.collectionView.setContentOffset(CGPoint(x: offSet, y: 0.0), animated: false)
+			}).disposed(by: self.disposeBag)
+		
         // View
         self.collectionView.rx.setDelegate(self)
             .disposed(by: self.disposeBag)
