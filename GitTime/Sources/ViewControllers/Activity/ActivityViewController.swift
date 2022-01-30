@@ -122,10 +122,6 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 			make.center.equalToSuperview()
 		}
 		
-		profileButton.snp.makeConstraints { make in
-			make.width.height.equalTo(30.0)
-		}
-		
 		let width: CGFloat = UIScreen.main.bounds.width
 		contributionHeaderView.snp.makeConstraints { make in
 			make.width.equalTo(width)
@@ -183,16 +179,18 @@ class ActivityViewController: BaseViewController, ReactorKit.View {
 				let reactor = ActivityContributionViewReactor(contributionInfo: info)
 				self.contributionHeaderView.reactor = reactor
 			}).disposed(by: self.disposeBag)
-		
-		reactor.state.map { $0.user?.profileURL }
-			.filterNil()
-			.distinctUntilChanged()
-			.subscribe(onNext: { [weak self] profileURL in
-				guard let self = self, let url = URL(string: profileURL) else { return }
-				self.profileButton.kf.setImage(with: url, for: .normal)
-				self.profileButton.layoutIfNeeded()
-			}).disposed(by: self.disposeBag)
 
+		reactor.state.map { $0.currentProfileImage }
+		.map { profileImage -> UIImage? in
+			if let profileImage = profileImage {
+				return profileImage.resized(to: CGSize(width: 30.0, height: 30.0))
+			} else {
+				return UIImage(systemName: "person.circle")
+			}
+		}
+		.bind(to: profileButton.rx.image(for: .normal))
+		.disposed(by: self.disposeBag)
+		
 		// View
 		tableView.rx.itemSelected(dataSource: dataSource)
 			.subscribe(onNext: { [weak self] sectionItem in
