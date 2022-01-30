@@ -11,6 +11,8 @@ import RxCocoa
 import RxSwift
 import Moya
 import Kanna
+import Kingfisher
+import UIKit
 
 final class ActivityViewReactor: ReactorKit.Reactor {
 	
@@ -31,6 +33,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 		case setPage(Int)
 		case setLoadMore(Bool)
 		case setRefreshing(Bool)
+		case loadProfileImage(UIImage?)
 	}
 	
 	struct State {
@@ -47,6 +50,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 			]
 		}
 		var user: Me?
+		var currentProfileImage: UIImage?
 	}
 	
 	let initialState: ActivityViewReactor.State
@@ -54,6 +58,8 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 	fileprivate let activityService: ActivityServiceType
 	fileprivate let userService: UserServiceType
 	fileprivate let crawlerService: GitTimeCrawlerServiceType
+	
+	private let imageDownloder = ImageDownloader(name: "profileImageDownloder")
 	
 	init(
 		activityService: ActivityServiceType,
@@ -82,7 +88,8 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 			let endLoading: Observable<Mutation> = .just(.setLoading(false))
 			let requestContributionMutation = self.requestContributions()
 			let requestActivityMutation = self.requestActivities()
-			return .concat([clearPagingMutation, startLoading, requestContributionMutation, requestActivityMutation, endLoading])
+			let downloadProfileImage = self.downloadProfileImage()
+			return .concat([clearPagingMutation, startLoading, downloadProfileImage, requestContributionMutation, requestActivityMutation, endLoading])
 		case .loadMoreActivities:
 			guard !self.currentState.isLoading else { return .empty() }
 			guard self.currentState.canLoadMore else { return .empty() }
@@ -129,6 +136,8 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 				+ self.activitiesToSectionItem(activities.filter { $0.type != .none })
 			//                + self.activitiesToSectionItem(activities)
 			state.activities = sectionItems
+		case .loadProfileImage(let image):
+			state.currentProfileImage = image
 		}
 		return state
 	}
@@ -308,5 +317,36 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 								userName: userName,
 								additionalName: additionalName,
 								profileImageURL: profileURL)
+	}
+	
+	private func downloadProfileImage() -> Observable<Mutation> {
+		return self.profileImageDownload()
+			.map { image -> Mutation in
+				return .loadProfileImage(image)
+			}
+	}
+	
+	private func profileImageDownload() -> Observable<UIImage?> {
+		guard let me = self.currentState.user else { return .empty() }
+		guard let profileURL = URL(string: me.profileURL) else { return .empty() }
+		
+		return Observable.create { [weak self] observer -> Disposable in
+			self?.imageDownloder.downloadImage(with: profileURL) { result in
+				switch result {
+				case .success(let imageResult):
+					log.debug(imageResult)
+					observer.onNext(imageResult.image)
+					observer.onCompleted()
+				case .failure(let error):
+					log.error(error)
+					observer.onNext(nil)
+					observer.onCompleted()
+				}
+			}
+			
+			return Disposables.create {
+				
+			}
+		}
 	}
 }
