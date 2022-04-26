@@ -17,6 +17,7 @@ included: # paths to include during linting. `--path` is ignored if present.
 excluded: # paths to ignore during linting. Takes precedence over `included`.
   - Carthage
   - Pods
+  - GitTime/Sources/Utils/PropertyWrappers/BundleInfoWrapper.swift
 
 analyzer_rules: # Rules run by `swiftlint analyze` (experimental)
   - explicit_self
