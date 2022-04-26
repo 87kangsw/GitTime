@@ -62,7 +62,7 @@ final class AuthService: AuthServiceType {
                                                         }
             })
             if #available(iOS 13.0, *) {
-                if let loginVC = UIApplication.shared.keyWindow?.rootViewController as? LoginViewController {
+				if let loginVC = UIApplication.keyWindow?.rootViewController as? LoginViewController {
                     self.session?.presentationContextProvider = loginVC
                 }
             }
