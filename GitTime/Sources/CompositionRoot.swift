@@ -129,6 +129,10 @@ final class CompositionRoot {
 		// Firebase
 		FirebaseApp.configure()
 		
+		// Image Cache
+		let cache = ImageCache.default
+		cache.clearCache()
+		
 		#if DEBUG
 		
 		// SwiftyBeaver
@@ -138,10 +142,6 @@ final class CompositionRoot {
 		
 		// Bagel
 		Bagel.start()
-		
-		let cache = ImageCache.default
-		cache.clearCache()
-		
 		#endif
 	}
 	
