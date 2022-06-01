@@ -6,8 +6,11 @@ clean:
 	rm -rf ./DrivedData/
 	pod deintegrate
 
-dev-upload:
-	fastlane ios develop firebase_upload:true groups:iOS slack_notify:true
+upload-firebase:
+	fastlane ios distribute_dev firebase_upload:true groups:iOS slack_notify:true
 
 appstore:
 	fastlane ios release
+
+get-certs:
+	fastlane ios certificate --verbose

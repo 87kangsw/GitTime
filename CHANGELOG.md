@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.4]
+
 - 앱스토어 리뷰 요청 기능 추가
 - 버디탭에서 친구 클릭시, GitHub으로 연결되게 변경
 - 아이패드에서 앱 아이콘 변경되지 않는 문제 수정
