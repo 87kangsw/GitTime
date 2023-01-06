@@ -257,18 +257,15 @@ final class BuddyViewReactor: Reactor {
 		if let doc = try? HTML(html: response.data, encoding: .utf8) {
 			for rect in doc.css("rect") {
 				if var date = rect["data-date"],
-				   var count = rect["data-count"],
 				   let dataLevel = rect["data-level"] {
 					
 					date = date.replacingOccurrences(of: "\\", with: "")
 						.replacingOccurrences(of: "/", with: "")
 						.replacingOccurrences(of: "\"", with: "")
-					count = count.replacingOccurrences(of: "\\", with: "")
-						.replacingOccurrences(of: "\"", with: "")
 					
 					let colorType = ContributionHexColorTypes.allCases.first { $0.rawValue == Int(dataLevel) }
 					if let hexString = colorType?.hexString {
-						contributions.append(Contribution(date: date, contribution: Int(count)!, hexColor: hexString))
+						contributions.append(Contribution(date: date, contribution: Int(dataLevel)!, hexColor: hexString))
 					}
 				}
 			}
