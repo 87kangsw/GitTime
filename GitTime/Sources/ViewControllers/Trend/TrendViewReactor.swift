@@ -295,7 +295,7 @@ final class TrendViewReactor: Reactor {
 													 contributors: [])
                 
                 // Repository Info
-				let repositoryInfo = item.xpath(".//h1[@class='h3 lh-condensed']/a")
+				let repositoryInfo = item.xpath(".//h2[@class='h3 lh-condensed']/a")
                 let description = item.xpath(".//p[@class='col-9 color-fg-muted my-1 pr-4']")
                 let languageColor = item.xpath(".//span[@class='d-inline-block ml-0 mr-3']/span[1]")
                 let language = item.xpath(".//span[@class='d-inline-block ml-0 mr-3']/span[2]")
