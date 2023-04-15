@@ -166,4 +166,6 @@ playground.xcworkspace
 GoogleService-Info.plist
 GitHub-Info.plist
 
+*.p8
+
 # End of https://www.gitignore.io/api/xcode,swift,carthage,fastlane,cocoapods,objective-c
