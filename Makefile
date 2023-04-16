@@ -11,3 +11,6 @@ dev-upload:
 
 appstore:
 	fastlane ios release
+
+certificates:
+	fastlane ios certificates	
