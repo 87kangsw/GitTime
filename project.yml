@@ -11,6 +11,9 @@ packages:
   ReactorKit:
     url: https://github.com/ReactorKit/ReactorKit
     from: 3.0.0
+  RxSwift: 
+    url: https://github.com/ReactiveX/RxSwift
+    from: 6.2.0  
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -41,7 +44,9 @@ targets:
       DEVELOPMENT_TEAM: R46Q3HW9V3
       DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
     dependencies:
-      - package: ReactorKit  
+      - package: ReactorKit
+      - package: RxSwift
+        product: RxCocoa
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

@@ -4,8 +4,6 @@ inhibit_all_warnings!
 
 def app_pods
   # Reactive
-  pod 'RxSwift'
-  pod 'RxCocoa'
   pod 'RxDataSources'
   pod 'RxOptional'
   pod 'RxKeyboard'

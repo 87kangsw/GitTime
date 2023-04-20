@@ -197,11 +197,9 @@ DEPENDENCIES:
   - RealmSwift
   - ReusableKit
   - RxBlocking
-  - RxCocoa
   - RxDataSources
   - RxKeyboard
   - RxOptional
-  - RxSwift
   - RxTest
   - SnapKit
   - Stubber
@@ -321,6 +319,6 @@ SPEC CHECKSUMS:
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: 4a5ee470b793b7a691a0bfa1269aca197e20a856
+PODFILE CHECKSUM: d7b6b7d9f3f927c83056ddda4510aa712e270f1c
 
 COCOAPODS: 1.11.3
