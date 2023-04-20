@@ -9,7 +9,6 @@ def app_pods
 
   # etc
   pod 'SwiftLint'
-  pod 'ReusableKit'
   
   # DI
   pod 'Pure'

@@ -10,7 +10,6 @@ import UIKit
 
 import PanModal
 import ReactorKit
-import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift

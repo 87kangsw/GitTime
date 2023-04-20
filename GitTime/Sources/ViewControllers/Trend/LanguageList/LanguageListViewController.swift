@@ -9,7 +9,6 @@
 import UIKit
 
 import ReactorKit
-import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift

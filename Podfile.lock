@@ -126,9 +126,6 @@ PODS:
     - Pure/Core (= 1.1.4)
   - Pure/Core (1.1.4)
   - Quick (4.0.0)
-  - ReusableKit (3.0.0):
-    - ReusableKit/Core (= 3.0.0)
-  - ReusableKit/Core (3.0.0)
   - Stubber (1.5.3)
   - SwiftLint (0.44.0)
   - Toaster (2.3.0)
@@ -143,7 +140,6 @@ DEPENDENCIES:
   - Nimble
   - Pure
   - Quick
-  - ReusableKit
   - Stubber
   - SwiftLint
   - Toaster (from `https://github.com/devxoul/Toaster.git`, branch `master`)
@@ -170,7 +166,6 @@ SPEC REPOS:
     - PromisesObjC
     - Pure
     - Quick
-    - ReusableKit
     - Stubber
     - SwiftLint
 
@@ -205,11 +200,10 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Pure: 82d6f4438672a41d21ea6fadd126e1466db001c5
   Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
-  ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
   Stubber: 3ea4080870feeaf5b1637314a92245eef9b8c8e7
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
 
-PODFILE CHECKSUM: 76e0d768731e41868d14457d607d5f3336c8221c
+PODFILE CHECKSUM: afad9a79e2029b50eedc8f86a3784b6fc4c746dd
 
 COCOAPODS: 1.11.3
