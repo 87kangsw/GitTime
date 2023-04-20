@@ -137,7 +137,6 @@ PODS:
   - SwiftLint (0.44.0)
   - Then (2.7.0)
   - Toaster (2.3.0)
-  - URLNavigator (2.3.0)
 
 DEPENDENCIES:
   - AcknowList
@@ -156,7 +155,6 @@ DEPENDENCIES:
   - SwiftLint
   - Then
   - Toaster (from `https://github.com/devxoul/Toaster.git`, branch `master`)
-  - URLNavigator
 
 SPEC REPOS:
   trunk:
@@ -187,7 +185,6 @@ SPEC REPOS:
     - Stubber
     - SwiftLint
     - Then
-    - URLNavigator
 
 EXTERNAL SOURCES:
   Toaster:
@@ -228,8 +225,7 @@ SPEC CHECKSUMS:
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
-  URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: a7784eafa305806999cace9e6c3a2f2e931696bd
+PODFILE CHECKSUM: 1f07a1624e19ab4b5e4e244157abf91551a78a30
 
 COCOAPODS: 1.11.3

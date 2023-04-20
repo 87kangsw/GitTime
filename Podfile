@@ -12,7 +12,6 @@ def app_pods
   pod 'AcknowList'
   pod 'Bagel'
   pod 'Then'
-  pod 'URLNavigator'
   pod 'ReusableKit'
   
   # DI

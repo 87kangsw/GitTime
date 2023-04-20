@@ -18,7 +18,6 @@ import RxOptional
 import RxSwift
 import SwiftyBeaver
 import Toaster
-import URLNavigator
 import SnapKit
 
 let log = SwiftyBeaver.self
