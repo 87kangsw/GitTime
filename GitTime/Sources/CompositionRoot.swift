@@ -13,6 +13,7 @@ import Kingfisher
 import Pure
 import RxCocoa
 import RxDataSources
+import RxMoya
 import RxOptional
 import RxSwift
 import SwiftyBeaver

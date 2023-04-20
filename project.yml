@@ -19,7 +19,10 @@ packages:
     from: 5.0.0
   RxOptional:
     url: https://github.com/RxSwiftCommunity/RxOptional
-    from: 5.0.2    
+    from: 5.0.2
+  Moya:
+    url: https://github.com/Moya/Moya
+    from: 15.0.0      
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -55,6 +58,9 @@ targets:
         product: RxCocoa
       - package: RxDataSources
       - package: RxOptional  
+      - package: Moya
+        product: Moya
+        product: RxMoya
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

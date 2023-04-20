@@ -18,9 +18,6 @@ def app_pods
   # Logger
   pod 'SwiftyBeaver'
   
-  # Network
-  pod 'Moya/RxSwift'
-  
   # Image Cache
   pod 'Kingfisher'
   
@@ -48,8 +45,6 @@ end
 def testing_pods
     pod 'Quick'
     pod 'Nimble'
-    pod 'RxTest'
-    pod 'RxBlocking'
     pod 'Stubber'
     pod 'Immutable'
 end
