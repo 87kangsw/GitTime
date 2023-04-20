@@ -3,9 +3,6 @@ use_frameworks!
 inhibit_all_warnings!
 
 def app_pods
-  # Architecture
-  pod 'ReactorKit'
-
   # Reactive
   pod 'RxSwift'
   pod 'RxCocoa'

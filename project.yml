@@ -7,6 +7,10 @@ options:
   indentWidth: 4
   tabWidth: 4
   generateEmptyDirectories: true
+packages:
+  ReactorKit:
+    url: https://github.com/ReactorKit/ReactorKit
+    from: 3.0.0
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -36,6 +40,8 @@ targets:
       INFOPLIST_FILE: GitTime/Supporting Files/Info.plist
       DEVELOPMENT_TEAM: R46Q3HW9V3
       DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+    dependencies:
+      - package: ReactorKit  
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

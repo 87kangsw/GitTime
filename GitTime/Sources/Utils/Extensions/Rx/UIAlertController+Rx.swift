@@ -9,6 +9,8 @@
 // https://gist.github.com/RyogaK/41f55c88250d5882f0e7d10240c4c866
 
 import Foundation
+import UIKit
+
 import RxSwift
 
 protocol RxAlertActionType {

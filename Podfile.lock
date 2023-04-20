@@ -141,9 +141,6 @@ PODS:
     - Pure/Core (= 1.1.4)
   - Pure/Core (1.1.4)
   - Quick (4.0.0)
-  - ReactorKit (3.0.0):
-    - RxSwift (~> 6.0)
-    - WeakMapTable (~> 1.1)
   - Realm (10.15.1):
     - Realm/Headers (= 10.15.1)
   - Realm/Headers (10.15.1)
@@ -179,7 +176,6 @@ PODS:
   - Then (2.7.0)
   - Toaster (2.3.0)
   - URLNavigator (2.3.0)
-  - WeakMapTable (1.2.0)
 
 DEPENDENCIES:
   - AcknowList
@@ -198,7 +194,6 @@ DEPENDENCIES:
   - PanModal
   - Pure
   - Quick
-  - ReactorKit
   - RealmSwift
   - ReusableKit
   - RxBlocking
@@ -248,7 +243,6 @@ SPEC REPOS:
     - PromisesObjC
     - Pure
     - Quick
-    - ReactorKit
     - Realm
     - RealmSwift
     - ReusableKit
@@ -266,7 +260,6 @@ SPEC REPOS:
     - SwiftyBeaver
     - Then
     - URLNavigator
-    - WeakMapTable
 
 EXTERNAL SOURCES:
   Toaster:
@@ -309,7 +302,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Pure: 82d6f4438672a41d21ea6fadd126e1466db001c5
   Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
-  ReactorKit: 5348c9881dcb546605b451e32759dccc9937d36e
   Realm: fbcbde2620d51623cc5b18e28f5b165c39abef52
   RealmSwift: e4bea8e42efad3d543aea23b56504069c6faaea2
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
@@ -328,8 +320,7 @@ SPEC CHECKSUMS:
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
-  WeakMapTable: 05c694ce8439a7a9ebabb56187287a63c57673d6
 
-PODFILE CHECKSUM: 6c50a4fed57d9b71f57165f5b813b2a632ecc271
+PODFILE CHECKSUM: 4a5ee470b793b7a691a0bfa1269aca197e20a856
 
 COCOAPODS: 1.11.3
