@@ -37,7 +37,10 @@ packages:
     from: 10.15.1
   Kingfisher:
     url: https://github.com/onevcat/Kingfisher
-    from: 7.0.0    
+    from: 7.0.0
+  SwiftyBeaver:
+    url: https://github.com/SwiftyBeaver/SwiftyBeaver
+    from: 1.9.5      
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -83,6 +86,7 @@ targets:
         product: Realm
         product: RealmSwift
       - package: Kingfisher
+      - package: SwiftyBeaver
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

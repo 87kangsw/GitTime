@@ -7,9 +7,6 @@ def app_pods
   # UI
   pod 'Toaster', :git => 'https://github.com/devxoul/Toaster.git', :branch => 'master'
 
-  # Logger
-  pod 'SwiftyBeaver'
-  
   # etc
   pod 'SwiftLint'
   pod 'AcknowList'

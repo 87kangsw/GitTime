@@ -136,7 +136,6 @@ PODS:
   - ReusableKit/Core (3.0.0)
   - Stubber (1.5.3)
   - SwiftLint (0.44.0)
-  - SwiftyBeaver (1.9.5)
   - Then (2.7.0)
   - Toaster (2.3.0)
   - URLNavigator (2.3.0)
@@ -157,7 +156,6 @@ DEPENDENCIES:
   - ReusableKit
   - Stubber
   - SwiftLint
-  - SwiftyBeaver
   - Then
   - Toaster (from `https://github.com/devxoul/Toaster.git`, branch `master`)
   - URLNavigator
@@ -191,7 +189,6 @@ SPEC REPOS:
     - ReusableKit
     - Stubber
     - SwiftLint
-    - SwiftyBeaver
     - Then
     - URLNavigator
 
@@ -233,11 +230,10 @@ SPEC CHECKSUMS:
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
   Stubber: 3ea4080870feeaf5b1637314a92245eef9b8c8e7
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
-  SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
   Then: acfe0be7e98221c6204e12f8161459606d5d822d
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: 559b26cf94b2df3adf30f12a381bcb5b287e9d19
+PODFILE CHECKSUM: 4ee9362b28fab77e705c89e1cf2f6503113970c9
 
 COCOAPODS: 1.11.3
