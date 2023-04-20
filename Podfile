@@ -5,7 +5,6 @@ inhibit_all_warnings!
 def app_pods
   
   # UI
-  pod 'SnapKit'
   pod 'Toaster', :git => 'https://github.com/devxoul/Toaster.git', :branch => 'master'
   pod 'PanModal'
   

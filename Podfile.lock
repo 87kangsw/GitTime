@@ -142,7 +142,6 @@ PODS:
   - ReusableKit (3.0.0):
     - ReusableKit/Core (= 3.0.0)
   - ReusableKit/Core (3.0.0)
-  - SnapKit (5.0.1)
   - Stubber (1.5.3)
   - SwiftLint (0.44.0)
   - SwiftyBeaver (1.9.5)
@@ -168,7 +167,6 @@ DEPENDENCIES:
   - Quick
   - RealmSwift
   - ReusableKit
-  - SnapKit
   - Stubber
   - SwiftLint
   - SwiftyBeaver
@@ -208,7 +206,6 @@ SPEC REPOS:
     - Realm
     - RealmSwift
     - ReusableKit
-    - SnapKit
     - Stubber
     - SwiftLint
     - SwiftyBeaver
@@ -256,7 +253,6 @@ SPEC CHECKSUMS:
   Realm: fbcbde2620d51623cc5b18e28f5b165c39abef52
   RealmSwift: e4bea8e42efad3d543aea23b56504069c6faaea2
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   Stubber: 3ea4080870feeaf5b1637314a92245eef9b8c8e7
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   SwiftyBeaver: 84069991dd5dca07d7069100985badaca7f0ce82
@@ -264,6 +260,6 @@ SPEC CHECKSUMS:
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: e8b21ee93c5a911107be8984084250f310e9228c
+PODFILE CHECKSUM: 70a506ac195ec39709c778fbcc5d18571850f2c6
 
 COCOAPODS: 1.11.3

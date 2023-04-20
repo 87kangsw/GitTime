@@ -22,7 +22,10 @@ packages:
     from: 5.0.2
   Moya:
     url: https://github.com/Moya/Moya
-    from: 15.0.0      
+    from: 15.0.0 
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit
+    from: 5.0.1       
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -61,6 +64,7 @@ targets:
       - package: Moya
         product: Moya
         product: RxMoya
+      - package: SnapKit  
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test
