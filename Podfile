@@ -10,9 +10,6 @@ def app_pods
   # Logger
   pod 'SwiftyBeaver'
   
-  # Image Cache
-  pod 'Kingfisher'
-  
   # etc
   pod 'SwiftLint'
   pod 'AcknowList'

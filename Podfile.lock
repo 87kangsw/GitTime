@@ -120,7 +120,6 @@ PODS:
   - GTMSessionFetcher/Core (1.7.0)
   - Immutable (0.6.0)
   - Kanna (5.2.7)
-  - Kingfisher (7.0.0)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -152,7 +151,6 @@ DEPENDENCIES:
   - Firebase/Performance
   - Immutable
   - Kanna
-  - Kingfisher
   - Nimble
   - Pure
   - Quick
@@ -185,7 +183,6 @@ SPEC REPOS:
     - GTMSessionFetcher
     - Immutable
     - Kanna
-    - Kingfisher
     - nanopb
     - Nimble
     - PromisesObjC
@@ -228,7 +225,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   Immutable: 793dcfd5979883638401c468dfeb08651436f44f
   Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
-  Kingfisher: 5efc54fec3980f92354898532e562cc17f31efb4
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
@@ -242,6 +238,6 @@ SPEC CHECKSUMS:
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: 256de21823ea3af300251f0be335c2c9f393a844
+PODFILE CHECKSUM: 559b26cf94b2df3adf30f12a381bcb5b287e9d19
 
 COCOAPODS: 1.11.3

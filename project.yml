@@ -34,7 +34,10 @@ packages:
     from: 4.2.2
   RealmSwift:
     url: https://github.com/realm/realm-swift
-    from: 10.15.1  
+    from: 10.15.1
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher
+    from: 7.0.0    
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -79,6 +82,7 @@ targets:
       - package: RealmSwift
         product: Realm
         product: RealmSwift
+      - package: Kingfisher
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test
