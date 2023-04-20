@@ -4,7 +4,6 @@ inhibit_all_warnings!
 
 def app_pods
   # Reactive
-  pod 'RxOptional'
   pod 'RxKeyboard'
   
   # UI

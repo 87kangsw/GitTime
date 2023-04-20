@@ -156,9 +156,6 @@ PODS:
   - RxKeyboard (2.0.0):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
-  - RxOptional (5.0.2):
-    - RxCocoa (~> 6.0)
-    - RxSwift (~> 6.0)
   - RxRelay (6.2.0):
     - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
@@ -193,7 +190,6 @@ DEPENDENCIES:
   - ReusableKit
   - RxBlocking
   - RxKeyboard
-  - RxOptional
   - RxTest
   - SnapKit
   - Stubber
@@ -240,7 +236,6 @@ SPEC REPOS:
     - RxBlocking
     - RxCocoa
     - RxKeyboard
-    - RxOptional
     - RxRelay
     - RxSwift
     - RxTest
@@ -297,7 +292,6 @@ SPEC CHECKSUMS:
   RxBlocking: 0b29f7d2079109a8de49c411381bed7c33ef1eeb
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
-  RxOptional: 3664964c96b69dd20c9cf78bdfe546615e26eca8
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   RxTest: 0c692fa672b694373ba86d2b00033595297a2831
@@ -309,6 +303,6 @@ SPEC CHECKSUMS:
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: ef6f2758b46ec26055e7c769b948cf3a97305141
+PODFILE CHECKSUM: db6af993b0af11d57320eac8c0a88dd52c7d7de2
 
 COCOAPODS: 1.11.3
