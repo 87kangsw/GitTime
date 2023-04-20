@@ -10,7 +10,6 @@ def app_pods
   # etc
   pod 'SwiftLint'
   pod 'AcknowList'
-  pod 'Bagel'
   pod 'ReusableKit'
   
   # DI

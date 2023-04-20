@@ -109,12 +109,6 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_Bagel._tcp</string>
-	</array>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>Network access required</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

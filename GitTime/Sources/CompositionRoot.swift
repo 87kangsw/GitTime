@@ -7,7 +7,6 @@
 
 import UIKit
 
-import Bagel
 import Firebase
 import Kingfisher
 import Pure
@@ -140,9 +139,7 @@ final class CompositionRoot {
 		let console = ConsoleDestination()
 		console.minLevel = .verbose
 		log.addDestination(console)
-		
-		// Bagel
-		Bagel.start()
+
 		#endif
 	}
 	

@@ -1,8 +1,5 @@
 PODS:
   - AcknowList (2.0.3)
-  - Bagel (1.4.0):
-    - CocoaAsyncSocket
-  - CocoaAsyncSocket (7.6.5)
   - Firebase/Analytics (8.7.0):
     - Firebase/Core
   - Firebase/Auth (8.7.0):
@@ -139,7 +136,6 @@ PODS:
 
 DEPENDENCIES:
   - AcknowList
-  - Bagel
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
@@ -157,8 +153,6 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - AcknowList
-    - Bagel
-    - CocoaAsyncSocket
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -195,8 +189,6 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AcknowList: 6d4faca4c3e0173377fe5649e086d627cd60b003
-  Bagel: c3fa6bcbd52db9ca976edbafd7638f0553ded101
-  CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
   FirebaseABTesting: 5a72ea0e88422f9e223614cb4016cafffb2af8d1
   FirebaseAnalytics: 52768800c2add1d84b751420cb4caaf8195f2c41
@@ -222,6 +214,6 @@ SPEC CHECKSUMS:
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
 
-PODFILE CHECKSUM: d571fb629ddc4ccaa967cbbf4828ca7f9632e4bc
+PODFILE CHECKSUM: c260c2df0de684c886973df80fa28ec6ecc51dd3
 
 COCOAPODS: 1.11.3
