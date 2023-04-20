@@ -6,6 +6,8 @@
 //  Copyright © 2020 KanzDevelop. All rights reserved.
 //
 
+import Foundation
+
 import ReactorKit
 import RxCocoa
 import RxSwift

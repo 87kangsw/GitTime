@@ -119,7 +119,6 @@ PODS:
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.7.0)
   - Immutable (0.6.0)
-  - Kanna (5.2.7)
   - nanopb (2.30908.0):
     - nanopb/decode (= 2.30908.0)
     - nanopb/encode (= 2.30908.0)
@@ -149,7 +148,6 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Performance
   - Immutable
-  - Kanna
   - Nimble
   - Pure
   - Quick
@@ -180,7 +178,6 @@ SPEC REPOS:
     - GoogleUtilities
     - GTMSessionFetcher
     - Immutable
-    - Kanna
     - nanopb
     - Nimble
     - PromisesObjC
@@ -221,7 +218,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
   GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   Immutable: 793dcfd5979883638401c468dfeb08651436f44f
-  Kanna: 01cfbddc127f5ff0963692f285fcbc8a9d62d234
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
@@ -234,6 +230,6 @@ SPEC CHECKSUMS:
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: 4ee9362b28fab77e705c89e1cf2f6503113970c9
+PODFILE CHECKSUM: a7784eafa305806999cace9e6c3a2f2e931696bd
 
 COCOAPODS: 1.11.3

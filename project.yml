@@ -41,6 +41,9 @@ packages:
   SwiftyBeaver:
     url: https://github.com/SwiftyBeaver/SwiftyBeaver
     from: 1.9.5      
+  Kanna:
+    url: https://github.com/tid-kijyun/Kanna.git  
+    from: 5.2.7
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -87,6 +90,7 @@ targets:
         product: RealmSwift
       - package: Kingfisher
       - package: SwiftyBeaver
+      - package: Kanna
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test
