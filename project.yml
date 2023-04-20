@@ -46,7 +46,10 @@ packages:
     from: 5.2.7
   Then:
     url: https://github.com/devxoul/Then
-    from: 2.7.0  
+    from: 2.7.0
+  AcknowList:  
+    url: https://github.com/vtourraine/AcknowList    
+    from: 3.0.0
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -95,6 +98,7 @@ targets:
       - package: SwiftyBeaver
       - package: Kanna
       - package: Then
+      - package: AcknowList
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

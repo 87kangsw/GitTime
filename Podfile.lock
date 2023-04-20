@@ -1,5 +1,4 @@
 PODS:
-  - AcknowList (2.0.3)
   - Firebase/Analytics (8.7.0):
     - Firebase/Core
   - Firebase/Auth (8.7.0):
@@ -135,7 +134,6 @@ PODS:
   - Toaster (2.3.0)
 
 DEPENDENCIES:
-  - AcknowList
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Core
@@ -152,7 +150,6 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - AcknowList
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -188,7 +185,6 @@ CHECKOUT OPTIONS:
     :git: https://github.com/devxoul/Toaster.git
 
 SPEC CHECKSUMS:
-  AcknowList: 6d4faca4c3e0173377fe5649e086d627cd60b003
   Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
   FirebaseABTesting: 5a72ea0e88422f9e223614cb4016cafffb2af8d1
   FirebaseAnalytics: 52768800c2add1d84b751420cb4caaf8195f2c41
@@ -214,6 +210,6 @@ SPEC CHECKSUMS:
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
 
-PODFILE CHECKSUM: c260c2df0de684c886973df80fa28ec6ecc51dd3
+PODFILE CHECKSUM: 76e0d768731e41868d14457d607d5f3336c8221c
 
 COCOAPODS: 1.11.3
