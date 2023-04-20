@@ -25,7 +25,10 @@ packages:
     from: 15.0.0 
   SnapKit:
     url: https://github.com/SnapKit/SnapKit
-    from: 5.0.1       
+    from: 5.0.1
+  PanModal:
+    url: https://github.com/slackhq/PanModal
+    from: 1.2.7         
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -64,7 +67,8 @@ targets:
       - package: Moya
         product: Moya
         product: RxMoya
-      - package: SnapKit  
+      - package: SnapKit
+      - package: PanModal  
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

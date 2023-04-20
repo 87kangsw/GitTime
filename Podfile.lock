@@ -128,7 +128,6 @@ PODS:
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
   - Nimble (9.2.1)
-  - PanModal (1.2.7)
   - PromisesObjC (2.0.0)
   - Pure (1.1.4):
     - Pure/Core (= 1.1.4)
@@ -162,7 +161,6 @@ DEPENDENCIES:
   - KeychainAccess
   - Kingfisher
   - Nimble
-  - PanModal
   - Pure
   - Quick
   - RealmSwift
@@ -199,7 +197,6 @@ SPEC REPOS:
     - Kingfisher
     - nanopb
     - Nimble
-    - PanModal
     - PromisesObjC
     - Pure
     - Quick
@@ -246,7 +243,6 @@ SPEC CHECKSUMS:
   Kingfisher: 5efc54fec3980f92354898532e562cc17f31efb4
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
-  PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Pure: 82d6f4438672a41d21ea6fadd126e1466db001c5
   Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
@@ -260,6 +256,6 @@ SPEC CHECKSUMS:
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: 70a506ac195ec39709c778fbcc5d18571850f2c6
+PODFILE CHECKSUM: 9da250a9760968ffd30016008f5f0e4202bfd9d4
 
 COCOAPODS: 1.11.3
