@@ -3,8 +3,6 @@ use_frameworks!
 inhibit_all_warnings!
 
 def app_pods
-  # Reactive
-  pod 'RxKeyboard'
   
   # UI
   pod 'SnapKit'

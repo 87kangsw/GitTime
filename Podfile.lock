@@ -150,14 +150,6 @@ PODS:
   - ReusableKit/Core (3.0.0)
   - RxBlocking (6.2.0):
     - RxSwift (= 6.2.0)
-  - RxCocoa (6.2.0):
-    - RxRelay (= 6.2.0)
-    - RxSwift (= 6.2.0)
-  - RxKeyboard (2.0.0):
-    - RxCocoa (~> 6.0)
-    - RxSwift (~> 6.0)
-  - RxRelay (6.2.0):
-    - RxSwift (= 6.2.0)
   - RxSwift (6.2.0)
   - RxTest (6.2.0):
     - RxSwift (= 6.2.0)
@@ -189,7 +181,6 @@ DEPENDENCIES:
   - RealmSwift
   - ReusableKit
   - RxBlocking
-  - RxKeyboard
   - RxTest
   - SnapKit
   - Stubber
@@ -234,9 +225,6 @@ SPEC REPOS:
     - RealmSwift
     - ReusableKit
     - RxBlocking
-    - RxCocoa
-    - RxKeyboard
-    - RxRelay
     - RxSwift
     - RxTest
     - SnapKit
@@ -290,9 +278,6 @@ SPEC CHECKSUMS:
   RealmSwift: e4bea8e42efad3d543aea23b56504069c6faaea2
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
   RxBlocking: 0b29f7d2079109a8de49c411381bed7c33ef1eeb
-  RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
-  RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
-  RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
   RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
   RxTest: 0c692fa672b694373ba86d2b00033595297a2831
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
@@ -303,6 +288,6 @@ SPEC CHECKSUMS:
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: db6af993b0af11d57320eac8c0a88dd52c7d7de2
+PODFILE CHECKSUM: 58ef9a42ac8fb47dafbca2909a162f31025ef27d
 
 COCOAPODS: 1.11.3
