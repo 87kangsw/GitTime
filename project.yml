@@ -29,6 +29,9 @@ packages:
   PanModal:
     url: https://github.com/slackhq/PanModal
     from: 1.2.7         
+  KeychainAccess:  
+    url: https://github.com/kishikawakatsumi/KeychainAccess
+    from: 4.2.2
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -68,7 +71,8 @@ targets:
         product: Moya
         product: RxMoya
       - package: SnapKit
-      - package: PanModal  
+      - package: PanModal
+      - package: KeychainAccess  
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test
