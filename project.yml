@@ -13,7 +13,10 @@ packages:
     from: 3.0.0
   RxSwift: 
     url: https://github.com/ReactiveX/RxSwift
-    from: 6.2.0  
+    from: 6.2.0
+  RxDataSources:
+    url: https://github.com/RxSwiftCommunity/RxDataSources
+    from: 5.0.0    
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -47,6 +50,7 @@ targets:
       - package: ReactorKit
       - package: RxSwift
         product: RxCocoa
+      - package: RxDataSources  
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

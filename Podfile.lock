@@ -4,7 +4,6 @@ PODS:
   - Bagel (1.4.0):
     - CocoaAsyncSocket
   - CocoaAsyncSocket (7.6.5)
-  - Differentiator (5.0.0)
   - Firebase/Analytics (8.7.0):
     - Firebase/Core
   - Firebase/Auth (8.7.0):
@@ -154,10 +153,6 @@ PODS:
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
-  - RxDataSources (5.0.0):
-    - Differentiator (~> 5.0)
-    - RxCocoa (~> 6.0)
-    - RxSwift (~> 6.0)
   - RxKeyboard (2.0.0):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
@@ -197,7 +192,6 @@ DEPENDENCIES:
   - RealmSwift
   - ReusableKit
   - RxBlocking
-  - RxDataSources
   - RxKeyboard
   - RxOptional
   - RxTest
@@ -215,7 +209,6 @@ SPEC REPOS:
     - Alamofire
     - Bagel
     - CocoaAsyncSocket
-    - Differentiator
     - Firebase
     - FirebaseABTesting
     - FirebaseAnalytics
@@ -246,7 +239,6 @@ SPEC REPOS:
     - ReusableKit
     - RxBlocking
     - RxCocoa
-    - RxDataSources
     - RxKeyboard
     - RxOptional
     - RxRelay
@@ -274,7 +266,6 @@ SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
   Bagel: c3fa6bcbd52db9ca976edbafd7638f0553ded101
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
-  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
   FirebaseABTesting: 5a72ea0e88422f9e223614cb4016cafffb2af8d1
   FirebaseAnalytics: 52768800c2add1d84b751420cb4caaf8195f2c41
@@ -305,7 +296,6 @@ SPEC CHECKSUMS:
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
   RxBlocking: 0b29f7d2079109a8de49c411381bed7c33ef1eeb
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
-  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxKeyboard: 4f5863f43b4ff0cbb2a20b94688d6b80c8a43c14
   RxOptional: 3664964c96b69dd20c9cf78bdfe546615e26eca8
   RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
@@ -319,6 +309,6 @@ SPEC CHECKSUMS:
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: d7b6b7d9f3f927c83056ddda4510aa712e270f1c
+PODFILE CHECKSUM: ef6f2758b46ec26055e7c769b948cf3a97305141
 
 COCOAPODS: 1.11.3
