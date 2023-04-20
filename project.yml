@@ -32,6 +32,9 @@ packages:
   KeychainAccess:  
     url: https://github.com/kishikawakatsumi/KeychainAccess
     from: 4.2.2
+  RealmSwift:
+    url: https://github.com/realm/realm-swift
+    from: 10.15.1  
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -73,6 +76,9 @@ targets:
       - package: SnapKit
       - package: PanModal
       - package: KeychainAccess  
+      - package: RealmSwift
+        product: Realm
+        product: RealmSwift
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

@@ -132,11 +132,6 @@ PODS:
     - Pure/Core (= 1.1.4)
   - Pure/Core (1.1.4)
   - Quick (4.0.0)
-  - Realm (10.15.1):
-    - Realm/Headers (= 10.15.1)
-  - Realm/Headers (10.15.1)
-  - RealmSwift (10.15.1):
-    - Realm (= 10.15.1)
   - ReusableKit (3.0.0):
     - ReusableKit/Core (= 3.0.0)
   - ReusableKit/Core (3.0.0)
@@ -161,7 +156,6 @@ DEPENDENCIES:
   - Nimble
   - Pure
   - Quick
-  - RealmSwift
   - ReusableKit
   - Stubber
   - SwiftLint
@@ -197,8 +191,6 @@ SPEC REPOS:
     - PromisesObjC
     - Pure
     - Quick
-    - Realm
-    - RealmSwift
     - ReusableKit
     - Stubber
     - SwiftLint
@@ -242,8 +234,6 @@ SPEC CHECKSUMS:
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   Pure: 82d6f4438672a41d21ea6fadd126e1466db001c5
   Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
-  Realm: fbcbde2620d51623cc5b18e28f5b165c39abef52
-  RealmSwift: e4bea8e42efad3d543aea23b56504069c6faaea2
   ReusableKit: e5f853ad4652e411f96b6119b2488afa12929be6
   Stubber: 3ea4080870feeaf5b1637314a92245eef9b8c8e7
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
@@ -252,6 +242,6 @@ SPEC CHECKSUMS:
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
   URLNavigator: 2593c0e2d293732ec5c44503cf54dceba1a68085
 
-PODFILE CHECKSUM: ee436b8d371614c1874e6fed7e70cf8c09989550
+PODFILE CHECKSUM: 256de21823ea3af300251f0be335c2c9f393a844
 
 COCOAPODS: 1.11.3
