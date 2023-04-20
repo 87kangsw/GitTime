@@ -11,7 +11,6 @@ def app_pods
   pod 'SwiftLint'
   pod 'AcknowList'
   pod 'Bagel'
-  pod 'Then'
   pod 'ReusableKit'
   
   # DI
