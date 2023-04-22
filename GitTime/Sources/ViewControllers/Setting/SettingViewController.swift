@@ -13,7 +13,6 @@ import UIKit
 
 import AcknowList
 import ReactorKit
-import ReusableKit
 import RxCocoa
 import RxDataSources
 import RxSwift

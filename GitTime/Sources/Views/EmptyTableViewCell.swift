@@ -13,7 +13,7 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-final class EmptyTableViewCell: BaseTableViewCell, View, CellType {
+final class EmptyTableViewCell: BaseTableViewCell, View {
 
     typealias Reactor = EmptyTableViewCellReactor
      

@@ -8,7 +8,6 @@
 import UIKit
 
 import ReactorKit
-import ReusableKit
 import RxCocoa
 import RxSwift
 import SnapKit

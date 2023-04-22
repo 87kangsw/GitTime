@@ -7,17 +7,16 @@
 
 import UIKit
 
-import Bagel
 import Firebase
 import Kingfisher
-import Pure
 import RxCocoa
 import RxDataSources
+import RxMoya
 import RxOptional
 import RxSwift
 import SwiftyBeaver
 import Toaster
-import URLNavigator
+import SnapKit
 
 let log = SwiftyBeaver.self
 
@@ -139,9 +138,7 @@ final class CompositionRoot {
 		let console = ConsoleDestination()
 		console.minLevel = .verbose
 		log.addDestination(console)
-		
-		// Bagel
-		Bagel.start()
+
 		#endif
 	}
 	

@@ -6,8 +6,11 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
-import RxSwift
+import Foundation
+
 import Moya
+import RxMoya
+import RxSwift
 
 enum GitTimeCrawlerAPI {
     case trendingRepositories(language: String?, period: String?, spokenLanguage: String?)

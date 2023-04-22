@@ -7,6 +7,56 @@ options:
   indentWidth: 4
   tabWidth: 4
   generateEmptyDirectories: true
+  useCocoaPods: false
+packages:
+  ReactorKit:
+    url: https://github.com/ReactorKit/ReactorKit
+    from: 3.0.0
+  RxSwift: 
+    url: https://github.com/ReactiveX/RxSwift
+    from: 6.2.0
+  RxDataSources:
+    url: https://github.com/RxSwiftCommunity/RxDataSources
+    from: 5.0.0
+  RxOptional:
+    url: https://github.com/RxSwiftCommunity/RxOptional
+    from: 5.0.2
+  Moya:
+    url: https://github.com/Moya/Moya
+    from: 15.0.0 
+  SnapKit:
+    url: https://github.com/SnapKit/SnapKit
+    from: 5.0.1
+  PanModal:
+    url: https://github.com/slackhq/PanModal
+    from: 1.2.7         
+  KeychainAccess:  
+    url: https://github.com/kishikawakatsumi/KeychainAccess
+    from: 4.2.2
+  RealmSwift:
+    url: https://github.com/realm/realm-swift
+    from: 10.15.1
+  Kingfisher:
+    url: https://github.com/onevcat/Kingfisher
+    from: 7.0.0
+  SwiftyBeaver:
+    url: https://github.com/SwiftyBeaver/SwiftyBeaver
+    from: 1.9.5      
+  Kanna:
+    url: https://github.com/tid-kijyun/Kanna.git  
+    from: 5.2.7
+  Then:
+    url: https://github.com/devxoul/Then
+    from: 2.7.0
+  AcknowList:  
+    url: https://github.com/vtourraine/AcknowList    
+    from: 3.0.0
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    from: 10.0.0
+  Toaster:
+    url: https://github.com/devxoul/Toaster.git
+    branch: master
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -26,9 +76,9 @@ targets:
         type: group
       - path: 'GitTime/Resources'
         type: group
-    postCompileScripts:
-      - path: BuildScripts/SwiftLint.sh
-        name: Swiftlint
+    # postCompileScripts:
+    #   - path: BuildScripts/SwiftLint.sh
+    #     name: Swiftlint
     postBuildScripts:
       - path: BuildScripts/FirebaseCrashlytics.sh
         name: Firebase Crashlytics
@@ -36,6 +86,38 @@ targets:
       INFOPLIST_FILE: GitTime/Supporting Files/Info.plist
       DEVELOPMENT_TEAM: R46Q3HW9V3
       DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+      OTHER_LDFLAGS: -ObjC $(inherited)
+    dependencies:
+      - package: ReactorKit
+      - package: RxSwift
+        product: RxCocoa
+      - package: RxDataSources
+      - package: RxOptional  
+      - package: Moya
+        product: Moya
+      - package: Moya        
+        product: RxMoya
+      - package: SnapKit
+      - package: PanModal
+      - package: KeychainAccess  
+      - package: RealmSwift
+        product: Realm
+      - package: RealmSwift        
+        product: RealmSwift
+      - package: Kingfisher
+      - package: SwiftyBeaver
+      - package: Kanna
+      - package: Then
+      - package: AcknowList
+      - package: Firebase
+        product: FirebaseAnalytics
+      - package: Firebase        
+        product: FirebaseCrashlytics
+      - package: Firebase        
+        product: FirebaseAuth
+      - package: Firebase    
+        product: FirebasePerformance
+      - package: Toaster
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

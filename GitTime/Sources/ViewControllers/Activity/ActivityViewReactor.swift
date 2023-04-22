@@ -6,13 +6,15 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
+import UIKit
+
+import Moya
 import ReactorKit
 import RxCocoa
+import RxMoya
 import RxSwift
-import Moya
 import Kanna
 import Kingfisher
-import UIKit
 
 final class ActivityViewReactor: ReactorKit.Reactor {
 	

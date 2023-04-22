@@ -6,10 +6,14 @@
 //
 
 import UIKit
-
+/*
 private func appDelegateClassName() -> String {
 	let isTesting = NSClassFromString("XCTestCase") != nil
 	return isTesting ? "GitTimeTests.StubAppDelegate" : NSStringFromClass(AppDelegate.self)
+}
+*/
+private func appDelegateClassName() -> String {
+	NSStringFromClass(AppDelegate.self)
 }
 
 UIApplicationMain(
