@@ -12,3 +12,6 @@ appstore:
 
 certificates:
 	fastlane ios certificates	
+
+lint:
+	fastlane ios lint	

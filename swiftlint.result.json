@@ -1,0 +1,8 @@
+/Users/kanz/Documents/iOS/GitTime/GitTime/Sources/Utils/Extensions/Int+Extensions.swift:19:29: warning: Large Tuple Violation: Tuples should have at most 2 members (large_tuple)
+/Users/kanz/Documents/iOS/GitTime/GitTime/Sources/Utils/External/ReusableKit/UICollectionView+ReusableKit.swift:45:91: warning: Force Cast Violation: Force casts should be avoided (force_cast)
+/Users/kanz/Documents/iOS/GitTime/GitTime/Sources/Utils/External/ReusableKit/UICollectionView+ReusableKit.swift:66:118: warning: Force Cast Violation: Force casts should be avoided (force_cast)
+/Users/kanz/Documents/iOS/GitTime/GitTime/Sources/Utils/External/ReusableKit/UITableView+ReusableKit.swift:27:86: warning: Force Cast Violation: Force casts should be avoided (force_cast)
+/Users/kanz/Documents/iOS/GitTime/GitTime/Sources/ViewControllers/Activity/ActivityViewReactor.swift:196:19: warning: Returning Whitespace Violation: Return arrow and return type should be separated by a single space or on a separate line (return_arrow_whitespace)
+/Users/kanz/Documents/iOS/GitTime/GitTime/Sources/ViewControllers/Buddy/PinterestLayout.swift:93:4: warning: Prefer For-Where Violation: `where` clauses are preferred over a single `if` inside a `for` (for_where)
+/Users/kanz/Documents/iOS/GitTime/GitTime/Sources/ViewControllers/Buddy/PinterestLayout.swift:82:4: error: Shorthand Operator Violation: Prefer shorthand operators (+=, -=, *=, /=) over doing the operation and assigning (shorthand_operator)
+/Users/kanz/Documents/iOS/GitTime/GitTime/Sources/Views/Activity/ActivityContributionView.swift:123:37: warning: Unused Closure Parameter Violation: Unused parameter in a closure should be replaced with _ (unused_closure_parameter)

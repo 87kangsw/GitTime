@@ -30,7 +30,7 @@ platform :ios do
     )
 
     gym(
-      workspace: ENV['XCWORKSPACE_NAME'],
+      project: ENV['XCODEPROJ_NAME'],
       include_bitcode: true,
       silent: true,
       clean: true,
@@ -205,6 +205,16 @@ platform :ios do
     )
   end
 
+  lane :lint do
+    swiftlint(
+      mode: :lint,
+      config_file: ".swiftlint.yml",
+      output_file: "swiftlint.result.json",
+      quiet: false,
+      ignore_exit_status: true
+      # raise_if_swiftlint_error: true
+    )
+  end
 
 end
 
