@@ -14,14 +14,6 @@ def app_pods
   pod 'Pure'
 end
 
-def firebase_pods
-  pod 'Firebase/Core'
-  pod 'Firebase/Analytics'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Crashlytics'
-  pod 'Firebase/Performance'
-end
-
 def testing_pods
     pod 'Quick'
     pod 'Nimble'
@@ -32,7 +24,6 @@ end
 target 'GitTime' do
   
   app_pods
-  firebase_pods
   
   target 'GitTimeTests' do
     inherit! :search_paths

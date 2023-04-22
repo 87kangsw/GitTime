@@ -50,6 +50,9 @@ packages:
   AcknowList:  
     url: https://github.com/vtourraine/AcknowList    
     from: 3.0.0
+  Firebase:
+    url: https://github.com/firebase/firebase-ios-sdk
+    from: 10.0.0
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -79,6 +82,7 @@ targets:
       INFOPLIST_FILE: GitTime/Supporting Files/Info.plist
       DEVELOPMENT_TEAM: R46Q3HW9V3
       DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+      OTHER_LDFLAGS: -ObjC $(inherited)
     dependencies:
       - package: ReactorKit
       - package: RxSwift
@@ -87,18 +91,28 @@ targets:
       - package: RxOptional  
       - package: Moya
         product: Moya
+      - package: Moya        
         product: RxMoya
       - package: SnapKit
       - package: PanModal
       - package: KeychainAccess  
       - package: RealmSwift
         product: Realm
+      - package: RealmSwift        
         product: RealmSwift
       - package: Kingfisher
       - package: SwiftyBeaver
       - package: Kanna
       - package: Then
       - package: AcknowList
+      - package: Firebase
+        product: FirebaseAnalytics
+      - package: Firebase        
+        product: FirebaseCrashlytics
+      - package: Firebase        
+        product: FirebaseAuth
+      - package: Firebase    
+        product: FirebasePerformance
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test

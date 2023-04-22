@@ -1,141 +1,15 @@
 PODS:
-  - Firebase/Analytics (8.7.0):
-    - Firebase/Core
-  - Firebase/Auth (8.7.0):
-    - Firebase/CoreOnly
-    - FirebaseAuth (~> 8.7.0)
-  - Firebase/Core (8.7.0):
-    - Firebase/CoreOnly
-    - FirebaseAnalytics (~> 8.7.0)
-  - Firebase/CoreOnly (8.7.0):
-    - FirebaseCore (= 8.7.0)
-  - Firebase/Crashlytics (8.7.0):
-    - Firebase/CoreOnly
-    - FirebaseCrashlytics (~> 8.7.0)
-  - Firebase/Performance (8.7.0):
-    - Firebase/CoreOnly
-    - FirebasePerformance (~> 8.7.0)
-  - FirebaseABTesting (8.7.0):
-    - FirebaseCore (~> 8.0)
-  - FirebaseAnalytics (8.7.0):
-    - FirebaseAnalytics/AdIdSupport (= 8.7.0)
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - FirebaseAnalytics/AdIdSupport (8.7.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleAppMeasurement (= 8.7.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - FirebaseAuth (8.7.0):
-    - FirebaseCore (~> 8.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GTMSessionFetcher/Core (~> 1.5)
-  - FirebaseCore (8.7.0):
-    - FirebaseCoreDiagnostics (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/Logger (~> 7.4)
-  - FirebaseCoreDiagnostics (8.7.0):
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/Logger (~> 7.4)
-    - nanopb (~> 2.30908.0)
-  - FirebaseCrashlytics (8.7.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - nanopb (~> 2.30908.0)
-    - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseInstallations (8.7.0):
-    - FirebaseCore (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/UserDefaults (~> 7.4)
-    - PromisesObjC (< 3.0, >= 1.2)
-  - FirebasePerformance (8.7.0):
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - FirebaseRemoteConfig (~> 8.0)
-    - GoogleDataTransport (~> 9.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - GoogleUtilities/ISASwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - nanopb (~> 2.30908.0)
-  - FirebaseRemoteConfig (8.7.0):
-    - FirebaseABTesting (~> 8.0)
-    - FirebaseCore (~> 8.0)
-    - FirebaseInstallations (~> 8.0)
-    - GoogleUtilities/Environment (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-  - GoogleAppMeasurement (8.7.0):
-    - GoogleAppMeasurement/AdIdSupport (= 8.7.0)
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - GoogleAppMeasurement/AdIdSupport (8.7.0):
-    - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
-    - GoogleUtilities/MethodSwizzler (~> 7.4)
-    - GoogleUtilities/Network (~> 7.4)
-    - "GoogleUtilities/NSData+zlib (~> 7.4)"
-    - nanopb (~> 2.30908.0)
-  - GoogleDataTransport (9.1.0):
-    - GoogleUtilities/Environment (~> 7.2)
-    - nanopb (~> 2.30908.0)
-    - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/AppDelegateSwizzler (7.5.2):
-    - GoogleUtilities/Environment
-    - GoogleUtilities/Logger
-    - GoogleUtilities/Network
-  - GoogleUtilities/Environment (7.5.2):
-    - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleUtilities/ISASwizzler (7.5.2)
-  - GoogleUtilities/Logger (7.5.2):
-    - GoogleUtilities/Environment
-  - GoogleUtilities/MethodSwizzler (7.5.2):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/Network (7.5.2):
-    - GoogleUtilities/Logger
-    - "GoogleUtilities/NSData+zlib"
-    - GoogleUtilities/Reachability
-  - "GoogleUtilities/NSData+zlib (7.5.2)"
-  - GoogleUtilities/Reachability (7.5.2):
-    - GoogleUtilities/Logger
-  - GoogleUtilities/UserDefaults (7.5.2):
-    - GoogleUtilities/Logger
-  - GTMSessionFetcher/Core (1.7.0)
   - Immutable (0.6.0)
-  - nanopb (2.30908.0):
-    - nanopb/decode (= 2.30908.0)
-    - nanopb/encode (= 2.30908.0)
-  - nanopb/decode (2.30908.0)
-  - nanopb/encode (2.30908.0)
-  - Nimble (9.2.1)
-  - PromisesObjC (2.0.0)
+  - Nimble (11.2.1)
   - Pure (1.1.4):
     - Pure/Core (= 1.1.4)
   - Pure/Core (1.1.4)
-  - Quick (4.0.0)
+  - Quick (6.1.0)
   - Stubber (1.5.3)
   - SwiftLint (0.44.0)
   - Toaster (2.3.0)
 
 DEPENDENCIES:
-  - Firebase/Analytics
-  - Firebase/Auth
-  - Firebase/Core
-  - Firebase/Crashlytics
-  - Firebase/Performance
   - Immutable
   - Nimble
   - Pure
@@ -146,24 +20,8 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
-    - Firebase
-    - FirebaseABTesting
-    - FirebaseAnalytics
-    - FirebaseAuth
-    - FirebaseCore
-    - FirebaseCoreDiagnostics
-    - FirebaseCrashlytics
-    - FirebaseInstallations
-    - FirebasePerformance
-    - FirebaseRemoteConfig
-    - GoogleAppMeasurement
-    - GoogleDataTransport
-    - GoogleUtilities
-    - GTMSessionFetcher
     - Immutable
-    - nanopb
     - Nimble
-    - PromisesObjC
     - Pure
     - Quick
     - Stubber
@@ -180,30 +38,14 @@ CHECKOUT OPTIONS:
     :git: https://github.com/devxoul/Toaster.git
 
 SPEC CHECKSUMS:
-  Firebase: bc9325d5ee2041524bac78a5213d0e530c651309
-  FirebaseABTesting: 5a72ea0e88422f9e223614cb4016cafffb2af8d1
-  FirebaseAnalytics: 52768800c2add1d84b751420cb4caaf8195f2c41
-  FirebaseAuth: 2e7d029977648c67a5d51a263d4cbab76d34cf12
-  FirebaseCore: f4804c1d3f4bbbefc88904d15653038f2c99ddf7
-  FirebaseCoreDiagnostics: b63732f581a1c6a453ec7241f9ab60b3a5bd3450
-  FirebaseCrashlytics: 6fac03d1eef054833b71c929c93ab95c12989728
-  FirebaseInstallations: ede6fb72bb6337914e5888b399271259d0c4910c
-  FirebasePerformance: a1a23adbc53917d7654c349d355371d5239cc340
-  FirebaseRemoteConfig: 34300dd83055c06e2768d0932dd8fb2c1575745f
-  GoogleAppMeasurement: 2be61ce546ad074dbe4dd545f222ac6033bb1d9e
-  GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
-  GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
-  GTMSessionFetcher: 43748f93435c2aa068b1cbe39655aaf600652e91
   Immutable: 793dcfd5979883638401c468dfeb08651436f44f
-  nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
-  Nimble: e7e615c0335ee4bf5b0d786685451e62746117d5
-  PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
+  Nimble: 516ac503a0fafaa8e41dbb4a70a61be421fa893a
   Pure: 82d6f4438672a41d21ea6fadd126e1466db001c5
-  Quick: 6473349e43b9271a8d43839d9ba1c442ed1b7ac4
+  Quick: 6676ffb409bf04abba2ff23902af2407bfc6ac90
   Stubber: 3ea4080870feeaf5b1637314a92245eef9b8c8e7
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
 
-PODFILE CHECKSUM: afad9a79e2029b50eedc8f86a3784b6fc4c746dd
+PODFILE CHECKSUM: e882b9fa667e738207dad8d8fd11360cd694a057
 
 COCOAPODS: 1.11.3
