@@ -1,30 +1,13 @@
 PODS:
-  - Immutable (0.6.0)
-  - Nimble (11.2.1)
-  - Pure (1.1.4):
-    - Pure/Core (= 1.1.4)
-  - Pure/Core (1.1.4)
-  - Quick (6.1.0)
-  - Stubber (1.5.3)
   - SwiftLint (0.44.0)
   - Toaster (2.3.0)
 
 DEPENDENCIES:
-  - Immutable
-  - Nimble
-  - Pure
-  - Quick
-  - Stubber
   - SwiftLint
   - Toaster (from `https://github.com/devxoul/Toaster.git`, branch `master`)
 
 SPEC REPOS:
   trunk:
-    - Immutable
-    - Nimble
-    - Pure
-    - Quick
-    - Stubber
     - SwiftLint
 
 EXTERNAL SOURCES:
@@ -38,14 +21,9 @@ CHECKOUT OPTIONS:
     :git: https://github.com/devxoul/Toaster.git
 
 SPEC CHECKSUMS:
-  Immutable: 793dcfd5979883638401c468dfeb08651436f44f
-  Nimble: 516ac503a0fafaa8e41dbb4a70a61be421fa893a
-  Pure: 82d6f4438672a41d21ea6fadd126e1466db001c5
-  Quick: 6676ffb409bf04abba2ff23902af2407bfc6ac90
-  Stubber: 3ea4080870feeaf5b1637314a92245eef9b8c8e7
   SwiftLint: e96c0a8c770c7ebbc4d36c55baf9096bb65c4584
   Toaster: c3473963c78e8cabbf6ea6f11ad0fdaae6f54987
 
-PODFILE CHECKSUM: e882b9fa667e738207dad8d8fd11360cd694a057
+PODFILE CHECKSUM: 7aeb5ae6eed070ba1e1575c6b166d442a6e72498
 
 COCOAPODS: 1.11.3

@@ -9,7 +9,6 @@
 import UIKit
 
 import PanModal
-import Pure
 import ReactorKit
 import RxCocoa
 import RxDataSources

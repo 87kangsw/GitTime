@@ -9,7 +9,6 @@ import UIKit
 
 import Firebase
 import Kingfisher
-import Pure
 import RxCocoa
 import RxDataSources
 import RxMoya

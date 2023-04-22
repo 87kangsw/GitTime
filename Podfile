@@ -3,22 +3,11 @@ use_frameworks!
 inhibit_all_warnings!
 
 def app_pods
-  
   # UI
   pod 'Toaster', :git => 'https://github.com/devxoul/Toaster.git', :branch => 'master'
 
   # etc
   pod 'SwiftLint'
-  
-  # DI
-  pod 'Pure'
-end
-
-def testing_pods
-    pod 'Quick'
-    pod 'Nimble'
-    pod 'Stubber'
-    pod 'Immutable'
 end
 
 target 'GitTime' do
@@ -27,7 +16,6 @@ target 'GitTime' do
   
   target 'GitTimeTests' do
     inherit! :search_paths
-    testing_pods
   end
   
 end

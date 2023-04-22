@@ -8,7 +8,6 @@
 
 import UIKit
 
-import Pure
 import ReactorKit
 import RxCocoa
 import RxSwift
