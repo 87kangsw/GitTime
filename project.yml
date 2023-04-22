@@ -7,6 +7,7 @@ options:
   indentWidth: 4
   tabWidth: 4
   generateEmptyDirectories: true
+  useCocoaPods: false
 packages:
   ReactorKit:
     url: https://github.com/ReactorKit/ReactorKit
@@ -53,6 +54,9 @@ packages:
   Firebase:
     url: https://github.com/firebase/firebase-ios-sdk
     from: 10.0.0
+  Toaster:
+    url: https://github.com/devxoul/Toaster.git
+    branch: master
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -72,9 +76,9 @@ targets:
         type: group
       - path: 'GitTime/Resources'
         type: group
-    postCompileScripts:
-      - path: BuildScripts/SwiftLint.sh
-        name: Swiftlint
+    # postCompileScripts:
+    #   - path: BuildScripts/SwiftLint.sh
+    #     name: Swiftlint
     postBuildScripts:
       - path: BuildScripts/FirebaseCrashlytics.sh
         name: Firebase Crashlytics
@@ -113,6 +117,7 @@ targets:
         product: FirebaseAuth
       - package: Firebase    
         product: FirebasePerformance
+      - package: Toaster
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test
