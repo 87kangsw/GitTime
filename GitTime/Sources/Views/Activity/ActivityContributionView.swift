@@ -50,18 +50,6 @@ class ActivityContributionView: UIView, View {
     
     // MARK: - Properties
     var disposeBag = DisposeBag()
-    static var dataSource: RxCollectionViewSectionedReloadDataSource<ContributionSection> {
-        return .init(configureCell: { (_, collectionView, indexPath, sectionItem) -> UICollectionViewCell in
-            switch sectionItem {
-            case .contribution(let reactor):
-//                let cell = collectionView.dequeueReusableCell(for: indexPath, cellType: ContributionCell.self)
-				let cell = collectionView.dequeue(Reusable.contributionCell, for: indexPath)
-                cell.reactor = reactor
-                return cell
-            }
-        })
-    }
-    private lazy var dataSource: RxCollectionViewSectionedReloadDataSource<ContributionSection> = type(of: self).dataSource
     var layoutSubViewsFirstTime: Bool = true
     
     // MARK: - View Cycle
@@ -112,8 +100,9 @@ class ActivityContributionView: UIView, View {
                 self.updateUI(state)
             }).disposed(by: self.disposeBag)
         
+		let factory = dataSourceFactory()
         reactor.state.map { $0.sections }
-            .bind(to: collectionView.rx.items(dataSource: dataSource))
+            .bind(to: collectionView.rx.items(dataSource: factory))
             .disposed(by: self.disposeBag)
         
 		collectionView.rx.observe(CGSize.self, "contentSize")
@@ -125,11 +114,32 @@ class ActivityContributionView: UIView, View {
 				let offSet = self.collectionView.contentSize.width - self.collectionView.frame.width
 				self.collectionView.setContentOffset(CGPoint(x: offSet, y: 0.0), animated: false)
 			}).disposed(by: self.disposeBag)
+		/*
+		collectionView.rx.itemSelected(dataSource: factory)
+			.subscribe { sectionItem in
+				switch sectionItem {
+				case .contribution(let cellReactor):
+					log.debug(cellReactor.currentState)
+				}
+			}
+			.disposed(by: self.disposeBag)
+		*/
 		
         // View
         self.collectionView.rx.setDelegate(self)
             .disposed(by: self.disposeBag)
     }
+	
+	private func dataSourceFactory() -> RxCollectionViewSectionedReloadDataSource<ContributionSection> {
+		return .init { dataSource, collectionView, indexPath, sectionItem in
+			switch sectionItem {
+			case .contribution(let reactor):
+				let cell = collectionView.dequeue(Reusable.contributionCell, for: indexPath)
+				cell.reactor = reactor
+				return cell
+			}
+		}
+	}
 }
 
 extension ActivityContributionView: UICollectionViewDelegateFlowLayout {

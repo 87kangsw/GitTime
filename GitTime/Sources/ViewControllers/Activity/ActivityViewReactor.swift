@@ -261,19 +261,24 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 		var userName: String = ""
 		var additionalName: String = ""
 		var profileURL: String = ""
-		
+
 		if let doc = try? HTML(html: response.data, encoding: .utf8) {
-			for rect in doc.css("rect") {
-				if var date = rect["data-date"],
-				   let dataLevel = rect["data-level"] {
-					
-					date = date.replacingOccurrences(of: "\\", with: "")
-						.replacingOccurrences(of: "/", with: "")
-						.replacingOccurrences(of: "\"", with: "")
-					
-					let colorType = ContributionHexColorTypes.allCases.first { $0.rawValue == Int(dataLevel) }
-					if let hexString = colorType?.hexString {
-						contributions.append(Contribution(date: date, contribution: Int(dataLevel)!, hexColor: hexString))
+			if let calendar = doc.css("div.js-calendar-graph").first {
+				for weekdayRow in calendar.css("tbody tr") {
+					for rect in weekdayRow.css("td.ContributionCalendar-day") {
+						
+						if var date = rect["data-date"],
+						   let dataLevel = rect["data-level"] {
+							
+							date = date.replacingOccurrences(of: "\\", with: "")
+								.replacingOccurrences(of: "/", with: "")
+								.replacingOccurrences(of: "\"", with: "")
+							
+							let colorType = ContributionHexColorTypes.allCases.first { $0.rawValue == Int(dataLevel) }
+							if let hexString = colorType?.hexString {
+								contributions.append(Contribution(date: date, contribution: Int(dataLevel)!, hexColor: hexString))
+							}
+						}
 					}
 				}
 			}
@@ -310,6 +315,9 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 				}
 			}
 		}
+		
+		// sort by date
+		contributions.sort(by: { $0.date < $1.date })
 		
 		return ContributionInfo(count: contributionCount,
 								contributions: contributions,
