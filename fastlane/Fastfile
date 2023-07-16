@@ -23,14 +23,23 @@ platform :ios do
 
     # add_badge(shield: "#{version_number}-#{build_number}-dark", no_badge: true)
 
+    api_key = app_store_connect_api_key(
+      key_id: ENV['CONNECT_API_KEY_ID'],
+      issuer_id: ENV['CONNECT_API_ISSUER_ID'],
+      key_filepath: ENV['CONNECT_API_KEY_FILE_PATH'],
+      duration: 1200, # optional (maximum 1200)
+      in_house: false # optional but may be required if using match/sigh
+    )
+
     match(
+      api_key: api_key,
       type: "development",
       app_identifier: ENV['APPLE_APP_IDENTIFIER'],
       readonly: true
     )
 
     gym(
-      workspace: ENV['XCWORKSPACE_NAME'],
+      project: ENV['XCODEPROJ_NAME'],
       include_bitcode: true,
       silent: true,
       clean: true,
@@ -195,16 +204,37 @@ platform :ios do
   end
 
   lane :certificates do
+
+    api_key = app_store_connect_api_key(
+      key_id: ENV['CONNECT_API_KEY_ID'],
+      issuer_id: ENV['CONNECT_API_ISSUER_ID'],
+      key_filepath: ENV['CONNECT_API_KEY_FILE_PATH'],
+      duration: 1200, # optional (maximum 1200)
+      in_house: false # optional but may be required if using match/sigh
+    )
+
     match(
+      api_key: api_key,
       type: "development",
       app_identifier: ENV['APPLE_APP_IDENTIFIER']
     )
     match(
+      api_key: api_key,
       type: "appstore",
       app_identifier: ENV['APPLE_APP_IDENTIFIER']
     )
   end
 
+  lane :lint do
+    swiftlint(
+      mode: :lint,
+      config_file: ".swiftlint.yml",
+      output_file: "swiftlint.result.json",
+      quiet: false,
+      ignore_exit_status: true
+      # raise_if_swiftlint_error: true
+    )
+  end
 
 end
 

@@ -6,7 +6,11 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
+import Foundation
+import UIKit
+
 import Moya
+import RxMoya
 import RxSwift
 import Toaster
 

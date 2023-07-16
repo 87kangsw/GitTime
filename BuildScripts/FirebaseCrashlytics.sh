@@ -1,1 +1,1 @@
-${PODS_ROOT}/FirebaseCrashlytics/run
+${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run

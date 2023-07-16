@@ -6,6 +6,8 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
+import Foundation
+
 import RxSwift
 
 protocol ActivityServiceType {

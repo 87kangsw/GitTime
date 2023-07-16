@@ -6,8 +6,12 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
-import RxSwift
+import Foundation
+import UIKit
+
 import Moya
+import RxMoya
+import RxSwift
 
 protocol GitTimeCrawlerServiceType: AnyObject {
 	func fetchTrendingRepositories(language: String?, period: String?, spokenLanguage: String?) -> Observable<[TrendRepo]>

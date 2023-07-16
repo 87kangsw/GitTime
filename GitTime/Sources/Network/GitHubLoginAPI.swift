@@ -6,7 +6,10 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
+import Foundation
+
 import Moya
+import RxMoya
 import RxSwift
 
 enum GitHubLoginAPI {
