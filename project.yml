@@ -57,6 +57,9 @@ packages:
   Toaster:
     url: https://github.com/devxoul/Toaster.git
     branch: master
+  GitHubKit:
+    url: https://github.com/87kangsw/GitHubKit
+    from: 1.0.0  
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -118,6 +121,7 @@ targets:
       - package: Firebase    
         product: FirebasePerformance
       - package: Toaster
+      - package: GitHubKit
   GitTimeTests:
     platform: iOS
     type: bundle.unit-test
