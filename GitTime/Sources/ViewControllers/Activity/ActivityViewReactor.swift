@@ -8,6 +8,7 @@
 
 import UIKit
 
+import GitHubKit
 import Moya
 import ReactorKit
 import RxCocoa
@@ -60,17 +61,21 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 	fileprivate let activityService: ActivityServiceType
 	fileprivate let userService: UserServiceType
 	fileprivate let crawlerService: GitTimeCrawlerServiceType
+	fileprivate let keychainService: KeychainServiceType
 	
 	private let imageDownloder = ImageDownloader(name: "profileImageDownloder")
 	
 	init(
 		activityService: ActivityServiceType,
 		userService: UserServiceType,
-		crawlerService: GitTimeCrawlerServiceType
+		crawlerService: GitTimeCrawlerServiceType,
+		keychainService: KeychainServiceType
 	) {
 		self.activityService = activityService
 		self.userService = userService
 		self.crawlerService = crawlerService
+		self.keychainService = keychainService
+		
 		self.initialState = State(isLoading: false,
 								  page: ActivityViewReactor.INITIAL_PAGE,
 								  canLoadMore: true,
@@ -192,6 +197,27 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 		
 		guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
 		
+		return self.fetchContributions()
+			.observe(on: MainScheduler.instance)
+			.map { userContribution -> ContributionInfo in
+				return ContributionInfo(
+					count: userContribution.totalContributions,
+					contributions: userContribution.contributions.map {
+						Contribution(
+							date: $0.date,
+							contribution: $0.contributionCount,
+							hexColor: $0.color
+						)
+					},
+					userName: me.name,
+					additionalName: me.additionalName,
+					profileImageURL: me.profileURL
+				)
+			}
+			.flatMap { response -> Observable<Mutation> in
+				return .just(.setContributionInfo(response))
+			}
+		/*
 		return self.crawlerService.fetchContributionsRawdata(userName: me.name)
 			.map { response ->  Mutation in
 				let contributionInfo = self.parseContribution(response: response)
@@ -203,6 +229,30 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 					.map { contributionInfo -> Mutation in
 						return .setContributionInfo(contributionInfo)}
 			}
+		 */
+	}
+	
+	private func fetchContributions() -> Observable<GraphQLResponse.UserContribution> {
+		guard let accessToken = keychainService.getAccessToken() else { return .empty() }
+		guard let me = GlobalStates.shared.currentUser.value else { return .empty() }
+		
+		let githubKit = GitHubKit(config: .init(token: accessToken))
+
+		return Observable.create { observer -> Disposable in
+			async {
+				do {
+					let contribution = try await githubKit.contributions(userName: me.name)
+					observer.onNext(contribution)
+					observer.onCompleted()
+				} catch {
+					observer.onError(error)
+				}
+			}
+			
+			return Disposables.create {
+				
+			}
+		}
 	}
 	
 	private func requestTrialContributions() -> Observable<Mutation> {

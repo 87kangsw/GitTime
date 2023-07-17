@@ -11,6 +11,7 @@ import Foundation
 struct Me: ModelType {
     let id: Int
     let name: String
+	let additionalName: String
     let profileURL: String
     let url: String
     let bio: String?
@@ -23,6 +24,7 @@ struct Me: ModelType {
     enum CodingKeys: String, CodingKey {
         case id
         case name = "login"
+		case additionalName = "name"
         case profileURL = "avatar_url"
         case url = "html_url"
         case bio
