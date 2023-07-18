@@ -73,8 +73,7 @@ struct Event: ModelType {
         repo = try container.decode(RepositoryInfo.self, forKey: .repo)
 		isPublic = try container.decode(Bool.self, forKey: .isPublic)
 		let dateString = try container.decode(String.self, forKey: .createdAt)
-		let df = DateFormatter()
-		df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+		let df = ISO8601DateFormatter()
 		createdAt = df.date(from: dateString) ?? Date()
 		
         switch type {
