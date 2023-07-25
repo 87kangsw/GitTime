@@ -257,7 +257,7 @@ final class BuddyViewReactor: Reactor {
 		var profileURL: String = ""
 		
 		if let doc = try? HTML(html: response.data, encoding: .utf8) {
-			for rect in doc.css("rect") {
+			for rect in doc.css("td") {
 				if var date = rect["data-date"],
 				   let dataLevel = rect["data-level"] {
 					
