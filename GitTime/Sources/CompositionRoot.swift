@@ -70,7 +70,9 @@ final class CompositionRoot {
 			
 			let activityController = configureActivityScreen(activityService: activityService,
 															 userService: userService,
-															 crawlerService: crawlerService)
+															 crawlerService: crawlerService,
+															 keychainService: keychainService
+			)
 			
 			let trendController = configureTrendingScreen(crawlerService: crawlerService,
 														  languagesService: languageService,
@@ -163,11 +165,14 @@ extension CompositionRoot {
 	static func configureActivityScreen(
 		activityService: ActivityServiceType,
 		userService: UserServiceType,
-		crawlerService: GitTimeCrawlerServiceType
+		crawlerService: GitTimeCrawlerServiceType,
+		keychainService: KeychainServiceType
 	) -> ActivityViewController {
 		let reactor = ActivityViewReactor(activityService: activityService,
 										  userService: userService,
-										  crawlerService: crawlerService)
+										  crawlerService: crawlerService,
+										  keychainService: keychainService
+		)
 		let controller = ActivityViewController(reactor: reactor)
 		controller.title = "Activity"
 		controller.tabBarItem.title = "Activity"

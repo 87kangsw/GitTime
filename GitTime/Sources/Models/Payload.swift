@@ -259,8 +259,7 @@ struct Comment: ModelType {
         body = try container.decode(String.self, forKey: .body)
         
         let dateString = try container.decode(String.self, forKey: .createdAt)
-        let df = DateFormatter()
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        let df = ISO8601DateFormatter()
         createdAt = df.date(from: dateString) ?? Date()
     }
     

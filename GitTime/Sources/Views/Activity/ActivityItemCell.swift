@@ -157,8 +157,8 @@ final class ActivityItemCell: BaseTableViewCell, ReactorKit.View {
 		let actorProfile = state.event.actor.profileURL
 		if let actorProfileURL = URL(string: actorProfile) {
 			let cache = ImageCache.default
-			cache.memoryStorage.config.expiration = .seconds(2)
-			authorProfileImageView.kf.setImage(with: actorProfileURL, options: [.memoryCacheExpiration(.seconds(5))])
+			cache.memoryStorage.config.expiration = .days(1)
+			authorProfileImageView.kf.setImage(with: actorProfileURL, options: [.memoryCacheExpiration(.days(1))])
 		}
 		
         let actorName = state.event.actor.name
