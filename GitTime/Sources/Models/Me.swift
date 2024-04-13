@@ -34,4 +34,20 @@ struct Me: ModelType {
         case followers
         case following
     }
+	
+	init(from decoder: Decoder) throws {
+		let container = try decoder.container(keyedBy: CodingKeys.self)
+		
+		id = try container.decode(Int.self, forKey: .id)
+		name = try container.decode(String.self, forKey: .name)
+		additionalName = try container.decodeIfPresent(String.self, forKey: .additionalName) ?? ""
+		profileURL = try container.decodeIfPresent(String.self, forKey: .profileURL) ?? ""
+		url = try container.decode(String.self, forKey: .url)
+		bio = try? container.decode(String.self, forKey: .bio)
+		location = try? container.decode(String.self, forKey: .location)
+		publicRepos = try? container.decode(Int.self, forKey: .publicRepos)
+		privateRepos = try? container.decode(Int.self, forKey: .privateRepos)
+		followers = try? container.decode(Int.self, forKey: .followers)
+		following = try? container.decode(Int.self, forKey: .following)
+	}
 }

@@ -26,6 +26,11 @@ class ActivityService: ActivityServiceType {
     func fetchActivities(userName: String, page: Int) -> Observable<[Event]> {
         return self.networking.request(.activityEvent(userName: userName, page: page))
             .map([Event].self)
+			.do(onError: { error in
+				if let decodingErrorInfo = error.decodingErrorInfo {
+					log.error(decodingErrorInfo)
+				}
+			})
             .asObservable()
     }
     
