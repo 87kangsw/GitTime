@@ -2,7 +2,7 @@ name: GitTime
 options:
   bundleIdPrefix: io.github.87kangsw
   deploymentTarget:
-    iOS: '13.0'
+    iOS: '14.0'
   usesTabs: true
   indentWidth: 4
   tabWidth: 4
@@ -66,7 +66,7 @@ targets:
   GitTime:
     platform: iOS
     type: application
-    deploymentTarget: '13.0'
+    deploymentTarget: '14.0'
     entitilements:
       path: GitTime/Supporting Files/GitTime.entitlements
     scheme:
