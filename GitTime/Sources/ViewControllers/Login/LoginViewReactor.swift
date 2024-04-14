@@ -6,7 +6,6 @@
 //  Copyright © 2019 KanzDevelop. All rights reserved.
 //
 
-import FirebaseRemoteConfig
 import ReactorKit
 import RxCocoa
 import RxSwift
@@ -33,7 +32,6 @@ final class LoginViewReactor: Reactor {
     fileprivate let authService: AuthServiceType
     fileprivate let keychainService: KeychainServiceType
     fileprivate let userService: UserServiceType
-    var remoteConfig: RemoteConfig!
     
     init(authService: AuthServiceType,
          keychainService: KeychainServiceType,
