@@ -35,7 +35,7 @@ packages:
     from: 4.2.2
   RealmSwift:
     url: https://github.com/realm/realm-swift
-    from: 10.15.1
+    from: 10.49.2
   Kingfisher:
     url: https://github.com/onevcat/Kingfisher
     from: 7.0.0
