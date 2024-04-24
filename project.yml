@@ -38,7 +38,7 @@ packages:
     from: 10.49.2
   Kingfisher:
     url: https://github.com/onevcat/Kingfisher
-    from: 7.0.0
+    from: 7.10.2
   SwiftyBeaver:
     url: https://github.com/SwiftyBeaver/SwiftyBeaver
     from: 1.9.5      
