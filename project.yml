@@ -41,7 +41,7 @@ packages:
     from: 7.10.2
   SwiftyBeaver:
     url: https://github.com/SwiftyBeaver/SwiftyBeaver
-    from: 1.9.5      
+    from: 2.0.2
   Kanna:
     url: https://github.com/tid-kijyun/Kanna.git  
     from: 5.2.7
