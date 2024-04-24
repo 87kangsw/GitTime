@@ -53,7 +53,7 @@ packages:
     from: 3.0.0
   Firebase:
     url: https://github.com/firebase/firebase-ios-sdk
-    from: 10.0.0
+    from: 10.24.0
   Toaster:
     url: https://github.com/devxoul/Toaster.git
     branch: master
