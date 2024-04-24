@@ -44,7 +44,7 @@ packages:
     from: 2.0.2
   Kanna:
     url: https://github.com/tid-kijyun/Kanna.git  
-    from: 5.2.7
+    from: 5.3.0
   Then:
     url: https://github.com/devxoul/Then
     from: 2.7.0
