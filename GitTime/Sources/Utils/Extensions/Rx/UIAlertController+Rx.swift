@@ -73,8 +73,11 @@ extension UIAlertController {
 				} else if let barButtonItem = button as? UIBarButtonItem {
 					alertController.popoverPresentationController?.barButtonItem = barButtonItem
 					viewController.present(alertController, animated: animated, completion: nil)
+				} else if let vc = button as? UIViewController {
+					alertController.popoverPresentationController?.sourceView = vc.view
+					alertController.popoverPresentationController?.sourceRect = vc.view.frame
+					viewController.present(alertController, animated: animated, completion: nil)
 				}
-				
 			}
             return Disposables.create {
                 alertController.dismiss(animated: true, completion: nil)
