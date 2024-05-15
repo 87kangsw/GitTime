@@ -103,8 +103,6 @@ targets:
       - package: SnapKit
       - package: PanModal
       - package: KeychainAccess  
-      - package: RealmSwift
-        product: Realm
       - package: RealmSwift        
         product: RealmSwift
       - package: Kingfisher
