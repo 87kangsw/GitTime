@@ -128,22 +128,23 @@ final class CompositionRoot {
 	
 	// MARK: Configure SDKs
 	static func configureSDKs() {
-		
-		// Firebase
-		FirebaseApp.configure()
-		
-		// Image Cache
-		let cache = ImageCache.default
-		cache.clearCache()
-		
 		#if DEBUG
 		
 		// SwiftyBeaver
 		let console = ConsoleDestination()
 		console.minLevel = .verbose
 		log.addDestination(console)
-
+		
+		#else
+		
+		// Firebase
+		FirebaseApp.configure()
+		
 		#endif
+		
+		// Image Cache
+		let cache = ImageCache.default
+		cache.clearCache()
 	}
 	
 	// MARK: Configure Appearance
