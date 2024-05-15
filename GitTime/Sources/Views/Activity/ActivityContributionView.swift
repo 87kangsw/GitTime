@@ -19,8 +19,14 @@ class ActivityContributionView: UIView, View {
     typealias Reactor = ActivityContributionViewReactor
     
     private struct Metric {
-        static let cellSize: CGFloat = 8.0
-        static let spacing: CGFloat = 2.0
+		static var cellSize: CGFloat {
+			if UIDevice.isPhone == true {
+				return 8.0
+			} else {
+				return ((UIScreen.main.bounds.width - 32.0) - (51.0 * spacing)) / 52.0
+			}
+		}
+		static let spacing: CGFloat = 2.0
     }
     
 	enum Reusable {
@@ -37,9 +43,9 @@ class ActivityContributionView: UIView, View {
 		$0.estimatedItemSize = CGSize(width: 10.0, height: 10.0)
 		$0.scrollDirection = .horizontal
 		$0.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-		$0.minimumLineSpacing = 2.0
-		$0.minimumInteritemSpacing = 2.0
-		$0.itemSize = CGSize(width: 5.0, height: 5.0)
+		$0.minimumLineSpacing = Metric.spacing
+		$0.minimumInteritemSpacing = Metric.spacing
+		// $0.itemSize = CGSize(width: 5.0, height: 5.0)
 	}
 	
 	lazy var collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {

@@ -300,7 +300,7 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 		return self.activityService.trialActivities()
 			.delay(.milliseconds(300), scheduler: MainScheduler.asyncInstance)
 			.map { events -> Mutation in
-				return .fetchActivityMore(events, nextPage: 1, canLoadMore: false)
+				return .fetchActivity(events, nextPage: 0, canLoadMore: false)
 			}
 	}
 		
