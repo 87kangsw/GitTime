@@ -49,10 +49,7 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
     
 	// MARK: Views
 	private let addBuddyButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: nil, action: nil)
-	private let modeButton = UIButton().then {
-		$0.setImage(UIImage(systemName: "square.grid.2x2"), for: .normal)
-	}
-	lazy var modeButtonItem = UIBarButtonItem(customView: modeButton)
+	
 	private let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: nil, action: nil)
 	
 	private let tableView = UITableView(frame: .zero, style: .insetGrouped).then {
@@ -104,7 +101,7 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
         super.viewDidLoad()
 		self.title = "Buddys"
 		self.navigationItem.leftBarButtonItem = editButton
-		self.navigationItem.rightBarButtonItems = [addBuddyButtonItem, modeButtonItem]
+		self.navigationItem.rightBarButtonItems = [addBuddyButtonItem]
 		addNotifications()
     }
     
@@ -163,11 +160,6 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 				
 			}).disposed(by: self.disposeBag)
 		
-		self.modeButton.rx.tap
-			.map { Reactor.Action.changeViewMode }
-			.bind(to: reactor.action)
-			.disposed(by: self.disposeBag)
-		
 		self.editButton.rx.tap
 			.subscribe(onNext: { [weak self] _ in
 				guard let self = self else { return }
@@ -202,13 +194,6 @@ final class BuddyViewController: BaseViewController, ReactorKit.View {
 			.take(1)
 			.map { _ in Reactor.Action.checkUpdate }
 			.bind(to: reactor.action)
-			.disposed(by: self.disposeBag)
-		
-		reactor.state.map { $0.viewMode }
-			.distinctUntilChanged()
-			.map { $0.systemIconName }
-			.map { UIImage(systemName: $0) }
-			.bind(to: self.modeButton.rx.image(for: .normal))
 			.disposed(by: self.disposeBag)
 		
 		reactor.state.map { $0.alreadyExistUser }

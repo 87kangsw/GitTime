@@ -59,7 +59,7 @@ packages:
     branch: master
   GitHubKit:
     url: https://github.com/87kangsw/GitHubKit
-    from: 1.0.0  
+    from: 1.0.2
 fileGroups:
   - GitTime/Supporting Files
 targets:

@@ -8,6 +8,8 @@
 
 import Foundation
 
+import GitHubKit
+
 import ReactorKit
 import RxCocoa
 import RxSwift
@@ -44,7 +46,6 @@ final class BuddyViewReactor: Reactor {
 		case checkUserExist(String?)
 		case clearCheckExist
 		case addGitHubUsername(String?)
-		case changeViewMode
 		case removeGitHubUsername(String?)
 		case toastMessage(String?)
 		case checkUpdate
@@ -55,7 +56,6 @@ final class BuddyViewReactor: Reactor {
 	enum Mutation {
 		case setBuddys([ContributionInfoObject])
 		case addBuddy(ContributionInfoObject)
-		case setViewMode(BuddyViewMode)
 		case removeBuddy(Int)
 		case setAlreadyExistUser((Bool, String)?)
 		case setToastMessage(String?)
@@ -66,7 +66,7 @@ final class BuddyViewReactor: Reactor {
 	struct State {
 		var isLoading: Bool = false
 		var isRefreshing: Bool = false
-		var viewMode: BuddyViewMode
+		var viewMode: BuddyViewMode = .daily
 		var buddys: [ContributionInfoObject] = []
 		var sections: [BuddySection] {
 			var sectionItems: [BuddySectionItem] = []
@@ -88,8 +88,8 @@ final class BuddyViewReactor: Reactor {
 	
 	private let crawlerService: GitTimeCrawlerServiceType
 	private let realmService: RealmServiceType
-	private let userDefaultService: UserDefaultsServiceType
 	private let githubService: GitHubServiceType
+	fileprivate let keychainService: KeychainServiceType
 	
 	let initialState: State
 	
@@ -97,17 +97,15 @@ final class BuddyViewReactor: Reactor {
 	init(
 		crawlerService: GitTimeCrawlerServiceType,
 		realmService: RealmServiceType,
-		userDefaultService: UserDefaultsServiceType,
-		githubService: GitHubServiceType
+		githubService: GitHubServiceType,
+		keychainService: KeychainServiceType
 	) {
 		self.crawlerService = crawlerService
 		self.realmService = realmService
-		self.userDefaultService = userDefaultService
 		self.githubService = githubService
+		self.keychainService = keychainService
 		
-		// let period: PeriodTypes = PeriodTypes(rawValue: userdefaultsService.value(forKey: UserDefaultsKey.period) ?? "") ?? PeriodTypes.daily
-		let viewMode = BuddyViewMode(rawValue: userDefaultService.value(forKey: UserDefaultsKey.buddyViewMode) ?? "yearly") ?? .yearly
-		initialState = State(viewMode: viewMode)
+		initialState = State()
 	}
 	
 	// MARK: Mutate
@@ -128,10 +126,6 @@ final class BuddyViewReactor: Reactor {
 			let endLoading: Observable<Mutation> = .just(.setLoading(false))
 			let request = self.requestContribution(userName: userName)
 			return .concat(startLoading, request, endLoading)
-		case .changeViewMode:
-			let newViewMode: BuddyViewMode = (self.currentState.viewMode == .yearly) ? .daily : .yearly
-			self.userDefaultService.set(value: newViewMode.rawValue, forKey: UserDefaultsKey.buddyViewMode)
-			return .just(.setViewMode(newViewMode))
 		case .removeGitHubUsername(let userName):
 			guard let userName = userName else { return .empty() }
 			
@@ -190,8 +184,6 @@ final class BuddyViewReactor: Reactor {
 			state.buddys = addedBuddys
 		case .setBuddys(let buddys):
 			state.buddys = buddys
-		case .setViewMode(let viewMode):
-			state.viewMode = viewMode
 		case .removeBuddy(let index):
 			var buddys = state.buddys
 			buddys.remove(at: index)
@@ -223,25 +215,52 @@ final class BuddyViewReactor: Reactor {
 			}
 	}
 	
-	private func requestContribution(userName: String) -> Observable<Mutation> {
-		return self.crawlerService.fetchContributionsRawdata(userName: userName)
-			.map { response -> ContributionInfo in
-				let contributionInfo = self.parseContribution(response: response)
-				return contributionInfo
+	private func fetchContributions(userName: String) -> Observable<GraphQLResponse.UserContribution> {
+		guard let accessToken = keychainService.getAccessToken() else { return .empty() }
+		
+		let githubKit = GitHubKit(config: .init(token: accessToken))
+
+		return Observable.create { observer -> Disposable in
+			async {
+				do {
+					let contribution = try await githubKit.contributions(
+						userName: userName,
+						from: Date.todayStringFormatted(),
+						to: Date.todayStringFormatted()
+					)
+					observer.onNext(contribution)
+					observer.onCompleted()
+				} catch {
+					observer.onError(error)
+				}
 			}
+			
+			return Disposables.create {}
+		}
+	}
+	
+	private func requestContribution(userName: String) -> Observable<Mutation> {
+		
+		return self.fetchContributions(userName: userName)
+			.observe(on: MainScheduler.asyncInstance)
 			.flatMap { [weak self] contributionInfo -> Observable<Mutation> in
 				guard let self = self else { return .empty() }
-				guard self.checkUserNameIsValid(originalName: userName,
-												userName: contributionInfo.userName,
-												additionalName: contributionInfo.additionalName) == true else { return .empty() }
 				
-				return self.realmService.addBuddy(userName: contributionInfo.userName,
-												  additionalName: contributionInfo.additionalName,
-												  profileURL: contributionInfo.profileImageURL,
-												  contribution: contributionInfo.contributions)
-					.map { buddy -> Mutation in
-						.addBuddy(buddy)
+				return self.realmService.addBuddy(
+					userName: contributionInfo.profile.userName ?? "",
+					additionalName: contributionInfo.profile.login,
+					profileURL: contributionInfo.profile.profileURL ?? "",
+					contribution: contributionInfo.contributions.map {
+						Contribution(
+							date: $0.date,
+							contribution: $0.contributionCount,
+							hexColor: $0.color
+						)
 					}
+				)
+				.map { buddy -> Mutation in
+						.addBuddy(buddy)
+				}
 			}
 			.catch { error -> Observable<Mutation> in
 				log.error(error.localizedDescription)

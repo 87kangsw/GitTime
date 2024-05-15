@@ -79,12 +79,14 @@ final class CompositionRoot {
 														  userDefaultService: userDefaultService,
 														  realmService: realmService)
 			
-			let buddyController = configureBuddyScreen(crawlerService: crawlerService,
-													   realmService: realmService,
-													   userDefaultService: userDefaultService,
-													   followService: followService,
-													   userService: userService,
-													   githubService: gitHubService)
+			let buddyController = configureBuddyScreen(
+				crawlerService: crawlerService,
+				realmService: realmService,
+				followService: followService,
+				userService: userService,
+				githubService: gitHubService,
+				keychainService: keychainService
+			)
 			
 			let settingController = configureSettingScreen(authService: authService,
 														   githubService: gitHubService,
@@ -231,10 +233,10 @@ extension CompositionRoot {
 	static func configureBuddyScreen(
 		crawlerService: GitTimeCrawlerServiceType,
 		realmService: RealmServiceType,
-		userDefaultService: UserDefaultsServiceType,
 		followService: FollowServiceType,
 		userService: UserServiceType,
-		githubService: GitHubServiceType
+		githubService: GitHubServiceType,
+		keychainService: KeychainServiceType
 	) -> BuddyViewController {
 		
 		var presentFollowScreen: () -> FollowViewController
@@ -245,10 +247,12 @@ extension CompositionRoot {
 			return controller
 		}
 		
-		let reactor = BuddyViewReactor(crawlerService: crawlerService,
-									   realmService: realmService,
-									   userDefaultService: userDefaultService,
-									   githubService: githubService)
+		let reactor = BuddyViewReactor(
+			crawlerService: crawlerService,
+			realmService: realmService,
+			githubService: githubService,
+			keychainService: keychainService
+		)
 		let controller = BuddyViewController(reactor: reactor,
 											 presentFollowScreen: presentFollowScreen)
 		controller.title = "Buddys"

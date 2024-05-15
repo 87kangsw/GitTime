@@ -74,3 +74,13 @@ extension Date {
 		return now.compare(afterHour) == .orderedDescending
 	}
 }
+
+extension Date {
+	static func todayStringFormatted() -> String {
+		let now = Date()
+		let format = "yyyy-MM-dd"
+		let dateFormatter = DateFormatter()
+		dateFormatter.dateFormat = format
+		return dateFormatter.string(from: now)
+	}
+}
