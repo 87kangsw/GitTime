@@ -94,6 +94,10 @@ final class AuthService: AuthServiceType {
 			
 			let credential = GitHubAuthProvider.credential(withToken: accessToken.accessToken)
 			
+			#if DEBUG
+			observer.onNext(accessToken)
+			observer.onCompleted()
+			#else
 			Auth.auth().signIn(with: credential) { (authResult, error) in
 				if let error = error {
 					log.error(error)
@@ -111,6 +115,7 @@ final class AuthService: AuthServiceType {
 					observer.onCompleted()
 				}
 			}
+			#endif
 			
 			return Disposables.create {
 				

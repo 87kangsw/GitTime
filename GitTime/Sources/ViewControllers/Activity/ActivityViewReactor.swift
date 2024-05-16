@@ -14,7 +14,6 @@ import ReactorKit
 import RxCocoa
 import RxMoya
 import RxSwift
-import Kanna
 import Kingfisher
 
 final class ActivityViewReactor: ReactorKit.Reactor {
@@ -301,77 +300,10 @@ final class ActivityViewReactor: ReactorKit.Reactor {
 		return self.activityService.trialActivities()
 			.delay(.milliseconds(300), scheduler: MainScheduler.asyncInstance)
 			.map { events -> Mutation in
-				return .fetchActivityMore(events, nextPage: 1, canLoadMore: false)
+				return .fetchActivity(events, nextPage: 0, canLoadMore: false)
 			}
 	}
-	
-	private func parseContribution(response: Response) -> ContributionInfo {
-		var contributionCount: Int = 0
-		var contributions: [Contribution] = .init()
-		var userName: String = ""
-		var additionalName: String = ""
-		var profileURL: String = ""
-
-		if let doc = try? HTML(html: response.data, encoding: .utf8) {
-			for rect in doc.css("td") {
-				if var date = rect["data-date"],
-				   let dataLevel = rect["data-level"] {
-					
-					date = date.replacingOccurrences(of: "\\", with: "")
-						.replacingOccurrences(of: "/", with: "")
-						.replacingOccurrences(of: "\"", with: "")
-					
-					let colorType = ContributionHexColorTypes.allCases.first { $0.rawValue == Int(dataLevel) }
-					if let hexString = colorType?.hexString {
-						contributions.append(Contribution(date: date, contribution: Int(dataLevel)!, hexColor: hexString))
-					}
-				}
-			}
-
-			
-			for count in doc.css("h2, f4 text-normal mb-2") {
-				let decimalCharacters = CharacterSet.decimalDigits
-				let decimalRange = count.text?.rangeOfCharacter(from: decimalCharacters)
-				
-				if decimalRange != nil {
-					if var countText = count.text {
-						countText = countText.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
-						contributionCount = Int(countText)!
-					}
-				}
-			}
-			
-			/*
-			/html/body[@class='logged-in env-production page-responsive page-profile']/div[@class='application-main ']/main[@id='js-pjax-container']/div[@class='container-xl px-3 px-md-4 px-lg-5']/div[@class='gutter-condensed gutter-lg flex-column flex-md-row d-flex']/div[@class='flex-shrink-0 col-12 col-md-3 mb-4 mb-md-0']/div[@class='h-card mt-md-n5']/div[@class='clearfix d-flex d-md-block flex-items-center mb-4 mb-md-0']/div[@class='position-relative d-inline-block col-2 col-md-12 mr-3 mr-md-0 flex-shrink-0']/a/img[@class='avatar avatar-user width-full border color-bg-primary']/@src
-			*/
-			for link in doc.css("img") {
-				if let imgClass = link["class"], imgClass == "avatar avatar-user width-full border color-bg-default" {
-					profileURL = link["src"] ?? ""
-				}
-			}
-			
-			//
-			for span in doc.css("span") {
-				if let itemProp = span["itemprop"], itemProp.isNotEmpty {
-					if itemProp == "name" {
-						userName = span.content ?? ""
-					} else if itemProp == "additionalName" {
-						additionalName = span.content ?? ""
-					}
-				}
-			}
-		}
 		
-		// sort by date
-		contributions.sort(by: { $0.date < $1.date })
-		
-		return ContributionInfo(count: contributionCount,
-								contributions: contributions,
-								userName: userName,
-								additionalName: additionalName,
-								profileImageURL: profileURL)
-	}
-	
 	private func downloadProfileImage() -> Observable<Mutation> {
 		return self.profileImageDownload()
 			.map { image -> Mutation in

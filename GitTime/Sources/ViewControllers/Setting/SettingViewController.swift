@@ -147,11 +147,13 @@ class SettingViewController: BaseViewController, ReactorKit.View {
 				case .shareFeedback:
 					self.goToSendFeedback()
 				case .logout:
+
 					let alert = UIAlertController.rx_presentAlert(viewController: self,
 																  title: "Are you sure you want to logout?",
 																  message: nil,
 																  preferredStyle: .alert,
 																  animated: true,
+																  button: self,
 																  actions: self.logoutActions)
 					alert.subscribe(onNext: { loggedOut in
 						guard loggedOut else { return }

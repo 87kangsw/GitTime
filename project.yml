@@ -11,7 +11,7 @@ options:
 packages:
   ReactorKit:
     url: https://github.com/ReactorKit/ReactorKit
-    from: 3.0.0
+    from: 3.2.0
   RxSwift: 
     url: https://github.com/ReactiveX/RxSwift
     from: 6.2.0
@@ -26,7 +26,7 @@ packages:
     from: 15.0.0 
   SnapKit:
     url: https://github.com/SnapKit/SnapKit
-    from: 5.0.1
+    from: 5.7.1
   PanModal:
     url: https://github.com/slackhq/PanModal
     from: 1.2.7         
@@ -35,16 +35,16 @@ packages:
     from: 4.2.2
   RealmSwift:
     url: https://github.com/realm/realm-swift
-    from: 10.15.1
+    from: 10.49.2
   Kingfisher:
     url: https://github.com/onevcat/Kingfisher
-    from: 7.0.0
+    from: 7.10.2
   SwiftyBeaver:
     url: https://github.com/SwiftyBeaver/SwiftyBeaver
-    from: 1.9.5      
+    from: 2.0.2
   Kanna:
     url: https://github.com/tid-kijyun/Kanna.git  
-    from: 5.2.7
+    from: 5.3.0
   Then:
     url: https://github.com/devxoul/Then
     from: 2.7.0
@@ -53,13 +53,13 @@ packages:
     from: 3.0.0
   Firebase:
     url: https://github.com/firebase/firebase-ios-sdk
-    from: 10.0.0
+    from: 10.24.0
   Toaster:
     url: https://github.com/devxoul/Toaster.git
     branch: master
   GitHubKit:
     url: https://github.com/87kangsw/GitHubKit
-    from: 1.0.0  
+    from: 1.0.2
 fileGroups:
   - GitTime/Supporting Files
 targets:
@@ -103,8 +103,6 @@ targets:
       - package: SnapKit
       - package: PanModal
       - package: KeychainAccess  
-      - package: RealmSwift
-        product: Realm
       - package: RealmSwift        
         product: RealmSwift
       - package: Kingfisher
