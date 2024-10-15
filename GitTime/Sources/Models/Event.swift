@@ -269,7 +269,7 @@ extension Event {
 			return "\(Constants.URLs.gitHubDomain)/\(self.repo.name)/commits"
         case .forkEvent:
             guard let payload = self.payload as? ForkEventPayload else { return "" }
-            return payload.forkee.url
+			return "\(Constants.URLs.gitHubDomain)/\(payload.forkee.fullName)"
         case .issuesEvent:
             guard let payload = self.payload as? IssuesEventPayload else { return "" }
             return payload.issue.url
