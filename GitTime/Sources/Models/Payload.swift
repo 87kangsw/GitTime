@@ -154,14 +154,14 @@ struct ForkEventPayload: PayloadType {
 struct ForkeeObject: ModelType {
     let id: Int
     let name: String
+	let fullName: String
     let description: String?
-    let url: String
     
     enum CodingKeys: String, CodingKey {
         case id
-        case name = "full_name"
+		case name
+        case fullName = "full_name"
         case description
-        case url = "html_url"
     }
 }
 
